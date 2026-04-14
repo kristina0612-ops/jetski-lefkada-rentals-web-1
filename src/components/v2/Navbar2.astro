@@ -1,0 +1,50 @@
+---
+const links = [
+  { href: "#fleet", label: "Fleet" },
+  { href: "#how", label: "How it works" },
+  { href: "#voices", label: "Reviews" },
+  { href: "#faq", label: "FAQ" },
+];
+---
+
+<nav class="absolute top-0 left-0 right-0 z-40 pointer-events-none pt-16">
+  <div class="pointer-events-auto mx-auto max-w-[1600px] px-6 lg:px-12 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="/v2" class="group flex items-center gap-3" aria-label="Jetski Lefkada Rentals home">
+      <span class="relative inline-flex items-center justify-center w-11 h-11 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
+        <span class="font-display italic text-xl leading-none">J</span>
+      </span>
+      <div class="hidden sm:flex flex-col leading-none">
+        <span class="font-display text-xl tracking-tight" style="color: var(--v2-cream-50);">Jetski Lefkada</span>
+        <span class="font-mono text-[9px] tracking-[0.2em] uppercase mt-1" style="color: rgba(253,251,244,0.65);">Since 2019</span>
+      </div>
+    </a>
+
+    <!-- Center pills -->
+    <div class="hidden md:flex items-center gap-1 rounded-full p-1.5 border backdrop-blur-md" style="background: rgba(7,29,48,0.4); border-color: rgba(253,251,244,0.18);">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="px-5 py-2 font-mono text-[10px] uppercase tracking-[0.14em] rounded-full transition-all duration-500"
+            style="color: rgba(253,251,244,0.85);"
+          >
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- CTA -->
+    <a
+      href="#fleet"
+      class="v2-btn !py-3 !px-5 !text-xs"
+      style="background: var(--v2-sun-400); color: var(--v2-ink-950);"
+    >
+      Book Now
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+</nav>

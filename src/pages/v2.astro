@@ -1,0 +1,35 @@
+---
+import LayoutBare from "../layouts/LayoutBare.astro";
+import VariationSwitcher from "../components/VariationSwitcher.astro";
+import Navbar2 from "../components/v2/Navbar2.astro";
+import Hero2 from "../components/v2/Hero2.astro";
+import TrustMarquee2 from "../components/v2/TrustMarquee2.astro";
+import Fleet2 from "../components/v2/Fleet2.astro";
+import HowItWorks2 from "../components/v2/HowItWorks2.astro";
+import Gallery2 from "../components/v2/Gallery2.astro";
+import Testimonials2 from "../components/v2/Testimonials2.astro";
+import Faq2 from "../components/v2/Faq2.astro";
+import CtaFinal2 from "../components/v2/CtaFinal2.astro";
+import Footer2 from "../components/v2/Footer2.astro";
+import "../styles/v2-azure.css";
+---
+
+<LayoutBare
+  title="V2 Azure Day · Jetski Lefkada Rentals"
+  description="Rent a jetski on Lefkada, Greece. Video-backed booking experience with Mediterranean daylight design."
+  themeColor="#071d30"
+>
+  <VariationSwitcher current="v2" />
+  <div class="v2">
+    <Navbar2 />
+    <Hero2 />
+    <TrustMarquee2 />
+    <Fleet2 />
+    <HowItWorks2 />
+    <Gallery2 />
+    <Testimonials2 />
+    <Faq2 />
+    <CtaFinal2 />
+    <Footer2 />
+  </div>
+</LayoutBare>

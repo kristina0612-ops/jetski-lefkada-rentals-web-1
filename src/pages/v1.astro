@@ -1,0 +1,37 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import VariationSwitcher from "../components/VariationSwitcher.astro";
+import Hero from "../components/Hero.astro";
+import TrustBar from "../components/TrustBar.astro";
+import UspTrio from "../components/UspTrio.astro";
+import FleetScroll from "../components/FleetScroll.astro";
+import HowItWorks from "../components/HowItWorks.astro";
+import Gallery from "../components/Gallery.astro";
+import Testimonials from "../components/Testimonials.astro";
+import Faq from "../components/Faq.astro";
+import CtaFinal from "../components/CtaFinal.astro";
+import Footer from "../components/Footer.astro";
+import WhatsAppFab from "../components/WhatsAppFab.astro";
+---
+
+<Layout
+  title="V1 Aegean Noir · Jetski Lefkada Rentals"
+  description="Rent a jetski on Lefkada, Greece. Four machines, one David. Book online in ninety seconds. Fully insured, fully licensed. Ride from €70/hour."
+>
+  <VariationSwitcher current="v1" />
+  <Navbar />
+  <main class="relative z-10">
+    <Hero />
+    <TrustBar />
+    <UspTrio />
+    <FleetScroll />
+    <HowItWorks />
+    <Gallery />
+    <Testimonials />
+    <Faq />
+    <CtaFinal />
+  </main>
+  <Footer />
+  <WhatsAppFab />
+</Layout>

@@ -1,0 +1,32 @@
+---
+const items = [
+  "Fully Insured",
+  "Licensed",
+  "327 Reviews",
+  "4.9 ★ Rating",
+  "5000+ Rides",
+  "Family Run",
+  "English · German · Italian",
+  "Port Authority Lefkada",
+  "Since 2019",
+  "Viva Wallet Payments",
+];
+const doubled = [...items, ...items];
+---
+
+<section class="py-8 overflow-hidden border-y" style="background: var(--v2-ink-950); color: var(--v2-cream-50); border-color: var(--v2-ink-900);">
+  <div class="v2-marquee">
+    {
+      doubled.map((item) => (
+        <div class="flex items-center gap-6 shrink-0">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="color: var(--v2-sun-400);">
+            <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 16.8l-6.2 4.5 2.4-7.4L2 9.4h7.6L12 2z"/>
+          </svg>
+          <span class="font-display text-3xl lg:text-5xl whitespace-nowrap" style="font-variation-settings: 'opsz' 144, 'SOFT' 40;">
+            {item}
+          </span>
+        </div>
+      ))
+    }
+  </div>
+</section>

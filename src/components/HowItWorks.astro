@@ -1,0 +1,83 @@
+---
+const steps = [
+  {
+    n: "I",
+    title: "Pick your machine",
+    body: "Scroll the fleet. Each jetski has live availability. See exactly what it costs per hour, half-day or full day. No hidden fees.",
+    time: "30 seconds",
+  },
+  {
+    n: "II",
+    title: "Sign the waiver",
+    body: "Electronically, on your phone. Greek Law 4727/2020 compliant. We store the signature with timestamp and IP. Your insurance is activated.",
+    time: "45 seconds",
+  },
+  {
+    n: "III",
+    title: "Pay your deposit",
+    body: "Choose: pay 100% now, or 30% deposit and the rest on arrival (cash or card). Apple Pay, Google Pay, Visa, Mastercard, PayPal.",
+    time: "20 seconds",
+  },
+  {
+    n: "IV",
+    title: "Meet David at the beach",
+    body: "You get the exact GPS coordinates and David's direct WhatsApp. Ten-minute safety briefing. Then you're on the water.",
+    time: "on the day",
+  },
+];
+---
+
+<section id="how" class="relative py-24 lg:py-40">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+    <!-- Section header -->
+    <div class="grid grid-cols-12 gap-6 mb-20 lg:mb-28">
+      <div class="col-span-12 lg:col-span-2">
+        <div class="chapter-numeral text-5xl">04</div>
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mt-3">
+          Chapter 04
+        </div>
+      </div>
+      <div class="col-span-12 lg:col-span-10">
+        <div class="section-label mb-6"><span>From tap to throttle</span></div>
+        <h2 class="display-headline text-4xl lg:text-[clamp(3rem,5vw,5rem)] max-w-[16ch]">
+          Ninety seconds. <em>Then the sea.</em>
+        </h2>
+      </div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="relative">
+      <!-- Horizontal line -->
+      <div class="absolute left-0 right-0 top-[4.5rem] h-px bg-gradient-to-r from-transparent via-brass-500/40 to-transparent hidden lg:block"></div>
+
+      <ol class="grid grid-cols-1 lg:grid-cols-4 gap-12 lg:gap-8 relative">
+        {
+          steps.map((step, i) => (
+            <li class="relative">
+              {/* Dot */}
+              <div class="hidden lg:block absolute left-0 top-16 w-3 h-3 -translate-y-1/2 bg-coral-500 rounded-full ring-4 ring-ink-950"></div>
+
+              {/* Roman numeral */}
+              <div class="font-display italic text-6xl lg:text-7xl text-brass-500/80 mb-3" style="font-variation-settings: 'opsz' 144, 'SOFT' 100;">
+                {step.n}
+              </div>
+
+              <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-coral-500 mb-3">
+                Step {i + 1}
+              </div>
+              <h3 class="font-display text-2xl lg:text-3xl text-paper-100 mb-4 leading-tight">
+                {step.title}
+              </h3>
+              <p class="font-body text-paper-200/75 text-sm lg:text-base leading-relaxed mb-4">
+                {step.body}
+              </p>
+              <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400">
+                ≈ {step.time}
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>

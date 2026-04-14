@@ -1,0 +1,86 @@
+---
+const faqs = [
+  {
+    q: "Do I need a boat license?",
+    a: "For our fleet, no separate boat license is required if you ride under our supervision and complete the on-site safety briefing. You must be at least 18 and present a valid passport or ID at pickup. If you hold a Greek boat license, even better - we'll get you on the water faster.",
+  },
+  {
+    q: "Is insurance included?",
+    a: "Yes. Every rental is covered by third-party liability insurance up to €700.000 per incident, as required by Greek Law 4926/2022. Your own safety is not insured by the rental - we strongly recommend your personal travel insurance covers watersports. We can recommend day-policies if needed.",
+  },
+  {
+    q: "What happens if the weather is bad?",
+    a: "Greek Coast Guard forbids operation above Beaufort 5. If your booking falls on a bad-weather day we reschedule for free or refund 100%. We check the forecast every morning at 07:00 and will WhatsApp you by 08:00 if there's any doubt.",
+  },
+  {
+    q: "Can I cancel my booking?",
+    a: "Free cancellation up to 48 hours before your start time. Between 48h and 24h we refund 50%. Less than 24h is non-refundable unless the weather grounds us. Deposit-only bookings (30%) follow the same rules.",
+  },
+  {
+    q: "Where do I meet David?",
+    a: "You receive exact GPS coordinates with your booking confirmation. Our main dock is in Nidri, on the east coast. Parking is free. It's a 10-minute walk from the village center.",
+  },
+  {
+    q: "Can I bring passengers?",
+    a: "Yes - each jetski is rated for 2 or 3 people depending on the model. All passengers must wear the life jacket we provide. Kids from 8 years old are welcome as passengers with a parent or guardian.",
+  },
+  {
+    q: "How far can I ride?",
+    a: "Greek Coast Guard rules: max 700 meters from the shore, never inside swim-zone buoys. Within those rules you have plenty of coastline to explore - we'll hand you a printed map of the best coves and bays.",
+  },
+  {
+    q: "What if I crash or damage the jetski?",
+    a: "You leave a security deposit at arrival (€300-€500 depending on the model). Insurance covers third-party damage. Damage to the jetski itself from gross negligence is your responsibility. The briefing exists exactly to avoid this.",
+  },
+];
+---
+
+<section id="faq" class="relative py-24 lg:py-40">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+    <!-- Header -->
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
+      <div class="col-span-12 lg:col-span-2">
+        <div class="chapter-numeral text-5xl">07</div>
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mt-3">
+          Chapter 07
+        </div>
+      </div>
+      <div class="col-span-12 lg:col-span-7">
+        <div class="section-label mb-6"><span>The small print, big</span></div>
+        <h2 class="display-headline text-4xl lg:text-[clamp(3rem,5vw,5rem)]">
+          Questions we <em>love.</em>
+        </h2>
+      </div>
+    </div>
+
+    <!-- FAQ items -->
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 lg:col-span-9 lg:col-start-3 space-y-1">
+        {
+          faqs.map((item, i) => (
+            <details class="group border-t border-brass-500/20 last:border-b">
+              <summary class="cursor-pointer list-none py-7 flex items-start justify-between gap-8 transition-colors hover:text-coral-500">
+                <div class="flex items-start gap-6 lg:gap-10">
+                  <span class="chapter-numeral text-xl shrink-0 pt-1">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 class="font-display text-xl lg:text-2xl text-paper-100 leading-tight">
+                    {item.q}
+                  </h3>
+                </div>
+                <span class="shrink-0 w-8 h-8 border border-brass-500/40 flex items-center justify-center group-open:bg-coral-500 group-open:border-coral-500 transition-all duration-500">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-paper-200 group-open:text-ink-950 transition-transform duration-500 group-open:rotate-45" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14" />
+                  </svg>
+                </span>
+              </summary>
+              <div class="pb-8 pl-0 lg:pl-16">
+                <p class="font-body text-paper-200/80 text-base lg:text-lg leading-relaxed max-w-3xl">
+                  {item.a}
+                </p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

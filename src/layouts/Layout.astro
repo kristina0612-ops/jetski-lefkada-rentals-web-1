@@ -1,0 +1,108 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Jetski Lefkada Rentals - Ride the Ionian",
+  description = "Rent a jetski on Lefkada. Book online in 90 seconds. Fully insured, licensed by Hellenic Port Authority. David Goldberg and his crew know every hidden bay.",
+  image = "/og-cover.jpg",
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "TouristAttraction",
+  "name": "Jetski Lefkada Rentals",
+  "description": description,
+  "url": "https://jetski-lefkada-rentals.com",
+  "image": image,
+  "telephone": "+306955612777",
+  "priceRange": "€€",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Lefkada",
+    "addressRegion": "Ionian Islands",
+    "addressCountry": "GR",
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 38.7069,
+    "longitude": 20.6403,
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "reviewCount": "327",
+  },
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content="en_GB" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Theme + Color -->
+    <meta name="theme-color" content="#050910" />
+    <meta name="color-scheme" content="dark" />
+
+    <!-- Favicon - inline SVG for no extra request -->
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050910'/%3E%3Ctext x='50%25' y='50%25' font-family='serif' font-size='20' font-style='italic' fill='%23ff5a36' text-anchor='middle' dominant-baseline='central'%3EJ%3C/text%3E%3C/svg%3E"
+    />
+
+    <!-- Schema.org -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+    <!-- Preconnect for perf -->
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
+  </head>
+  <body>
+    <slot />
+
+    <script>
+      // Lenis smooth scroll - progressive enhancement
+      import Lenis from "lenis";
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (!mediaQuery.matches) {
+        const lenis = new Lenis({
+          duration: 1.25,
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true,
+        });
+        const raf = (time: number) => {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        };
+        requestAnimationFrame(raf);
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="relative border-t border-brass-500/20 bg-ink-950/80 backdrop-blur-sm">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12 py-20">
+    <!-- Top row -->
+    <div class="grid grid-cols-12 gap-8 mb-16">
+      <!-- Logo + blurb -->
+      <div class="col-span-12 lg:col-span-5">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="relative inline-flex items-center justify-center w-12 h-12 border border-brass-500/60">
+            <span class="font-display italic text-2xl text-coral-500 leading-none">J</span>
+          </span>
+          <div>
+            <div class="font-display text-2xl text-paper-100 tracking-tight">Jetski Lefkada Rentals</div>
+            <div class="font-mono text-[10px] text-brass-400 tracking-[0.18em] uppercase mt-1">
+              Est. Ionian Sea · Lefkada, Greece
+            </div>
+          </div>
+        </div>
+        <p class="font-body text-paper-200/70 max-w-md leading-relaxed text-sm mb-8">
+          Four jetskis, one captain, and a coastline that still surprises
+          after six years of daily rides. Family-run, fully licensed, built
+          around the best day you could have on water.
+        </p>
+
+        <div class="space-y-3">
+          <a
+            href="tel:+306955612777"
+            class="group flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-paper-200/70 hover:text-coral-500 transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            +30 695 561 2777
+          </a>
+          <a
+            href="mailto:info@jetski-lefkada-rentals.com"
+            class="group flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-paper-200/70 hover:text-coral-500 transition-colors"
+          >
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+            </svg>
+            info@jetski-lefkada-rentals.com
+          </a>
+          <div class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-paper-200/70">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            Nidri Marina · Lefkada · 31100 · Greece
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="col-span-6 lg:col-span-2">
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mb-5">
+          Explore
+        </div>
+        <ul class="space-y-3">
+          <li><a href="#fleet" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">The Fleet</a></li>
+          <li><a href="#how" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">How it works</a></li>
+          <li><a href="#voices" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">Voices</a></li>
+          <li><a href="#faq" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">FAQ</a></li>
+        </ul>
+      </nav>
+
+      <nav class="col-span-6 lg:col-span-2">
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mb-5">
+          Legal
+        </div>
+        <ul class="space-y-3">
+          <li><a href="/imprint" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">Imprint</a></li>
+          <li><a href="/privacy" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">Privacy</a></li>
+          <li><a href="/terms" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">Terms</a></li>
+          <li><a href="/safety" class="font-display text-paper-100 hover:text-coral-500 transition-colors text-base">Safety briefing</a></li>
+        </ul>
+      </nav>
+
+      <div class="col-span-12 lg:col-span-3">
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mb-5">
+          Operating hours
+        </div>
+        <div class="space-y-2 font-body text-paper-200/80 text-sm">
+          <div class="flex justify-between">
+            <span>Morning</span>
+            <span class="font-mono text-brass-400">10:00 - 13:00</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Afternoon</span>
+            <span class="font-mono text-brass-400">16:00 - 19:00</span>
+          </div>
+          <div class="flex justify-between pt-3 mt-3 border-t border-brass-500/20">
+            <span>Season</span>
+            <span class="font-mono text-brass-400">May · Sep</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom row -->
+    <div class="pt-8 border-t border-brass-500/20 flex flex-wrap items-center justify-between gap-4">
+      <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400/70">
+        © {currentYear} Jetski Lefkada Rentals · David Goldberg
+      </div>
+      <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400/70 flex items-center gap-3">
+        <span>Built by</span>
+        <a href="https://nobrainer-ai.at" target="_blank" rel="noopener" class="text-brass-400 hover:text-coral-500 transition-colors">Nobrainer AI</a>
+      </div>
+      <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400/70">
+        AFM · GEMI · Port Authority License (to be filled)
+      </div>
+    </div>
+  </div>
+</footer>

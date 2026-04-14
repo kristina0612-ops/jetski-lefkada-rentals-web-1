@@ -1,0 +1,166 @@
+---
+import { jetskis } from "../../data/jetskis";
+---
+
+<section id="fleet" class="relative py-24 lg:py-40 overflow-hidden">
+  <!-- Ambient background -->
+  <div class="v3-orb top-[20%] left-[40%] w-[700px] h-[700px]" style="background: #ff4420; opacity: 0.2;"></div>
+
+  <div class="relative mx-auto max-w-[1700px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-24">
+      <div class="col-span-12 lg:col-span-9">
+        <div class="v3-eyebrow mb-6"><span>The Machines · Curated fleet</span></div>
+        <h2 class="v3-display text-5xl lg:text-[clamp(4rem,8vw,9rem)]">
+          Four <em>weapons.</em><br />One captain.
+        </h2>
+      </div>
+    </div>
+
+    <div class="space-y-6 lg:space-y-10">
+      {
+        jetskis.map((js, i) => {
+          const even = i % 2 === 0;
+          const scarcity =
+            js.availableToday === 0
+              ? "Booked out today"
+              : js.availableToday === 1
+                ? "Last 1 today"
+                : `${js.availableToday} available`;
+          return (
+            <article
+              class:list={[
+                "v3-magnetic group relative grid grid-cols-1 lg:grid-cols-12 gap-0 overflow-hidden rounded-[2rem] border",
+              ]}
+              style="background: linear-gradient(135deg, rgba(20,10,34,0.8), rgba(10,6,20,0.6)); border-color: rgba(255,181,138,0.15); backdrop-filter: blur(20px);"
+            >
+              {/* Image side */}
+              <div class:list={["relative lg:col-span-7 min-h-[380px] lg:min-h-[500px] overflow-hidden", !even && "lg:order-2"]}>
+                <img
+                  src={js.image}
+                  alt={`${js.brand} ${js.model}`}
+                  loading={i < 2 ? "eager" : "lazy"}
+                  class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
+                  style="filter: contrast(1.15) brightness(0.85) saturate(1.3) hue-rotate(-8deg);"
+                />
+                {/* Sunset overlay */}
+                <div class="absolute inset-0 pointer-events-none mix-blend-overlay opacity-80" style={`background: linear-gradient(135deg, ${js.accent}, transparent 50%, #ff2d87 150%)`}></div>
+                <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(90deg, rgba(10,6,20,0.5) 0%, transparent 30%, transparent 70%, rgba(10,6,20,0.8) 100%);"></div>
+
+                {/* Huge number overlay */}
+                <div
+                  class:list={["absolute top-6 font-display italic text-[10rem] leading-[0.7] pointer-events-none select-none z-10", even ? "left-8" : "right-8"]}
+                  style="background: linear-gradient(180deg, rgba(255,230,212,0.9), rgba(255,68,32,0.3)); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 200;"
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+
+                {/* Availability chip */}
+                <div class="absolute bottom-6 left-6 px-4 py-2 rounded-full backdrop-blur-md" style="background: rgba(10,6,20,0.7); border: 1px solid rgba(255,181,138,0.3);">
+                  <span class="flex items-center gap-2">
+                    <span class:list={["w-2 h-2 rounded-full", js.availableToday === 0 ? "bg-gray-500" : js.availableToday === 1 ? "bg-orange-400 v3-pulse" : "bg-green-400 v3-pulse"]}></span>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.16em]" style="color: var(--v3-peach-100);">
+                      {scarcity}
+                    </span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Content side */}
+              <div class:list={["relative lg:col-span-5 p-8 lg:p-12 flex flex-col justify-between", !even && "lg:order-1"]}>
+                <div>
+                  <div class="font-mono text-[10px] uppercase tracking-[0.22em] mb-3" style="color: var(--v3-peach-300);">
+                    {js.brand} · {js.model} · {js.year}
+                  </div>
+                  <h3 class="v3-display text-5xl lg:text-6xl leading-none mb-3">{js.name}</h3>
+                  <p class="font-display italic text-xl mb-8" style="color: var(--v3-peach-300);">{js.tagline}</p>
+
+                  {/* Spec bars */}
+                  <div class="space-y-3 mb-8">
+                    {[
+                      { label: "Power", value: `${js.hp} HP`, pct: Math.min(100, (js.hp / 300) * 100) },
+                      { label: "Top speed", value: `${js.topSpeed} km/h`, pct: Math.min(100, (js.topSpeed / 115) * 100) },
+                      { label: "Seats", value: `${js.seats} people`, pct: (js.seats / 3) * 100 },
+                    ].map((s) => (
+                      <div>
+                        <div class="flex items-baseline justify-between mb-1.5">
+                          <span class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v3-peach-300);">{s.label}</span>
+                          <span class="font-display text-base" style="color: var(--v3-peach-100);">{s.value}</span>
+                        </div>
+                        <div class="h-[2px] w-full" style="background: rgba(255,230,212,0.1);">
+                          <div class="h-full" style={`width: ${s.pct}%; background: linear-gradient(90deg, #ff4420, #ff2d87);`}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Features */}
+                  <ul class="space-y-1.5 mb-8">
+                    {js.features.slice(0, 3).map((f) => (
+                      <li class="font-mono text-[10px] uppercase tracking-[0.14em] flex items-center gap-2" style="color: rgba(255,230,212,0.65);">
+                        <span class="w-1 h-1 rounded-full" style="background: var(--v3-flame-500);"></span>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  {/* Price */}
+                  <div class="flex items-end justify-between mb-6 pb-6 border-b" style="border-color: rgba(255,230,212,0.15);">
+                    <div>
+                      <div class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v3-peach-300);">From</div>
+                      <div class="v3-display text-5xl mt-1"><em>€{js.pricePerHour}</em></div>
+                      <div class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v3-peach-300);">per hour · incl. VAT</div>
+                    </div>
+                    <div class="text-right">
+                      <div class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v3-peach-300);">Half day</div>
+                      <div class="font-display text-2xl mt-1" style="color: var(--v3-peach-100);">€{js.priceHalfDay}</div>
+                      <div class="font-mono text-[10px] uppercase tracking-[0.18em] mt-1" style="color: var(--v3-peach-300);">Full day €{js.priceFullDay}</div>
+                    </div>
+                  </div>
+
+                  <a
+                    href={`#book-${js.id}`}
+                    class:list={[
+                      "w-full flex items-center justify-center gap-2 py-4 font-mono text-[11px] uppercase tracking-[0.2em] font-semibold rounded-full transition-all duration-500",
+                      js.availableToday === 0 && "opacity-40 cursor-not-allowed pointer-events-none",
+                    ]}
+                    style={
+                      js.availableToday === 0
+                        ? "background: rgba(255,230,212,0.08); color: rgba(255,230,212,0.5);"
+                        : "background: linear-gradient(135deg, #ff4420, #ff2d87); color: #0a0614;"
+                    }
+                    data-cro={`v3-fleet-book-${js.id}`}
+                  >
+                    {js.availableToday === 0 ? "Join waitlist" : "Reserve this machine"}
+                    {js.availableToday > 0 && (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <path d="M5 12h14M13 5l7 7-7 7"/>
+                      </svg>
+                    )}
+                  </a>
+                </div>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <script>
+    // 3D tilt on magnetic cards
+    const cards = document.querySelectorAll<HTMLElement>(".v3-magnetic");
+    cards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(1200px) rotateX(${-y * 2}deg) rotateY(${x * 2}deg)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    });
+  </script>
+</section>

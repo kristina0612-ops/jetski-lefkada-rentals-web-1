@@ -1,0 +1,173 @@
+---
+// Hero - Aegean Noir editorial cinematic opener
+---
+
+<section class="relative min-h-[100svh] pt-32 lg:pt-40 overflow-hidden">
+  <!-- Background coastline SVG of Lefkada (stylized, hand-drawn feel) -->
+  <div class="absolute inset-0 pointer-events-none opacity-[0.09] mix-blend-screen">
+    <svg
+      viewBox="0 0 1600 900"
+      preserveAspectRatio="xMidYMid slice"
+      class="w-full h-full"
+      aria-hidden="true"
+    >
+      <defs>
+        <linearGradient id="coastline-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ff5a36" />
+          <stop offset="50%" stop-color="#b8925a" />
+          <stop offset="100%" stop-color="#4a90b8" />
+        </linearGradient>
+      </defs>
+      <!-- Stylized Lefkada coastline - hand drawn feel -->
+      <path
+        d="M850 140 Q 920 180 910 260 Q 930 340 880 400 Q 840 460 870 520 Q 910 580 870 660 Q 820 720 860 780 Q 900 830 850 880"
+        stroke="url(#coastline-grad)"
+        stroke-width="2"
+        fill="none"
+        stroke-linecap="round"
+        style="stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: draw-line 3.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;"
+      />
+      <!-- Coordinate marks -->
+      <g font-family="JetBrains Mono, monospace" font-size="10" fill="#b8925a" opacity="0.6">
+        <text x="920" y="160">38.7°N</text>
+        <text x="920" y="880">20.6°E</text>
+      </g>
+      <!-- Compass rose -->
+      <g transform="translate(1400, 780)" stroke="#b8925a" stroke-width="1" fill="none" opacity="0.7">
+        <circle r="36" />
+        <circle r="24" />
+        <line x1="0" y1="-36" x2="0" y2="36" />
+        <line x1="-36" y1="0" x2="36" y2="0" />
+        <text x="0" y="-42" font-family="Fraunces" font-size="11" font-style="italic" fill="#b8925a" text-anchor="middle">N</text>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Ambient blobs -->
+  <div
+    class="absolute -top-32 -left-40 w-[560px] h-[560px] rounded-full blur-[140px] opacity-40 pointer-events-none slow-float"
+    style="background: radial-gradient(circle, rgba(255, 90, 54, 0.5), transparent 70%)"
+  >
+  </div>
+  <div
+    class="absolute -bottom-20 -right-40 w-[620px] h-[620px] rounded-full blur-[160px] opacity-40 pointer-events-none slow-float-reverse"
+    style="background: radial-gradient(circle, rgba(74, 144, 184, 0.5), transparent 70%)"
+  >
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-[1600px] px-6 lg:px-12 pb-16 lg:pb-24">
+    <div class="grid grid-cols-12 gap-6 lg:gap-8">
+      <!-- LEFT side: chapter + small print -->
+      <div class="col-span-12 lg:col-span-2 flex lg:flex-col justify-between lg:justify-between reveal-stagger">
+        <div>
+          <div class="chapter-numeral text-6xl lg:text-7xl">01</div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mt-2 lg:mt-4">
+            Chapter<br class="hidden lg:block" /> The Invitation
+          </div>
+        </div>
+        <div class="hidden lg:block mt-auto">
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400/70 space-y-1">
+            <div>38° 42' 25" N</div>
+            <div>20° 38' 25" E</div>
+            <div class="text-brass-400 pt-3">Lefkada</div>
+            <div class="text-paper-600">Ionian · Greece</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER: headline -->
+      <div class="col-span-12 lg:col-span-8 reveal-stagger">
+        <div class="section-label mb-8 lg:mb-12">
+          <span>Summer 2026 · Bookings Open</span>
+        </div>
+
+        <h1 class="display-headline text-5xl md:text-6xl lg:text-[clamp(4rem,7.5vw,9.5rem)]">
+          Where<br />
+          <span class="pl-12 md:pl-24"><em>the Ionian</em></span><br />
+          writes its<br />
+          <span class="relative inline-block">
+            signature.
+            <svg
+              class="absolute -bottom-4 md:-bottom-6 left-0 w-full pointer-events-none"
+              viewBox="0 0 500 24"
+              preserveAspectRatio="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M5 14 Q 125 4 250 12 T 495 10"
+                stroke="#ff5a36"
+                stroke-width="4"
+                fill="none"
+                stroke-linecap="round"
+                style="stroke-dasharray: 600; stroke-dashoffset: 600; animation: draw-line 1.8s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;"
+              />
+            </svg>
+          </span>
+        </h1>
+
+        <p class="mt-10 lg:mt-14 max-w-xl text-lg lg:text-xl leading-relaxed text-paper-200/85 font-body">
+          Four jetskis. A handful of hidden bays only locals know. Warm salt air,
+          a captain's briefing, and the quiet thrill of a 300-horse Sea-Doo waking
+          up under you. Book online in ninety seconds.
+        </p>
+
+        <div class="mt-10 lg:mt-14 flex flex-wrap items-center gap-4">
+          <a href="#fleet" class="btn-coral" data-cro="hero-primary-cta">
+            Check Availability
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7" />
+            </svg>
+          </a>
+          <a href="#how" class="btn-ghost" data-cro="hero-secondary-cta">How it works</a>
+        </div>
+
+        <!-- Micro trust row -->
+        <div class="mt-10 flex flex-wrap items-center gap-6 text-[11px] font-mono uppercase tracking-[0.18em]">
+          <div class="flex items-center gap-2 text-paper-200/70">
+            <span class="relative flex h-2 w-2">
+              <span class="absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" style="animation: pulse-dot 2s ease-in-out infinite;"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+            </span>
+            Booking live now
+          </div>
+          <div class="text-brass-400/80">327 reviews · ★ 4.9</div>
+          <div class="text-paper-200/50">Free cancel 48h</div>
+        </div>
+      </div>
+
+      <!-- RIGHT: editorial meta column -->
+      <div class="col-span-12 lg:col-span-2 hidden lg:flex flex-col gap-8 reveal-stagger pt-20">
+        <div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mb-2">Operating</div>
+          <div class="font-display text-2xl text-paper-100">10-13</div>
+          <div class="font-display text-2xl text-paper-100">16-19</div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400 mt-2">May - Sep</div>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mb-2">Fleet</div>
+          <div class="font-display text-2xl text-paper-100">4</div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400 mt-1">Jetskis</div>
+        </div>
+        <div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mb-2">From</div>
+          <div class="font-display text-2xl text-coral-500">€70<span class="text-sm text-paper-400">/hr</span></div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400 mt-1">incl. VAT</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="mt-20 lg:mt-28 flex items-center justify-between border-t border-brass-500/15 pt-6">
+      <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400">
+        Scroll to explore the fleet
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-paper-400">01 / 06</div>
+        <div class="w-px h-8 bg-brass-500/40"></div>
+        <svg width="12" height="36" viewBox="0 0 12 36" fill="none" aria-hidden="true">
+          <path d="M6 2v32M2 28l4 4 4-4" stroke="#ff5a36" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>

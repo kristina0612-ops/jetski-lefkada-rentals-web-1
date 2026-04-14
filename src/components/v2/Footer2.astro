@@ -1,0 +1,55 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="relative py-16 border-t" style="background: var(--v2-ink-950); color: var(--v2-cream-50); border-color: var(--v2-ink-900);">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-8">
+      <div class="col-span-12 lg:col-span-5">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="relative inline-flex items-center justify-center w-12 h-12 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
+            <span class="font-display italic text-2xl leading-none">J</span>
+          </span>
+          <div>
+            <div class="font-display text-2xl tracking-tight" style="color: var(--v2-cream-50);">Jetski Lefkada Rentals</div>
+            <div class="font-mono text-[10px] tracking-[0.18em] uppercase mt-1" style="color: var(--v2-sun-300);">Since 2019 · Ionian Sea</div>
+          </div>
+        </div>
+        <p class="max-w-md text-sm leading-relaxed" style="color: rgba(253,251,244,0.6);">
+          Four jetskis, one David. Family-run, fully licensed,
+          built around the best day you can have on water.
+        </p>
+      </div>
+      <div class="col-span-6 lg:col-span-2">
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] mb-4" style="color: var(--v2-sun-300);">Explore</div>
+        <ul class="space-y-2 font-body text-sm">
+          <li><a href="#fleet" class="hover:text-sun-400 transition-colors">Fleet</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#voices">Reviews</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="col-span-6 lg:col-span-2">
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] mb-4" style="color: var(--v2-sun-300);">Legal</div>
+        <ul class="space-y-2 font-body text-sm">
+          <li><a href="/imprint">Imprint</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/safety">Safety</a></li>
+        </ul>
+      </div>
+      <div class="col-span-12 lg:col-span-3">
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] mb-4" style="color: var(--v2-sun-300);">Operating hours</div>
+        <div class="space-y-2 text-sm" style="color: rgba(253,251,244,0.8);">
+          <div class="flex justify-between"><span>Morning</span><span style="color: var(--v2-sun-300);">10:00 - 13:00</span></div>
+          <div class="flex justify-between"><span>Afternoon</span><span style="color: var(--v2-sun-300);">16:00 - 19:00</span></div>
+          <div class="flex justify-between pt-3 mt-3 border-t" style="border-color: rgba(253,251,244,0.15);"><span>Season</span><span style="color: var(--v2-sun-300);">May - Sep</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-12 pt-6 border-t flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.18em]" style="border-color: rgba(253,251,244,0.15); color: rgba(253,251,244,0.5);">
+      <div>© {currentYear} Jetski Lefkada Rentals · David Goldberg</div>
+      <div>Built by <a href="https://nobrainer-ai.at" class="hover:underline" style="color: var(--v2-sun-300);">Nobrainer AI</a></div>
+    </div>
+  </div>
+</footer>

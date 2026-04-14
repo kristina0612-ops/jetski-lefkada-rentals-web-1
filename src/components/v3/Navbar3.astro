@@ -1,0 +1,42 @@
+---
+const links = [
+  { href: "#fleet", label: "Fleet" },
+  { href: "#how", label: "How" },
+  { href: "#voices", label: "Voices" },
+  { href: "#faq", label: "FAQ" },
+];
+---
+
+<nav class="absolute top-0 left-0 right-0 z-40 pointer-events-none pt-20 lg:pt-24">
+  <div class="pointer-events-auto mx-auto max-w-[1700px] px-6 lg:px-12 flex items-center justify-between">
+    <a href="/v3" class="group flex items-center gap-3" aria-label="Jetski Lefkada Rentals home">
+      <span class="font-display italic text-3xl leading-none" style="background: linear-gradient(135deg, #ff4420, #ff2d87); -webkit-background-clip: text; background-clip: text; color: transparent;">Jetski</span>
+      <span class="font-mono text-[10px] uppercase tracking-[0.22em]" style="color: var(--v3-peach-300);">Lefkada / GR</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8">
+      {
+        links.map((l) => (
+          <a
+            href={l.href}
+            class="font-mono text-[11px] uppercase tracking-[0.22em] relative group"
+            style="color: var(--v3-peach-300);"
+          >
+            {l.label}
+            <span
+              class="absolute -bottom-2 left-0 right-0 h-px scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500"
+              style="background: linear-gradient(90deg, #ff4420, #ff2d87);"
+            />
+          </a>
+        ))
+      }
+    </div>
+
+    <a href="#fleet" class="v3-btn !py-3 !px-5 !text-xs">
+      Reserve
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7"/>
+      </svg>
+    </a>
+  </div>
+</nav>

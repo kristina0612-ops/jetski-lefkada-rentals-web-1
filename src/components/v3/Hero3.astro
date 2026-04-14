@@ -1,0 +1,178 @@
+---
+// V3 Hero - Sunset Rider - full-bleed cinematic with vortex particles
+---
+
+<section class="relative min-h-[100svh] overflow-hidden flex items-end">
+  <!-- Video background with warm sunset grade -->
+  <div class="absolute inset-0 z-0">
+    <video
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="metadata"
+      class="w-full h-full object-cover"
+      poster="https://images.unsplash.com/photo-1625194398019-62a5362c1e52?w=1920&q=85&auto=format&fit=crop"
+      aria-hidden="true"
+      style="filter: contrast(1.15) brightness(0.75) saturate(1.3) hue-rotate(-10deg);"
+    >
+      <source src="https://assets.mixkit.co/videos/11943/11943-720.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <!-- Heavy cinematic overlay with sunset colors -->
+  <div class="absolute inset-0 z-10 pointer-events-none">
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, rgba(10,6,20,0.85) 0%, rgba(20,10,34,0.4) 30%, rgba(10,6,20,0.4) 65%, rgba(10,6,20,0.98) 100%);"></div>
+    <div class="absolute inset-0 mix-blend-overlay opacity-70" style="background: linear-gradient(135deg, rgba(255,68,32,0.35) 0%, transparent 35%, rgba(255,45,135,0.25) 70%, rgba(138,79,255,0.3) 100%);"></div>
+  </div>
+
+  <!-- Animated glow orbs -->
+  <div class="v3-orb top-[10%] left-[5%] w-[500px] h-[500px]" style="background: #ff4420; animation-duration: 14s;"></div>
+  <div class="v3-orb top-[30%] right-[5%] w-[600px] h-[600px]" style="background: #ff2d87; animation-delay: -5s; animation-duration: 18s;"></div>
+  <div class="v3-orb bottom-[10%] left-[30%] w-[450px] h-[450px]" style="background: #8a4fff; animation-delay: -10s; animation-duration: 20s;"></div>
+
+  <!-- Vortex particles canvas -->
+  <canvas id="v3-vortex" class="absolute inset-0 z-10 pointer-events-none" aria-hidden="true"></canvas>
+
+  <!-- Giant rotating sun outline -->
+  <div class="absolute top-[15%] right-[8%] w-[400px] h-[400px] pointer-events-none opacity-40 v3-rotate hidden lg:block z-10">
+    <svg viewBox="0 0 400 400" aria-hidden="true">
+      <defs>
+        <linearGradient id="v3SunGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#ffd76a"/>
+          <stop offset="50%" stop-color="#ff4420"/>
+          <stop offset="100%" stop-color="#ff2d87"/>
+        </linearGradient>
+      </defs>
+      <circle cx="200" cy="200" r="180" fill="none" stroke="url(#v3SunGrad)" stroke-width="1" stroke-dasharray="2 6"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="url(#v3SunGrad)" stroke-width="1" stroke-dasharray="1 4"/>
+      <circle cx="200" cy="200" r="120" fill="none" stroke="url(#v3SunGrad)" stroke-width="0.5"/>
+    </svg>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-20 w-full pt-32 pb-16">
+    <div class="mx-auto max-w-[1700px] px-6 lg:px-12">
+      <div class="v3-reveal">
+        <div class="v3-eyebrow mb-8">
+          <span>Lefkada · Ionian Sea · Summer 2026</span>
+        </div>
+
+        <h1 class="v3-display text-6xl md:text-7xl lg:text-[clamp(5rem,12vw,14rem)]">
+          <span class="block">Chase the</span>
+          <span class="block"><em>horizon.</em></span>
+        </h1>
+
+        <div class="grid grid-cols-12 gap-8 mt-12 lg:mt-16">
+          <div class="col-span-12 lg:col-span-6">
+            <p class="text-lg lg:text-2xl leading-snug font-display italic max-w-xl" style="color: var(--v3-peach-300);">
+              Four jetskis. Six hidden coves. A throttle cable that begs to be
+              pulled at 7pm when the Aegean turns to copper.
+            </p>
+
+            <div class="mt-10 flex flex-wrap items-center gap-4">
+              <a href="#fleet" class="v3-btn" data-cro="v3-hero-primary">
+                Reserve your machine
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M5 12h14M13 5l7 7-7 7"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/306955612777" target="_blank" rel="noopener" class="v3-btn-outline">
+                DM David
+              </a>
+            </div>
+          </div>
+
+          <!-- Right-side live stats -->
+          <div class="col-span-12 lg:col-span-6 lg:pl-12">
+            <div class="grid grid-cols-2 gap-8 lg:gap-10">
+              {
+                [
+                  { k: "From", v: "€70/hr", n: "01" },
+                  { k: "Fleet", v: "4 jetskis", n: "02" },
+                  { k: "Rating", v: "4.9 ★", n: "03" },
+                  { k: "Booking", v: "90 sec", n: "04" },
+                ].map((s) => (
+                  <div class="border-t pt-4" style="border-color: rgba(255,230,212,0.2);">
+                    <div class="font-mono text-[10px] uppercase tracking-[0.2em] mb-2" style="color: var(--v3-peach-300);">
+                      {s.n} · {s.k}
+                    </div>
+                    <div class="v3-display text-4xl lg:text-5xl">
+                      {s.v}
+                    </div>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom bar with live -->
+        <div class="mt-16 pt-8 border-t flex flex-wrap items-center justify-between gap-4" style="border-color: rgba(255,230,212,0.15);">
+          <div class="flex items-center gap-3">
+            <span class="relative flex h-3 w-3">
+              <span class="absolute inline-flex h-full w-full rounded-full v3-pulse" style="background: var(--v3-flame-500);"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3" style="background: var(--v3-flame-500);"></span>
+            </span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--v3-peach-300);">
+              Live now · 3 machines available today
+            </span>
+          </div>
+          <div class="flex items-center gap-6 font-mono text-[10px] uppercase tracking-[0.18em]" style="color: rgba(255,230,212,0.6);">
+            <span>Free cancel 48h</span>
+            <span>·</span>
+            <span>Instant confirm</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Vortex particles canvas - 21st.dev inspired
+    const canvas = document.getElementById("v3-vortex") as HTMLCanvasElement | null;
+    if (canvas && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const ctx = canvas.getContext("2d");
+      if (ctx) {
+        const resize = () => {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        };
+        resize();
+        window.addEventListener("resize", resize);
+
+        const COUNT = 65;
+        const particles = Array.from({ length: COUNT }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.2 - 0.15,
+          size: Math.random() * 2.5 + 0.5,
+          opacity: Math.random() * 0.5 + 0.2,
+          color: ["#ff4420", "#ff2d87", "#ffd76a", "#ffb58a"][Math.floor(Math.random() * 4)],
+        }));
+
+        let animFrame = 0;
+        const render = () => {
+          if (!ctx) return;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach((p) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            if (p.y < -10) p.y = canvas.height + 10;
+            if (p.x < -10) p.x = canvas.width + 10;
+            if (p.x > canvas.width + 10) p.x = -10;
+            ctx.beginPath();
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.opacity;
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+          });
+          ctx.globalAlpha = 1;
+          animFrame = requestAnimationFrame(render);
+        };
+        render();
+      }
+    }
+  </script>
+</section>

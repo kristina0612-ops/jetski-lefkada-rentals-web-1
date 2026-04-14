@@ -1,0 +1,45 @@
+---
+interface Props {
+  current: "v1" | "v2" | "v3";
+}
+const { current } = Astro.props;
+
+const variations = [
+  { id: "v1", label: "Aegean Noir", href: "/v1", hint: "Editorial dark" },
+  { id: "v2", label: "Azure Day", href: "/v2", hint: "Mediterranean bright" },
+  { id: "v3", label: "Sunset Rider", href: "/v3", hint: "Cinematic warm" },
+];
+---
+
+<div class="fixed top-4 left-1/2 -translate-x-1/2 z-[60] pointer-events-auto">
+  <div class="flex items-center gap-1 bg-black/60 backdrop-blur-md border border-white/20 rounded-full p-1 shadow-2xl">
+    <span class="text-[9px] font-mono uppercase tracking-[0.2em] text-white/60 px-3">Design</span>
+    {
+      variations.map((v) => (
+        <a
+          href={v.href}
+          class:list={[
+            "group relative px-4 py-2 rounded-full font-mono text-[10px] uppercase tracking-[0.12em] transition-all duration-500",
+            v.id === current
+              ? "bg-white text-black"
+              : "text-white/80 hover:bg-white/10",
+          ]}
+          aria-current={v.id === current ? "page" : undefined}
+        >
+          <span>{v.label}</span>
+          <span class="hidden md:inline ml-2 opacity-50">· {v.hint}</span>
+        </a>
+      ))
+    }
+    <a
+      href="/"
+      class="ml-1 px-3 py-2 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+      aria-label="Back to design chooser"
+      title="Back to design chooser"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/>
+      </svg>
+    </a>
+  </div>
+</div>

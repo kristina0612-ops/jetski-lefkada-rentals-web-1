@@ -1,0 +1,302 @@
+---
+import { testimonials, liveBookings } from "../../data/testimonials";
+
+const steps = [
+  { n: "01", t: "Pick", d: "Choose your machine from the fleet above. See live availability, honest prices." },
+  { n: "02", t: "Sign", d: "Electronic waiver. Greek Law 4727/2020 compliant. Insurance activates instantly." },
+  { n: "03", t: "Pay", d: "100% now or 30% deposit. Apple Pay, Google Pay, cards, PayPal. One-tap checkout." },
+  { n: "04", t: "Ride", d: "Meet David at the dock. Briefing. Launch. Secret bays. Return at sunset." },
+];
+
+const stops = [
+  { src: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=1400&q=85&auto=format&fit=crop", t: "Porto Katsiki", c: "Most photographed beach on the island" },
+  { src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1400&q=85&auto=format&fit=crop", t: "Egremni", c: "White cliffs, turquoise depths" },
+  { src: "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1400&q=85&auto=format&fit=crop", t: "Meganisi", c: "Narrow channels, sometimes dolphins" },
+  { src: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1400&q=85&auto=format&fit=crop", t: "Sunset Return", c: "Golden hour on the way back" },
+];
+
+const faqs = [
+  { q: "Do I need a boat license?", a: "No. Under our briefing and supervision, no license needed. Must be 18+ with valid photo ID at pickup." },
+  { q: "Is insurance included?", a: "Yes - third-party liability up to €700.000 per Greek Law 4926/2022. We recommend personal accident insurance separately." },
+  { q: "What about bad weather?", a: "Above Beaufort 5 we cannot operate by law. Weather-grounded bookings are refunded 100% or rescheduled free." },
+  { q: "Can I cancel?", a: "Free cancellation 48h before. 48-24h is 50% refund. Under 24h non-refundable unless weather grounds us." },
+  { q: "Where do I meet?", a: "GPS coordinates with booking confirmation. Nidri marina, 10 min walk from the village. Free parking." },
+  { q: "How far can I ride?", a: "Greek Coast Guard rules: max 700m from shore, never inside swim buoys. Plenty of bays within that range." },
+];
+---
+
+<!-- Scrolling marquee strip -->
+<section class="relative py-12 overflow-hidden border-y" style="background: linear-gradient(90deg, rgba(10,6,20,0.9), rgba(20,10,34,0.9)); border-color: rgba(255,181,138,0.15);">
+  <div class="v3-scroll-marquee">
+    {
+      [...Array(2)].flatMap((_, k) => [
+        "Fully insured", "Licensed by Port Authority", "4.9 stars", "327 reviews", "Since 2019", "5000+ rides", "Family-run", "Free cancel 48h"
+      ].map((label, i) => (
+        <div class="flex items-center gap-6 shrink-0">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff2d87" aria-hidden="true">
+            <circle cx="12" cy="12" r="6"/>
+          </svg>
+          <span class="v3-display text-4xl lg:text-6xl" style="color: var(--v3-peach-100);">{label}</span>
+        </div>
+      )))
+    }
+  </div>
+</section>
+
+<!-- How It Works -->
+<section id="how" class="relative py-24 lg:py-40 overflow-hidden">
+  <div class="v3-orb top-[20%] right-[10%] w-[500px] h-[500px]" style="background: #ff2d87;"></div>
+  <div class="relative mx-auto max-w-[1700px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-24">
+      <div class="col-span-12 lg:col-span-9">
+        <div class="v3-eyebrow mb-6"><span>How it works</span></div>
+        <h2 class="v3-display text-5xl lg:text-[clamp(4rem,8vw,9rem)]">
+          Ninety seconds.<br /><em>Then you're gone.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+      {
+        steps.map((step) => (
+          <div
+            class="relative p-8 lg:p-10 rounded-[1.5rem] overflow-hidden border transition-transform duration-500 hover:-translate-y-2"
+            style="background: rgba(20,10,34,0.5); border-color: rgba(255,181,138,0.15); backdrop-filter: blur(12px);"
+          >
+            <div class="v3-display italic text-7xl mb-8" style="background: linear-gradient(135deg, #ff4420, #ff2d87); -webkit-background-clip: text; background-clip: text; color: transparent; font-weight: 200;">
+              {step.n}
+            </div>
+            <h3 class="v3-display text-3xl mb-4">{step.t}</h3>
+            <p class="text-sm lg:text-base leading-relaxed" style="color: rgba(255,230,212,0.7);">
+              {step.d}
+            </p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Gallery strip -->
+<section class="relative py-24 lg:py-40 overflow-hidden">
+  <div class="mx-auto max-w-[1700px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-6 mb-16">
+      <div class="col-span-12 lg:col-span-9">
+        <div class="v3-eyebrow mb-6"><span>Your route</span></div>
+        <h2 class="v3-display text-5xl lg:text-[clamp(4rem,8vw,9rem)]">
+          <em>Six stops.</em><br />One loop.
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-4 lg:gap-6">
+      {
+        stops.map((s, i) => {
+          const spans = [
+            "col-span-12 md:col-span-8 aspect-[16/9]",
+            "col-span-12 md:col-span-4 aspect-[4/5]",
+            "col-span-12 md:col-span-4 aspect-[4/5]",
+            "col-span-12 md:col-span-8 aspect-[16/9]",
+          ];
+          return (
+            <figure class:list={["group relative overflow-hidden rounded-[1.5rem]", spans[i]]}>
+              <img
+                src={s.src}
+                alt={s.t}
+                loading="lazy"
+                class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110"
+                style="filter: contrast(1.2) brightness(0.8) saturate(1.3) hue-rotate(-10deg);"
+              />
+              <div class="absolute inset-0 mix-blend-overlay opacity-70" style="background: linear-gradient(135deg, rgba(255,68,32,0.4), rgba(255,45,135,0.3));"></div>
+              <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(10,6,20,0.95) 0%, transparent 50%);"></div>
+              <figcaption class="absolute bottom-0 left-0 right-0 p-8 lg:p-10">
+                <div class="v3-display italic text-4xl mb-1">{String(i + 1).padStart(2, "0")}</div>
+                <h3 class="v3-display text-3xl lg:text-5xl mb-2">{s.t}</h3>
+                <p class="text-sm" style="color: var(--v3-peach-300);">{s.c}</p>
+              </figcaption>
+            </figure>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section id="voices" class="relative py-24 lg:py-40 overflow-hidden">
+  <div class="v3-orb bottom-[10%] left-[10%] w-[600px] h-[600px]" style="background: #8a4fff;"></div>
+  <div class="relative mx-auto max-w-[1700px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
+      <div class="col-span-12 lg:col-span-9">
+        <div class="v3-eyebrow mb-6"><span>327 voices · 4.9 stars</span></div>
+        <h2 class="v3-display text-5xl lg:text-[clamp(4rem,8vw,9rem)]">
+          They came.<br /><em>They returned.</em>
+        </h2>
+      </div>
+      <div class="col-span-12 lg:col-span-3 flex items-end">
+        <div>
+          <div class="v3-display italic text-8xl" style="background: linear-gradient(135deg, #ff4420, #ff2d87, #ffd76a); -webkit-background-clip: text; background-clip: text; color: transparent;">4.9</div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.2em] mt-2" style="color: var(--v3-peach-300);">
+            TripAdvisor · Google · Viator
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {
+        testimonials.map((t, i) => (
+          <article
+            class:list={["p-8 lg:p-10 rounded-[1.5rem] border", i === 0 && "lg:row-span-2"]}
+            style="background: rgba(20,10,34,0.4); border-color: rgba(255,181,138,0.15); backdrop-filter: blur(12px);"
+          >
+            <div class="flex items-center gap-1 mb-6">
+              {Array.from({ length: t.rating }).map(() => (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="#ff4420" aria-hidden="true">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              ))}
+            </div>
+            <blockquote class="v3-display text-2xl lg:text-3xl leading-tight mb-8">
+              "{t.quote}"
+            </blockquote>
+            <footer class="pt-6 border-t flex items-center justify-between" style="border-color: rgba(255,230,212,0.15);">
+              <div>
+                <div class="font-body text-sm font-medium" style="color: var(--v3-peach-100);">{t.author}</div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.14em] mt-1" style="color: var(--v3-peach-300);">
+                  {t.origin}
+                </div>
+              </div>
+              <div class="font-mono text-[9px] uppercase tracking-[0.2em]" style="color: var(--v3-flame-500);">
+                {t.source}
+              </div>
+            </footer>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="relative py-24 lg:py-40">
+  <div class="mx-auto max-w-[1700px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-6 mb-16">
+      <div class="col-span-12 lg:col-span-9">
+        <div class="v3-eyebrow mb-6"><span>The small print, big</span></div>
+        <h2 class="v3-display text-5xl lg:text-[clamp(4rem,8vw,9rem)]">
+          Questions we<br /><em>love.</em>
+        </h2>
+      </div>
+    </div>
+    <div class="max-w-4xl">
+      {
+        faqs.map((f, i) => (
+          <details class="group border-b" style="border-color: rgba(255,181,138,0.2);">
+            <summary class="cursor-pointer list-none py-7 flex items-start justify-between gap-8 transition-opacity hover:opacity-80">
+              <div class="flex items-start gap-6">
+                <span class="font-display italic text-xl" style="background: linear-gradient(135deg, #ff4420, #ff2d87); -webkit-background-clip: text; background-clip: text; color: transparent;">{String(i + 1).padStart(2, "0")}</span>
+                <h3 class="v3-display text-xl lg:text-3xl leading-tight">
+                  {f.q}
+                </h3>
+              </div>
+              <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center group-open:rotate-45 transition-transform duration-500" style="background: linear-gradient(135deg, #ff4420, #ff2d87); color: #0a0614;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                  <path d="M12 5v14M5 12h14"/>
+                </svg>
+              </span>
+            </summary>
+            <div class="pb-8 pl-12">
+              <p class="text-base lg:text-lg leading-relaxed max-w-3xl" style="color: rgba(255,230,212,0.75);">
+                {f.a}
+              </p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="relative py-24 lg:py-40 overflow-hidden">
+  <div class="v3-orb top-[10%] left-1/2 -translate-x-1/2 w-[900px] h-[900px]" style="background: #ff4420;"></div>
+  <div class="v3-orb bottom-[10%] left-1/2 -translate-x-1/2 w-[700px] h-[700px]" style="background: #ff2d87; animation-delay: -8s;"></div>
+
+  <div class="relative mx-auto max-w-[1400px] px-6 lg:px-12 text-center">
+    <div class="v3-eyebrow inline-flex mb-10"><span>Your summer starts here</span></div>
+    <h2 class="v3-display text-6xl lg:text-[clamp(5rem,12vw,14rem)] max-w-[14ch] mx-auto">
+      See you <em>on the water.</em>
+    </h2>
+    <p class="mt-12 max-w-xl mx-auto text-lg lg:text-xl italic font-display" style="color: var(--v3-peach-300);">
+      Four jetskis. Six hidden coves. One perfect afternoon waiting.
+    </p>
+    <div class="mt-14 flex flex-wrap items-center justify-center gap-4">
+      <a href="#fleet" class="v3-btn" data-cro="v3-final-primary">
+        Book your machine
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+      <a href="https://wa.me/306955612777" target="_blank" rel="noopener" class="v3-btn-outline">
+        Chat with David
+      </a>
+    </div>
+    <div class="mt-16 pt-8 border-t flex flex-wrap items-center justify-center gap-8 font-mono text-[10px] uppercase tracking-[0.2em]" style="border-color: rgba(255,181,138,0.2); color: rgba(255,230,212,0.6);">
+      <span>Free cancel 48h</span>
+      <span>30% deposit accepted</span>
+      <span>Instant confirmation</span>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="relative py-16 border-t" style="border-color: rgba(255,181,138,0.15);">
+  <div class="mx-auto max-w-[1700px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-8">
+      <div class="col-span-12 lg:col-span-5">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="v3-display italic text-3xl" style="background: linear-gradient(135deg, #ff4420, #ff2d87); -webkit-background-clip: text; background-clip: text; color: transparent;">Jetski Lefkada</span>
+        </div>
+        <p class="max-w-md text-sm leading-relaxed" style="color: rgba(255,230,212,0.6);">
+          Four jetskis, one David. Family-run, fully licensed, built around
+          the best day you can have on water.
+        </p>
+        <div class="mt-6 space-y-2">
+          <a href="tel:+306955612777" class="block font-mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--v3-peach-300);">+30 695 561 2777</a>
+          <a href="mailto:info@jetski-lefkada-rentals.com" class="block font-mono text-[11px] uppercase tracking-[0.18em]" style="color: var(--v3-peach-300);">info@jetski-lefkada-rentals.com</a>
+        </div>
+      </div>
+      <div class="col-span-6 lg:col-span-2">
+        <div class="font-mono text-[10px] uppercase tracking-[0.2em] mb-4" style="color: var(--v3-flame-500);">Explore</div>
+        <ul class="space-y-2 font-body text-sm" style="color: var(--v3-peach-300);">
+          <li><a href="#fleet">Fleet</a></li>
+          <li><a href="#how">How</a></li>
+          <li><a href="#voices">Voices</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="col-span-6 lg:col-span-2">
+        <div class="font-mono text-[10px] uppercase tracking-[0.2em] mb-4" style="color: var(--v3-flame-500);">Legal</div>
+        <ul class="space-y-2 font-body text-sm" style="color: var(--v3-peach-300);">
+          <li><a href="/imprint">Imprint</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/terms">Terms</a></li>
+          <li><a href="/safety">Safety</a></li>
+        </ul>
+      </div>
+      <div class="col-span-12 lg:col-span-3">
+        <div class="font-mono text-[10px] uppercase tracking-[0.2em] mb-4" style="color: var(--v3-flame-500);">Hours</div>
+        <div class="space-y-2 text-sm" style="color: var(--v3-peach-100);">
+          <div class="flex justify-between"><span>Morning</span><span style="color: var(--v3-peach-300);">10-13</span></div>
+          <div class="flex justify-between"><span>Afternoon</span><span style="color: var(--v3-peach-300);">16-19</span></div>
+          <div class="flex justify-between pt-2 mt-2 border-t" style="border-color: rgba(255,181,138,0.15);"><span>Season</span><span style="color: var(--v3-peach-300);">May - Sep</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-12 pt-6 border-t flex flex-wrap items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.2em]" style="border-color: rgba(255,181,138,0.15); color: rgba(255,230,212,0.5);">
+      <div>© 2026 Jetski Lefkada Rentals · David Goldberg</div>
+      <div>Built by <a href="https://nobrainer-ai.at" class="hover:underline" style="color: var(--v3-flame-500);">Nobrainer AI</a></div>
+    </div>
+  </div>
+</footer>

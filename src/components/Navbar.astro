@@ -1,0 +1,65 @@
+---
+const links = [
+  { href: "#fleet", label: "The Fleet" },
+  { href: "#how", label: "How It Works" },
+  { href: "#voices", label: "Voices" },
+  { href: "#faq", label: "FAQ" },
+];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+  <div class="pointer-events-auto">
+    <div class="mx-auto max-w-[1600px] px-6 lg:px-12 py-6 flex items-center justify-between backdrop-blur-sm bg-gradient-to-b from-ink-950/80 to-transparent">
+      <!-- Logo -->
+      <a href="/" class="group flex items-center gap-3" aria-label="Jetski Lefkada Rentals home">
+        <span class="relative inline-flex items-center justify-center w-10 h-10 border border-brass-500/60">
+          <span class="font-display italic text-xl text-coral-500 leading-none">J</span>
+          <span class="absolute -inset-[1px] border border-coral-500/0 group-hover:border-coral-500 transition-colors duration-700"></span>
+        </span>
+        <div class="hidden sm:flex flex-col leading-none">
+          <span class="font-display text-paper-100 text-lg tracking-tight">Jetski Lefkada</span>
+          <span class="font-mono text-[10px] text-brass-400 tracking-[0.18em] uppercase mt-1">est. Ionian Sea</span>
+        </div>
+      </a>
+
+      <!-- Center links -->
+      <div class="hidden md:flex items-center gap-10">
+        {
+          links.map((l) => (
+            <a
+              href={l.href}
+              class="font-mono text-[11px] uppercase tracking-[0.18em] text-paper-200/80 hover:text-coral-500 transition-colors duration-300 relative group"
+            >
+              {l.label}
+              <span class="absolute -bottom-1 left-0 right-0 h-px bg-coral-500 scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500" />
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- CTA -->
+      <div class="flex items-center gap-4">
+        <a
+          href="tel:+306955612777"
+          class="hidden lg:flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-paper-200/70 hover:text-paper-100 transition-colors"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          +30 695 561 2777
+        </a>
+        <a href="#fleet" class="btn-coral !py-3 !px-5 !text-xs">
+          Book
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M5 12h14M13 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Chapter line divider -->
+    <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+      <hr class="hairline opacity-30" />
+    </div>
+  </div>
+</nav>

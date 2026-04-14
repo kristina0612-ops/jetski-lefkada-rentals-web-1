@@ -1,0 +1,52 @@
+---
+const faqs = [
+  { q: "Do I need a boat license?", a: "No. Under our on-site supervision and 10-minute briefing, no separate license required. Must be 18+ with valid ID." },
+  { q: "Is insurance included?", a: "Yes - third-party liability up to €700.000 per incident, required by Greek Law 4926/2022. Personal accident insurance we recommend separately." },
+  { q: "What about bad weather?", a: "Above Beaufort 5 we can't operate by law. Weather-grounded bookings are refunded 100% or rescheduled free." },
+  { q: "Can I cancel?", a: "Free cancellation up to 48 hours before. 48-24h is 50% refund. Under 24h non-refundable unless weather grounds us." },
+  { q: "Where do I meet?", a: "Exact GPS coordinates sent with your booking confirmation. Main dock in Nidri, 10 min walk from the village center. Free parking." },
+  { q: "How far can I ride?", a: "Greek Coast Guard rules: max 700m from shore, never inside swim-zone buoys. Plenty of bays to explore within those rules." },
+];
+---
+
+<section id="faq" class="relative py-24 lg:py-40" style="background: var(--v2-cream-50);">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-24">
+      <div class="col-span-12 lg:col-span-8">
+        <div class="v2-eyebrow mb-6"><span>The small print, big</span></div>
+        <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
+          Questions we <em>love.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 lg:col-span-10 lg:col-start-2">
+        {
+          faqs.map((f, i) => (
+            <details class="group border-b last:border-b-2" style="border-color: rgba(7,29,48,0.2);">
+              <summary class="cursor-pointer list-none py-6 flex items-start justify-between gap-8 hover:opacity-80 transition-opacity">
+                <div class="flex items-start gap-6 lg:gap-10">
+                  <span class="font-display text-3xl italic" style="color: var(--v2-sun-500);">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 class="font-display text-2xl lg:text-3xl leading-tight" style="color: var(--v2-ink-950);">
+                    {f.q}
+                  </h3>
+                </div>
+                <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 group-open:rotate-45" style="background: var(--v2-ink-950); color: var(--v2-cream-50);">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14"/>
+                  </svg>
+                </span>
+              </summary>
+              <div class="pb-8 pl-12 lg:pl-20">
+                <p class="text-lg leading-relaxed max-w-3xl" style="color: rgba(7,29,48,0.75);">
+                  {f.a}
+                </p>
+              </div>
+            </details>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

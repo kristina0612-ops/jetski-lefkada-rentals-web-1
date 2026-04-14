@@ -1,0 +1,112 @@
+---
+const images = [
+  {
+    src: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=1200&q=85&auto=format&fit=crop",
+    title: "Porto Katsiki",
+    caption: "The most photographed beach on Lefkada. 35 min from the dock.",
+    tag: "Beach · 07:40",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1200&q=85&auto=format&fit=crop",
+    title: "Egremni",
+    caption: "White cliffs meeting turquoise water. A quiet swim cove.",
+    tag: "Swim Cove · 09:15",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=85&auto=format&fit=crop",
+    title: "Agios Nikitas",
+    caption: "Fishing village with tavernas. Park and eat.",
+    tag: "Village · 12:30",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1200&q=85&auto=format&fit=crop",
+    title: "Meganisi Channel",
+    caption: "Ride the narrow channel. Dolphins, if you're lucky.",
+    tag: "Channel · 16:00",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=85&auto=format&fit=crop",
+    title: "Vasiliki Bay",
+    caption: "Wind carves the afternoon. Great light for photos.",
+    tag: "Bay · 17:40",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1200&q=85&auto=format&fit=crop",
+    title: "Nidri Sunset",
+    caption: "Come back slowly. Golden hour on the return leg.",
+    tag: "Return · 19:00",
+  },
+];
+---
+
+<section class="relative py-24 lg:py-40 overflow-hidden">
+  <!-- Header -->
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12 mb-16 lg:mb-20">
+    <div class="grid grid-cols-12 gap-6">
+      <div class="col-span-12 lg:col-span-2">
+        <div class="chapter-numeral text-5xl">05</div>
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mt-3">
+          Chapter 05
+        </div>
+      </div>
+      <div class="col-span-12 lg:col-span-7">
+        <div class="section-label mb-6"><span>A day on the water</span></div>
+        <h2 class="display-headline text-4xl lg:text-[clamp(3rem,5vw,5rem)]">
+          Six stops. <em>One perfect loop.</em>
+        </h2>
+      </div>
+      <div class="col-span-12 lg:col-span-3 flex items-end">
+        <p class="font-body text-paper-200/70 text-base leading-relaxed">
+          David sends you off with a printed map and suggested route. You're
+          free to ride your own way - but this loop has never disappointed.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gallery grid - editorial masonry -->
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-4 lg:gap-6">
+      {
+        images.map((img, i) => {
+          const patterns = [
+            "col-span-12 md:col-span-7 aspect-[4/3]",
+            "col-span-12 md:col-span-5 aspect-[4/5]",
+            "col-span-6 md:col-span-4 aspect-[3/4]",
+            "col-span-6 md:col-span-4 aspect-[3/4]",
+            "col-span-12 md:col-span-4 aspect-[3/4]",
+            "col-span-12 aspect-[16/7]",
+          ];
+          return (
+            <figure class:list={["group relative overflow-hidden bg-ink-800", patterns[i]]}>
+              <img
+                src={img.src}
+                alt={img.title}
+                loading="lazy"
+                class="w-full h-full object-cover grayscale-[30%] transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105"
+                style="filter: contrast(1.12) brightness(0.88) saturate(1.05);"
+              />
+              {/* Tint */}
+              <div class="absolute inset-0 pointer-events-none mix-blend-soft-light opacity-30 bg-gradient-to-br from-coral-500 to-aegean-500"></div>
+              <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-ink-950/85 via-transparent to-transparent"></div>
+
+              {/* Top tag */}
+              <div class="absolute top-4 right-4 bg-ink-950/70 backdrop-blur-sm px-3 py-1 border border-brass-500/40">
+                <span class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400">{img.tag}</span>
+              </div>
+
+              {/* Bottom caption */}
+              <figcaption class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                <div class="chapter-numeral text-2xl mb-1">{String(i + 1).padStart(2, "0")}</div>
+                <h3 class="font-display text-2xl lg:text-3xl text-paper-100 mb-2 leading-tight">
+                  {img.title}
+                </h3>
+                <p class="font-body text-paper-200/80 text-sm max-w-md leading-relaxed">{img.caption}</p>
+              </figcaption>
+            </figure>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

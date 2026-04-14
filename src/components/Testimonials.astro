@@ -1,0 +1,104 @@
+---
+import { testimonials, liveBookings } from "../data/testimonials";
+// Double the testimonials for seamless marquee
+const marqueeSet = [...testimonials, ...testimonials];
+---
+
+<section id="voices" class="relative py-24 lg:py-40">
+  <!-- Live social proof ticker -->
+  <div class="border-y border-brass-500/20 bg-ink-900/40 backdrop-blur-sm overflow-hidden mb-20 lg:mb-28">
+    <div class="marquee-pause py-4">
+      <div class="marquee">
+        {
+          [...liveBookings, ...liveBookings, ...liveBookings].map((b, i) => (
+            <div class="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.12em] text-paper-200/70 shrink-0">
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="absolute inline-flex h-full w-full rounded-full bg-coral-500 opacity-75"
+                  style="animation: pulse-dot 2s ease-in-out infinite;"
+                ></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-coral-500"></span>
+              </span>
+              <span>
+                <span class="text-paper-100">{b.name}</span> from {b.from} booked
+                <span class="text-brass-400">"{b.jetski}"</span>
+                <span class="text-paper-400 italic ml-1">· {b.when}</span>
+              </span>
+              <span class="text-brass-500/40 mx-4">◆</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+    <!-- Section header -->
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
+      <div class="col-span-12 lg:col-span-2">
+        <div class="chapter-numeral text-5xl">06</div>
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400 mt-3">
+          Chapter 06
+        </div>
+      </div>
+      <div class="col-span-12 lg:col-span-7">
+        <div class="section-label mb-6"><span>327 Voices · 4.9 Stars</span></div>
+        <h2 class="display-headline text-4xl lg:text-[clamp(3rem,5vw,5rem)]">
+          They came. <em>They returned.</em>
+        </h2>
+      </div>
+      <div class="col-span-12 lg:col-span-3 flex items-end">
+        <div class="flex items-baseline gap-4">
+          <div class="font-display text-5xl lg:text-6xl text-coral-500">4.9</div>
+          <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400">
+            across<br />TripAdvisor · Google<br />Viator
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      {
+        testimonials.map((t, i) => (
+          <article
+            class:list={[
+              "group relative p-8 lg:p-10 bg-ink-900/60 border border-brass-500/20 backdrop-blur-sm",
+              "hover:border-coral-500/50 transition-colors duration-700",
+              i === 0 && "md:col-span-2 lg:col-span-1 lg:row-span-2",
+            ]}
+          >
+            {/* Big quote mark */}
+            <div class="font-display italic text-7xl lg:text-8xl text-brass-500/40 leading-[0.6] absolute top-6 right-6 pointer-events-none select-none">
+              "
+            </div>
+
+            <div class="flex items-center gap-1 mb-6">
+              {Array.from({ length: t.rating }).map(() => (
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="#ff5a36" aria-hidden="true">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              ))}
+            </div>
+
+            <blockquote class="relative font-display text-xl lg:text-2xl text-paper-100 leading-snug mb-8">
+              {t.quote}
+            </blockquote>
+
+            <footer class="pt-6 border-t border-brass-500/20 flex items-center justify-between">
+              <div>
+                <div class="font-body text-paper-100 text-sm font-medium">{t.author}</div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.12em] text-paper-400 mt-1">
+                  {t.origin} · {t.date}
+                </div>
+              </div>
+              <div class="font-mono text-[9px] uppercase tracking-[0.18em] text-brass-400">
+                {t.source}
+              </div>
+            </footer>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

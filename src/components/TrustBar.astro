@@ -1,0 +1,27 @@
+---
+const trustItems = [
+  { label: "Fully Insured", sub: "Greek Law 4926/2022" },
+  { label: "4.9 / 5.0", sub: "327 reviews" },
+  { label: "5.000+", sub: "rides since 2019" },
+  { label: "Licensed", sub: "Port Authority Lefkada" },
+  { label: "Same-day booking", sub: "if slots remain" },
+];
+---
+
+<div class="relative z-10 border-y border-brass-500/20 bg-ink-950/60 backdrop-blur-sm">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12 py-5 flex items-center justify-between gap-8 overflow-x-auto">
+    {
+      trustItems.map((item, i) => (
+        <div class="flex items-center gap-3 shrink-0">
+          {i > 0 && <span class="hidden md:block w-1 h-1 rounded-full bg-brass-500/50"></span>}
+          <div class="flex items-baseline gap-2">
+            <span class="font-display text-paper-100 text-base tracking-tight whitespace-nowrap">{item.label}</span>
+            <span class="hidden lg:inline font-mono text-[10px] uppercase tracking-[0.18em] text-brass-400/80 whitespace-nowrap">
+              {item.sub}
+            </span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

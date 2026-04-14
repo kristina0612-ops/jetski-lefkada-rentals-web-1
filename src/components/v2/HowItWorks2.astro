@@ -1,0 +1,72 @@
+---
+const steps = [
+  {
+    n: "01",
+    title: "Pick your machine",
+    body: "Scroll the fleet above. Live availability, transparent pricing, no contacting us back and forth.",
+    time: "30 sec",
+    icon: "🏖️",
+  },
+  {
+    n: "02",
+    title: "Sign the waiver",
+    body: "Electronic signature, Greek law compliant. Your insurance activates the moment you sign.",
+    time: "45 sec",
+    icon: "✍️",
+  },
+  {
+    n: "03",
+    title: "Pay your deposit",
+    body: "100% now or 30% deposit with rest on arrival. Apple Pay, Google Pay, card, PayPal.",
+    time: "20 sec",
+    icon: "💳",
+  },
+  {
+    n: "04",
+    title: "Ride the Ionian",
+    body: "Meet David at the marina. Ten-minute briefing. Then you disappear into the blue.",
+    time: "On the day",
+    icon: "🌊",
+  },
+];
+---
+
+<section id="how" class="relative py-24 lg:py-40 overflow-hidden" style="background: var(--v2-cream-100);">
+  <!-- Decorative sun curve behind -->
+  <div class="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full opacity-20 pointer-events-none" style="background: radial-gradient(circle, var(--v2-sun-400), transparent 70%);"></div>
+
+  <div class="relative mx-auto max-w-[1600px] px-6 lg:px-12">
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-24">
+      <div class="col-span-12 lg:col-span-8">
+        <div class="v2-eyebrow mb-6"><span>How it works</span></div>
+        <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
+          Ninety seconds.<br /><em>Then the sea.</em>
+        </h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {
+        steps.map((step) => (
+          <div class="v2-bento-card p-8">
+            <div class="flex items-start justify-between mb-10">
+              <div class="font-mono text-[11px] uppercase tracking-[0.2em]" style="color: var(--v2-turquoise-600);">
+                Step {step.n}
+              </div>
+              <div class="text-4xl">{step.icon}</div>
+            </div>
+            <h3 class="font-display text-3xl leading-tight mb-4" style="color: var(--v2-ink-950);">
+              {step.title}
+            </h3>
+            <p class="text-base leading-relaxed mb-6" style="color: rgba(7,29,48,0.7);">
+              {step.body}
+            </p>
+            <div class="pt-4 border-t border-ink-950/15 font-mono text-[10px] uppercase tracking-[0.18em]" style="border-color: rgba(7,29,48,0.15); color: var(--v2-coral-500);">
+              ≈ {step.time}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
