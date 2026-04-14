@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Willkommen bei Nobrainer AI – Kristina</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ff5a36'/%3E%3Ctext x='50%25' y='50%25' font-family='serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'%3EN%3C/text%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap');
+
+  :root {
+    --ink: #0a1220;
+    --paper: #fdfbf4;
+    --coral: #ff5a36;
+    --sun: #ffc233;
+    --turquoise: #00b3a7;
+    --brass: #b8925a;
+    --muted: #6b7a8d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.7;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  h1, h2, h3 {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.03em;
+  }
+  h1 { font-size: 3.2rem; line-height: 1.05; margin-bottom: 1.5rem; }
+  h2 { font-size: 2rem; line-height: 1.15; margin-bottom: 1rem; }
+  h3 { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  h1 em, h2 em { font-style: italic; font-weight: 300; color: var(--coral); }
+
+  .eyebrow {
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--turquoise);
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+  }
+  .eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--turquoise); }
+
+  p { margin-bottom: 1rem; color: #2a3a4a; }
+
+  .highlight-box { background: #f0f7f6; border-left: 4px solid var(--turquoise); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+  .coral-box { background: #fff0ec; border-left: 4px solid var(--coral); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+  .sun-box { background: #fff9e6; border-left: 4px solid var(--sun); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+
+  .step-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0; }
+  .step-card {
+    background: white; border: 1.5px solid var(--ink); border-radius: 16px; padding: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+  .step-card:hover { transform: translateY(-3px); box-shadow: 4px 4px 0 var(--ink); }
+  .step-number { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 2.5rem; font-weight: 300; color: var(--coral); line-height: 1; margin-bottom: 0.5rem; }
+  .step-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .step-card p { font-size: 0.85rem; color: var(--muted); margin: 0; }
+
+  .price-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+  .price-table td { padding: 0.75rem 1rem; border-bottom: 1px solid #e8e4da; }
+  .price-table td:last-child { text-align: right; font-family: 'Fraunces', Georgia, serif; font-size: 1.3rem; color: var(--ink); }
+  .price-table .discount td { color: var(--coral); font-weight: 600; }
+
+  .checklist { list-style: none; margin: 1.5rem 0; }
+  .checklist li { padding: 0.6rem 0; padding-left: 2rem; position: relative; border-bottom: 1px solid #f0ece2; }
+  .checklist li::before { content: ''; position: absolute; left: 0; top: 0.75rem; width: 16px; height: 16px; border: 2px solid var(--turquoise); border-radius: 4px; }
+
+  .install-step { display: flex; gap: 1.25rem; align-items: flex-start; margin: 1.5rem 0; padding: 1.25rem; background: white; border: 1px solid #e8e4da; border-radius: 12px; }
+  .install-number { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 2rem; font-weight: 300; color: var(--turquoise); line-height: 1; min-width: 36px; }
+  .install-step h3 { margin-bottom: 0.25rem; font-size: 1.1rem; }
+  .install-step p { font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .install-step .url { font-family: monospace; font-size: 0.85rem; background: #f0f7f6; padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--turquoise); }
+
+  .divider { width: 60px; height: 3px; background: linear-gradient(90deg, var(--coral), var(--sun)); margin: 3rem 0; border-radius: 2px; }
+
+  .contact-box { display: flex; gap: 1.5rem; align-items: center; padding: 1.5rem; background: var(--ink); color: var(--paper); border-radius: 16px; margin: 2rem 0; }
+  .contact-box .icon { width: 48px; height: 48px; background: var(--coral); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; color: white; font-weight: 700; }
+  .contact-box p { color: rgba(253,251,244,0.8); margin: 0; font-size: 0.9rem; }
+  .contact-box strong { color: var(--paper); }
+
+  .footer-note { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e8e4da; font-size: 0.8rem; color: var(--muted); text-align: center; }
+
+  /* Form styles */
+  .q-block { margin: 2rem 0; padding-bottom: 1.5rem; border-bottom: 1px solid #e8e4da; }
+  .q-number { font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 1.5rem; color: var(--coral); margin-bottom: 0.5rem; }
+  .q-hint { font-size: 0.85rem; color: var(--muted); font-style: italic; margin-bottom: 0.75rem; }
+
+  textarea, input[type="text"], input[type="number"] {
+    width: 100%; padding: 1rem; background: white; border: 1.5px solid #d0caba;
+    border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem;
+    color: var(--ink); transition: border-color 0.3s ease; resize: vertical;
+    line-height: 1.6;
+  }
+  textarea:focus, input:focus { outline: none; border-color: var(--coral); box-shadow: 0 0 0 3px rgba(255,90,54,0.15); }
+  textarea { min-height: 80px; }
+  textarea::placeholder, input::placeholder { color: #b0a898; }
+
+  .checkbox-group { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .checkbox-group label {
+    display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem;
+    background: white; border: 1.5px solid #d0caba; border-radius: 999px;
+    font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease;
+    user-select: none;
+  }
+  .checkbox-group input { display: none; }
+  .checkbox-group input:checked + span { color: var(--coral); }
+  .checkbox-group label:has(input:checked) { border-color: var(--coral); background: #fff0ec; }
+
+  .submit-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+    width: 100%; padding: 1.25rem 2rem; margin-top: 2rem;
+    background: #25D366; color: white; border: none; border-radius: 16px;
+    font-family: 'DM Sans', sans-serif; font-size: 1.1rem; font-weight: 600;
+    cursor: pointer; transition: all 0.4s ease;
+  }
+  .submit-btn:hover { background: #1fb855; transform: translateY(-2px); box-shadow: 0 12px 30px -8px rgba(37,211,102,0.5); }
+  .submit-btn:active { transform: translateY(0); }
+
+  .submit-alt {
+    display: block; text-align: center; margin-top: 1rem;
+    color: var(--muted); font-size: 0.85rem; text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .success-msg {
+    display: none; text-align: center; padding: 2rem;
+    background: #f0f7f6; border-radius: 16px; margin-top: 2rem;
+  }
+  .success-msg.visible { display: block; }
+
+  @media (max-width: 600px) {
+    .page { padding: 2rem 1.25rem; min-height: auto; }
+    h1 { font-size: 2.2rem; }
+    .step-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="page" style="min-height: 90vh;">
+  <div class="eyebrow"><span>Jetski Lefkada Rentals × Nobrainer AI</span></div>
+  <h1>Willkommen,<br><em>Kristina.</em></h1>
+  <p style="font-size: 1.2rem; max-width: 500px;">
+    Die nächsten 6 Wochen machen wir gemeinsam Dein Business fit mit Claude Code.
+    Am Ende dieses Guides weißt Du: was das ist, was wir machen, was es kostet,
+    und was Du vor unserem ersten Call vorbereitest.
+  </p>
+  <div class="divider"></div>
+  <p><strong>Kick-Off-Call:</strong> Dienstag 14. April 2026</p>
+  <p><strong>Dauer:</strong> 90 Minuten per Zoom</p>
+  <p><strong>Dein Coach:</strong> Daniel Peric (Nobrainer AI)</p>
+  <div class="contact-box">
+    <div class="icon">D</div>
+    <div>
+      <p><strong>Daniel Peric</strong></p>
+      <p>WhatsApp: +43 660 522 11 49</p>
+      <p>E-Mail: info@nobrainer-ai.at</p>
+      <p style="margin-top: 0.5rem; font-style: italic; opacity: 0.7;">Fragen jederzeit. Nichts ist zu blöd.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ WARUM ═══════════════ -->
+<div class="page" style="min-height: auto; padding-top: 4rem;">
+  <div class="eyebrow"><span>Warum wir das machen</span></div>
+  <h2>In 6 Wochen sieht Dein<br>Arbeitsalltag <em>so</em> aus:</h2>
+  <div class="coral-box">
+    <strong>Montagmorgen.</strong> Drei neue Buchungsanfragen über Nacht. Früher: 45 Minuten
+    Englisch tippen, Preise nachschauen. <strong>Jetzt:</strong> „Claude, beantworte die drei Anfragen."
+    In 3 Minuten liegen fertige Antworten da. Du liest, korrigierst ein Wort, schickst raus.
+    <br><em>Gewonnene Zeit: 40 Minuten.</em>
+  </div>
+  <div class="highlight-box">
+    <strong>Dienstagabend.</strong> Eine neue Google-Review. Halb begeistert, halb kritisch.
+    Normal: Du schiebst es auf, es bleibt liegen. <strong>Jetzt:</strong> Claude kennt Euren Tonfall,
+    schreibt eine passende Antwort. Du gibst frei mit einem Wort.
+    <br><em>Kein Review bleibt mehr liegen.</em>
+  </div>
+  <div class="sun-box">
+    <strong>Mittwochmorgen.</strong> Wind zu stark, Beaufort 6. Normal: Panik, wer muss
+    verschoben werden? <strong>Jetzt:</strong> Claude checkt Wetter, sieht wer gebucht hat,
+    schreibt allen eine Verschiebe-Mail auf ihrer Sprache. Du genehmigst und schickst.
+    <br><em>Kein Chaos mehr bei Wetter-Änderungen.</em>
+  </div>
+  <div class="coral-box">
+    <strong>Freitagmittag.</strong> Neues Foto von einem glücklichen Kunden. Normal:
+    Irgendwann Instagram-Post basteln. <strong>Jetzt:</strong> Foto an Claude,
+    fertiger Post in 30 Sekunden mit Caption und Hashtags.
+    <br><em>Social Media auf Autopilot.</em>
+  </div>
+</div>
+
+<!-- ═══════════════ WAS IST CLAUDE CODE ═══════════════ -->
+<div class="page" style="min-height: auto; padding-top: 4rem;">
+  <div class="eyebrow"><span>Was ist Claude Code</span></div>
+  <h2>ChatGPT das <em>echte Aufgaben</em><br>für Dich erledigt.</h2>
+  <p>Du kennst ChatGPT. Du gibst Text ein, ChatGPT gibt Text zurück. Stell Dir jetzt vor, die KI kann zusätzlich:</p>
+  <div class="highlight-box">
+    <strong>Deine Dateien lesen und ändern.</strong><br>
+    Preisliste aktualisieren? Website-Texte korrigieren? Macht er direkt in der Datei. Kein Copy-Paste mehr.
+  </div>
+  <div class="highlight-box">
+    <strong>Dein Business KENNEN.</strong><br>
+    Er weiß wer Ihr seid, was Ihr anbietet, wie Ihr schreibt, was Ihr NIE sagen würdet.
+    Je länger Ihr zusammenarbeitet, desto smarter wird er.
+  </div>
+  <div class="highlight-box">
+    <strong>Echte Aufgaben erledigen.</strong><br>
+    Nicht nur Texte generieren, sondern: „Beantworte die drei neuen E-Mails in meiner Inbox."
+    Er macht es wirklich.
+  </div>
+  <div class="sun-box">
+    <p style="margin: 0;"><strong>Du musst nichts programmieren.</strong> Du redest mit ihm wie mit einer
+    klugen Assistentin. „Bitte ändere den Preis auf der Website für den Full-Day auf 690 Euro."
+    Er macht's.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ DER PLAN ═══════════════ -->
+<div class="page" style="min-height: auto; padding-top: 4rem;">
+  <div class="eyebrow"><span>Der Plan</span></div>
+  <h2>6 Wochen.<br><em>Schritt für Schritt.</em></h2>
+  <p>Du musst in Woche 1 nicht alles verstehen. Das ist eingeplant. Jede Woche wird ein bisschen mehr Sinn machen.</p>
+  <div class="step-grid">
+    <div class="step-card">
+      <div class="step-number">01</div>
+      <h3>Kennenlernen</h3>
+      <p>Installieren, öffnen, reden. Kein Druck. Nur Vertrauen aufbauen.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">02</div>
+      <h3>Wissen + Erste Skill</h3>
+      <p>Dein Business-Wissen eintragen. Erste echte Skill: Kunden-Mails beantworten.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">03</div>
+      <h3>Fünf weitere Skills</h3>
+      <p>Reviews, Wetter-Check, Instagram, Lead-Nachfass, Schadensprotokolle.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">04</div>
+      <h3>Eure Website</h3>
+      <p>Design wählen, erste Änderung machen, live ins Internet bringen.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">05</div>
+      <h3>Website pflegen</h3>
+      <p>Preise ändern, Texte anpassen, Fotos hochladen. Alles per Gespräch mit Claude.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-number">06</div>
+      <h3>Eigenständig</h3>
+      <p>Du löst 5 Aufgaben alleine. Abschluss-Zertifikat. Du brauchst mich nicht mehr.</p>
+    </div>
+  </div>
+  <p style="font-size: 0.9rem; color: var(--muted);">12 Coaching-Calls total (2 pro Woche, je 45–90 Min) + WhatsApp-Support unbegrenzt.</p>
+</div>
+
+<!-- ═══════════════ WAS ES KOSTET ═══════════════ -->
+<div class="page" style="min-height: auto; padding-top: 4rem;">
+  <div class="eyebrow"><span>Was es kostet</span></div>
+  <h2>Transparent.<br><em>Freundschaftspreis.</em></h2>
+  <p>Ich bin ehrlich mit Dir, weil wir Freunde sind.</p>
+  <table class="price-table">
+    <tr><td>Mein normaler Preis (Setup 6 Wochen)</td><td style="text-decoration: line-through; opacity: 0.5;">2.990 €</td></tr>
+    <tr class="discount"><td><strong>Euer Freundschaftspreis (Setup)</strong></td><td><strong>1.490 €</strong></td></tr>
+    <tr><td colspan="2" style="height: 8px; border: none;"></td></tr>
+    <tr><td>Monatliches Growth-Coaching (normal)</td><td style="text-decoration: line-through; opacity: 0.5;">499 €/Mo</td></tr>
+    <tr class="discount"><td><strong>Euer Preis (ab Woche 7, optional)</strong></td><td><strong>299 €/Mo</strong></td></tr>
+  </table>
+  <div class="sun-box">
+    <strong>Warum 50% Rabatt?</strong> Weil wir Freunde sind, und weil Euer Projekt auch mir hilft.
+    Ihr werdet meine erste Tourismus-Case-Study. Wenn das hier funktioniert, kann ich
+    Nobrainer an hunderte kleine Tourismus-Betriebe im Mittelmeer verkaufen.
+    Ihr gebt mir etwas, ich gebe Euch etwas. Fair.
+  </div>
+  <div class="highlight-box">
+    <strong>Zahlung in zwei Hälften:</strong>
+    <br>1. Hälfte (745 €) bei Kick-Off
+    <br>2. Hälfte (745 €) nach Woche 3, wenn Du zufrieden bist
+    <br><br>
+    <strong>Dein Sicherheitsnetz:</strong> Wenn Du nach Woche 3 sagst
+    „Das ist nichts für mich" – bekommst Du den nicht geleisteten Teil zurück.
+    Keine Freundschaft soll an Geld leiden.
+  </div>
+</div>
+
+<!-- ═══════════════ VOR DEM CALL ═══════════════ -->
+<div class="page" style="min-height: auto; padding-top: 4rem;">
+  <div class="eyebrow"><span>Vor dem Dienstag-Call</span></div>
+  <h2>3 Dinge installieren.<br><em>15 Minuten.</em></h2>
+  <p>Wenn Du diese drei Sachen vor Dienstag erledigst, sparen wir uns 30 Minuten im Call. Bei Problemen: WhatsApp Daniel sofort.</p>
+  <div class="install-step">
+    <div class="install-number">1</div>
+    <div>
+      <h3>VS Code</h3>
+      <p>Dein neuer Änderungs-Editor. Kostenlos, von Microsoft.</p>
+      <p class="url">code.visualstudio.com</p>
+      <p style="font-size: 0.85rem; color: var(--muted);">Herunterladen, installieren, einmal öffnen, wieder schließen. Fertig.</p>
+    </div>
+  </div>
+  <div class="install-step">
+    <div class="install-number">2</div>
+    <div>
+      <h3>GitHub-Account</h3>
+      <p>Sicherer Speicherort für Eure Dateien. Kostenlos.</p>
+      <p class="url">github.com/signup</p>
+      <p style="font-size: 0.85rem; color: var(--muted);">E-Mail, Passwort, Username wählen. Username notieren! Du brauchst ihn im Call.</p>
+    </div>
+  </div>
+  <div class="install-step">
+    <div class="install-number">3</div>
+    <div>
+      <h3>Claude Pro Abo</h3>
+      <p>Das KI-Modell das alles antreibt. 20 €/Monat.</p>
+      <p class="url">claude.ai/upgrade</p>
+      <p style="font-size: 0.85rem; color: var(--coral); font-weight: 600;">WICHTIG: Claude Pro, NICHT ChatGPT Plus. Zwei verschiedene Firmen!</p>
+    </div>
+  </div>
+  <div class="coral-box">
+    <strong>Merk Dir und schreib auf:</strong>
+    <br>– Deine GitHub-E-Mail
+    <br>– Dein GitHub-Passwort
+    <br>– Deinen GitHub-Username
+    <br>Diese drei brauche ich im Call.
+  </div>
+</div>
+
+<!-- ═══════════════ FRAGEBOGEN (INTERAKTIV) ═══════════════ -->
+<div class="page" style="min-height: auto; padding-top: 4rem;" id="fragebogen">
+  <div class="eyebrow"><span>Mini-Fragebogen · 10 Minuten</span></div>
+  <h2>8 Fragen.<br><em>Damit Dienstag perfekt wird.</em></h2>
+  <p>Füll die Felder aus und klick unten auf den grünen Button. Deine Antworten werden direkt per WhatsApp an Daniel geschickt. Stichpunkte reichen. Ehrlich ist wichtiger als perfekt.</p>
+
+  <form id="intake-form">
+
+    <div class="q-block">
+      <div class="q-number">01</div>
+      <h3>Was nervt Dich am meisten in der täglichen Arbeit für's Jetski-Business?</h3>
+      <p class="q-hint">Die EINE Aufgabe die Du am liebsten nicht mehr selbst machen würdest.</p>
+      <textarea name="q1" placeholder="Z.B. ‚Immer die gleichen Buchungsanfragen beantworten…'" required></textarea>
+    </div>
+
+    <div class="q-block">
+      <div class="q-number">02</div>
+      <h3>Wie viele Stunden pro Woche arbeitest Du aktuell am Business?</h3>
+      <p class="q-hint">Inklusive alles: E-Mails, Social Media, Absprache mit David.</p>
+      <input type="text" name="q2" placeholder="Z.B. ‚ca. 20 Stunden'" required>
+    </div>
+
+    <div class="q-block">
+      <div class="q-number">03</div>
+      <h3>Welche Tools nutzt Du täglich?</h3>
+      <p class="q-hint">Alles was Dir einfällt.</p>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="tools" value="Gmail"><span>Gmail</span></label>
+        <label><input type="checkbox" name="tools" value="Instagram"><span>Instagram</span></label>
+        <label><input type="checkbox" name="tools" value="WhatsApp"><span>WhatsApp</span></label>
+        <label><input type="checkbox" name="tools" value="Google Sheets"><span>Google Sheets</span></label>
+        <label><input type="checkbox" name="tools" value="Bokun"><span>Bokun</span></label>
+        <label><input type="checkbox" name="tools" value="Facebook"><span>Facebook</span></label>
+        <label><input type="checkbox" name="tools" value="Google Drive"><span>Google Drive</span></label>
+        <label><input type="checkbox" name="tools" value="TikTok"><span>TikTok</span></label>
+      </div>
+      <input type="text" name="q3_other" placeholder="Weitere Tools…" style="margin-top: 0.75rem;">
+    </div>
+
+    <div class="q-block">
+      <div class="q-number">04</div>
+      <h3>Auf welcher Sprache redest Du mit Kunden?</h3>
+      <p class="q-hint">Ungefährer Anteil.</p>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <input type="text" name="q4_en" placeholder="Englisch: z.B. 60%">
+        <input type="text" name="q4_de" placeholder="Deutsch: z.B. 20%">
+        <input type="text" name="q4_it" placeholder="Italienisch: z.B. 15%">
+        <input type="text" name="q4_el" placeholder="Griechisch: z.B. 5%">
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-number">05</div>
+      <h3>Wie viele Buchungs-Anfragen kommen pro Woche rein?</h3>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+        <input type="text" name="q5_high" placeholder="Hochsaison: z.B. 30/Woche">
+        <input type="text" name="q5_low" placeholder="Nebensaison: z.B. 5/Woche">
+      </div>
+    </div>
+
+    <div class="q-block">
+      <div class="q-number">06</div>
+      <h3>Welche Aufgabe würdest Du am liebsten abgeben?</h3>
+      <p class="q-hint">Kann dieselbe sein wie Frage 1, muss aber nicht.</p>
+      <textarea name="q6" placeholder="Z.B. ‚Reviews beantworten, Instagram-Posts schreiben…'"></textarea>
+    </div>
+
+    <div class="q-block">
+      <div class="q-number">07</div>
+      <h3>Wann hast Du Zeit für Coaching-Calls?</h3>
+      <p class="q-hint">2× pro Woche, je 45–90 Min.</p>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="days" value="Montag"><span>Montag</span></label>
+        <label><input type="checkbox" name="days" value="Dienstag"><span>Dienstag</span></label>
+        <label><input type="checkbox" name="days" value="Mittwoch"><span>Mittwoch</span></label>
+        <label><input type="checkbox" name="days" value="Donnerstag"><span>Donnerstag</span></label>
+        <label><input type="checkbox" name="days" value="Freitag"><span>Freitag</span></label>
+      </div>
+      <div class="checkbox-group" style="margin-top: 0.5rem;">
+        <label><input type="checkbox" name="times" value="Vormittag 9-12"><span>Vormittag (9–12)</span></label>
+        <label><input type="checkbox" name="times" value="Mittag 12-14"><span>Mittag (12–14)</span></label>
+        <label><input type="checkbox" name="times" value="Nachmittag 14-17"><span>Nachmittag (14–17)</span></label>
+        <label><input type="checkbox" name="times" value="Abend 17-20"><span>Abend (17–20)</span></label>
+      </div>
+    </div>
+
+    <div class="q-block" style="border-bottom: none;">
+      <div class="q-number">08</div>
+      <h3>Deine größte Sorge bei dem Projekt?</h3>
+      <p class="q-hint">Ehrlich. „Ich bin nicht technisch", „Ich habe keine Zeit", „Was wenn ich was kaputt mache"…</p>
+      <textarea name="q8" placeholder="Schreib ehrlich was Dir durch den Kopf geht…" required></textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" id="send-btn">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.304-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0 0 20.464 3.488"/></svg>
+      Antworten per WhatsApp an Daniel senden
+    </button>
+
+    <a class="submit-alt" id="email-fallback">Oder per E-Mail senden</a>
+
+    <div class="success-msg" id="success">
+      <h3 style="color: var(--turquoise); margin-bottom: 0.5rem;">Danke, Kristina!</h3>
+      <p>Deine Antworten sind unterwegs zu Daniel. Er meldet sich bei Dir.<br>Bis Dienstag!</p>
+    </div>
+  </form>
+</div>
+
+<!-- ═══════════════ ABSCHLUSS ═══════════════ -->
+<div class="page" style="min-height: auto; padding-top: 4rem; padding-bottom: 4rem;">
+  <div class="eyebrow"><span>Fast geschafft</span></div>
+  <h2>Was Du am Dienstag<br><em>mitbringst:</em></h2>
+  <ul class="checklist">
+    <li><strong>Deinen Laptop</strong> (Mac oder Windows, egal)</li>
+    <li><strong>90 Minuten</strong> ohne Unterbrechung</li>
+    <li><strong>Einen ruhigen Platz</strong> mit Internet für Zoom</li>
+    <li><strong>Einen Kaffee</strong> oder Tee (ernsthaft)</li>
+    <li><strong>VS Code installiert</strong> (siehe oben)</li>
+    <li><strong>GitHub-Account</strong> erstellt + Zugangsdaten notiert</li>
+    <li><strong>Claude Pro Abo</strong> aktiv</li>
+    <li><strong>Fragebogen</strong> ausgefüllt (die 8 Fragen oben)</li>
+  </ul>
+  <div class="sun-box">
+    <strong>Was Du NICHT brauchst:</strong><br>
+    Programmier-Erfahrung. Terminal-Kenntnisse. Git-Kenntnisse. Perfektes Englisch. Vorbereitung auf irgendwas Technisches. <strong>Ich zeige Dir alles.</strong>
+  </div>
+  <div class="divider"></div>
+  <p style="font-size: 1.1rem;">
+    <strong>Eine letzte Sache.</strong> Dieses Projekt ist für mich genauso neu wie für
+    Dich. Ich habe noch nie jemanden mit Deinem Hintergrund gecoacht. Lass uns
+    gegenseitig ehrlich sein wenn etwas nicht funktioniert.
+  </p>
+  <h2 style="margin-top: 2rem;">Wir schaffen das.<br><em>Bis Dienstag.</em></h2>
+  <p style="margin-top: 2rem; font-family: 'Fraunces', Georgia, serif; font-style: italic; font-size: 1.2rem; color: var(--coral);">Daniel</p>
+  <div class="footer-note">
+    Nobrainer AI · Daniel Peric · info@nobrainer-ai.at · +43 660 522 11 49<br>
+    Dieses Dokument ist vertraulich und nur für Kristina und David bestimmt.
+  </div>
+</div>
+
+<script>
+const form = document.getElementById('intake-form');
+const successMsg = document.getElementById('success');
+const sendBtn = document.getElementById('send-btn');
+const emailFallback = document.getElementById('email-fallback');
+
+function collectAnswers() {
+  const f = new FormData(form);
+  const tools = Array.from(form.querySelectorAll('input[name="tools"]:checked')).map(c => c.value);
+  const otherTools = f.get('q3_other');
+  const days = Array.from(form.querySelectorAll('input[name="days"]:checked')).map(c => c.value);
+  const times = Array.from(form.querySelectorAll('input[name="times"]:checked')).map(c => c.value);
+
+  let msg = `*Kristinas Fragebogen – Jetski Lefkada*\n\n`;
+  msg += `*01 – Was nervt am meisten:*\n${f.get('q1') || '–'}\n\n`;
+  msg += `*02 – Stunden/Woche:*\n${f.get('q2') || '–'}\n\n`;
+  msg += `*03 – Tools:*\n${tools.join(', ')}${otherTools ? ', ' + otherTools : ''}\n\n`;
+  msg += `*04 – Sprachen:*\nEN: ${f.get('q4_en') || '–'} | DE: ${f.get('q4_de') || '–'} | IT: ${f.get('q4_it') || '–'} | EL: ${f.get('q4_el') || '–'}\n\n`;
+  msg += `*05 – Anfragen/Woche:*\nHochsaison: ${f.get('q5_high') || '–'} | Nebensaison: ${f.get('q5_low') || '–'}\n\n`;
+  msg += `*06 – Aufgabe abgeben:*\n${f.get('q6') || '–'}\n\n`;
+  msg += `*07 – Coaching-Zeiten:*\nTage: ${days.join(', ') || '–'} | Zeiten: ${times.join(', ') || '–'}\n\n`;
+  msg += `*08 – Größte Sorge:*\n${f.get('q8') || '–'}`;
+  return msg;
+}
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const msg = collectAnswers();
+  const encoded = encodeURIComponent(msg);
+  window.open(`https://wa.me/436605221149?text=${encoded}`, '_blank');
+  sendBtn.style.display = 'none';
+  emailFallback.style.display = 'none';
+  successMsg.classList.add('visible');
+});
+
+emailFallback.addEventListener('click', function(e) {
+  e.preventDefault();
+  const msg = collectAnswers();
+  const subject = encodeURIComponent('Fragebogen Kristina – Jetski Lefkada');
+  const body = encodeURIComponent(msg.replace(/\*/g, ''));
+  window.location.href = `mailto:info@nobrainer-ai.at?subject=${subject}&body=${body}`;
+});
+</script>
+
+</body>
+</html>

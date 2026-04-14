@@ -1,0 +1,1 @@
+import{L as a}from"./lenis.CBlNbkdS.js";const i=window.matchMedia("(prefers-reduced-motion: reduce)");if(!i.matches){const n=new a({duration:1.25,easing:e=>Math.min(1,1.001-Math.pow(2,-10*e)),smoothWheel:!0}),t=e=>{n.raf(e),requestAnimationFrame(t)};requestAnimationFrame(t)}
