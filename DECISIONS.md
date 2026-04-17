@@ -6,14 +6,16 @@ Claude darf NIEMALS Preise oder Regeln erfinden, die hier nicht stehen.
 
 ---
 
-## Preisliste (Saison 2026)
+## Flotte & Preisliste (Saison 2026)
+
+Stand 2026-04-17: Flotte reduziert auf nur Sea-Doo (Yamahas ausgemustert/verkauft).
 
 | Name           | Marke    | Modell         | PS  | Sitze | €/Stunde | €/Halbtag (4h) | €/Ganztag (8h) |
 |----------------|----------|----------------|-----|-------|----------|----------------|----------------|
-| The Cruiser    | Yamaha   | VX Cruiser HO  | 180 | 3     | €95      | €290           | €490           |
 | The Challenger | Sea-Doo  | RXT-X 300      | 300 | 3     | €140     | €420           | €690           |
-| The Voyager    | Yamaha   | FX SVHO        | 250 | 3     | €120     | €360           | €590           |
 | The Acrobat    | Sea-Doo  | Spark Trixx    | 90  | 2     | €70      | €210           | €350           |
+
+**Zusatzangebot: Water Fun** – 3-Reifen-Tubing hinter dem Jetski, **€30 pro Person**.
 
 **Anzahlung:** 30% bei Buchung, Rest am Tag selbst.
 **Zahlungsmethoden:** Viva Wallet, Bar (Euro), Karte.

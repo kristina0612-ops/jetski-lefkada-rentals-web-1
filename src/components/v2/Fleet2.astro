@@ -7,14 +7,14 @@ import { jetskis } from "../../data/jetskis";
     <!-- Header -->
     <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-24">
       <div class="col-span-12 lg:col-span-8">
-        <div class="v2-eyebrow mb-6"><span>The Fleet · 4 machines</span></div>
+        <div class="v2-eyebrow mb-6"><span>The Fleet · Sea-Doo only</span></div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
           Pick your <em>weapon.</em><br />Then ride it.
         </h2>
       </div>
       <div class="col-span-12 lg:col-span-4 flex items-end">
         <p class="text-lg leading-relaxed max-w-md" style="color: rgba(7,29,48,0.75);">
-          Every jetski is cleaned, fueled and ready within 15 minutes of your
+          Every Sea-Doo is cleaned, fueled and ready within 15 minutes of your
           booking window. Live availability updates in real time.
         </p>
       </div>
@@ -30,7 +30,7 @@ import { jetskis } from "../../data/jetskis";
             "col-span-12 lg:col-span-5",
             "col-span-12 lg:col-span-7",
           ];
-          const isFeatured = i === 1;
+          const isFeatured = i === 0;
           return (
             <article
               class:list={["group v2-spotlight", spans[i]]}
