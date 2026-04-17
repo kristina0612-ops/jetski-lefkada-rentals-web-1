@@ -1,0 +1,107 @@
+---
+import LayoutBare from "../layouts/LayoutBare.astro";
+---
+
+<LayoutBare
+  title="Terms & Conditions · Jetski Lefkada Rentals"
+  description="Booking terms, cancellation policy and rental conditions for Jetski Lefkada Rentals."
+  themeColor="#fdfbf4"
+>
+  <style>
+    body { background: #fdfbf4; color: #0a1220; font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    .legal-page { max-width: 680px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+    h1 { font-family: "Fraunces Variable", Georgia, serif; font-size: 3rem; font-weight: 400; letter-spacing: -0.03em; margin-bottom: 2rem; line-height: 1.1; }
+    h1 em { font-style: italic; color: #ff5a36; }
+    h2 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.4rem; font-weight: 400; margin: 2.5rem 0 0.75rem; }
+    p, ul, table { font-size: 1rem; line-height: 1.8; color: #2a3a4a; margin-bottom: 1rem; }
+    ul { padding-left: 1.5rem; }
+    li { margin-bottom: 0.5rem; }
+    a { color: #00b3a7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8d; margin-bottom: 3rem; }
+    .back:hover { color: #0a1220; }
+    .divider { width: 40px; height: 2px; background: linear-gradient(90deg, #ff5a36, #ffc233); margin: 2rem 0; border-radius: 1px; }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    th { text-align: left; padding: 0.75rem 1rem; border-bottom: 2px solid #0a1220; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    td { padding: 0.75rem 1rem; border-bottom: 1px solid #e8e4da; }
+    .warn { background: #fff0ec; border-left: 3px solid #ff5a36; padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  </style>
+
+  <div class="legal-page">
+    <a href="/v2" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      Back to site
+    </a>
+
+    <h1>Terms &<br><em>Conditions</em></h1>
+    <div class="divider"></div>
+
+    <h2>1. Booking & Payment</h2>
+    <ul>
+      <li>Bookings are confirmed upon receipt of 30% deposit</li>
+      <li>Remaining balance due on the day of rental</li>
+      <li>Accepted: Viva Wallet, cash (EUR), card</li>
+      <li>Minimum age: 18 years with valid photo ID</li>
+      <li>No boating licence required</li>
+    </ul>
+
+    <h2>2. Cancellation Policy</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Notice given</th>
+          <th>Refund</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>More than 48 hours before</td><td>100% – full refund</td></tr>
+        <tr><td>24–48 hours before</td><td>50% refund</td></tr>
+        <tr><td>Less than 24 hours</td><td>No refund</td></tr>
+        <tr><td>Weather cancellation (Beaufort 5+)</td><td>100% refund or free rebooking</td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. Weather Policy</h2>
+    <p>
+      We monitor wind conditions every morning. If wind exceeds Beaufort 5, all operations
+      are suspended as required by Greek Coast Guard regulations. You will be notified
+      as early as possible and offered a full refund or free rebooking.
+    </p>
+
+    <h2>4. Safety Rules</h2>
+    <ul>
+      <li>All operators must complete a 10-minute safety briefing before departure</li>
+      <li>Life vest must be worn at all times</li>
+      <li>Maximum distance from shore: 700 metres (Greek Coast Guard regulation)</li>
+      <li>No entry into marked swimming zones (buoy areas)</li>
+      <li>Operating under the influence of alcohol or drugs is strictly prohibited and results in immediate termination without refund</li>
+    </ul>
+
+    <h2>5. Liability & Damage</h2>
+    <p>
+      Third-party liability is covered up to €700,000 per incident (Greek Law 4926/2022).
+      Operators are personally liable for damage caused by reckless or prohibited behaviour.
+      In case of damage, a written incident report will be completed on site.
+    </p>
+
+    <div class="warn">
+      <strong>Important:</strong> Personal accident insurance for riders is not included.
+      We strongly recommend travel insurance that covers water sports activities.
+    </div>
+
+    <h2>6. Force Majeure</h2>
+    <p>
+      Jetski Lefkada Rentals is not liable for cancellations or delays caused by
+      extreme weather, acts of God, or orders from Greek maritime authorities.
+    </p>
+
+    <h2>7. Governing Law</h2>
+    <p>
+      These terms are governed by Greek law. Any disputes shall be subject to the
+      exclusive jurisdiction of the courts of Lefkada, Greece.
+    </p>
+
+    <div class="divider"></div>
+    <p style="font-size: 0.85rem; color: #6b7a8d;">Last updated: April 2026</p>
+  </div>
+</LayoutBare>

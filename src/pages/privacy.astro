@@ -1,0 +1,92 @@
+---
+import LayoutBare from "../layouts/LayoutBare.astro";
+---
+
+<LayoutBare
+  title="Privacy Policy · Jetski Lefkada Rentals"
+  description="How Jetski Lefkada Rentals handles your personal data."
+  themeColor="#fdfbf4"
+>
+  <style>
+    body { background: #fdfbf4; color: #0a1220; font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    .legal-page { max-width: 680px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+    h1 { font-family: "Fraunces Variable", Georgia, serif; font-size: 3rem; font-weight: 400; letter-spacing: -0.03em; margin-bottom: 2rem; line-height: 1.1; }
+    h1 em { font-style: italic; color: #ff5a36; }
+    h2 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.4rem; font-weight: 400; margin: 2.5rem 0 0.75rem; }
+    p, ul { font-size: 1rem; line-height: 1.8; color: #2a3a4a; margin-bottom: 1rem; }
+    ul { padding-left: 1.5rem; }
+    li { margin-bottom: 0.5rem; }
+    a { color: #00b3a7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8d; margin-bottom: 3rem; }
+    .back:hover { color: #0a1220; }
+    .divider { width: 40px; height: 2px; background: linear-gradient(90deg, #ff5a36, #ffc233); margin: 2rem 0; border-radius: 1px; }
+    .highlight { background: #f0f7f6; border-left: 3px solid #00b3a7; padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; }
+  </style>
+
+  <div class="legal-page">
+    <a href="/v2" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      Back to site
+    </a>
+
+    <h1>Privacy<br><em>Policy</em></h1>
+    <div class="divider"></div>
+
+    <div class="highlight">
+      <strong>Short version:</strong> We collect only what we need to process your booking. We don't sell your data. We don't use tracking cookies.
+    </div>
+
+    <h2>Who We Are</h2>
+    <p>
+      Jetski Lefkada Rentals, operated by David Goldberg, Nidri Harbour, Lefkada, Greece.
+      Contact: <a href="https://wa.me/306955612777">+30 695 561 2777</a>
+    </p>
+
+    <h2>What Data We Collect</h2>
+    <ul>
+      <li><strong>Booking inquiries:</strong> Name, contact details (WhatsApp/email), preferred date and jetski</li>
+      <li><strong>On-site:</strong> Government-issued ID number (required by Greek maritime law for all operators)</li>
+      <li><strong>Payment:</strong> Processed via Viva Wallet – we do not store card details</li>
+    </ul>
+
+    <h2>Why We Collect It</h2>
+    <ul>
+      <li>To confirm and manage your booking</li>
+      <li>To comply with Greek Coast Guard regulations (Law 4926/2022)</li>
+      <li>To process payment and issue refunds if applicable</li>
+      <li>To contact you about weather cancellations or changes</li>
+    </ul>
+
+    <h2>How Long We Keep It</h2>
+    <p>
+      Booking records are kept for 3 years as required by Greek tax and maritime regulations.
+      After that, all personal data is deleted.
+    </p>
+
+    <h2>Who Has Access</h2>
+    <p>
+      Only David and Kristina Goldberg have access to your data. We do not share it with
+      third parties except where required by Greek law (e.g. Coast Guard incident reports).
+    </p>
+
+    <h2>Your Rights (GDPR)</h2>
+    <p>You have the right to:</p>
+    <ul>
+      <li>Access the data we hold about you</li>
+      <li>Request correction of inaccurate data</li>
+      <li>Request deletion (where not prevented by legal obligations)</li>
+      <li>Object to processing</li>
+    </ul>
+    <p>To exercise these rights, contact us via WhatsApp: <a href="https://wa.me/306955612777">+30 695 561 2777</a></p>
+
+    <h2>Cookies</h2>
+    <p>
+      This website does not use tracking cookies or analytics scripts.
+      No personal data is collected by simply visiting this site.
+    </p>
+
+    <div class="divider"></div>
+    <p style="font-size: 0.85rem; color: #6b7a8d;">Last updated: April 2026 · Governing law: Greece / EU GDPR</p>
+  </div>
+</LayoutBare>

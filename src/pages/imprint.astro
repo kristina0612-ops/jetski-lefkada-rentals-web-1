@@ -1,0 +1,70 @@
+---
+import LayoutBare from "../layouts/LayoutBare.astro";
+---
+
+<LayoutBare
+  title="Imprint · Jetski Lefkada Rentals"
+  description="Legal information and contact details for Jetski Lefkada Rentals."
+  themeColor="#fdfbf4"
+>
+  <style>
+    body { background: #fdfbf4; color: #0a1220; font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    .legal-page { max-width: 680px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+    h1 { font-family: "Fraunces Variable", Georgia, serif; font-size: 3rem; font-weight: 400; letter-spacing: -0.03em; margin-bottom: 2rem; line-height: 1.1; }
+    h1 em { font-style: italic; color: #ff5a36; }
+    h2 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.4rem; font-weight: 400; margin: 2.5rem 0 0.75rem; }
+    p, address { font-size: 1rem; line-height: 1.8; color: #2a3a4a; margin-bottom: 1rem; font-style: normal; }
+    a { color: #00b3a7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8d; margin-bottom: 3rem; }
+    .back:hover { color: #0a1220; }
+    .divider { width: 40px; height: 2px; background: linear-gradient(90deg, #ff5a36, #ffc233); margin: 2rem 0; border-radius: 1px; }
+  </style>
+
+  <div class="legal-page">
+    <a href="/v2" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      Back to site
+    </a>
+
+    <h1>Imprint &<br><em>Legal Notice</em></h1>
+    <div class="divider"></div>
+
+    <h2>Business Details</h2>
+    <address>
+      <strong>Jetski Lefkada Rentals</strong><br>
+      Owner: David Goldberg<br>
+      Nidri Harbour, Lefkada<br>
+      311 00 Lefkada, Greece
+    </address>
+
+    <h2>Contact</h2>
+    <p>
+      WhatsApp: <a href="https://wa.me/306955612777">+30 695 561 2777</a><br>
+      Location: Nidri Dock, Lefkada, Ionian Islands, Greece
+    </p>
+
+    <h2>Operating Licence</h2>
+    <p>
+      Operating under Greek maritime regulations for personal watercraft rental.
+      All jetskis are registered and insured in accordance with Greek Law 4926/2022
+      governing recreational watercraft operations.
+    </p>
+
+    <h2>Liability Insurance</h2>
+    <p>
+      Third-party liability coverage: €700,000 per incident.<br>
+      Insurance provider details available upon request.
+    </p>
+
+    <h2>Dispute Resolution</h2>
+    <p>
+      In the event of a dispute, Greek law applies. Jurisdiction: Courts of Lefkada, Greece.
+      For consumer disputes, the EU Online Dispute Resolution platform may be used:
+      <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">ec.europa.eu/consumers/odr</a>
+    </p>
+
+    <div class="divider"></div>
+    <p style="font-size: 0.85rem; color: #6b7a8d;">Last updated: April 2026</p>
+  </div>
+</LayoutBare>

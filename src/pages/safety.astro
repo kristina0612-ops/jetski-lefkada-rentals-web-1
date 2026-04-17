@@ -1,0 +1,132 @@
+---
+import LayoutBare from "../layouts/LayoutBare.astro";
+---
+
+<LayoutBare
+  title="Safety · Jetski Lefkada Rentals"
+  description="Safety guidelines, rules and emergency contacts for jetski rental on Lefkada."
+  themeColor="#fdfbf4"
+>
+  <style>
+    body { background: #fdfbf4; color: #0a1220; font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    .legal-page { max-width: 680px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+    h1 { font-family: "Fraunces Variable", Georgia, serif; font-size: 3rem; font-weight: 400; letter-spacing: -0.03em; margin-bottom: 2rem; line-height: 1.1; }
+    h1 em { font-style: italic; color: #ff5a36; }
+    h2 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.4rem; font-weight: 400; margin: 2.5rem 0 0.75rem; }
+    p, ul { font-size: 1rem; line-height: 1.8; color: #2a3a4a; margin-bottom: 1rem; }
+    ul { padding-left: 1.5rem; }
+    li { margin-bottom: 0.5rem; }
+    a { color: #00b3a7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8d; margin-bottom: 3rem; }
+    .back:hover { color: #0a1220; }
+    .divider { width: 40px; height: 2px; background: linear-gradient(90deg, #ff5a36, #ffc233); margin: 2rem 0; border-radius: 1px; }
+    .emergency-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+    .emergency-card { background: #0a1220; color: #fdfbf4; padding: 1.25rem; border-radius: 12px; }
+    .emergency-card .number { font-family: "Fraunces Variable", Georgia, serif; font-size: 2.5rem; font-weight: 300; color: #ff5a36; line-height: 1; }
+    .emergency-card .label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(253,251,244,0.6); margin-top: 0.5rem; }
+    .rule-card { display: flex; gap: 1rem; align-items: flex-start; padding: 1rem; background: white; border: 1.5px solid #e8e4da; border-radius: 12px; margin-bottom: 0.75rem; }
+    .rule-icon { font-size: 1.5rem; min-width: 36px; text-align: center; }
+    .rule-card h3 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.1rem; font-weight: 400; margin: 0 0 0.25rem; }
+    .rule-card p { font-size: 0.9rem; color: #6b7a8d; margin: 0; }
+    @media (max-width: 500px) { .emergency-grid { grid-template-columns: 1fr; } }
+  </style>
+
+  <div class="legal-page">
+    <a href="/v2" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      Back to site
+    </a>
+
+    <h1>Safety on<br><em>the Water</em></h1>
+    <div class="divider"></div>
+
+    <p style="font-size: 1.1rem;">
+      David runs a 10-minute briefing before every ride. No exceptions.
+      Here's what you need to know before you hit the water.
+    </p>
+
+    <h2>Emergency Numbers</h2>
+    <div class="emergency-grid">
+      <div class="emergency-card">
+        <div class="number">112</div>
+        <div class="label">Emergency · Greece</div>
+      </div>
+      <div class="emergency-card">
+        <div class="number">108</div>
+        <div class="label">Coast Guard · Lefkada</div>
+      </div>
+      <div class="emergency-card">
+        <div class="number">+30 695 561 2777</div>
+        <div class="label">David · WhatsApp</div>
+      </div>
+      <div class="emergency-card">
+        <div class="number">26450 22100</div>
+        <div class="label">Police · Lefkada</div>
+      </div>
+    </div>
+
+    <h2>The Rules</h2>
+
+    <div class="rule-card">
+      <div class="rule-icon">🦺</div>
+      <div>
+        <h3>Life vest at all times</h3>
+        <p>Vests are provided and must be worn from the moment you leave the dock. No exceptions.</p>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-icon">📏</div>
+      <div>
+        <h3>Stay within 700 metres of shore</h3>
+        <p>Greek Coast Guard regulation. Exceeding this limit ends your rental immediately.</p>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-icon">🚫</div>
+      <div>
+        <h3>No swimming zones</h3>
+        <p>Never enter buoy-marked areas. Swimmers have absolute right of way.</p>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-icon">🍺</div>
+      <div>
+        <h3>Zero alcohol</h3>
+        <p>Operating under the influence is illegal in Greece and ends your rental with no refund.</p>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-icon">🌬️</div>
+      <div>
+        <h3>Wind above Beaufort 5 = we stop</h3>
+        <p>David checks conditions every morning. If it's too windy, we call it. You get a full refund or free rebooking.</p>
+      </div>
+    </div>
+
+    <div class="rule-card">
+      <div class="rule-icon">👤</div>
+      <div>
+        <h3>One operator at a time</h3>
+        <p>Only the person who signed the waiver may operate the jetski. Passengers must hold the handgrips provided.</p>
+      </div>
+    </div>
+
+    <h2>If Something Goes Wrong</h2>
+    <ul>
+      <li><strong>Medical emergency:</strong> Call 112 immediately. Return to dock if safe to do so.</li>
+      <li><strong>Breakdown on water:</strong> Stay with the jetski. Call David: +30 695 561 2777.</li>
+      <li><strong>Collision or damage:</strong> Return to dock. We complete an incident report together.</li>
+      <li><strong>Lost at sea:</strong> Call Coast Guard 108. Activate the jetski's kill-switch lanyard.</li>
+    </ul>
+
+    <div class="divider"></div>
+    <p style="font-size: 0.85rem; color: #6b7a8d;">
+      Safety guidelines comply with Greek Law 4926/2022 and Lefkada Port Authority regulations.
+    </p>
+  </div>
+</LayoutBare>
