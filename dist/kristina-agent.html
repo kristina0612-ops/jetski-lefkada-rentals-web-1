@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dein Claude Code Agent – Was er kann</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ff5a36'/%3E%3Ctext x='50%25' y='50%25' font-family='serif' font-size='18' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='central'%3EN%3C/text%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap');
+  :root { --ink: #0a1220; --paper: #fdfbf4; --coral: #ff5a36; --sun: #ffc233; --turq: #00b3a7; --muted: #6b7a8d; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.7; font-size: 17px; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 3rem 2rem; }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 400; letter-spacing: -0.03em; }
+  h1 { font-size: 3rem; line-height: 1.05; margin-bottom: 1.5rem; }
+  h2 { font-size: 1.8rem; line-height: 1.15; margin: 3rem 0 1rem; }
+  h3 { font-size: 1.3rem; margin: 2rem 0 0.75rem; }
+  h1 em, h2 em { font-style: italic; font-weight: 300; color: var(--coral); }
+  p { margin-bottom: 1rem; color: #2a3a4a; }
+  .eyebrow { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--turq); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+  .eyebrow::before { content: ''; width: 32px; height: 2px; background: var(--turq); }
+  .divider { width: 60px; height: 3px; background: linear-gradient(90deg, var(--coral), var(--sun)); margin: 2.5rem 0; border-radius: 2px; }
+
+  .can-card {
+    display: flex; gap: 1.25rem; align-items: flex-start; margin: 1.25rem 0;
+    padding: 1.25rem 1.5rem; background: white; border: 1.5px solid var(--ink);
+    border-radius: 16px; transition: transform 0.3s ease;
+  }
+  .can-card:hover { transform: translateY(-3px); box-shadow: 4px 4px 0 var(--ink); }
+  .can-icon { font-size: 2rem; min-width: 44px; text-align: center; line-height: 1.2; }
+  .can-card h3 { margin: 0 0 0.25rem; font-size: 1.1rem; }
+  .can-card p { font-size: 0.9rem; margin: 0; color: var(--muted); }
+  .can-card .example { font-size: 0.8rem; margin-top: 0.5rem; padding: 0.5rem 0.75rem; background: #f5f3ed; border-radius: 8px; font-style: italic; color: var(--ink); }
+
+  .prompt-box {
+    margin: 2rem 0; padding: 1.5rem; background: var(--ink); color: var(--paper);
+    border-radius: 16px; font-size: 0.95rem; line-height: 1.6;
+    position: relative; overflow: hidden;
+  }
+  .prompt-box::before {
+    content: 'PROMPT'; position: absolute; top: 0.75rem; right: 1rem;
+    font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--turq); font-weight: 600;
+  }
+  .prompt-box p { color: rgba(253,251,244,0.9); }
+  .prompt-box strong { color: var(--coral); }
+
+  .copy-btn {
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    width: 100%; padding: 0.75rem; margin-top: 1rem;
+    background: var(--coral); color: white; border: none; border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+    cursor: pointer; transition: all 0.3s ease;
+  }
+  .copy-btn:hover { background: #e5421f; transform: translateY(-1px); }
+  .copy-btn.copied { background: var(--turq); }
+
+  .coral-box { background: #fff0ec; border-left: 4px solid var(--coral); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+  .turq-box { background: #f0f7f6; border-left: 4px solid var(--turq); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+  .sun-box { background: #fff9e6; border-left: 4px solid var(--sun); padding: 1.25rem 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+
+  .safety-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
+  .safety-item { padding: 1rem; background: white; border: 1.5px solid #e8e4da; border-radius: 12px; font-size: 0.85rem; }
+  .safety-item strong { display: block; margin-bottom: 0.25rem; font-size: 0.9rem; }
+  .safety-item .tag { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .safety-item .tag-auto { color: var(--turq); }
+  .safety-item .tag-ask { color: var(--sun); }
+  .safety-item .tag-never { color: var(--coral); }
+
+  .footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #e8e4da; font-size: 0.8rem; color: var(--muted); text-align: center; }
+  @media (max-width: 600px) { .wrap { padding: 2rem 1.25rem; } h1 { font-size: 2.2rem; } .safety-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="eyebrow"><span>Nobrainer AI · Dein persönlicher Claude Code Agent</span></div>
+
+<h1>Was Dein Agent<br><em>alles kann.</em></h1>
+
+<p style="font-size: 1.15rem; max-width: 540px;">
+  Kristina, Dein Claude Code Agent ist nicht einfach ein Chat-Programm. Er kennt
+  Dein Business, schützt Dich vor Fehlern und erledigt echte Aufgaben. Hier ist
+  was er für Dich tun kann – und was nicht.
+</p>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ WAS ER KANN ═══════════════ -->
+<h2>Das kann er <em>für Dich tun:</em></h2>
+
+<div class="can-card">
+  <div class="can-icon">✉️</div>
+  <div>
+    <h3>Kunden-E-Mails beantworten</h3>
+    <p>Du sagst „Beantworte diese Anfrage" – er schreibt eine professionelle Antwort in der Sprache des Kunden (Englisch, Deutsch, Italienisch, Griechisch). Du liest, korrigierst wenn nötig, schickst raus.</p>
+    <div class="example">„Claude, beantworte die Buchungsanfrage von Marco aus Rom. Er will 2 Stunden am Mittwoch."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">⭐</div>
+  <div>
+    <h3>Google- und TripAdvisor-Reviews beantworten</h3>
+    <p>Er kennt Euren Tonfall und schreibt passende Antworten – auch bei kritischen Reviews. Immer freundlich, immer professionell.</p>
+    <div class="example">„Claude, hier ist eine 3-Sterne-Review. Der Kunde fand das Wasser zu wellig. Schreib eine Antwort."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">🌊</div>
+  <div>
+    <h3>Wetter prüfen und Empfehlung geben</h3>
+    <p>Morgens fragen: „Wie sieht das Wetter heute aus?" Er checkt den Wind (Beaufort-Skala) und sagt Dir ob Ihr öffnen könnt oder sperren müsst.</p>
+    <div class="example">„Claude, wie ist das Wetter morgen? Sollen wir die 3 Buchungen verschieben?"</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">📸</div>
+  <div>
+    <h3>Instagram-Posts erstellen</h3>
+    <p>Du gibst ihm ein Foto oder beschreibst die Situation. Er macht daraus einen fertigen Post mit Caption, Hashtags und Standort.</p>
+    <div class="example">„Claude, David hat ein Foto von einem glücklichen Pärchen auf dem Cruiser gemacht. Mach einen Instagram-Post."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">📋</div>
+  <div>
+    <h3>Schadensprotokolle erstellen</h3>
+    <p>Wenn ein Kunde etwas beschädigt, erstellt er ein strukturiertes Protokoll für die Versicherung – mit allen nötigen Feldern.</p>
+    <div class="example">„Claude, Jetski #3 hat einen Kratzer am Bug. Kunde war Marco R. Erstelle ein Schadensprotokoll."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">🔄</div>
+  <div>
+    <h3>Nachfass bei nicht-gebuchten Anfragen</h3>
+    <p>Wenn jemand angefragt aber nicht gebucht hat: er schreibt eine freundliche Erinnerung die nicht aufdringlich wirkt.</p>
+    <div class="example">„Claude, Sophie aus München hat vor 3 Tagen angefragt aber nicht gebucht. Schreib eine nette Erinnerung."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">🌐</div>
+  <div>
+    <h3>Website-Texte und Preise ändern</h3>
+    <p>Du sagst was sich ändern soll, er ändert es direkt in der Datei. Du musst keinen Code verstehen.</p>
+    <div class="example">„Claude, ändere den Preis für den Challenger auf 150 Euro pro Stunde in der Hochsaison."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">📊</div>
+  <div>
+    <h3>Monatsberichte erstellen</h3>
+    <p>Wie viele Buchungen, Umsatz, häufigste Beschwerden, beste Jetskis – er fasst zusammen was Du ihm gibst.</p>
+    <div class="example">„Claude, hier sind die Juli-Zahlen. Mach einen Monatsbericht für David."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">🗺️</div>
+  <div>
+    <h3>Personalisierte Safety-Briefings</h3>
+    <p>Je nach Gruppe (Familie, Erfahrene, Erstfahrer) erstellt er ein angepasstes 10-Minuten-Briefing-Script.</p>
+    <div class="example">„Claude, morgen kommt eine Familie mit 2 Kindern (12 und 14). Erstelle ein Briefing auf Deutsch."</div>
+  </div>
+</div>
+
+<div class="can-card">
+  <div class="can-icon">🧠</div>
+  <div>
+    <h3>Sich Dinge merken – für immer</h3>
+    <p>Du sagst „Bitte merke Dir dass..." und er vergisst es nie. Je länger Ihr zusammenarbeitet, desto besser wird er.</p>
+    <div class="example">„Bitte merke Dir: Herr Schmidt kommt jedes Jahr im August und will immer den Voyager."</div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ SCHUTZ ═══════════════ -->
+<h2>Wie er Dich <em>schützt:</em></h2>
+
+<p>Dein Agent hat eingebaute Sicherheitsregeln damit Du keine teuren Fehler machst. Daniel hat diese Regeln aus 1.000+ Stunden eigener Erfahrung entwickelt.</p>
+
+<div class="safety-grid">
+  <div class="safety-item">
+    <div class="tag tag-auto">MACHT ER ALLEINE</div>
+    <strong>FAQ beantworten</strong>
+    Standardfragen formatieren, Verfügbarkeit checken, Texte übersetzen
+  </div>
+  <div class="safety-item">
+    <div class="tag tag-ask">FRAGT DICH VORHER</div>
+    <strong>E-Mails senden</strong>
+    Zeigt Dir den Entwurf und wartet auf Dein „OK"
+  </div>
+  <div class="safety-item">
+    <div class="tag tag-ask">FRAGT DICH VORHER</div>
+    <strong>Rabatte gewähren</strong>
+    Zeigt Betrag und Begründung, wartet auf Freigabe
+  </div>
+  <div class="safety-item">
+    <div class="tag tag-never">MACHT ER NIE</div>
+    <strong>Geld überweisen</strong>
+    Kein Refund, keine Zahlung ohne Dich
+  </div>
+  <div class="safety-item">
+    <div class="tag tag-ask">FRAGT DICH VORHER</div>
+    <strong>Preise ändern</strong>
+    Zeigt alte vs. neue Preise, wartet auf „OK"
+  </div>
+  <div class="safety-item">
+    <div class="tag tag-never">MACHT ER NIE</div>
+    <strong>Daten löschen</strong>
+    Buchungen und Kundendaten sind geschützt
+  </div>
+  <div class="safety-item">
+    <div class="tag tag-never">MACHT ER NIE</div>
+    <strong>Medizinische Tipps</strong>
+    Bei Unfällen nur: „Ruf 112 und Coast Guard 108"
+  </div>
+  <div class="safety-item">
+    <div class="tag tag-never">MACHT ER NIE</div>
+    <strong>Waiver abschwächen</strong>
+    Der Haftungsausschluss bleibt wie vom Anwalt geprüft
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ PRIORISIERUNG ═══════════════ -->
+<h2>Wie er <em>priorisiert:</em></h2>
+
+<div class="turq-box">
+  <strong>Bei jedem Vorschlag fragt er Dich:</strong><br><br>
+  <strong style="color: var(--turq); font-size: 1.2rem;">JETZT</strong> – machen wir sofort<br>
+  <strong style="color: var(--sun); font-size: 1.2rem;">SPÄTER</strong> – schreiben wir auf für nächste Woche<br>
+  <strong style="color: var(--muted); font-size: 1.2rem;">SKIP</strong> – ignorieren wir, nicht relevant<br><br>
+  So wirst Du nie überfordert. Du bestimmst das Tempo.
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ WERT ═══════════════ -->
+<h2>Was das <em>wert ist:</em></h2>
+
+<div class="coral-box">
+  <p style="margin: 0;">
+    Wenn Du Dir dieses System selbst aufbauen würdest, bräuchtest Du
+    <strong>125–250 Stunden</strong> und würdest dabei teure Fehler machen.
+    Daniel hat 1.000+ Stunden investiert und die besten Erkenntnisse für Dich
+    in 10 Dateien gepackt. Du startest mit einem System das
+    <strong>4.500–7.500 €</strong> an Lernzeit und vermiedenen Fehlern wert ist.
+  </p>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ PROMPT ═══════════════ -->
+<h2>Dein erster <em>Prompt:</em></h2>
+
+<p>Diesen Text kannst Du als allererste Nachricht in Claude Code einfügen. Er aktiviert alle Regeln und sagt Claude wer Du bist.</p>
+
+<div class="prompt-box" id="prompt-text">
+<p>Hallo Claude. Ich bin Kristina und ich arbeite bei Jetski Lefkada Rentals auf der griechischen Insel Lefkada. Mein Mann David ist der Inhaber. Wir vermieten 4-8 Jetskis an Touristen von Mai bis September.</p>
+
+<p><strong>Bitte lies zuerst diese Dateien</strong> bevor Du mir antwortest:</p>
+<p>1. CLAUDE.md (wer wir sind, wie wir arbeiten)<br>
+2. DECISIONS.md (unsere Preise, Regeln, Storno-Bedingungen)<br>
+3. .claude/rules/autonomy-rules.md (was Du alleine darfst und was nicht)<br>
+4. .claude/rules/red-lines.md (was Du NIEMALS tun darfst)<br>
+5. .claude/rules/basics.md (Grundregeln)<br>
+6. Alle Dateien in feedback/ (Verhaltensregeln)</p>
+
+<p><strong>Wichtig für unsere Zusammenarbeit:</strong></p>
+<p>- Ich bin keine Programmiererin. Erkläre alles einfach.<br>
+- Antworte mir auf Deutsch.<br>
+- Antworte Kunden immer in deren Sprache (EN/DE/IT/EL).<br>
+- <strong>Sende NIEMALS eine Nachricht ohne mein explizites „OK".</strong><br>
+- <strong>Erfinde NIEMALS Preise.</strong> Nur was in knowledge/pricing.md steht.<br>
+- Bei JEDEM Vorschlag: frag mich <strong>JETZT / SPÄTER / SKIP</strong>.<br>
+- Wenn Du Dir nicht sicher bist: frag mich, statt zu raten.</p>
+
+<p>Bitte bestätige dass Du alles gelesen hast und sag mir in 3 Sätzen was Du über unser Business weißt.</p>
+</div>
+
+<button class="copy-btn" id="copy-btn" onclick="copyPrompt()">
+  📋 Prompt kopieren
+</button>
+
+<div class="sun-box" style="margin-top: 2rem;">
+  <strong>Was passiert wenn Du diesen Prompt eingibst?</strong><br>
+  Claude Code liest alle Deine Dateien und antwortet mit einer kurzen Zusammenfassung
+  Eures Business. Ab diesem Moment kennt er: Eure Jetskis, Eure Preise, Eure Regeln,
+  Eure Storno-Bedingungen, Euren Tonfall, was er darf und was nicht. Er ist bereit.
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ TIPPS ═══════════════ -->
+<h2>Tipps für den <em>Alltag:</em></h2>
+
+<div class="can-card" style="border-color: var(--turq);">
+  <div class="can-icon">💡</div>
+  <div>
+    <h3>Wenn er etwas falsch macht</h3>
+    <p>Sag: „Das war falsch. Bitte merke Dir: [wie es richtig sein soll]." Er lernt dazu und macht den Fehler nie wieder.</p>
+  </div>
+</div>
+
+<div class="can-card" style="border-color: var(--turq);">
+  <div class="can-icon">💡</div>
+  <div>
+    <h3>Wenn er zu kompliziert erklärt</h3>
+    <p>Sag: „Erkläre das einfacher." Oder: „Erkläre das so dass meine Oma es versteht." Er passt sich an.</p>
+  </div>
+</div>
+
+<div class="can-card" style="border-color: var(--turq);">
+  <div class="can-icon">💡</div>
+  <div>
+    <h3>Wenn Du nicht weiterweißt</h3>
+    <p>Sag: „Ich weiß nicht was ich als nächstes tun soll. Was empfiehlst Du?" Er denkt mit Dir mit.</p>
+  </div>
+</div>
+
+<div class="can-card" style="border-color: var(--turq);">
+  <div class="can-icon">💡</div>
+  <div>
+    <h3>Wenn Du fertig bist für heute</h3>
+    <p>Sag: „Ich mache Feierabend. Gibt es noch etwas Wichtiges?" Er sagt Dir ob etwas offen ist.</p>
+  </div>
+</div>
+
+<div class="footer">
+  Nobrainer AI · Daniel Peric · info@nobrainer-ai.at · +43 660 522 11 49<br>
+  Gebaut mit 1.000+ Stunden Erfahrung. Für Kristina.
+</div>
+
+</div>
+
+<script>
+function copyPrompt() {
+  const text = document.getElementById('prompt-text').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ Kopiert!';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = '📋 Prompt kopieren';
+      btn.classList.remove('copied');
+    }, 3000);
+  });
+}
+</script>
+</body>
+</html>
