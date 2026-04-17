@@ -7,6 +7,46 @@ const links = [
 ];
 ---
 
+<style>
+  #mobile-nav {
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.4s ease;
+  }
+  #mobile-nav[data-open] {
+    transform: translateX(0) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  /* Hamburger → X animation */
+  #nav-toggle[aria-expanded="true"] .nav-bar-1 {
+    transform: rotate(45deg) translate(4.5px, 4.5px);
+  }
+  #nav-toggle[aria-expanded="true"] .nav-bar-2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  #nav-toggle[aria-expanded="true"] .nav-bar-3 {
+    transform: rotate(-45deg) translate(4.5px, -4.5px);
+  }
+
+  .nav-bar-1,
+  .nav-bar-2,
+  .nav-bar-3 {
+    transition: transform 0.3s ease, opacity 0.2s ease;
+    transform-origin: center;
+  }
+
+  /* Mobile nav link hover */
+  .mob-link {
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  .mob-link:hover {
+    color: var(--v2-sun-400);
+    transform: translateX(8px);
+  }
+</style>
+
 <nav class="absolute top-0 left-0 right-0 z-40 pointer-events-none pt-16">
   <div class="pointer-events-auto mx-auto max-w-[1600px] px-6 lg:px-12 flex items-center justify-between">
     <!-- Logo -->
@@ -20,7 +60,7 @@ const links = [
       </div>
     </a>
 
-    <!-- Center pills -->
+    <!-- Center pills (desktop only) -->
     <div class="hidden md:flex items-center gap-1 rounded-full p-1.5 border backdrop-blur-md" style="background: rgba(7,29,48,0.4); border-color: rgba(253,251,244,0.18);">
       {
         links.map((l) => (
@@ -35,16 +75,131 @@ const links = [
       }
     </div>
 
-    <!-- CTA -->
+    <!-- Right side: CTA + Hamburger -->
+    <div class="flex items-center gap-3">
+      <!-- CTA (always visible) -->
+      <a
+        href="#fleet"
+        class="v2-btn !py-3 !px-5 !text-xs"
+        style="background: var(--v2-sun-400); color: var(--v2-ink-950);"
+      >
+        Book Now
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path d="M5 12h14M13 5l7 7-7 7"/>
+        </svg>
+      </a>
+
+      <!-- Hamburger button (mobile only) -->
+      <button
+        id="nav-toggle"
+        class="md:hidden flex flex-col justify-center items-center gap-[5px] w-11 h-11 rounded-full backdrop-blur-md border"
+        style="background: rgba(7,29,48,0.4); border-color: rgba(253,251,244,0.18);"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+      >
+        <span class="nav-bar-1 block w-5 h-[1.5px]" style="background: var(--v2-cream-50);"></span>
+        <span class="nav-bar-2 block w-5 h-[1.5px]" style="background: var(--v2-cream-50);"></span>
+        <span class="nav-bar-3 block w-5 h-[1.5px]" style="background: var(--v2-cream-50);"></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile navigation drawer -->
+<div
+  id="mobile-nav"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Navigation"
+  class="fixed inset-0 z-50 md:hidden flex flex-col"
+  style="background: var(--v2-ink-950, #071d30); transform: translateX(100%); opacity: 0; pointer-events: none;"
+>
+  <!-- Decorative glow -->
+  <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(0,179,167,0.08), transparent 70%);"></div>
+  <div class="absolute top-1/3 left-0 w-64 h-64 rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(255,215,106,0.05), transparent 70%);"></div>
+
+  <!-- Header row -->
+  <div class="relative flex items-center justify-between px-6 pt-12 pb-6 border-b" style="border-color: rgba(253,251,244,0.1);">
+    <a href="/v2" class="flex items-center gap-3" onclick="closeNav()">
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full" style="background: var(--v2-sun-400, #ffc233); color: var(--v2-ink-950, #071d30);">
+        <span class="font-display italic text-lg leading-none">J</span>
+      </span>
+      <span class="font-display text-lg tracking-tight" style="color: var(--v2-cream-50, #fdfbf4);">Jetski Lefkada</span>
+    </a>
+    <button
+      id="nav-close"
+      class="flex items-center justify-center w-11 h-11 rounded-full border backdrop-blur-md"
+      style="background: rgba(253,251,244,0.05); border-color: rgba(253,251,244,0.18); color: var(--v2-cream-50, #fdfbf4);"
+      aria-label="Close navigation"
+    >
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 6L6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Nav links (centered) -->
+  <nav class="relative flex-1 flex flex-col justify-center px-8 gap-2">
+    {
+      links.map((l, i) => (
+        <a
+          href={l.href}
+          class="mob-link font-display text-5xl py-3"
+          style={`color: rgba(253,251,244,0.85); animation-delay: ${i * 0.05}s;`}
+        >
+          {l.label}
+        </a>
+      ))
+    }
+  </nav>
+
+  <!-- Footer CTA -->
+  <div class="relative px-6 pb-12 pt-6 border-t" style="border-color: rgba(253,251,244,0.1);">
     <a
       href="#fleet"
-      class="v2-btn !py-3 !px-5 !text-xs"
-      style="background: var(--v2-sun-400); color: var(--v2-ink-950);"
+      class="v2-btn w-full justify-center !py-4 !text-sm"
+      style="background: var(--v2-sun-400, #ffc233); color: var(--v2-ink-950, #071d30);"
     >
-      Book Now
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+      Book your jetski
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
         <path d="M5 12h14M13 5l7 7-7 7"/>
       </svg>
     </a>
+    <p class="font-mono text-[9px] tracking-[0.2em] uppercase text-center mt-4" style="color: rgba(253,251,244,0.35);">
+      Nidri · Lefkada · May–Sep
+    </p>
   </div>
-</nav>
+</div>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('mobile-nav');
+  const closeBtn = document.getElementById('nav-close');
+
+  function openNav() {
+    drawer.setAttribute('data-open', '');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.documentElement.style.overflow = 'hidden';
+  }
+
+  function closeNav() {
+    drawer.removeAttribute('data-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.documentElement.style.overflow = '';
+  }
+
+  toggle.addEventListener('click', () => {
+    drawer.hasAttribute('data-open') ? closeNav() : openNav();
+  });
+
+  closeBtn.addEventListener('click', closeNav);
+
+  // Close on any nav link tap
+  drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && drawer.hasAttribute('data-open')) closeNav();
+  });
+</script>
