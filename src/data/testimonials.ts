@@ -66,9 +66,9 @@ export const testimonials: Testimonial[] = [
 
 export const liveBookings = [
   { name: "Maria", from: "Munich", when: "2 hours ago", jetski: "The Challenger" },
-  { name: "Paolo", from: "Rome", when: "4 hours ago", jetski: "The Cruiser" },
-  { name: "Emma", from: "London", when: "6 hours ago", jetski: "The Voyager" },
-  { name: "Klaus", from: "Berlin", when: "yesterday", jetski: "The Challenger" },
-  { name: "Chloe", from: "Paris", when: "yesterday", jetski: "The Cruiser" },
-  { name: "Marco", from: "Milan", when: "2 days ago", jetski: "The Voyager" },
+  { name: "Paolo", from: "Rome", when: "4 hours ago", jetski: "The Acrobat" },
+  { name: "Emma", from: "London", when: "6 hours ago", jetski: "The Challenger" },
+  { name: "Klaus", from: "Berlin", when: "yesterday", jetski: "The Acrobat" },
+  { name: "Chloe", from: "Paris", when: "yesterday", jetski: "The Challenger" },
+  { name: "Marco", from: "Milan", when: "2 days ago", jetski: "The Acrobat" },
 ];
