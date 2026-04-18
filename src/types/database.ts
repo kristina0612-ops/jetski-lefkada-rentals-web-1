@@ -10,7 +10,8 @@ export interface Booking {
   booking_date: string; // YYYY-MM-DD
   start_time: string; // HH:MM (09:00)
   duration_minutes: number;
-  jetski_id: "seadoo-rxtx" | "seadoo-spark-trixx";
+  jetski_id: "seadoo-rxtx" | "seadoo-spark-trixx"; // Modell (für Pricing)
+  jetski_unit_id: "challenger-1" | "challenger-2" | "acrobat-1" | "acrobat-2"; // Konkrete Einheit
   service_category: "beach_rides" | "exclusive_experiences" | "vip_delivery";
   service_type?: string; // z.B. "sunsetRide30", "coupleRide30"
 

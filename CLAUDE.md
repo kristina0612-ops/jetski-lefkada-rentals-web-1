@@ -9,7 +9,7 @@ Lies diese Datei ZUERST, bevor du antwortest.
 
 - **Inhaber:** David Goldberg – zuständig für Betrieb, Safety-Briefings, Technik
 - **Kundenkontakt:** Kristina Goldberg – zuständig für Buchungen, E-Mails, Social Media
-- **Standort:** Nidri-Hafen, Lefkada, Griechenland (Ionisches Meer)
+- **Standort:** Lygia Port (Λυγιά), Lefkada, Griechenland (Ionisches Meer)
 - **Saison:** Mai bis September
 - **Gegründet:** 2019
 - **Website:** jetski-lefkada-rentals.com (in Entwicklung)
@@ -38,7 +38,7 @@ Alle Modelle: Baujahr 2024. Je 2 Stück pro Modell.
 
 - **Öffnungszeiten:** 10:00–13:00 und 16:00–19:00 Uhr
 - **Saison:** Mai bis September
-- **Treffpunkt:** Nidri-Dock (GPS-Koordinaten werden ergänzt)
+- **Treffpunkt:** Lygia Port, Lefkada (GPS: 38.7893° N, 20.7192° E)
 - **Parkplatz:** vorhanden am Dock
 
 ---
@@ -61,7 +61,7 @@ Freundlich und direkt – wie wenn David selbst antwortet: entspannt, ehrlich, b
 
 **Gutes Beispiel (Buchungsbestätigung EN):**
 > "Hey Marco! Great choice – the Spark Trixx is perfect for Wednesday.
-> You're confirmed for 10:00 at Nidri dock. Any questions? WhatsApp David: +30 695 561 2777.
+> You're confirmed for 10:00 at Lygia Port. Any questions? WhatsApp David: +30 695 561 2777.
 > See you on the water! – Kristina"
 
 **Was wir NICHT machen:** Lange Entschuldigungen, übertriebene Ausrufezeichen-Ketten, „Sehr geehrter Herr/Frau", leere Versprechen.

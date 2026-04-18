@@ -56,7 +56,7 @@ Ergänzend zu den Stunden-/Halbtag-/Ganztag-Preisen oben führt der Flyer 2026 f
 - **Mindestalter:** 18 Jahre (Lichtbildausweis Pflicht)
 - **Bootsführerschein:** Nicht erforderlich
 - **Briefing:** 10 Minuten Safety-Briefing am Dock – Pflicht für alle Fahrer
-- **Treffpunkt:** Nidri-Dock, Lefkada (GPS wird bei Buchungsbestätigung mitgeschickt)
+- **Treffpunkt:** Lygia Port, Lefkada (GPS: 38.7893° N, 20.7192° E – wird bei Buchungsbestätigung mitgeschickt)
 - **Öffnungszeiten:** 10:00–13:00 und 16:00–19:00 Uhr, Mai bis September
 
 ---

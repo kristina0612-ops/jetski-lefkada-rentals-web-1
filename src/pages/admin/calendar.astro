@@ -2,11 +2,31 @@
 export const prerender = false;
 
 import AdminShell from "../../components/admin/AdminShell.astro";
+import { jetskiUnits } from "../../data/jetskis";
 
 const accessToken = Astro.cookies.get("sb-access-token")?.value;
 if (!accessToken) {
   return Astro.redirect("/admin/login");
 }
+
+// TODO: Buchungen der aktuellen Woche aus Supabase laden
+// Gruppiert nach jetski_unit_id
+const bookingsThisWeek: any[] = [];
+
+// Aktuelle Woche berechnen (Montag–Sonntag)
+const today = new Date();
+const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1; // Mo=0..So=6
+const monday = new Date(today);
+monday.setDate(today.getDate() - dayOfWeek);
+const weekDays = Array.from({ length: 7 }, (_, i) => {
+  const d = new Date(monday);
+  d.setDate(monday.getDate() + i);
+  return {
+    date: d.toISOString().slice(0, 10),
+    label: d.toLocaleDateString("de-DE", { weekday: "short", day: "2-digit", month: "2-digit" }),
+    isToday: d.toDateString() === today.toDateString(),
+  };
+});
 
 // Token aus Environment (später via .env.local)
 const token = import.meta.env.CALENDAR_FEED_TOKEN ?? "TOKEN-NOCH-NICHT-GESETZT";
@@ -15,13 +35,84 @@ const feedUrl = `${siteUrl.replace(/\/$/, "")}/api/calendar.ics?token=${token}`;
 const tokenIsSet = token !== "TOKEN-NOCH-NICHT-GESETZT" && token.length > 10;
 ---
 
-<AdminShell title="Kalender-Sync" activePath="calendar">
+<AdminShell title="Kalender" activePath="calendar">
   <div style="margin-bottom: 2rem;">
     <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em;">
-      Outlook-Kalender-Sync
+      Flotten-Kalender
     </h1>
     <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
-      Abonniere Deine CRM-Buchungen direkt in Outlook auf dem Laptop.
+      Wer hat wann welchen Jetski? Alle 4 Einheiten auf einen Blick.
+    </p>
+  </div>
+
+  <!-- Fleet-Kalender (Wochenansicht pro Jetski) -->
+  <section style="margin-bottom: 4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+      <h3 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 1.25rem; font-weight: 400; margin: 0;">
+        Diese Woche ({weekDays[0].date} – {weekDays[6].date})
+      </h3>
+      <div style="display: flex; gap: 0.5rem;">
+        <button class="btn-secondary" disabled>&larr; Vorherige</button>
+        <button class="btn-secondary">Heute</button>
+        <button class="btn-secondary" disabled>Nächste &rarr;</button>
+      </div>
+    </div>
+
+    <div class="fleet-grid">
+      <!-- Header-Zeile: Wochentage -->
+      <div class="grid-cell header-cell">Jetski</div>
+      {weekDays.map((d) => (
+        <div class={`grid-cell header-cell ${d.isToday ? "is-today" : ""}`}>
+          {d.label}
+          {d.isToday && <span class="today-dot"></span>}
+        </div>
+      ))}
+
+      <!-- Pro Unit eine Zeile -->
+      {jetskiUnits.map((unit) => (
+        <>
+          <div class="grid-cell unit-cell">
+            <div class="unit-label">{unit.label}</div>
+            <div class="unit-sub">{unit.modelId === "seadoo-rxtx" ? "RXT-X 300" : "Spark Trixx"}</div>
+            <div class={`unit-status status-${unit.status}`}>{unit.status}</div>
+          </div>
+          {weekDays.map((d) => {
+            const daysBookings = bookingsThisWeek.filter(
+              (b) => b.jetski_unit_id === unit.id && b.booking_date === d.date
+            );
+            return (
+              <div class={`grid-cell slot-cell ${d.isToday ? "is-today" : ""}`}>
+                {daysBookings.length === 0 ? (
+                  <span class="empty-slot">—</span>
+                ) : (
+                  daysBookings.map((b: any) => (
+                    <a href={`/admin/bookings/${b.id}`} class="booking-pill">
+                      <div class="booking-time">{b.start_time} · {b.duration_minutes}min</div>
+                      <div class="booking-name">{b.customer_name}</div>
+                    </a>
+                  ))
+                )}
+              </div>
+            );
+          })}
+        </>
+      ))}
+    </div>
+
+    {bookingsThisWeek.length === 0 && (
+      <div class="empty-banner">
+        Noch keine Buchungen diese Woche — sobald Supabase angebunden ist und Du Buchungen eintragst, erscheinen sie hier automatisch in der richtigen Zeile + Spalte.
+      </div>
+    )}
+  </section>
+
+  <!-- Outlook-Sync-Setup darunter -->
+  <div style="margin: 3rem 0 2rem;">
+    <h2 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 1.75rem; font-weight: 400; letter-spacing: -0.02em;">
+      Outlook-Kalender-Sync (optional)
+    </h2>
+    <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
+      Abonniere Deine CRM-Buchungen zusätzlich in Outlook auf dem Laptop.
     </p>
   </div>
 
@@ -93,6 +184,121 @@ const tokenIsSet = token !== "TOKEN-NOCH-NICHT-GESETZT" && token.length > 10;
 </AdminShell>
 
 <style>
+  /* Fleet-Kalender-Grid */
+  .fleet-grid {
+    display: grid;
+    grid-template-columns: 200px repeat(7, 1fr);
+    gap: 2px;
+    background: rgba(253, 251, 244, 0.08);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .grid-cell {
+    background: rgba(7, 29, 48, 0.92);
+    padding: 0.75rem 0.6rem;
+    min-height: 60px;
+    font-size: 0.82rem;
+  }
+  .header-cell {
+    background: rgba(0, 0, 0, 0.35);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(253, 251, 244, 0.6);
+    text-align: center;
+    font-weight: 500;
+    position: relative;
+  }
+  .header-cell.is-today {
+    background: rgba(255, 194, 51, 0.12);
+    color: #ffc233;
+  }
+  .today-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #ffc233;
+    margin-left: 0.3rem;
+  }
+  .unit-cell {
+    background: rgba(0, 0, 0, 0.25);
+  }
+  .unit-label {
+    font-family: "Fraunces Variable", Georgia, serif;
+    font-size: 1rem;
+    color: #fdfbf4;
+  }
+  .unit-sub {
+    font-size: 0.7rem;
+    color: rgba(253, 251, 244, 0.5);
+    margin-top: 0.15rem;
+  }
+  .unit-status {
+    display: inline-block;
+    margin-top: 0.4rem;
+    padding: 0.1rem 0.5rem;
+    font-size: 0.65rem;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .status-active { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+  .status-maintenance { background: rgba(255, 194, 51, 0.15); color: #ffc233; }
+  .status-retired { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+
+  .slot-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .slot-cell.is-today { background: rgba(255, 194, 51, 0.04); }
+  .empty-slot { color: rgba(253, 251, 244, 0.2); text-align: center; margin: auto; }
+
+  .booking-pill {
+    display: block;
+    padding: 0.4rem 0.5rem;
+    background: rgba(255, 194, 51, 0.15);
+    border-left: 2px solid #ffc233;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #fdfbf4;
+    font-size: 0.7rem;
+    line-height: 1.3;
+  }
+  .booking-pill:hover { background: rgba(255, 194, 51, 0.25); }
+  .booking-time { font-weight: 600; color: #ffc233; }
+  .booking-name { color: rgba(253, 251, 244, 0.85); margin-top: 0.1rem; }
+
+  .empty-banner {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 194, 51, 0.05);
+    border: 1px dashed rgba(255, 194, 51, 0.3);
+    border-radius: 8px;
+    color: rgba(253, 251, 244, 0.7);
+    font-size: 0.88rem;
+  }
+
+  .btn-secondary {
+    padding: 0.55rem 1rem;
+    background: transparent;
+    color: #fdfbf4;
+    border: 1px solid rgba(253, 251, 244, 0.25);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .btn-secondary:hover:not(:disabled) { background: rgba(253, 251, 244, 0.05); }
+  .btn-secondary:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .fleet-grid { grid-template-columns: 120px repeat(7, minmax(80px, 1fr)); overflow-x: auto; }
+  }
+
   .warning-box {
     background: rgba(239, 68, 68, 0.08);
     border: 1px solid rgba(239, 68, 68, 0.3);

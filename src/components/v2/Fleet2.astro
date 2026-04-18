@@ -93,11 +93,19 @@ import { jetskis } from "../../data/jetskis";
 
                   <div>
                     {/* Price */}
-                    <div class="flex items-baseline gap-1 mb-4">
+                    <div class="flex items-baseline gap-1 mb-2">
                       <span class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v2-turquoise-600);">from</span>
                       <span class="v2-display text-4xl v2-gradient-sun">€{js.pricePerHour}</span>
                       <span class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v2-turquoise-600);">/hr</span>
                     </div>
+                    {js.beachRides.min10 && (
+                      <a href="#calculator" class="inline-flex items-center gap-1.5 mb-4 font-mono text-[10px] uppercase tracking-[0.14em] hover:opacity-70 transition-opacity" style="color: var(--v2-ink-900);">
+                        <span>Beach rides from €{js.beachRides.min10} · 10 min</span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                          <path d="M12 5v14M5 12l7 7 7-7"/>
+                        </svg>
+                      </a>
+                    )}
 
                     <a
                       href={`#book-${js.id}`}

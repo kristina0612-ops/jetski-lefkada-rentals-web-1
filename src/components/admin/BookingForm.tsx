@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { jetskis, pricingExtras, type Jetski } from "../../data/jetskis";
+import { jetskis, jetskiUnits, pricingExtras, type Jetski } from "../../data/jetskis";
 
 type ServiceCategory = "beach_rides" | "exclusive_experiences" | "vip_delivery";
 
@@ -34,7 +34,9 @@ export default function BookingForm() {
   const [bookingDate, setBookingDate] = useState(() => new Date().toISOString().slice(0, 10));
   const [startTime, setStartTime] = useState("10:00");
   const [durationMin, setDurationMin] = useState(60);
-  const [jetskiId, setJetskiId] = useState(jetskis[0].id);
+  const [jetskiUnitId, setJetskiUnitId] = useState(jetskiUnits[0].id);
+  const selectedUnit = jetskiUnits.find((u) => u.id === jetskiUnitId) ?? jetskiUnits[0];
+  const jetskiId = selectedUnit.modelId;
   const [category, setCategory] = useState<ServiceCategory>("beach_rides");
   const [serviceType, setServiceType] = useState("min60");
 
@@ -129,6 +131,7 @@ export default function BookingForm() {
         start_time: startTime,
         duration_minutes: durationMin,
         jetski_id: jetskiId,
+        jetski_unit_id: jetskiUnitId,
         service_category: category,
         service_type: serviceType,
         customer_name: customerName,
@@ -221,32 +224,35 @@ export default function BookingForm() {
         </div>
       </div>
 
-      {/* Jetski */}
+      {/* Jetski Unit (konkrete physische Einheit) */}
       <div style={{ marginBottom: "1.5rem" }}>
-        <label style={labelStyle}>Jetski</label>
+        <label style={labelStyle}>Welcher Jetski konkret</label>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
-          {jetskis.map((j) => (
-            <button
-              key={j.id}
-              type="button"
-              onClick={() => setJetskiId(j.id)}
-              style={{
-                padding: "0.875rem 1rem",
-                borderRadius: "8px",
-                border: jetskiId === j.id ? "1px solid #ffc233" : "1px solid rgba(253,251,244,0.15)",
-                background: jetskiId === j.id ? "rgba(255,194,51,0.1)" : "transparent",
-                color: "#fdfbf4",
-                textAlign: "left",
-                cursor: "pointer",
-                fontFamily: "inherit",
-              }}
-            >
-              <div style={{ fontFamily: "'Fraunces Variable', Georgia, serif", fontSize: "1.1rem" }}>{j.name}</div>
-              <div style={{ fontSize: "0.75rem", color: "rgba(253,251,244,0.65)", marginTop: "0.2rem" }}>
-                {j.model} · {j.hp} HP
-              </div>
-            </button>
-          ))}
+          {jetskiUnits.map((u) => {
+            const model = jetskis.find((j) => j.id === u.modelId);
+            return (
+              <button
+                key={u.id}
+                type="button"
+                onClick={() => setJetskiUnitId(u.id)}
+                style={{
+                  padding: "0.875rem 1rem",
+                  borderRadius: "8px",
+                  border: jetskiUnitId === u.id ? "1px solid #ffc233" : "1px solid rgba(253,251,244,0.15)",
+                  background: jetskiUnitId === u.id ? "rgba(255,194,51,0.1)" : "transparent",
+                  color: "#fdfbf4",
+                  textAlign: "left",
+                  cursor: "pointer",
+                  fontFamily: "inherit",
+                }}
+              >
+                <div style={{ fontFamily: "'Fraunces Variable', Georgia, serif", fontSize: "1.1rem" }}>{u.label}</div>
+                <div style={{ fontSize: "0.75rem", color: "rgba(253,251,244,0.65)", marginTop: "0.2rem" }}>
+                  {model?.model} · {model?.hp} HP
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 

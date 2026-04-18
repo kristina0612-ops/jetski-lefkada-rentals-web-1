@@ -170,7 +170,7 @@ export default function Calculator() {
       { value: "fullDay8h", label: "Full Day (8h)" },
       { value: "week", label: "Full week" },
     ],
-    waterFun: [{ value: "tube", label: "3-ring tube (10 min)" }],
+    waterFun: [{ value: "tube", label: "3-seat tube · 10 min (Jobe Ridge III)" }],
   };
 
   const result = useMemo(

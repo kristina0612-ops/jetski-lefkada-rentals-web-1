@@ -3,6 +3,11 @@
 // - Stunden-/Halbtag-/Ganztag-Preise bleiben UNTERSCHIEDLICH pro Jetski (Classic-Preise).
 // - Beach Rides, Exclusive Experiences, VIP Delivery: gleich teuer bei Challenger + Acrobat.
 // - Water Fun: 30€/Person, Jobe Ridge III (3 Sitze).
+//
+// FLOTTE: Wir haben 4 PHYSISCHE Einheiten (2× Challenger + 2× Acrobat).
+// Buchungen, Umsatzanalyse und Kalender arbeiten auf Unit-Ebene (jetski_unit_id),
+// nicht auf Modell-Ebene (jetski_id). Der fleet-utilization-analyst-Agent
+// aggregiert Umsatz + Auslastung pro Unit.
 
 export interface BeachRides {
   min10: number | null;
@@ -22,6 +27,18 @@ export interface VipDelivery {
   halfDay4h: number | null;
   fullDay8h: number | null;
   week: number | "onRequest" | null;
+}
+
+export interface JetskiUnit {
+  id: string; // z.B. "challenger-1", "acrobat-2"
+  label: string; // z.B. "Challenger #1", "Acrobat Gelb"
+  modelId: string; // FK zu Jetski.id (seadoo-rxtx | seadoo-spark-trixx)
+  serialNumber: string | null; // Hersteller-Seriennummer, später füllen
+  registrationNumber: string | null; // griechische ΛΣ-Registrierung, später füllen
+  color: string | null; // z.B. "yellow-black", "cream"
+  status: "active" | "maintenance" | "retired";
+  commissionedAt: string | null; // YYYY-MM-DD, wann in Dienst gestellt
+  notes?: string;
 }
 
 export interface Jetski {
@@ -119,6 +136,51 @@ export const jetskis: Jetski[] = [
     accent: "#b8925a",
     availableToday: 2,
     totalUnits: 2,
+  },
+];
+
+// FLOTTEN-EINHEITEN — 4 physische Jetskis
+// Jede Buchung referenziert GENAU eine Unit. Labels/Seriennummern liefert Kristina nach.
+export const jetskiUnits: JetskiUnit[] = [
+  {
+    id: "challenger-1",
+    label: "Challenger #1",
+    modelId: "seadoo-rxtx",
+    serialNumber: null,
+    registrationNumber: null,
+    color: null,
+    status: "active",
+    commissionedAt: null,
+  },
+  {
+    id: "challenger-2",
+    label: "Challenger #2",
+    modelId: "seadoo-rxtx",
+    serialNumber: null,
+    registrationNumber: null,
+    color: null,
+    status: "active",
+    commissionedAt: null,
+  },
+  {
+    id: "acrobat-1",
+    label: "Acrobat #1",
+    modelId: "seadoo-spark-trixx",
+    serialNumber: null,
+    registrationNumber: null,
+    color: null,
+    status: "active",
+    commissionedAt: null,
+  },
+  {
+    id: "acrobat-2",
+    label: "Acrobat #2",
+    modelId: "seadoo-spark-trixx",
+    serialNumber: null,
+    registrationNumber: null,
+    color: null,
+    status: "active",
+    commissionedAt: null,
   },
 ];
 

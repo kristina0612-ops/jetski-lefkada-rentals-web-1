@@ -111,9 +111,9 @@ Erste Priorität: die Top-10 Fragen die alle Anbieter haben. Rest kann als „We
 ## 4. On the Day
 
 ### Q13. Where do we meet?
-**EN:** Nidri Harbour (Nidri Dock), Lefkada. GPS: 38.7241°N, 20.6991°E. Exact spot and pin will be shared via WhatsApp after booking confirmation. Parking is available at the dock.
+**EN:** Lygia Port, Lefkada. GPS: 38.7893°N, 20.7192°E. Exact spot and pin will be shared via WhatsApp after booking confirmation. Parking is available at the dock.
 
-**DE:** Nidri-Hafen (Nidri Dock), Lefkada. GPS: 38.7241°N, 20.6991°E. Genauer Treffpunkt und Pin werden nach Buchungsbestätigung per WhatsApp geteilt. Parkplätze sind am Dock vorhanden.
+**DE:** Lygia Port, Lefkada. GPS: 38.7893°N, 20.7192°E. Genauer Treffpunkt und Pin werden nach Buchungsbestätigung per WhatsApp geteilt. Parkplätze sind am Dock vorhanden.
 
 ### Q14. What should I bring?
 **EN:** Photo ID (required), swimwear, towel, sunscreen (reef-safe preferred), water bottle. Leave valuables at your accommodation – we don't have lockers.
