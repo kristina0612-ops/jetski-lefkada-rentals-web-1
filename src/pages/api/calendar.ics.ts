@@ -6,6 +6,7 @@ export const prerender = false;
 
 import type { APIRoute } from "astro";
 import type { Booking } from "../../types/database";
+import { timingSafeEqual } from "../../lib/rate-limit";
 
 function formatIcsDate(date: string, time: string): string {
   // YYYY-MM-DD + HH:MM → YYYYMMDDTHHMMSS
@@ -55,7 +56,8 @@ export const GET: APIRoute = async ({ url }) => {
   const token = url.searchParams.get("token");
   const validToken = import.meta.env.CALENDAR_FEED_TOKEN;
 
-  if (!token || !validToken || token !== validToken) {
+  // Timing-safe Vergleich (schützt gegen Timing-Attacks auf das Secret)
+  if (!token || !validToken || !timingSafeEqual(token, validToken)) {
     return new Response("Forbidden", { status: 403 });
   }
 

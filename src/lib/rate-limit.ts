@@ -91,3 +91,21 @@ export function rateLimitHeaders(
   }
   return headers;
 }
+
+/**
+ * Timing-safe String-Vergleich für Secrets (Tokens, API-Keys).
+ * Schützt gegen Timing-Attacks, die mit normalem === möglich wären.
+ *
+ * WICHTIG: Gibt erst bei gleicher Länge einen konstant-zeitigen Vergleich zurück.
+ * Unterschiedliche Längen führen zu sofortigem false (dieser Längen-Leak ist in
+ * der Praxis vernachlässigbar, weil Secret-Längen meist öffentlich bekannt sind).
+ */
+export function timingSafeEqual(a: string, b: string): boolean {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}

@@ -37,7 +37,7 @@ externe Ressourcen berührt.
 
 | # | Lücke | Risiko | Aufwand | Status |
 |---|---|---|---|---|
-| 1 | **Rate-Limiting auf `/api/admin/login`** | Brute-Force-Angriff auf Passwort | 30 Min | ✅ erledigt 2026-04-18 (`src/lib/rate-limit.ts`, 5 Versuche / 15 Min pro IP) |
+| 1 | **Rate-Limiting auf `/api/admin/login` + `/api/bookings` POST + `/api/expenses` POST** | Brute-Force auf Passwort, Spam-Buchungen/Ausgaben | 30 Min | ✅ erledigt 2026-04-18 (`src/lib/rate-limit.ts`: Login 5/15Min, Bookings & Expenses 20/5Min) |
 | 2 | **Content-Security-Policy (CSP)** | XSS-Angriffe via injected Scripts | 2 h (wg. Inline-Styles/-Scripts prüfen) | 🟡 Report-Only ist aktiv in `vercel.json` (2026-04-18). Enforce-Umstellung nach 1–2 Wochen Monitoring. Aktuelle Allowlist: Google Tag Manager, Vercel Analytics, Supabase, GA4, Speed Insights, mixkit.co (Video) |
 | 3 | **Preview-Deployment-Protection** | `/admin/*` auf öffentlichen Preview-URLs | 1 Klick Dashboard | 🎯 Pro ist aktiv – Dashboard-Klick offen: <https://vercel.com/kristina0612-ops-projects/jetski-lefkada-rentals.com/settings/deployment-protection> |
 | 4 | **Dependabot** (GitHub) | Bekannte CVEs in Dependencies | 2 Klicks GitHub-Settings | ✅ erledigt 2026-04-18 (Kristina) |
