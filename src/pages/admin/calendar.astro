@@ -1,0 +1,249 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../components/admin/AdminShell.astro";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+
+// Token aus Environment (später via .env.local)
+const token = import.meta.env.CALENDAR_FEED_TOKEN ?? "TOKEN-NOCH-NICHT-GESETZT";
+const siteUrl = Astro.site?.toString() ?? "https://jetski-lefkada-rentals.com";
+const feedUrl = `${siteUrl.replace(/\/$/, "")}/api/calendar.ics?token=${token}`;
+const tokenIsSet = token !== "TOKEN-NOCH-NICHT-GESETZT" && token.length > 10;
+---
+
+<AdminShell title="Kalender-Sync" activePath="calendar">
+  <div style="margin-bottom: 2rem;">
+    <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em;">
+      Outlook-Kalender-Sync
+    </h1>
+    <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
+      Abonniere Deine CRM-Buchungen direkt in Outlook auf dem Laptop.
+    </p>
+  </div>
+
+  {!tokenIsSet && (
+    <div class="warning-box">
+      <h3>⚠ Kalender-Token noch nicht eingerichtet</h3>
+      <p>
+        Lege in <code>.env.local</code> folgende Zeile an:<br />
+        <code class="code-block">CALENDAR_FEED_TOKEN=ein-langes-geheimes-passwort-hier</code>
+      </p>
+      <p style="margin-top: 0.75rem;">Das Token muss mindestens 32 Zeichen lang sein. Dann Server neu starten.</p>
+    </div>
+  )}
+
+  <!-- Feed-URL -->
+  <div class="feed-box">
+    <label>Dein privater iCal-Feed:</label>
+    <div class="url-row">
+      <input type="text" value={feedUrl} readonly id="feed-url" />
+      <button id="copy-btn">Kopieren</button>
+    </div>
+    <p class="note">
+      ⚠ Behalte diese URL geheim. Sie gibt Lesezugriff auf alle Deine Buchungen.
+    </p>
+  </div>
+
+  <!-- Setup-Anleitung -->
+  <h3 class="section-title">Outlook einrichten (Windows-Laptop)</h3>
+  <ol class="setup-list">
+    <li>
+      <strong>Outlook öffnen</strong>
+      <p>Desktop-App auf Deinem Laptop (nicht die Web-Version).</p>
+    </li>
+    <li>
+      <strong>Datei → Kontoeinstellungen → Kontoeinstellungen</strong>
+      <p>Oben links in Outlook → Dropdown mit Kontoverwaltung.</p>
+    </li>
+    <li>
+      <strong>Tab „Internetkalender" → „Neu"</strong>
+      <p>Auf den Tab wechseln und auf den Neu-Button klicken.</p>
+    </li>
+    <li>
+      <strong>Die URL oben kopieren und einfügen</strong>
+      <p>Das Feld heißt „Ort des Internetkalenders".</p>
+    </li>
+    <li>
+      <strong>Bestätigen + Name vergeben</strong>
+      <p>
+        Name: <code>Jetski Lefkada Rentals · Buchungen</code><br />
+        Beschreibung: <code>CRM-Buchungen (schreibgeschützt)</code>
+      </p>
+    </li>
+    <li>
+      <strong>Fertig</strong>
+      <p>
+        Outlook zeigt Deine Buchungen jetzt automatisch an. Aktualisierung erfolgt alle 1–2 Stunden.
+      </p>
+    </li>
+  </ol>
+
+  <!-- Wichtige Hinweise -->
+  <h3 class="section-title">Wichtig</h3>
+  <ul class="info-list">
+    <li>📖 <strong>Schreibgeschützt:</strong> Du siehst in Outlook, kannst aber nicht direkt editieren. Änderungen im CRM machen → Outlook updatet sich automatisch.</li>
+    <li>🔄 <strong>Sync-Rhythmus:</strong> Outlook fragt die URL alle 1–2 Stunden ab. Für sofortige Aktualisierung: Rechtsklick auf Kalender → „Senden/Empfangen".</li>
+    <li>🔒 <strong>Sicherheit:</strong> URL niemals weitergeben. Bei Verdacht auf Missbrauch: neues Token generieren.</li>
+    <li>📱 <strong>Handy:</strong> Funktioniert auch mit iOS/Android-Kalendern (als „Internetkalender" hinzufügen).</li>
+  </ul>
+</AdminShell>
+
+<style>
+  .warning-box {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 12px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .warning-box h3 {
+    font-family: "Fraunces Variable", Georgia, serif;
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+    color: #fca5a5;
+  }
+  .warning-box p {
+    color: rgba(253, 251, 244, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .code-block {
+    display: inline-block;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    color: #ffc233;
+    margin-top: 0.4rem;
+  }
+
+  .feed-box {
+    background: rgba(253, 251, 244, 0.04);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .feed-box label {
+    display: block;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(253, 251, 244, 0.5);
+    margin-bottom: 0.75rem;
+  }
+  .url-row { display: flex; gap: 0.5rem; }
+  .url-row input {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 8px;
+    color: #ffc233;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+  }
+  #copy-btn {
+    padding: 0.75rem 1.25rem;
+    background: #ffc233;
+    color: #071d30;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .note {
+    margin-top: 0.75rem;
+    font-size: 0.8rem;
+    color: rgba(253, 251, 244, 0.5);
+  }
+
+  .section-title {
+    font-family: "Fraunces Variable", Georgia, serif;
+    font-size: 1.5rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .setup-list {
+    list-style: none;
+    counter-reset: step;
+    padding: 0;
+  }
+  .setup-list li {
+    counter-increment: step;
+    padding: 1.25rem 0 1.25rem 3rem;
+    position: relative;
+    border-bottom: 1px solid rgba(253, 251, 244, 0.05);
+  }
+  .setup-list li:last-child { border-bottom: none; }
+  .setup-list li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 1.25rem;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(255, 194, 51, 0.15);
+    color: #ffc233;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .setup-list strong {
+    display: block;
+    color: #fdfbf4;
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+  .setup-list p {
+    color: rgba(253, 251, 244, 0.65);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+  }
+  .setup-list code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    color: #ffc233;
+  }
+
+  .info-list {
+    list-style: none;
+    padding: 0;
+  }
+  .info-list li {
+    padding: 0.75rem 0;
+    color: rgba(253, 251, 244, 0.85);
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+</style>
+
+<script>
+  const copyBtn = document.getElementById("copy-btn") as HTMLButtonElement;
+  const urlInput = document.getElementById("feed-url") as HTMLInputElement;
+
+  copyBtn?.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(urlInput.value);
+      copyBtn.textContent = "✓ Kopiert";
+      setTimeout(() => { copyBtn.textContent = "Kopieren"; }, 1800);
+    } catch {
+      urlInput.select();
+      document.execCommand("copy");
+      copyBtn.textContent = "✓ Kopiert";
+      setTimeout(() => { copyBtn.textContent = "Kopieren"; }, 1800);
+    }
+  });
+</script>

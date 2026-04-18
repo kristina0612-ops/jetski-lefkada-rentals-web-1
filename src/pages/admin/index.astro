@@ -1,0 +1,196 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../components/admin/AdminShell.astro";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+
+// TODO: Stats aus Supabase aggregieren sobald live
+const stats = {
+  bookingsToday: 0,
+  bookingsThisWeek: 0,
+  revenueThisMonth: 0,
+  pendingPayments: 0,
+};
+
+const today = new Date().toLocaleDateString("de-DE", {
+  weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const hour = new Date().getHours();
+const greeting = hour < 11 ? "Guten Morgen" : hour < 17 ? "Hallo" : "Guten Abend";
+---
+
+<AdminShell title="Dashboard" activePath="dashboard">
+  <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em;">
+    {greeting}, <em style="color: #ffc233; font-style: italic;">Kristina</em>
+  </h1>
+  <p style="color: rgba(253, 251, 244, 0.65); margin: 0.5rem 0 3rem;">{today}</p>
+
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-label">Heute</div>
+      <div class="stat-value">{stats.bookingsToday}<span class="stat-unit">Buchungen</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Diese Woche</div>
+      <div class="stat-value">{stats.bookingsThisWeek}<span class="stat-unit">Buchungen</span></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Umsatz diesen Monat</div>
+      <div class="stat-value">€{stats.revenueThisMonth}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Offene Zahlungen</div>
+      <div class="stat-value">€{stats.pendingPayments}</div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <h3 class="section-title">Schnelle Aktionen</h3>
+  <div class="actions-grid">
+    <a href="/admin/bookings/new" class="action-card">
+      <div class="action-title">+ Neue Buchung</div>
+      <div class="action-sub">WhatsApp-Anfrage eintragen</div>
+    </a>
+    <a href="/admin/bookings" class="action-card">
+      <div class="action-title">Buchungen anzeigen</div>
+      <div class="action-sub">Alle Buchungen + Filter</div>
+    </a>
+    <a href="/admin/cash-book" class="action-card">
+      <div class="action-title">Kassabuch</div>
+      <div class="action-sub">Einnahmen / Ausgaben</div>
+    </a>
+    <a href="/admin/calendar" class="action-card">
+      <div class="action-title">Kalender-Feed</div>
+      <div class="action-sub">Outlook-Sync-URL</div>
+    </a>
+  </div>
+
+  <!-- Status -->
+  <h3 class="section-title">System-Status</h3>
+  <div class="status-list">
+    <div class="status-item">
+      <span class="dot pending"></span>
+      <strong>Supabase-Datenbank:</strong>
+      <span class="status-text">Wartet auf Keys in .env.local</span>
+    </div>
+    <div class="status-item">
+      <span class="dot pending"></span>
+      <strong>Preisrechner:</strong>
+      <span class="status-text">Classic funktioniert · neue Kategorien warten auf Preise pro Jetski</span>
+    </div>
+    <div class="status-item">
+      <span class="dot ok"></span>
+      <strong>Vercel Analytics:</strong>
+      <span class="status-text">Aktiv auf der Produktiv-Seite</span>
+    </div>
+    <div class="status-item">
+      <span class="dot blocker"></span>
+      <strong>Rechnungsmodul:</strong>
+      <span class="status-text">Wartet auf USt-Nr. + myDATA-Klärung</span>
+    </div>
+  </div>
+</AdminShell>
+
+<style>
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 3rem;
+  }
+  .stat-card {
+    background: rgba(253, 251, 244, 0.04);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 12px;
+    padding: 1.75rem;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(253, 251, 244, 0.5);
+    margin-bottom: 0.75rem;
+  }
+  .stat-value {
+    font-family: "Fraunces Variable", Georgia, serif;
+    font-size: 2.5rem;
+    color: #ffc233;
+  }
+  .stat-unit {
+    font-size: 1rem;
+    color: rgba(253, 251, 244, 0.5);
+    margin-left: 0.25rem;
+  }
+
+  .section-title {
+    font-family: "Fraunces Variable", Georgia, serif;
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1rem;
+    font-weight: 400;
+  }
+
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .action-card {
+    background: rgba(253, 251, 244, 0.04);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.15s;
+  }
+  .action-card:hover {
+    background: rgba(255, 194, 51, 0.05);
+    border-color: rgba(255, 194, 51, 0.3);
+  }
+  .action-title {
+    color: #ffc233;
+    font-weight: 600;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+  .action-sub {
+    color: rgba(253, 251, 244, 0.65);
+    font-size: 0.85rem;
+  }
+
+  .status-list {
+    background: rgba(253, 251, 244, 0.04);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 12px;
+    padding: 0.5rem 1.5rem;
+  }
+  .status-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(253, 251, 244, 0.05);
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+  .status-item:last-child { border-bottom: none; }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .dot.ok { background: #86efac; }
+  .dot.pending { background: #ffc233; }
+  .dot.blocker { background: #fca5a5; }
+  .status-text { color: rgba(253, 251, 244, 0.65); }
+</style>

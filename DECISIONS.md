@@ -15,10 +15,39 @@ Stand 2026-04-17: Flotte reduziert auf nur Sea-Doo (Yamahas ausgemustert/verkauf
 | The Challenger | Sea-Doo  | RXT-X 300      | 300 | 3     | €140     | €420           | €690           |
 | The Acrobat    | Sea-Doo  | Spark Trixx    | 90  | 2     | €70      | €210           | €350           |
 
-**Zusatzangebot: Water Fun** – 3-Reifen-Tubing hinter dem Jetski, **€30 pro Person**.
+**Zusatzangebot: Water Fun / Towable** – 3-Reifen-Tubing hinter dem Jetski, **€30 pro Person** (Dauer ca. 10 Min.).
 
 **Anzahlung:** 30% bei Buchung, Rest am Tag selbst.
 **Zahlungsmethoden:** Viva Wallet, Bar (Euro), Karte.
+
+---
+
+## Neue Preiskategorien (Flyer 2026)
+
+Ergänzend zu den Stunden-/Halbtag-/Ganztag-Preisen oben führt der Flyer 2026 folgende Kategorien ein. **Stand 2026-04-18:** Diese Preise gelten für **beide** Jetskis identisch (Challenger und Acrobat kosten gleich in diesen Kategorien). Die Classic-Preise oben bleiben pro Jetski unterschiedlich.
+
+### Beach Rides (kurze Fahrten ab Dock) – pro Jetski gleich
+- 10 Min – **80 €**
+- 15 Min – **90 €** („BEST")
+- 20 Min – **100 €**
+- 30 Min – **130 €**
+- 60 Min – **200 €** („BESTSELLER")
+
+### Exclusive Experiences – pro Jetski gleich
+- **Sunset Ride** (30 Min) – **130 €**
+- **Couple Ride** (30 Min) – **150 €**
+
+### VIP Delivery Service (Lieferung an Strand/Boot/Yacht/Katamaran) – pro Jetski gleich
+- 1 Stunde – **350 €**
+- Halbtag (4 h) – **450 €**
+- Ganztag (8 h) – **650 €**
+- Wochenpreis – **auf Anfrage**
+- **Kaution:** 1.500 € (nur bei Delivery)
+- **Kraftstoff NICHT inklusive**
+
+### Towable / Water Fun
+- 10 Min – **30 € pro Person**
+- Tube-Modell: **Jobe Ridge III** (3 Sitze)
 
 ---
 

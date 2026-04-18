@@ -3,6 +3,7 @@
 // TODO: Replace BOKUN_EMBED_CODE with the actual script/iframe from Bokun dashboard
 // How to get it: Bokun → Products → Your product → Booking widget → Copy embed code
 const BOKUN_EMBED_CODE = ""; // ← paste Bokun embed code here
+import Calculator from "../Calculator.tsx";
 ---
 
 <section id="book" class="relative py-24 lg:py-32" style="background: var(--v2-ink-950);">
@@ -46,6 +47,11 @@ const BOKUN_EMBED_CODE = ""; // ← paste Bokun embed code here
           </svg>
         </a>
       </div>
+    </div>
+
+    <!-- Price Calculator -->
+    <div id="calculator" class="mb-10 scroll-mt-24">
+      <Calculator client:visible />
     </div>
 
     {BOKUN_EMBED_CODE ? (

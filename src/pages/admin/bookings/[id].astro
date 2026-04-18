@@ -1,0 +1,138 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../../components/admin/AdminShell.astro";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+
+const { id } = Astro.params;
+
+// TODO: Buchung + Payments aus Supabase laden
+// const { data: booking } = await supabase.from('bookings').select('*, payments(*)').eq('id', id).single();
+const booking: any = null;
+const payments: any[] = [];
+---
+
+<AdminShell title={`Buchung ${id}`} activePath="bookings">
+  <div style="margin-bottom: 2rem;">
+    <a href="/admin/bookings" style="color: rgba(253, 251, 244, 0.5); font-size: 0.85rem; text-decoration: none;">
+      &larr; Zurueck zu Buchungen
+    </a>
+    <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em; margin-top: 0.75rem;">
+      Buchung
+    </h1>
+    <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;">
+      ID: {id}
+    </p>
+  </div>
+
+  {!booking ? (
+    <div class="empty-state">
+      <h3>Buchung nicht gefunden</h3>
+      <p>
+        Diese Buchung existiert nicht oder Supabase ist noch nicht verbunden.<br />
+        <a href="/admin/bookings" style="color: #ffc233;">Zurueck zur Liste</a>
+      </p>
+    </div>
+  ) : (
+    <div class="grid-2">
+      <!-- Booking Details -->
+      <section class="card">
+        <h3 class="card-title">Details</h3>
+        <dl class="info-list">
+          <dt>Datum</dt><dd>{booking.booking_date}</dd>
+          <dt>Startzeit</dt><dd>{booking.start_time}</dd>
+          <dt>Dauer</dt><dd>{booking.duration_minutes} min</dd>
+          <dt>Jetski</dt><dd>{booking.jetski_id === "seadoo-rxtx" ? "The Challenger" : "The Acrobat"}</dd>
+          <dt>Service</dt><dd>{booking.service_category} / {booking.service_type}</dd>
+          <dt>Preis</dt><dd>&euro;{booking.total_price}</dd>
+          <dt>Anzahlung</dt><dd>&euro;{booking.deposit_amount}</dd>
+          <dt>Status</dt><dd><span class={`status status-${booking.status}`}>{booking.status}</span></dd>
+        </dl>
+      </section>
+
+      <!-- Customer -->
+      <section class="card">
+        <h3 class="card-title">Kunde</h3>
+        <dl class="info-list">
+          <dt>Name</dt><dd>{booking.customer_name}</dd>
+          <dt>E-Mail</dt><dd><a href={`mailto:${booking.customer_email}`}>{booking.customer_email}</a></dd>
+          <dt>Telefon</dt><dd><a href={`https://wa.me/${booking.customer_phone.replace(/\D/g, '')}`} target="_blank" rel="noopener">{booking.customer_phone}</a></dd>
+          <dt>Land</dt><dd>{booking.customer_country ?? "-"}</dd>
+        </dl>
+      </section>
+
+      <!-- Payments -->
+      <section class="card" style="grid-column: span 2;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+          <h3 class="card-title" style="margin: 0;">Zahlungen ({payments.length})</h3>
+          <button class="btn-primary" id="add-payment-btn">+ Zahlung erfassen</button>
+        </div>
+        {payments.length === 0 ? (
+          <p style="color: rgba(253, 251, 244, 0.5); font-size: 0.9rem;">Noch keine Zahlungen.</p>
+        ) : (
+          <table>
+            <thead><tr><th>Datum</th><th>Betrag</th><th>Zahlart</th><th>Notiz</th></tr></thead>
+            <tbody>
+              {payments.map((p) => (
+                <tr><td>{p.payment_date}</td><td>&euro;{p.amount}</td><td>{p.payment_method}</td><td>{p.notes ?? "-"}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+
+      <!-- Notizen -->
+      <section class="card" style="grid-column: span 2;">
+        <h3 class="card-title">Notizen</h3>
+        <p style="color: rgba(253, 251, 244, 0.8);">{booking.notes ?? "Keine Notizen."}</p>
+      </section>
+
+      <!-- Actions -->
+      <section class="card" style="grid-column: span 2;">
+        <h3 class="card-title">Aktionen</h3>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button class="btn-secondary">Status aendern</button>
+          <button class="btn-secondary">Rechnung erstellen</button>
+          <button class="btn-danger">Buchung stornieren</button>
+        </div>
+      </section>
+    </div>
+  )}
+</AdminShell>
+
+<style>
+  .btn-primary { padding: 0.55rem 1rem; background: #ffc233; color: #071d30; border: none; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+  .btn-secondary { padding: 0.55rem 1rem; background: transparent; color: #fdfbf4; border: 1px solid rgba(253, 251, 244, 0.25); border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+  .btn-secondary:hover { background: rgba(253, 251, 244, 0.05); }
+  .btn-danger { padding: 0.55rem 1rem; background: transparent; color: #fca5a5; border: 1px solid rgba(239, 68, 68, 0.35); border-radius: 8px; font-size: 0.85rem; cursor: pointer; }
+  .btn-danger:hover { background: rgba(239, 68, 68, 0.08); }
+
+  .empty-state { background: rgba(255, 194, 51, 0.05); border: 1px dashed rgba(255, 194, 51, 0.3); border-radius: 12px; padding: 3rem; text-align: center; }
+  .empty-state h3 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .empty-state p { color: rgba(253, 251, 244, 0.65); line-height: 1.6; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card { background: rgba(253, 251, 244, 0.04); border: 1px solid rgba(253, 251, 244, 0.1); border-radius: 12px; padding: 1.5rem; }
+  .card-title { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.15rem; font-weight: 400; margin-bottom: 1rem; color: #ffc233; }
+
+  .info-list { display: grid; grid-template-columns: auto 1fr; gap: 0.5rem 1rem; font-size: 0.9rem; }
+  .info-list dt { color: rgba(253, 251, 244, 0.55); text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.1em; align-self: center; }
+  .info-list dd { color: #fdfbf4; }
+  .info-list a { color: #ffc233; text-decoration: none; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  th { text-align: left; padding: 0.6rem 0.75rem; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(253, 251, 244, 0.5); }
+  td { padding: 0.6rem 0.75rem; border-top: 1px solid rgba(253, 251, 244, 0.05); }
+
+  .status { display: inline-block; padding: 0.15rem 0.6rem; border-radius: 999px; font-size: 0.7rem; }
+  .status-pending { background: rgba(255, 194, 51, 0.15); color: #ffc233; }
+  .status-confirmed { background: rgba(0, 179, 167, 0.15); color: #00d4c3; }
+  .status-completed { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+  .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+</style>

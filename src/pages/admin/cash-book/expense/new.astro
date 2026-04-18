@@ -1,0 +1,139 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../../../components/admin/AdminShell.astro";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+---
+
+<AdminShell title="Neue Ausgabe" activePath="cash-book">
+  <div style="margin-bottom: 2rem;">
+    <a href="/admin/cash-book" style="color: rgba(253, 251, 244, 0.5); font-size: 0.85rem; text-decoration: none;">
+      &larr; Zurueck zum Kassabuch
+    </a>
+    <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em; margin-top: 0.75rem;">
+      Neue Ausgabe
+    </h1>
+    <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
+      Kraftstoff, Wartung, Versicherung oder sonstige Ausgaben erfassen.
+    </p>
+  </div>
+
+  <form id="expense-form" style="max-width: 640px;">
+    <div class="row-2">
+      <div class="field">
+        <label for="expense_date">Datum</label>
+        <input id="expense_date" name="expense_date" type="date" required />
+      </div>
+      <div class="field">
+        <label for="category">Kategorie</label>
+        <select id="category" name="category" required>
+          <option value="fuel">Kraftstoff</option>
+          <option value="maintenance">Wartung / Reparatur</option>
+          <option value="insurance">Versicherung</option>
+          <option value="other">Sonstiges</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="amount">Betrag (&euro;)</label>
+      <input id="amount" name="amount" type="number" step="0.01" min="0" required />
+    </div>
+
+    <div class="field">
+      <label for="description">Beschreibung</label>
+      <input id="description" name="description" type="text" required placeholder="z.B. Tankfuellung bei Shell Nidri" />
+    </div>
+
+    <div class="field">
+      <label for="receipt_url">Beleg-URL (optional)</label>
+      <input id="receipt_url" name="receipt_url" type="url" placeholder="https://... (z.B. Supabase Storage Link)" />
+      <p class="hint">Foto vom Beleg mit dem Handy aufnehmen, in Cloud hochladen, URL hier einfuegen.</p>
+    </div>
+
+    <div class="field">
+      <label for="notes">Notizen (optional)</label>
+      <textarea id="notes" name="notes" rows="3"></textarea>
+    </div>
+
+    <div style="display: flex; gap: 0.75rem; align-items: center; margin-top: 1rem;">
+      <button type="submit" class="btn-primary">Ausgabe speichern</button>
+      <a href="/admin/cash-book" class="btn-ghost">Abbrechen</a>
+    </div>
+
+    <div class="message" id="message"></div>
+  </form>
+</AdminShell>
+
+<style>
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
+  @media (max-width: 640px) { .row-2 { grid-template-columns: 1fr; } }
+
+  .field { margin-bottom: 1.25rem; }
+  .field label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em; color: rgba(253, 251, 244, 0.5); margin-bottom: 0.5rem; }
+  .field input, .field select, .field textarea {
+    width: 100%; padding: 0.6rem 0.875rem;
+    background: rgba(253, 251, 244, 0.05);
+    border: 1px solid rgba(253, 251, 244, 0.15);
+    border-radius: 8px; color: #fdfbf4;
+    font-family: inherit; font-size: 0.95rem;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: #ffc233; }
+  .field textarea { resize: vertical; }
+  .field select option { background: #071d30; }
+  .hint { margin-top: 0.4rem; font-size: 0.8rem; color: rgba(253, 251, 244, 0.4); }
+
+  .btn-primary { padding: 0.875rem 2rem; background: #ffc233; color: #071d30; border: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem; cursor: pointer; font-family: inherit; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-ghost { padding: 0.875rem 1.5rem; color: rgba(253, 251, 244, 0.7); text-decoration: none; font-size: 0.9rem; }
+
+  .message { margin-top: 1.25rem; padding: 0; border-radius: 8px; font-size: 0.9rem; display: none; }
+  .message.show { display: block; padding: 0.875rem 1.25rem; }
+  .message.error { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.4); color: #fca5a5; }
+  .message.success { background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.4); color: #86efac; }
+</style>
+
+<script>
+  const form = document.getElementById("expense-form") as HTMLFormElement;
+  const messageEl = document.getElementById("message") as HTMLDivElement;
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const body = {
+      expense_date: formData.get("expense_date"),
+      category: formData.get("category"),
+      amount: Number(formData.get("amount")),
+      description: formData.get("description"),
+      receipt_url: formData.get("receipt_url") || undefined,
+      notes: formData.get("notes") || undefined,
+    };
+
+    try {
+      const res = await fetch("/api/expenses", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        messageEl.textContent = data.error || "Fehler beim Speichern";
+        messageEl.className = "message error show";
+        return;
+      }
+      messageEl.textContent = "Ausgabe gespeichert! Weiterleitung...";
+      messageEl.className = "message success show";
+      setTimeout(() => { window.location.href = "/admin/cash-book"; }, 800);
+    } catch {
+      messageEl.textContent = "Netzwerkfehler. Erneut versuchen.";
+      messageEl.className = "message error show";
+    }
+  });
+
+  const dateInput = document.getElementById("expense_date") as HTMLInputElement;
+  dateInput.value = new Date().toISOString().slice(0, 10);
+</script>

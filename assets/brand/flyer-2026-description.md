@@ -35,7 +35,7 @@ Die Bilddatei selbst liegt (sobald Kristina sie ablegt) unter `assets/brand/flye
 3. **Flexible Rental Options**
    10–20–30 minute rides, hourly rates, half-day, full-day, weekly rentals
 
-> ⚠️ **Hinweis zur Konsistenz:** Der Flyer nennt „10–20–30 minute rides" und „weekly rentals" – in `DECISIONS.md` / `src/data/jetskis.ts` stehen aktuell nur Stunden-, Halbtages- und Tagespreise. Bei Flyer-Nachdruck oder Website-Abgleich bitte klären, ob die Kurzfahrten und Wochenpreise offiziell angeboten werden.
+> ✅ **Konsistenz bestätigt 2026-04-18:** Beach Rides (10/15/20/30/60 min), Exclusive Experiences (Sunset/Couple), VIP Delivery und Weekly sind jetzt in `DECISIONS.md` / `src/data/jetskis.ts` eingepflegt. Preise gelten für beide Jetskis identisch.
 
 ---
 
@@ -71,6 +71,29 @@ Die Bilddatei selbst liegt (sobald Kristina sie ablegt) unter `assets/brand/flye
 - Warm & einladend (Golden-Hour-Versprechen)
 - Leicht illustrativ / Digital-Painting (nicht reines Foto)
 - Enthusiastisch, aber glaubwürdig (passt zum Tonfall in `CLAUDE.md`)
+
+---
+
+## Water Fun / Towable (korrigiert 2026-04-18)
+
+Der Flyer zeigt als Illustration einen „Great Big Mable"-Tube (4 Sitze). **Das ist nur Flyer-Illustration – nicht das tatsächliche Modell.**
+
+Der wirklich verwendete Tube ist: **Jobe Ridge III** (3 Sitze)
+- Preis: 30 € pro Person
+- Dauer: 10 Min pro Runde
+- Offizielle Fotos liegen (sobald Kristina sie ablegt) unter `assets/brand/water-fun/`
+- Bei Flyer-Nachdruck: Illustration auf Jobe Ridge III umstellen, damit sie dem realen Equipment entspricht
+
+---
+
+## Preisliste im Flyer (Stand 2026-04-18)
+
+**Beach Rides** (für beide Jetskis): 10min €80 · 15min €90 (BEST) · 20min €100 · 30min €130 · 60min €200 (BESTSELLER)
+**Exclusive Experiences**: Sunset Ride €130 · Couple Ride €150 (je 30 min)
+**VIP Delivery**: 1h €350 · Halbtag €450 · Ganztag €650 · Week on request
+- Deposit: €1.500 (delivery only)
+- Fuel not included
+**Towable / Water Fun**: 10 min €30 pro Person (Jobe Ridge III)
 
 ---
 

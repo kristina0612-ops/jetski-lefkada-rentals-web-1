@@ -1,0 +1,257 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../../components/admin/AdminShell.astro";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+
+// TODO: Bookings aus Supabase laden
+// const { data: bookings } = await supabase.from('bookings').select('*').order('booking_date', { ascending: false });
+const bookings: any[] = [];
+---
+
+<AdminShell title="Buchungen" activePath="bookings">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em;">
+        Buchungen
+      </h1>
+      <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
+        {bookings.length} Buchungen insgesamt
+      </p>
+    </div>
+    <div style="display: flex; gap: 0.75rem;">
+      <button id="export-csv-btn" class="btn-secondary">CSV-Export</button>
+      <a href="/admin/bookings/new" class="btn-primary">+ Neue Buchung</a>
+    </div>
+  </div>
+
+  <!-- Filter-Bar -->
+  <div class="filter-bar">
+    <input type="text" id="filter-search" placeholder="Suche nach Kundenname…" />
+    <select id="filter-jetski">
+      <option value="">Alle Jetskis</option>
+      <option value="seadoo-rxtx">The Challenger</option>
+      <option value="seadoo-spark-trixx">The Acrobat</option>
+    </select>
+    <select id="filter-status">
+      <option value="">Alle Status</option>
+      <option value="pending">Ausstehend</option>
+      <option value="confirmed">Bestätigt</option>
+      <option value="completed">Abgeschlossen</option>
+      <option value="cancelled">Storniert</option>
+    </select>
+    <input type="date" id="filter-date" />
+  </div>
+
+  <!-- Bookings Table -->
+  {bookings.length === 0 ? (
+    <div class="empty-state">
+      <h3>Noch keine Buchungen</h3>
+      <p>
+        Sobald Supabase angebunden ist, erscheinen hier Deine Buchungen.<br />
+        <a href="/admin/bookings/new" style="color: #ffc233; text-decoration: underline;">Erste Buchung manuell anlegen →</a>
+      </p>
+    </div>
+  ) : (
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Zeit</th>
+            <th>Jetski</th>
+            <th>Kunde</th>
+            <th>Service</th>
+            <th>Preis</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="bookings-tbody">
+          {bookings.map((b) => (
+            <tr>
+              <td>{b.booking_date}</td>
+              <td>{b.start_time}</td>
+              <td>{b.jetski_id === "seadoo-rxtx" ? "Challenger" : "Acrobat"}</td>
+              <td>{b.customer_name}</td>
+              <td>{b.service_category}</td>
+              <td>€{b.total_price}</td>
+              <td><span class={`status status-${b.status}`}>{b.status}</span></td>
+              <td><a href={`/admin/bookings/${b.id}`} class="edit-link">Edit</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</AdminShell>
+
+<style>
+  .btn-primary {
+    padding: 0.75rem 1.25rem;
+    background: #ffc233;
+    color: #071d30;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .btn-primary:hover { opacity: 0.9; }
+
+  .btn-secondary {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    color: #fdfbf4;
+    border: 1px solid rgba(253, 251, 244, 0.25);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+  }
+  .btn-secondary:hover { background: rgba(253, 251, 244, 0.05); }
+
+  .filter-bar {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    background: rgba(253, 251, 244, 0.04);
+    padding: 1rem;
+    border-radius: 12px;
+  }
+  .filter-bar input,
+  .filter-bar select {
+    padding: 0.6rem 0.875rem;
+    background: rgba(253, 251, 244, 0.05);
+    border: 1px solid rgba(253, 251, 244, 0.15);
+    border-radius: 8px;
+    color: #fdfbf4;
+    font-size: 0.9rem;
+  }
+  .filter-bar input:focus,
+  .filter-bar select:focus {
+    outline: none;
+    border-color: #ffc233;
+  }
+  @media (max-width: 768px) {
+    .filter-bar { grid-template-columns: 1fr; }
+  }
+
+  .empty-state {
+    background: rgba(255, 194, 51, 0.05);
+    border: 1px dashed rgba(255, 194, 51, 0.3);
+    border-radius: 12px;
+    padding: 4rem 2rem;
+    text-align: center;
+  }
+  .empty-state h3 {
+    font-family: "Fraunces Variable", Georgia, serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .empty-state p {
+    color: rgba(253, 251, 244, 0.65);
+    line-height: 1.6;
+  }
+
+  .table-wrap {
+    background: rgba(253, 251, 244, 0.04);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 12px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  thead {
+    background: rgba(0, 0, 0, 0.2);
+  }
+  th {
+    text-align: left;
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(253, 251, 244, 0.5);
+    font-weight: 500;
+  }
+  td {
+    padding: 1rem 1.25rem;
+    border-top: 1px solid rgba(253, 251, 244, 0.05);
+  }
+  tr:hover td { background: rgba(253, 251, 244, 0.03); }
+
+  .status {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .status-pending { background: rgba(255, 194, 51, 0.15); color: #ffc233; }
+  .status-confirmed { background: rgba(0, 179, 167, 0.15); color: #00d4c3; }
+  .status-completed { background: rgba(34, 197, 94, 0.15); color: #86efac; }
+  .status-cancelled { background: rgba(239, 68, 68, 0.15); color: #fca5a5; }
+
+  .edit-link {
+    color: #ffc233;
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+  .edit-link:hover { text-decoration: underline; }
+</style>
+
+<script>
+  // CSV-Export (clientseitig)
+  document.getElementById("export-csv-btn")?.addEventListener("click", async () => {
+    try {
+      const res = await fetch("/api/bookings");
+      if (!res.ok) {
+        alert("Fehler beim Laden der Buchungen");
+        return;
+      }
+      const bookings = await res.json();
+      if (bookings.length === 0) {
+        alert("Keine Buchungen zum Exportieren.");
+        return;
+      }
+
+      const headers = [
+        "Datum", "Zeit", "Dauer (min)", "Jetski", "Service",
+        "Kunde", "E-Mail", "Telefon", "Land",
+        "Personen", "Lieferort", "Summe (€)", "Anzahlung (€)", "Status", "Notizen"
+      ];
+      const rows = bookings.map((b: any) => [
+        b.booking_date, b.start_time, b.duration_minutes,
+        b.jetski_id, b.service_category,
+        b.customer_name, b.customer_email, b.customer_phone, b.customer_country ?? "",
+        b.towable_persons ?? "", b.delivery_location ?? "",
+        b.total_price, b.deposit_amount, b.status, b.notes ?? "",
+      ]);
+
+      const csv = [headers, ...rows]
+        .map(row => row.map((cell: any) => `"${String(cell).replace(/"/g, '""')}"`).join(","))
+        .join("\n");
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `buchungen-${new Date().toISOString().slice(0, 10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert("Export fehlgeschlagen: " + err);
+    }
+  });
+</script>

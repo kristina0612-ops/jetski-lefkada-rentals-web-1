@@ -1,0 +1,145 @@
+---
+// Gemeinsame Shell für alle /admin/* Seiten
+// Sidebar + Header + Content-Slot
+
+interface Props {
+  title: string;
+  activePath: string; // "dashboard" | "bookings" | "cash-book" | "invoices" | "calendar"
+}
+
+const { title, activePath } = Astro.props;
+
+const navItems = [
+  { path: "dashboard", href: "/admin", label: "Dashboard" },
+  { path: "bookings", href: "/admin/bookings", label: "Buchungen" },
+  { path: "cash-book", href: "/admin/cash-book", label: "Kassabuch" },
+  { path: "invoices", href: "/admin/invoices", label: "Rechnungen" },
+  { path: "calendar", href: "/admin/calendar", label: "Kalender" },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Jetski Lefkada Rentals · Admin</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body {
+        font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+        background: #071d30;
+        color: #fdfbf4;
+        min-height: 100vh;
+        display: flex;
+      }
+      aside {
+        width: 240px;
+        background: rgba(0, 0, 0, 0.2);
+        border-right: 1px solid rgba(253, 251, 244, 0.1);
+        padding: 2rem 0;
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        flex-shrink: 0;
+      }
+      .brand {
+        padding: 0 1.5rem 2rem;
+        border-bottom: 1px solid rgba(253, 251, 244, 0.1);
+      }
+      .brand-title {
+        font-family: "Fraunces Variable", Georgia, serif;
+        font-size: 1.25rem;
+        letter-spacing: -0.02em;
+      }
+      .brand-title em { color: #ffc233; font-style: italic; }
+      .brand-subtitle {
+        font-size: 0.7rem;
+        color: rgba(253, 251, 244, 0.5);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        margin-top: 0.4rem;
+      }
+      nav { padding: 1.5rem 0.75rem; flex: 1; }
+      nav a {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        color: rgba(253, 251, 244, 0.7);
+        text-decoration: none;
+        font-size: 0.9rem;
+        margin-bottom: 0.25rem;
+        transition: background 0.15s;
+      }
+      nav a:hover {
+        background: rgba(253, 251, 244, 0.06);
+        color: #fdfbf4;
+      }
+      nav a.active {
+        background: rgba(255, 194, 51, 0.15);
+        color: #ffc233;
+      }
+      .logout-btn {
+        margin: 0 1rem;
+        padding: 0.75rem 1rem;
+        background: transparent;
+        border: 1px solid rgba(253, 251, 244, 0.2);
+        color: rgba(253, 251, 244, 0.7);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        text-align: left;
+        width: calc(100% - 2rem);
+      }
+      .logout-btn:hover {
+        background: rgba(253, 251, 244, 0.06);
+        color: #fdfbf4;
+      }
+      main {
+        flex: 1;
+        padding: 3rem 4rem;
+        overflow-y: auto;
+        max-width: 100%;
+      }
+      @media (max-width: 768px) {
+        main { padding: 2rem 1.5rem; }
+        aside { width: 80px; }
+        .brand-subtitle, nav a span { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="brand">
+        <div class="brand-title">Jetski <em>CRM</em></div>
+        <div class="brand-subtitle">Kristina Goldberg</div>
+      </div>
+      <nav>
+        {navItems.map((item) => (
+          <a href={item.href} class={activePath === item.path ? "active" : ""}>
+            <span>{item.label}</span>
+          </a>
+        ))}
+      </nav>
+      <button class="logout-btn" id="logout-btn">Abmelden</button>
+    </aside>
+
+    <main>
+      <slot />
+    </main>
+
+    <script>
+      document.getElementById("logout-btn")?.addEventListener("click", async () => {
+        try {
+          await fetch("/api/admin/logout", { method: "POST" });
+        } catch {}
+        window.location.href = "/admin/login";
+      });
+    </script>
+  </body>
+</html>

@@ -11,28 +11,52 @@ Single reference for **which rental durations Jetski Lefkada offers** and **wher
 ## Canonical source of prices
 **`DECISIONS.md`** is the only authoritative source for prices. `src/data/jetskis.ts` mirrors those values for the website. If the two diverge, `DECISIONS.md` wins and `jetskis.ts` must be updated.
 
-## Rental options matrix
+## Rental options matrix (aktualisiert 2026-04-18)
 
 Legend: ✅ offered & priced · 🟡 offered but price TBD · ❌ not offered
 
-| Duration / Option   | Status | Price source                                 |
-|---------------------|--------|----------------------------------------------|
-| 10 minutes          | 🟡 TBD | *Flyer mentions it – David/Kristina to confirm price & which jetskis* |
-| 20 minutes          | 🟡 TBD | *Flyer mentions it – David/Kristina to confirm price & which jetskis* |
-| 30 minutes          | 🟡 TBD | *Flyer mentions it – David/Kristina to confirm price & which jetskis* |
-| 1 hour              | ✅     | `DECISIONS.md` · `jetskis.ts.pricePerHour`   |
-| Half-day (4 hours)  | ✅     | `DECISIONS.md` · `jetskis.ts.priceHalfDay`   |
-| Full-day (8 hours)  | ✅     | `DECISIONS.md` · `jetskis.ts.priceFullDay`   |
-| Weekly rental       | 🟡 TBD | *Flyer mentions it – David/Kristina to confirm price & conditions* |
-| **Water Fun** (3-Reifen-Tubing hinter Jetski) | ✅ **€30/Person** | *Bestätigt von Kristina 2026-04-17 – Offene Detailfragen: Mindestalter, Dauer pro Runde, Mindestpersonenzahl* |
+**WICHTIG:** Flyer-Preise (Beach Rides, Exclusive, VIP Delivery) gelten für BEIDE Jetskis IDENTISCH. Classic-Preise (hourly/half/full) bleiben pro Jetski unterschiedlich.
 
-## Open questions (as of 2026-04-17)
+### Classic (pro Jetski unterschiedlich)
+| Option              | Status | Challenger | Acrobat |
+|---------------------|--------|-----------|---------|
+| 1 hour              | ✅     | €140      | €70     |
+| Half-day (4 hours)  | ✅     | €420      | €210    |
+| Full-day (8 hours)  | ✅     | €690      | €350    |
 
-The 2026 flyer advertises **„10–20–30 minute rides"** and **„weekly rentals"** – these are not yet in `DECISIONS.md` or `jetskis.ts`. Until David/Kristina confirm, agents must:
+### Beach Rides (kurze Dock-Fahrten) – beide Jetskis gleich
+| Duration | Status | Price |
+|----------|--------|-------|
+| 10 min   | ✅     | €80   |
+| 15 min   | ✅     | €90 (BEST) |
+| 20 min   | ✅     | €100  |
+| 30 min   | ✅     | €130  |
+| 60 min   | ✅     | €200 (BESTSELLER) |
 
-1. Not quote a price for these durations.
-2. If a customer asks about them: reply „Das klären wir kurz mit David und melden uns sofort." (or equivalent in customer language).
-3. Not add 10/20/30-min or weekly options to the website until this file is updated.
+### Exclusive Experiences – beide Jetskis gleich
+| Option               | Status | Price |
+|----------------------|--------|-------|
+| Sunset Ride (30 min) | ✅     | €130  |
+| Couple Ride (30 min) | ✅     | €150  |
+
+### VIP Delivery Service – beide Jetskis gleich
+| Option     | Status | Price |
+|------------|--------|-------|
+| 1 hour     | ✅     | €350  |
+| Half Day (4h) | ✅  | €450  |
+| Full Day (8h) | ✅  | €650  |
+| Week       | 🟡     | On Request |
+
+- Kraftstoff NICHT inklusive
+- Kaution: **€1.500** nur bei Delivery
+
+### Water Fun / Towable
+| Option                | Status | Price |
+|-----------------------|--------|-------|
+| 10 min tube (pro Person) | ✅  | €30   |
+
+- Tube-Modell: **Jobe Ridge III** (3 Sitze)
+- Offene Detailfragen: Mindestalter, Mindestpersonenzahl
 
 ## How to handle missing prices
 If a quote / booking / copy task needs a price that is marked 🟡 TBD:
@@ -43,7 +67,11 @@ If a quote / booking / copy task needs a price that is marked 🟡 TBD:
 ## Updating this file
 When David/Kristina confirm prices for currently-TBD options:
 1. Update `DECISIONS.md` first (authoritative).
-2. Update `src/data/jetskis.ts` to mirror new pricing fields (add `priceByDuration` or similar if needed).
+2. Update `src/data/jetskis.ts` to mirror new pricing fields.
 3. Update the matrix above (🟡 → ✅, fill price source).
-4. Update the flyer description at `assets/brand/flyer-2026-description.md` (remove the „Hinweis zur Konsistenz" warning).
+4. Update the flyer description at `assets/brand/flyer-2026-description.md`.
 5. Update website pricing sections.
+
+## Offene Punkte
+- Wochenpreis VIP Delivery – „On Request"
+- Anfangskaution für Beach Rides (nicht Delivery) – noch nicht definiert

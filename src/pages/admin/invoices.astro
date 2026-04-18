@@ -1,0 +1,182 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../components/admin/AdminShell.astro";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+
+// TODO: Invoices aus Supabase laden
+const invoices: any[] = [];
+const nextInvoiceNumber = String(invoices.length + 1).padStart(3, "0");
+---
+
+<AdminShell title="Rechnungen" activePath="invoices">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+    <div>
+      <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em;">
+        Rechnungen
+      </h1>
+      <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
+        Nächste Rechnungsnummer: <strong style="color: #ffc233;">{nextInvoiceNumber}</strong>
+      </p>
+    </div>
+  </div>
+
+  <!-- Wartet auf Klärungen -->
+  <div class="blocker-box">
+    <h3>Rechnungsmodul wartet auf 3 Klärungen</h3>
+    <ol>
+      <li>
+        <strong>USt-Nummer</strong>
+        <span class="status-tag pending">ausstehend</span>
+        <div class="blocker-note">Kommt demnächst von Kristina. Pflichtbestandteil jeder Rechnung.</div>
+      </li>
+      <li>
+        <strong>Buchhaltungssystem der Buchhalterin</strong>
+        <span class="status-tag pending">ausstehend</span>
+        <div class="blocker-note">
+          Softone, Epsilon, Elorus, Tebi oder anderes? Entscheidet ob Rechnungen direkt ins System oder nur als PDF zugeschickt werden.
+        </div>
+      </li>
+      <li>
+        <strong>myDATA / AADE Anbindung (griechisches Recht)</strong>
+        <span class="status-tag blocker">Rechtlicher Blocker</span>
+        <div class="blocker-note">
+          Seit 2021 müssen alle Rechnungen in Griechenland elektronisch an die AADE übermittelt werden.
+          Das muss mit der Buchhalterin geklärt werden, BEVOR Rechnungen rausgehen können.
+        </div>
+      </li>
+    </ol>
+    <p class="blocker-footer">
+      Sobald diese drei Punkte geklärt sind, wird das Modul aktiviert.<br />
+      Fortlaufende Nummer startet bei <strong style="color: #ffc233;">001</strong>.
+    </p>
+  </div>
+
+  <!-- Liste (aktuell leer) -->
+  <h3 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 1.5rem; margin: 3rem 0 1rem;">
+    Bisherige Rechnungen
+  </h3>
+  {invoices.length === 0 ? (
+    <div class="empty-state">
+      <p>Noch keine Rechnungen erstellt.</p>
+    </div>
+  ) : (
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Nummer</th>
+            <th>Datum</th>
+            <th>Kunde</th>
+            <th>Buchung</th>
+            <th>Summe</th>
+            <th>Versandt</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoices.map((inv) => (
+            <tr>
+              <td style="color: #ffc233; font-family: 'JetBrains Mono', monospace;">{inv.invoice_number}</td>
+              <td>{new Date(inv.created_at).toLocaleDateString("de-DE")}</td>
+              <td>—</td>
+              <td>—</td>
+              <td>—</td>
+              <td>{inv.sent_to_accountant ? "✓" : "—"}</td>
+              <td>
+                {inv.pdf_url && (
+                  <a href={inv.pdf_url} target="_blank" rel="noopener" style="color: #ffc233;">PDF</a>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+</AdminShell>
+
+<style>
+  .blocker-box {
+    background: rgba(255, 194, 51, 0.05);
+    border: 1px solid rgba(255, 194, 51, 0.3);
+    border-radius: 12px;
+    padding: 2rem;
+  }
+  .blocker-box h3 {
+    font-family: "Fraunces Variable", Georgia, serif;
+    font-size: 1.25rem;
+    margin-bottom: 1.25rem;
+    color: #ffc233;
+  }
+  .blocker-box ol {
+    list-style: decimal;
+    padding-left: 1.5rem;
+  }
+  .blocker-box li {
+    margin-bottom: 1rem;
+    color: rgba(253, 251, 244, 0.85);
+  }
+  .status-tag {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .status-tag.pending {
+    background: rgba(255, 194, 51, 0.15);
+    color: #ffc233;
+  }
+  .status-tag.blocker {
+    background: rgba(239, 68, 68, 0.15);
+    color: #fca5a5;
+  }
+  .blocker-note {
+    margin-top: 0.4rem;
+    color: rgba(253, 251, 244, 0.55);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .blocker-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 194, 51, 0.15);
+    color: rgba(253, 251, 244, 0.65);
+    font-size: 0.9rem;
+  }
+
+  .empty-state {
+    background: rgba(253, 251, 244, 0.03);
+    border: 1px dashed rgba(253, 251, 244, 0.15);
+    border-radius: 12px;
+    padding: 3rem;
+    text-align: center;
+    color: rgba(253, 251, 244, 0.5);
+  }
+
+  .table-wrap {
+    background: rgba(253, 251, 244, 0.04);
+    border: 1px solid rgba(253, 251, 244, 0.1);
+    border-radius: 12px;
+    overflow-x: auto;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+  thead { background: rgba(0, 0, 0, 0.2); }
+  th {
+    text-align: left;
+    padding: 1rem 1.25rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(253, 251, 244, 0.5);
+    font-weight: 500;
+  }
+  td { padding: 1rem 1.25rem; border-top: 1px solid rgba(253, 251, 244, 0.05); }
+</style>
