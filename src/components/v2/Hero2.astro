@@ -3,11 +3,49 @@
 // Video: real footage of David + guest at Lygia Port (not stock)
 //
 // ⚙️  KRISTINA: Start- und End-Sekunde des sichtbaren Clip-Ausschnitts.
-//     Aktuell: Sekunde 18 bis 32 (14 Sekunden Loop aus dem 44-Sek.-Video).
+//     Aktuell: Sekunde 18,5 bis 32 (13,5-Sek.-Loop aus dem 44-Sek.-Video).
+//     Ab Sekunde 32 kommt im Original-Video Fremdwerbung – deshalb hartes Ende.
 //     Wenn Du andere Sekunden willst, einfach die Zahlen hier ändern.
-const HERO_VIDEO_START_SECONDS = 18;
+const HERO_VIDEO_START_SECONDS = 18.5;
 const HERO_VIDEO_END_SECONDS = 32;
 ---
+
+<style>
+  /* Hero video quality + crop (Kristina 2026-04-20).
+     Original is phone-recorded, soft on laptop + had an IG Reel overlay.
+     Fix:
+       1. scale(1.12) crops ~6% off each edge  → Reel UI gone
+       2. CSS filter stack adds perceived sharpness (no re-encode needed)
+       3. SVG unsharp-mask kernel as progressive enhancement (Chrome/Firefox)
+       4. image-rendering + will-change hint the browser to use higher-quality
+          scaling pipelines.
+     If still too soft on Kristina's laptop, next step is physical re-encode
+     (Topaz Video AI or Clideo upscale). CSS can only mask, not create pixels. */
+  .hero-video-crisp {
+    transform: scale(1.12);
+    transform-origin: center center;
+    /* Base filter: works everywhere */
+    filter: contrast(1.08) saturate(1.18) brightness(1.03);
+    /* Progressive enhancement: adds SVG sharpen kernel on top */
+    filter: contrast(1.08) saturate(1.18) brightness(1.03) url(#hero-sharpen);
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    will-change: transform, filter;
+    backface-visibility: hidden;
+  }
+</style>
+
+<!-- Inline SVG unsharp-mask filter — referenced by .hero-video-crisp above.
+     Kernel: mild Laplacian (center 2.4, edges -0.35). Subtle, no halos. -->
+<svg aria-hidden="true" focusable="false" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+  <filter id="hero-sharpen" color-interpolation-filters="sRGB">
+    <feConvolveMatrix
+      order="3"
+      preserveAlpha="true"
+      kernelMatrix="0 -0.35 0  -0.35 2.4 -0.35  0 -0.35 0"
+    />
+  </filter>
+</svg>
 
 <section class="relative min-h-[100svh] overflow-hidden flex items-end">
   <!-- Video background -->
@@ -19,8 +57,7 @@ const HERO_VIDEO_END_SECONDS = 32;
       loop
       playsinline
       preload="auto"
-      class="w-full h-full object-cover"
-      style="transform: scale(1.15); transform-origin: center center;"
+      class="w-full h-full object-cover hero-video-crisp"
       data-start={HERO_VIDEO_START_SECONDS}
       data-end={HERO_VIDEO_END_SECONDS}
       aria-hidden="true"
