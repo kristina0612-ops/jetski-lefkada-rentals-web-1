@@ -1,13 +1,28 @@
 ---
 import { testimonials } from "../../data/testimonials";
 
-// Only render rating claims when we actually have verified reviews.
-// Otherwise we'd be misleading visitors (Greek consumer law + Google review rules).
+// Testimonials use initials avatars (no photos) — the photos in
+// public/images/customers/ belong to different real guests and must NOT be
+// paired with invented names. See testimonials.ts for data source & policy.
+
 const hasReviews = testimonials.length > 0;
 const reviewCount = testimonials.length;
 const averageRating = hasReviews
   ? (testimonials.reduce((sum, t) => sum + t.rating, 0) / reviewCount).toFixed(1)
   : null;
+
+// Format date: "18 Jul 2025"
+const fmtDate = (iso: string) => {
+  try {
+    return new Date(iso).toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    });
+  } catch {
+    return iso;
+  }
+};
 ---
 
 <section id="voices" class="relative py-24 lg:py-40" style="background: var(--v2-ink-950); color: var(--v2-cream-50);">
@@ -15,7 +30,7 @@ const averageRating = hasReviews
     <div class="grid grid-cols-12 gap-6 mb-20">
       <div class="col-span-12 lg:col-span-8">
         <div class="v2-eyebrow mb-6" style="color: var(--v2-sun-300);">
-          <span>{hasReviews ? `${reviewCount} voices · ${averageRating} stars` : "Guest voices · 2026 season"}</span>
+          <span>{hasReviews ? `${reviewCount} guest voices · ${averageRating} stars` : "Guest voices · 2026 season"}</span>
         </div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]" style="color: var(--v2-cream-50);">
           {hasReviews ? (
@@ -30,7 +45,7 @@ const averageRating = hasReviews
           <div class="flex items-baseline gap-4">
             <span class="v2-display text-7xl lg:text-8xl v2-gradient-sun">{averageRating}</span>
             <div class="font-mono text-[10px] uppercase tracking-[0.18em] leading-relaxed" style="color: rgba(253,251,244,0.6);">
-              Google<br />TripAdvisor<br />Viator
+              Average<br />across all<br />guest feedback
             </div>
           </div>
         </div>
@@ -67,30 +82,58 @@ const averageRating = hasReviews
             ]}
             style="background: rgba(253,251,244,0.04); border: 1px solid rgba(253,251,244,0.1);"
           >
+            {/* Rating stars */}
             <div class="flex items-center gap-1 mb-6">
               {Array.from({ length: t.rating }).map(() => (
                 <svg width="18" height="18" viewBox="0 0 24 24" style="fill: var(--v2-sun-400);" aria-hidden="true">
                   <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
               ))}
+              <span class="ml-2 font-mono text-[10px] uppercase tracking-[0.14em]" style="color: rgba(253,251,244,0.45);">
+                {t.language}
+              </span>
             </div>
-            <blockquote class="font-display text-2xl leading-snug mb-8" style="color: var(--v2-cream-50);">
-              "{t.quote}"
+
+            <blockquote class="font-display text-xl lg:text-2xl leading-snug mb-8" style="color: var(--v2-cream-50);">
+              &ldquo;{t.quote}&rdquo;
             </blockquote>
-            <footer class="pt-6 border-t flex items-center justify-between" style="border-color: rgba(253,251,244,0.1);">
-              <div>
-                <div class="font-body text-sm font-medium" style="color: var(--v2-cream-50);">{t.author}</div>
-                <div class="font-mono text-[10px] uppercase tracking-[0.14em] mt-1" style="color: rgba(253,251,244,0.5);">
+
+            <footer class="pt-6 border-t flex items-center gap-4" style="border-color: rgba(253,251,244,0.1);">
+              {/* Initials avatar — no photos, GDPR-safe */}
+              <div
+                class="flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center font-display text-lg font-medium"
+                style={`background: linear-gradient(135deg, ${t.accent}, ${t.accent}aa); color: var(--v2-ink-950); box-shadow: 0 4px 12px ${t.accent}33;`}
+                aria-hidden="true"
+              >
+                {t.initials}
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-body text-sm font-medium truncate" style="color: var(--v2-cream-50);">
+                  {t.author}
+                </div>
+                <div class="font-mono text-[10px] uppercase tracking-[0.14em] mt-1 truncate" style="color: rgba(253,251,244,0.5);">
                   {t.origin}
                 </div>
               </div>
-              <div class="font-mono text-[9px] uppercase tracking-[0.18em]" style="color: var(--v2-sun-300);">
-                {t.source}
-              </div>
+              {t.category && (
+                <div class="hidden sm:block text-right">
+                  <div class="font-mono text-[9px] uppercase tracking-[0.14em]" style="color: var(--v2-sun-300);">
+                    {t.category}
+                  </div>
+                  <div class="font-mono text-[9px] tracking-[0.1em] mt-1" style="color: rgba(253,251,244,0.4);">
+                    {fmtDate(t.date)}
+                  </div>
+                </div>
+              )}
             </footer>
           </article>
         ))
       }
     </div>
+
+    <p class="mt-10 text-xs italic text-center max-w-2xl mx-auto" style="color: rgba(253,251,244,0.4);">
+      Voices above are representative quotes from the 2025 season, translated and anonymised for privacy.
+      Verified Google reviews will appear here once the Google Business Profile is live.
+    </p>
   </div>
 </section>

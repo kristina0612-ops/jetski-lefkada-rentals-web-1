@@ -1,15 +1,17 @@
 ---
 // V2 Hero - Azure Day with full-screen jetski video background
 // Video: real footage of David + guest at Lygia Port (not stock)
-// Start-offset: skip the first ~2 seconds (often shaky/boring on phone recordings)
-// and jump straight into the action. Kristina can tune HERO_VIDEO_START below
-// if a different moment is the sweet spot.
-const HERO_VIDEO_START = 2; // seconds — when the jetskis + guide frame comes in
+//
+// ⚙️  KRISTINA: Start- und End-Sekunde des sichtbaren Clip-Ausschnitts.
+//     Aktuell: Sekunde 18 bis 32 (14 Sekunden Loop aus dem 44-Sek.-Video).
+//     Wenn Du andere Sekunden willst, einfach die Zahlen hier ändern.
+const HERO_VIDEO_START_SECONDS = 18;
+const HERO_VIDEO_END_SECONDS = 32;
 ---
 
 <section class="relative min-h-[100svh] overflow-hidden flex items-end">
   <!-- Video background -->
-  <div class="absolute inset-0 z-0 bg-ink-950">
+  <div class="absolute inset-0 z-0" style="background: var(--v2-ink-950);">
     <video
       id="hero-video"
       autoplay
@@ -18,8 +20,9 @@ const HERO_VIDEO_START = 2; // seconds — when the jetskis + guide frame comes 
       playsinline
       preload="auto"
       class="w-full h-full object-cover"
-      poster="/images/customers/nero-guest-01.jpg"
-      data-start={HERO_VIDEO_START}
+      style="transform: scale(1.15); transform-origin: center center;"
+      data-start={HERO_VIDEO_START_SECONDS}
+      data-end={HERO_VIDEO_END_SECONDS}
       aria-hidden="true"
     >
       <source src="/videos/hero-nero.mp4" type="video/mp4" />
@@ -27,29 +30,37 @@ const HERO_VIDEO_START = 2; // seconds — when the jetskis + guide frame comes 
   </div>
 
   <script>
-    // Skip boring intro of the clip — jump to the action frame once metadata is ready.
+    // Loop the hero video between START and END (Kristina-curated clip window).
+    // 2026-04-19: Kristina selected seconds 18 → 32 of the 44s source clip.
+    // The CSS scale(1.15) on the video crops ~7% off each edge — this hides
+    // any Instagram/Reel UI overlay baked into the source footage.
     const heroVideo = document.getElementById('hero-video') as HTMLVideoElement | null;
     if (heroVideo) {
       const startAt = Number(heroVideo.dataset.start ?? 0) || 0;
+      const endAt = Number(heroVideo.dataset.end ?? 0) || 0;
 
       const seekToStart = () => {
-        if (startAt > 0 && heroVideo.duration > startAt + 0.2) {
+        if (startAt > 0 && isFinite(heroVideo.duration) && heroVideo.duration > startAt + 0.2) {
           try { heroVideo.currentTime = startAt; } catch {}
         }
       };
 
-      if (heroVideo.readyState >= 1) {
+      if (heroVideo.readyState >= 1 && isFinite(heroVideo.duration)) {
         seekToStart();
       } else {
         heroVideo.addEventListener('loadedmetadata', seekToStart, { once: true });
       }
 
-      // When loop restarts, also skip the intro on subsequent plays.
-      heroVideo.addEventListener('seeked', () => {
-        if (heroVideo.currentTime < 0.2 && startAt > 0) {
+      // Clamp loop to the END marker — jump back to START as soon as we pass it.
+      heroVideo.addEventListener('timeupdate', () => {
+        if (endAt > 0 && heroVideo.currentTime >= endAt) {
+          try { heroVideo.currentTime = startAt; } catch {}
+        } else if (startAt > 0 && heroVideo.currentTime < startAt - 0.2) {
+          // Native loop hit 0 before our clamp — re-seek forward.
           try { heroVideo.currentTime = startAt; } catch {}
         }
       });
+
       heroVideo.addEventListener('ended', seekToStart);
     }
   </script>
