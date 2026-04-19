@@ -1,10 +1,34 @@
 ---
+// Navbar for Nero Lefkada Rental&Retail v2 Azure Day
+// - Small jetski icon instead of "J" logo
+// - Language switcher dropdown (EN default, DE, GR) in sun-gold style
+// - Instagram + CTA + Hamburger on the right
+
+type Lang = "en" | "de" | "gr";
+const currentLang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const labels = {
+  en: { fleet: "Fleet", waterFun: "Water Fun", how: "How it works", faq: "FAQ", book: "Book Now", bookMobile: "Book your jetski", nav: "Navigation" },
+  de: { fleet: "Flotte", waterFun: "Water Fun", how: "So geht's", faq: "FAQ", book: "Jetzt Buchen", bookMobile: "Jetski buchen", nav: "Navigation" },
+  gr: { fleet: "Στόλος", waterFun: "Water Fun", how: "Πώς λειτουργεί", faq: "Ερωτήσεις", book: "Κράτηση", bookMobile: "Κράτησε το jet ski σου", nav: "Πλοήγηση" },
+};
+
+const t = labels[currentLang];
+
 const links = [
-  { href: "#fleet", label: "Fleet" },
-  { href: "#water-fun", label: "Water Fun" },
-  { href: "#how", label: "How it works" },
-  { href: "#faq", label: "FAQ" },
+  { href: "#fleet", label: t.fleet },
+  { href: "#water-fun", label: t.waterFun },
+  { href: "#how", label: t.how },
+  { href: "#faq", label: t.faq },
 ];
+
+const languages: { code: Lang; label: string; flag: string; href: string }[] = [
+  { code: "en", label: "English", flag: "🇬🇧", href: "/" },
+  { code: "de", label: "Deutsch", flag: "🇩🇪", href: "/de/" },
+  { code: "gr", label: "Ελληνικά", flag: "🇬🇷", href: "/gr/" },
+];
+
+const currentLangObj = languages.find((l) => l.code === currentLang) ?? languages[0];
 ---
 
 <style>
@@ -29,7 +53,6 @@ const links = [
   #nav-toggle[aria-expanded="true"] .nav-bar-3 {
     transform: rotate(-45deg) translate(4.5px, -4.5px);
   }
-
   .nav-bar-1,
   .nav-bar-2,
   .nav-bar-3 {
@@ -45,17 +68,136 @@ const links = [
     color: var(--v2-sun-400);
     transform: translateX(8px);
   }
+
+  /* Language switcher (sun-styled button + dropdown) */
+  #lang-switch {
+    position: relative;
+  }
+  #lang-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 180px;
+    padding: 6px;
+    border-radius: 16px;
+    background: rgba(7, 29, 48, 0.95);
+    border: 1px solid rgba(253, 251, 244, 0.15);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transform: translateY(-8px) scale(0.95);
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    z-index: 60;
+  }
+  #lang-switch[data-open] #lang-dropdown {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+  .lang-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-family: "Instrument Sans", sans-serif;
+    font-size: 13px;
+    color: rgba(253, 251, 244, 0.85);
+    transition: background 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+  }
+  .lang-item:hover {
+    background: rgba(255, 194, 51, 0.12);
+    color: var(--v2-sun-400);
+  }
+  .lang-item.active {
+    background: rgba(255, 194, 51, 0.18);
+    color: var(--v2-sun-400);
+  }
+  .lang-flag {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* Sun button – the language trigger */
+  .sun-btn {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    border-radius: 9999px;
+    background: radial-gradient(circle at 35% 35%, #ffe39a, var(--v2-sun-400) 60%, #e09000 100%);
+    box-shadow: 0 0 18px rgba(255, 194, 51, 0.35), inset 0 -2px 6px rgba(224, 144, 0, 0.35);
+    color: var(--v2-ink-950);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .sun-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 0 28px rgba(255, 194, 51, 0.55), inset 0 -2px 6px rgba(224, 144, 0, 0.4);
+  }
+  /* Sun rays decoration */
+  .sun-btn::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 9999px;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg 20deg,
+      rgba(255, 194, 51, 0.35) 25deg 35deg,
+      transparent 40deg 65deg,
+      rgba(255, 194, 51, 0.35) 70deg 80deg,
+      transparent 85deg 110deg,
+      rgba(255, 194, 51, 0.35) 115deg 125deg,
+      transparent 130deg 155deg,
+      rgba(255, 194, 51, 0.35) 160deg 170deg,
+      transparent 175deg 200deg,
+      rgba(255, 194, 51, 0.35) 205deg 215deg,
+      transparent 220deg 245deg,
+      rgba(255, 194, 51, 0.35) 250deg 260deg,
+      transparent 265deg 290deg,
+      rgba(255, 194, 51, 0.35) 295deg 305deg,
+      transparent 310deg 335deg,
+      rgba(255, 194, 51, 0.35) 340deg 350deg,
+      transparent 355deg 360deg
+    );
+    -webkit-mask: radial-gradient(circle, transparent 54%, #000 56%, #000 75%, transparent 77%);
+            mask: radial-gradient(circle, transparent 54%, #000 56%, #000 75%, transparent 77%);
+    opacity: 0.9;
+    animation: sun-rotate 28s linear infinite;
+    pointer-events: none;
+  }
+  @keyframes sun-rotate {
+    to { transform: rotate(360deg); }
+  }
+  #lang-switch[data-open] .sun-btn {
+    transform: scale(1.08);
+  }
 </style>
 
 <nav class="absolute top-0 left-0 right-0 z-40 pointer-events-none pt-16">
   <div class="pointer-events-auto mx-auto max-w-[1600px] px-6 lg:px-12 flex items-center justify-between">
-    <!-- Logo -->
-    <a href="/" class="group flex items-center gap-3" aria-label="Jetski Lefkada Rentals home">
-      <span class="relative inline-flex items-center justify-center w-11 h-11 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
-        <span class="font-display italic text-xl leading-none">J</span>
+    <!-- Logo: jetski icon + Nero Lefkada -->
+    <a href={currentLangObj.href} class="group flex items-center gap-3" aria-label="Nero Lefkada Rental&Retail home">
+      <span class="relative inline-flex items-center justify-center w-11 h-11 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);" aria-hidden="true">
+        <!-- Jetski silhouette -->
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="currentColor">
+          <path d="M4 22c2-1 4-1.5 6-1.5s4 .5 6 .5 4-.5 6-.5 4 .5 6 1.5v2c-2 1-4 1.5-6 1.5s-4-.5-6-.5-4 .5-6 .5-4-.5-6-1.5v-2zm4-6l3-4h10l3 4c.8 1 .6 2.5-.5 3-1.5.6-3-.3-4-1.5-.8-1-2.3-1-3.5-.5-1 .4-2.3.4-3 0-1.2-.5-2.7-.5-3.5.5-1 1.2-2.5 2.1-4 1.5-1.1-.5-1.3-2-.5-3zm4.5-5l1-3c.2-.6.8-1 1.5-1h4c.7 0 1.3.4 1.5 1l1 3h-9z"/>
+        </svg>
       </span>
       <div class="hidden sm:flex flex-col leading-none">
-        <span class="font-display text-xl tracking-tight" style="color: var(--v2-cream-50);">Jetski Lefkada</span>
+        <span class="font-display text-xl tracking-tight" style="color: var(--v2-cream-50);">Nero Lefkada</span>
+        <span class="font-mono text-[9px] tracking-[0.18em] uppercase mt-1" style="color: rgba(253,251,244,0.6);">Rental&amp;Retail</span>
       </div>
     </a>
 
@@ -74,8 +216,44 @@ const links = [
       }
     </div>
 
-    <!-- Right side: Instagram + CTA + Hamburger -->
+    <!-- Right: Language switcher (sun) + Instagram + CTA + Hamburger -->
     <div class="flex items-center gap-3">
+      <!-- Language switcher: the sun button -->
+      <div id="lang-switch">
+        <button
+          type="button"
+          class="sun-btn"
+          id="lang-toggle"
+          aria-label="Select language"
+          aria-haspopup="true"
+          aria-expanded="false"
+          data-cro="navbar-language"
+        >
+          <span style="position: relative; z-index: 2;">{currentLangObj.code.toUpperCase()}</span>
+        </button>
+        <div id="lang-dropdown" role="menu" aria-label="Language selection">
+          {
+            languages.map((lang) => (
+              <a
+                href={lang.href}
+                class={`lang-item ${lang.code === currentLang ? "active" : ""}`}
+                role="menuitem"
+                hreflang={lang.code === "gr" ? "el" : lang.code}
+                data-cro={`navbar-lang-${lang.code}`}
+              >
+                <span class="lang-flag" aria-hidden="true">{lang.flag}</span>
+                <span>{lang.label}</span>
+                {lang.code === currentLang && (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: auto;" aria-hidden="true">
+                    <path d="M20 6L9 17l-5-5"/>
+                  </svg>
+                )}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+
       <!-- Instagram (desktop only, icon-only) -->
       <a
         href="https://instagram.com/jetski__lefkada"
@@ -97,7 +275,7 @@ const links = [
         class="v2-btn !py-3 !px-5 !text-xs"
         style="background: var(--v2-sun-400); color: var(--v2-ink-950);"
       >
-        Book Now
+        {t.book}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <path d="M5 12h14M13 5l7 7-7 7"/>
         </svg>
@@ -125,7 +303,7 @@ const links = [
   id="mobile-nav"
   role="dialog"
   aria-modal="true"
-  aria-label="Navigation"
+  aria-label={t.nav}
   class="fixed inset-0 z-50 md:hidden flex flex-col"
   style="background: var(--v2-ink-950, #071d30); transform: translateX(100%); opacity: 0; pointer-events: none;"
 >
@@ -135,11 +313,13 @@ const links = [
 
   <!-- Header row -->
   <div class="relative flex items-center justify-between px-6 pt-12 pb-6 border-b" style="border-color: rgba(253,251,244,0.1);">
-    <a href="/" class="flex items-center gap-3" onclick="closeNav()">
-      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full" style="background: var(--v2-sun-400, #ffc233); color: var(--v2-ink-950, #071d30);">
-        <span class="font-display italic text-lg leading-none">J</span>
+    <a href={currentLangObj.href} class="flex items-center gap-3">
+      <span class="inline-flex items-center justify-center w-10 h-10 rounded-full" style="background: var(--v2-sun-400, #ffc233); color: var(--v2-ink-950, #071d30);" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 32 32" fill="currentColor">
+          <path d="M4 22c2-1 4-1.5 6-1.5s4 .5 6 .5 4-.5 6-.5 4 .5 6 1.5v2c-2 1-4 1.5-6 1.5s-4-.5-6-.5-4 .5-6 .5-4-.5-6-1.5v-2zm4-6l3-4h10l3 4c.8 1 .6 2.5-.5 3-1.5.6-3-.3-4-1.5-.8-1-2.3-1-3.5-.5-1 .4-2.3.4-3 0-1.2-.5-2.7-.5-3.5.5-1 1.2-2.5 2.1-4 1.5-1.1-.5-1.3-2-.5-3zm4.5-5l1-3c.2-.6.8-1 1.5-1h4c.7 0 1.3.4 1.5 1l1 3h-9z"/>
+        </svg>
       </span>
-      <span class="font-display text-lg tracking-tight" style="color: var(--v2-cream-50, #fdfbf4);">Jetski Lefkada</span>
+      <span class="font-display text-lg tracking-tight" style="color: var(--v2-cream-50, #fdfbf4);">Nero Lefkada</span>
     </a>
     <button
       id="nav-close"
@@ -154,7 +334,7 @@ const links = [
   </div>
 
   <!-- Nav links (centered) -->
-  <nav class="relative flex-1 flex flex-col justify-center px-8 gap-2">
+  <nav class="relative flex-1 flex flex-col justify-center px-8 gap-2" aria-label={t.nav}>
     {
       links.map((l, i) => (
         <a
@@ -166,6 +346,24 @@ const links = [
         </a>
       ))
     }
+
+    <!-- Mobile language switcher inline -->
+    <div class="mt-8 pt-8 border-t flex gap-2" style="border-color: rgba(253,251,244,0.1);">
+      {
+        languages.map((lang) => (
+          <a
+            href={lang.href}
+            class={`flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-full font-mono text-[11px] uppercase tracking-[0.12em] border transition-all ${lang.code === currentLang ? "" : "hover:bg-white/5"}`}
+            style={lang.code === currentLang
+              ? "background: var(--v2-sun-400); color: var(--v2-ink-950); border-color: var(--v2-sun-400);"
+              : "color: rgba(253,251,244,0.7); border-color: rgba(253,251,244,0.2);"}
+          >
+            <span aria-hidden="true">{lang.flag}</span>
+            <span>{lang.code.toUpperCase()}</span>
+          </a>
+        ))
+      }
+    </div>
   </nav>
 
   <!-- Footer CTA -->
@@ -175,7 +373,7 @@ const links = [
       class="v2-btn w-full justify-center !py-4 !text-sm"
       style="background: var(--v2-sun-400, #ffc233); color: var(--v2-ink-950, #071d30);"
     >
-      Book your jetski
+      {t.bookMobile}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
         <path d="M5 12h14M13 5l7 7-7 7"/>
       </svg>
@@ -187,6 +385,7 @@ const links = [
 </div>
 
 <script>
+  // Mobile drawer
   const toggle = document.getElementById('nav-toggle');
   const drawer = document.getElementById('mobile-nav');
   const closeBtn = document.getElementById('nav-close');
@@ -196,7 +395,6 @@ const links = [
     toggle.setAttribute('aria-expanded', 'true');
     document.documentElement.style.overflow = 'hidden';
   }
-
   function closeNav() {
     drawer.removeAttribute('data-open');
     toggle.setAttribute('aria-expanded', 'false');
@@ -206,14 +404,33 @@ const links = [
   toggle.addEventListener('click', () => {
     drawer.hasAttribute('data-open') ? closeNav() : openNav();
   });
-
   closeBtn.addEventListener('click', closeNav);
-
-  // Close on any nav link tap
   drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeNav));
-
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && drawer.hasAttribute('data-open')) closeNav();
+  });
+
+  // Language switcher dropdown
+  const langSwitch = document.getElementById('lang-switch');
+  const langToggle = document.getElementById('lang-toggle');
+
+  function openLang() {
+    langSwitch.setAttribute('data-open', '');
+    langToggle.setAttribute('aria-expanded', 'true');
+  }
+  function closeLang() {
+    langSwitch.removeAttribute('data-open');
+    langToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  langToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langSwitch.hasAttribute('data-open') ? closeLang() : openLang();
+  });
+  document.addEventListener('click', (e) => {
+    if (!langSwitch.contains(e.target)) closeLang();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && langSwitch.hasAttribute('data-open')) closeLang();
   });
 </script>

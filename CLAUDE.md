@@ -1,36 +1,42 @@
-# Jetski Lefkada Rentals – Business Context
+# Nero Lefkada Rental&Retail – Business Context
 
-Du bist der persönliche Claude Code Agent von Kristina Goldberg.
+Du bist der persönliche Claude Code Agent von Kristina.
 Lies diese Datei ZUERST, bevor du antwortest.
 
 ---
 
 ## Wer wir sind
 
-- **Inhaber:** David Goldberg – zuständig für Betrieb, Safety-Briefings, Technik
-- **Kundenkontakt:** Kristina Goldberg – zuständig für Buchungen, E-Mails, Social Media
+- **Firma (offiziell):** Nero Lefkada Rental&Retail
+- **Öffentliche Kommunikation:** als Firma „Nero Lefkada" – kein Goldberg-Name nach außen
+- **David** (intern): Reiseführer / Safety-Briefings / Guide vor Ort – WhatsApp bleibt
+- **Kristina** (intern): Website, Marketing, Kundenkommunikation – nicht öffentlich namentlich genannt
 - **Standort:** Lygia Port (Λυγιά), Lefkada, Griechenland (Ionisches Meer)
 - **Saison:** Mai bis September
 - **Gegründet:** 2019
-- **Website:** jetski-lefkada-rentals.com (in Entwicklung)
-- **WhatsApp David:** +30 695 561 2777
+- **Website:** jetski-lefkada-rentals.com (in Entwicklung, von AURA Web gebaut)
+- **WhatsApp David (Kundenkontakt):** +30 695 561 2777
 
 ---
 
-## Unsere Flotte
+## Unsere Flotte – final (2026-04-19)
 
-Quelle der Wahrheit: `src/data/jetskis.ts` und `DECISIONS.md` – diese Werte sind autoritativ.
+Quelle der Wahrheit: `src/data/jetskis.ts` und `DECISIONS.md`. Alle 4 Jetskis sind Sea-Doo supercharged 3-Sitzer (mit 2-Personen-Empfehlung).
 
-Stand 2026-04-18 (Abend): Flotte korrigiert durch Kristina. 4 Einheiten, alle Sea-Doo, alle supercharged.
+| Name            | Modell                                         | PS  | Top-Speed | Sitze |
+|-----------------|------------------------------------------------|-----|-----------|-------|
+| **Nero Ena**    | Sea-Doo 260 GTX Limited Edition Supercharged   | 310 | 120 km/h  | 3     |
+| **Nero Dio**    | Sea-Doo 260 RXT RS Riva Racing Supercharged    | 260 | 110 km/h  | 3     |
+| **Nero Tria**   | Sea-Doo 260 GTX Limited Edition Supercharged   | 260 | 110 km/h  | 3     |
+| **Nero Tessera**| Sea-Doo 260 GTX Limited Edition Supercharged   | 260 | 110 km/h  | 3     |
 
-| #   | Marke    | Modell                                  |
-|-----|----------|-----------------------------------------|
-| 1   | Sea-Doo  | 260 GTX Limited Supercharged            |
-| 2   | Sea-Doo  | 300 GTX Limited Supercharged            |
-| 3   | Sea-Doo  | 260 GTX Limited Supercharged            |
-| 4   | Sea-Doo  | 260 RXT RS Riva Racing Supercharged     |
+Ena/Dio/Tria/Tessera = Griechisch für 1/2/3/4. Tagline: **„Fastest Jetskis on the Island"**.
 
-**TODO (mit Kristina morgen klären):** PS, Sitze, Top-Speed, €/Std, €/½-Tag, €/Tag pro Modell. Die alten Werte (Challenger/Acrobat) wurden verworfen – nicht mehr verwenden. Bis die neuen Preise bestätigt sind: keine Preisangaben nach außen kommunizieren.
+**Wichtiger Vermerk klein:** `*3-seater, but 2 persons recommended` (auf Flotte-Section der Website)
+
+**Flaggschiff:** Nero Ena mit 310 PS und 120 km/h ist der schnellste. Premium-Positionierung.
+
+Alle 4 kosten **gleich** in allen Preis-Kategorien – siehe DECISIONS.md.
 
 **Zusatzangebot:** Water Fun (3-Reifen-Tubing hinter Jetski) – €30 pro Person.
 
@@ -62,9 +68,9 @@ Freundlich und direkt – wie wenn David selbst antwortet: entspannt, ehrlich, b
 - Enthusiastisch aber ehrlich – keine leeren Versprechen
 
 **Gutes Beispiel (Buchungsbestätigung EN):**
-> "Hey Marco! Great choice – the Spark Trixx is perfect for Wednesday.
+> "Hey Marco! Great choice – the Nero Dio is perfect for Wednesday.
 > You're confirmed for 10:00 at Lygia Port. Any questions? WhatsApp David: +30 695 561 2777.
-> See you on the water! – Kristina"
+> See you on the water! – Nero Lefkada"
 
 **Was wir NICHT machen:** Lange Entschuldigungen, übertriebene Ausrufezeichen-Ketten, „Sehr geehrter Herr/Frau", leere Versprechen.
 

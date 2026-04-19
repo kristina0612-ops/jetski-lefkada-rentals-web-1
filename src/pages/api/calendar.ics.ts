@@ -7,6 +7,7 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import type { Booking } from "../../types/database";
 import { timingSafeEqual } from "../../lib/rate-limit";
+import { jetskis } from "../../data/jetskis";
 
 function formatIcsDate(date: string, time: string): string {
   // YYYY-MM-DD + HH:MM → YYYYMMDDTHHMMSS
@@ -41,7 +42,7 @@ function buildIcs(bookings: Booking[]): string {
       `DTSTAMP:${startIso}Z`,
       `DTSTART;TZID=Europe/Athens:${startIso}`,
       `DTEND;TZID=Europe/Athens:${endIso}`,
-      `SUMMARY:${b.jetski_id === "seadoo-rxtx" ? "The Challenger" : "The Acrobat"} · ${b.customer_name}`,
+      `SUMMARY:${jetskis.find((j) => j.id === b.jetski_id)?.name ?? b.jetski_id} · ${b.customer_name}`,
       `DESCRIPTION:${b.service_category} / ${b.duration_minutes} min · €${b.total_price}\\nTel: ${b.customer_phone}\\n${b.notes ?? ""}`,
       `STATUS:${b.status === "confirmed" || b.status === "completed" ? "CONFIRMED" : "TENTATIVE"}`,
       "END:VEVENT",

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { jetskis, pricingExtras, type Jetski } from "../data/jetskis";
 
-type Category = "classic" | "beach" | "exclusive" | "delivery" | "waterFun";
+type Category = "beach" | "exclusive" | "delivery" | "waterFun";
 
 const WHATSAPP_BASE = "https://wa.me/306955612777?text=";
 
@@ -18,33 +18,6 @@ function computePrice(
   option: string,
   persons: number,
 ): PriceResult {
-  if (category === "classic") {
-    if (option === "hour1") {
-      return {
-        price: jetski.pricePerHour,
-        unit: "",
-        label: `${jetski.name} · 1 hour`,
-        whatsappMsg: `Hi David, I'd like to book the ${jetski.name} for 1 hour (€${jetski.pricePerHour}).`,
-      };
-    }
-    if (option === "halfDay") {
-      return {
-        price: jetski.priceHalfDay,
-        unit: "",
-        label: `${jetski.name} · half day (4h)`,
-        whatsappMsg: `Hi David, I'd like to book the ${jetski.name} for a half day / 4h (€${jetski.priceHalfDay}).`,
-      };
-    }
-    if (option === "fullDay") {
-      return {
-        price: jetski.priceFullDay,
-        unit: "",
-        label: `${jetski.name} · full day (8h)`,
-        whatsappMsg: `Hi David, I'd like to book the ${jetski.name} for a full day / 8h (€${jetski.priceFullDay}).`,
-      };
-    }
-  }
-
   if (category === "beach") {
     const map: Record<string, keyof Jetski["beachRides"]> = {
       min10: "min10",
@@ -141,18 +114,13 @@ function computePrice(
 
 export default function Calculator() {
   const [jetskiId, setJetskiId] = useState(jetskis[0].id);
-  const [category, setCategory] = useState<Category>("classic");
-  const [option, setOption] = useState<string>("hour1");
+  const [category, setCategory] = useState<Category>("beach");
+  const [option, setOption] = useState<string>("min30");
   const [persons, setPersons] = useState<number>(2);
 
   const jetski = jetskis.find((j) => j.id === jetskiId) ?? jetskis[0];
 
   const optionSets: Record<Category, Array<{ value: string; label: string }>> = {
-    classic: [
-      { value: "hour1", label: "1 hour" },
-      { value: "halfDay", label: "Half Day (4h)" },
-      { value: "fullDay", label: "Full Day (8h)" },
-    ],
     beach: [
       { value: "min10", label: "10 min" },
       { value: "min15", label: "15 min (BEST)" },
@@ -252,10 +220,9 @@ export default function Calculator() {
         >
           Service
         </label>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {(
             [
-              { v: "classic", l: "Classic" },
               { v: "beach", l: "Beach Rides" },
               { v: "exclusive", l: "Exclusive" },
               { v: "delivery", l: "VIP Delivery" },

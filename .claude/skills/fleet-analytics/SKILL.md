@@ -1,27 +1,29 @@
 ---
 name: fleet-analytics
-description: Nutze diesen Skill wann immer Auslastung, Umsatz, ROI oder Buchungsverteilung pro Jetski-Einheit (Challenger #1/#2, Acrobat #1/#2) fuer Jetski Lefkada Rentals berechnet werden soll. Enthaelt Formeln, Kennzahlen, Report-Format und Supabase-Query-Patterns. Wird vom fleet-utilization-analyst-Agent bei jedem Report konsultiert und komplementiert den website-analytics-Skill (der Website-Traffic abdeckt).
+description: Nutze diesen Skill wann immer Auslastung, Umsatz, ROI oder Buchungsverteilung pro Jetski-Einheit (Nero Ena/Dio/Tria/Tessera) fuer Nero Lefkada Rental&Retail berechnet werden soll. Enthaelt Formeln, Kennzahlen, Report-Format und Supabase-Query-Patterns. Wird vom fleet-utilization-analyst-Agent bei jedem Report konsultiert und komplementiert den website-analytics-Skill (der Website-Traffic abdeckt).
 ---
 
-# Fleet Analytics – Jetski Lefkada Rentals
+# Fleet Analytics – Nero Lefkada Rental&Retail
 
 ## Purpose
 Berechnungs-Referenz fuer **Auslastung, Umsatz und ROI pro physischer Jetski-Einheit**. Der `fleet-utilization-analyst`-Agent nutzt dieses Skill als Formelsammlung. Andere Agenten koennen es konsultieren wenn sie unit-spezifische Kennzahlen brauchen.
 
 ---
 
-## Die Flotte
+## Die Flotte – final 2026-04-19
 
-Vier physische Einheiten, Quelle: `src/data/jetskis.ts` → `jetskiUnits`.
+Vier physische Einheiten, Quelle: `src/data/jetskis.ts` → `jetskiUnits`. **Alle Sea-Doo supercharged, alle 3-Sitzer (mit 2-Personen-Empfehlung).**
 
-| Unit-ID | Label | Modell | HP | Sitze | Status |
+| Unit-ID | Label | Modell | PS | Top-Speed | Status |
 |---|---|---|---|---|---|
-| `challenger-1` | Challenger #1 | Sea-Doo RXT-X 300 | 300 | 3 | active |
-| `challenger-2` | Challenger #2 | Sea-Doo RXT-X 300 | 300 | 3 | active |
-| `acrobat-1` | Acrobat #1 | Sea-Doo Spark Trixx | 90 | 2 | active |
-| `acrobat-2` | Acrobat #2 | Sea-Doo Spark Trixx | 90 | 2 | active |
+| `nero-ena` | Nero Ena | Sea-Doo 260 GTX Ltd Ed Supercharged | 310 | 120 km/h | active · Flagship |
+| `nero-dio` | Nero Dio | Sea-Doo 260 RXT RS Riva Racing | 260 | 110 km/h | active |
+| `nero-tria` | Nero Tria | Sea-Doo 260 GTX Ltd Ed Supercharged | 260 | 110 km/h | active |
+| `nero-tessera` | Nero Tessera | Sea-Doo 260 GTX Ltd Ed Supercharged | 260 | 110 km/h | active |
 
-Seriennummern, Farben, Registrierungen: werden nachgetragen wenn Kristina sie liefert.
+Seriennummern, griechische ΛΣ-Registrierungen, Farben: werden nachgetragen wenn Kristina sie liefert.
+
+**Preisgleichheit:** Alle 4 Neros kosten pro Kategorie IDENTISCH (Flyer 2026). ROI-Unterschiede entstehen nur durch unterschiedliche Buchungsverteilung + Wartungskosten, NICHT durch Preise.
 
 ---
 

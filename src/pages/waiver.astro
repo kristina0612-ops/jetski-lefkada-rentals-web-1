@@ -1,0 +1,338 @@
+---
+import LayoutBare from "../layouts/LayoutBare.astro";
+---
+
+<LayoutBare
+  title="Liability Waiver / Haftungsausschluss / Απαλλαγή Ευθύνης · Nero Lefkada"
+  description="Risk acknowledgement and liability waiver for Nero Lefkada Rental&Retail, Lefkada, Greece."
+  themeColor="#fdfbf4"
+>
+  <style>
+    body { background: #fdfbf4; color: #0a1220; font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    .legal-page { max-width: 740px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+    h1 { font-family: "Fraunces Variable", Georgia, serif; font-size: 3rem; font-weight: 400; letter-spacing: -0.03em; margin-bottom: 2rem; line-height: 1.1; }
+    h1 em { font-style: italic; color: #ff5a36; }
+    h2 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.25rem; font-weight: 400; margin: 2.5rem 0 0.6rem; }
+    h3 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.4rem; color: #0a1220; }
+    p, ul, ol { font-size: 0.95rem; line-height: 1.75; color: #2a3a4a; margin-bottom: 1rem; }
+    ul, ol { padding-left: 1.5rem; }
+    li { margin-bottom: 0.4rem; }
+    a { color: #00b3a7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8d; margin-bottom: 3rem; }
+    .divider { width: 40px; height: 2px; background: linear-gradient(90deg, #ff5a36, #ffc233); margin: 2rem 0; border-radius: 1px; }
+    .warn { background: #fff0ec; border-left: 3px solid #ff5a36; padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; }
+    .info { background: #f0f7f6; border-left: 3px solid #00b3a7; padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; }
+    .law-ref { font-size: 0.8rem; color: #6b7a8d; font-style: italic; }
+
+    .lang-tabs { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .lang-btn {
+      padding: 0.45rem 1.1rem; border: 1.5px solid #d0ccc4; border-radius: 100px;
+      background: transparent; font-size: 0.82rem; letter-spacing: 0.08em;
+      cursor: pointer; font-family: "Instrument Sans", sans-serif; color: #6b7a8d;
+      transition: all 0.15s ease;
+    }
+    .lang-btn:hover { border-color: #ff5a36; color: #0a1220; }
+    .lang-btn.active { background: #ff5a36; border-color: #ff5a36; color: #fff; font-weight: 600; }
+    .lang-block[data-lang] { display: none; }
+    .lang-block[data-lang].active { display: block; }
+  </style>
+
+  <div class="legal-page">
+    <a href="/" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      Back to site
+    </a>
+
+    <h1>Liability Waiver /<br><em>Haftungsausschluss</em></h1>
+    <div class="divider"></div>
+
+    <div class="lang-tabs">
+      <button class="lang-btn active" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="de">Deutsch</button>
+      <button class="lang-btn" data-lang="el">Ελληνικά</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ ENGLISH (default) -->
+    <div class="lang-block active" data-lang="en">
+
+      <div class="info">
+        <strong>What this document does:</strong> By booking and signing, you acknowledge the inherent risks of jet ski operation, confirm that you meet the requirements below, and accept responsibility for your own conduct on the water. This waiver is a contractual assumption of risk &mdash; it does <strong>not</strong> waive rights that Greek law makes non-waivable (see §8).
+      </div>
+
+      <h2>§1 Parties</h2>
+      <p>
+        <strong>Operator:</strong> Nero Lefkada Rental&Retail, Lygia Port, 311 00 Lefkada, Greece.<br>
+        <strong>Renter:</strong> The person booking the jet ski and signing the briefing form on site. The Renter is at least 18 years old and holds a valid government-issued photo ID.
+      </p>
+
+      <h2>§2 Acknowledged Risks</h2>
+      <p>The Renter expressly acknowledges that jet ski operation involves inherent risks that cannot be eliminated, including but not limited to:</p>
+      <ul>
+        <li>Collision with other watercraft, swimmers, buoys, rocks or debris</li>
+        <li>Capsizing, being ejected, falling overboard</li>
+        <li>Propeller injuries and contact injuries</li>
+        <li>Waves, wakes, sudden weather changes, visibility changes</li>
+        <li>Mechanical failure of the jet ski despite proper maintenance</li>
+        <li>Conduct of other water users beyond the Operator's control</li>
+        <li>Dehydration, sunstroke, hypothermia in case of extended water exposure</li>
+        <li>Loss of or damage to personal belongings carried on board</li>
+      </ul>
+
+      <h2>§3 Renter Confirmations (signed at the dock)</h2>
+      <p>By booking and signing the briefing, the Renter confirms:</p>
+      <ul>
+        <li>I am at least 18 years old and have presented a valid photo ID.</li>
+        <li>I am in good physical and mental health, a competent swimmer, and not pregnant.</li>
+        <li>I am not under the influence of alcohol, drugs, or medication that impairs operation of a motorised watercraft.</li>
+        <li>I have received, understood and will follow the Operator's 10-minute safety briefing, including the rules on distance from shore (max. 700 m), swim zones, and prohibited areas.</li>
+        <li>I will wear the provided life jacket at all times.</li>
+        <li>I will operate the jet ski safely, lawfully, and only within the permitted area and time.</li>
+        <li>I accept personal liability for damage to the jet ski or third parties caused by my violation of the safety rules, gross negligence, or wilful misconduct.</li>
+      </ul>
+
+      <h2>§4 Licence & Guided Tours</h2>
+      <p>
+        Greek law does not require a separate boating licence for short recreational rentals under the Operator's supervision and briefing. Renters <strong>without</strong> a boating licence may only operate the jet ski as part of a <strong>guided tour with a Nero Lefkada guide</strong>. Renters <strong>with</strong> a valid boating licence may operate solo within the permitted zone and rules.
+      </p>
+
+      <h2>§5 Assumption of Risk</h2>
+      <p>
+        The Renter knowingly and voluntarily assumes all risks associated with the activity, including those listed in §2. The Renter agrees that the activity takes place at the Renter's own risk.
+      </p>
+
+      <h2>§6 Liability of the Operator</h2>
+      <p>
+        To the fullest extent permitted by Greek law, the Operator shall <strong>not be liable</strong> for personal injury, death, loss or property damage of the Renter or third parties resulting from:
+      </p>
+      <ul>
+        <li>Violation of the safety briefing, safety rules, or Greek maritime regulations by the Renter;</li>
+        <li>Operation of the jet ski under the influence of alcohol, drugs, or medication;</li>
+        <li>Gross negligence or wilful misconduct of the Renter or third parties;</li>
+        <li>Acts of other water users, weather, force majeure, or government orders;</li>
+        <li>Personal belongings lost, damaged or stolen on or around the jet ski.</li>
+      </ul>
+
+      <h2>§7 Liability of the Renter</h2>
+      <p>
+        The Renter is personally liable for any damage to the jet ski, the tow equipment (including the Jobe Ridge towable), or any third party caused by breach of the safety rules, gross negligence or wilful misconduct. The Operator's third-party liability insurance (€700,000 per incident pursuant to Greek Law 4926/2022) covers qualifying incidents to the extent required by law.
+      </p>
+
+      <h2>§8 Non-waivable Rights</h2>
+      <p>
+        Nothing in this document limits or excludes the Operator's liability where Greek law does not permit limitation or exclusion &mdash; in particular for <strong>death or personal injury caused by the Operator's own gross negligence or wilful misconduct</strong>, and for liability under mandatory Greek consumer protection provisions. Any clause deemed invalid by a Greek court does not affect the validity of the remaining clauses.
+      </p>
+
+      <h2>§9 Insurance</h2>
+      <p>
+        Third-party liability insurance under Greek Law 4926/2022: <strong>€700,000 per incident</strong>.<br>
+        Personal accident insurance for the Renter is <strong>not</strong> included. The Renter is strongly advised to hold travel or accident insurance covering water sports.
+      </p>
+
+      <h2>§10 Governing Law & Jurisdiction</h2>
+      <p>
+        This waiver is governed by Greek law. Exclusive place of jurisdiction is the competent court of Lefkada, Greece. If the Renter is a consumer domiciled in another EU Member State, statutory consumer protection rights at the Renter's place of residence remain unaffected.
+      </p>
+
+      <h2>§11 Signing & Electronic Acceptance</h2>
+      <p>
+        The Renter accepts this waiver in two steps: (a) by ticking the "I accept the Liability Waiver" checkbox during online booking (electronic consent pursuant to Reg. (EU) No. 910/2014 &ndash; eIDAS), and (b) by signing the printed briefing form at the dock before departure. Both steps together constitute effective acceptance. Time of online consent, IP address and device fingerprint are logged as evidence.
+      </p>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ DEUTSCH -->
+    <div class="lang-block" data-lang="de">
+
+      <div class="info">
+        <strong>Zweck dieses Dokuments:</strong> Mit der Buchung und Unterschrift bestätigst Du die mit dem Jetskifahren verbundenen Risiken, bestätigst dass Du die unten genannten Voraussetzungen erfüllst und übernimmst Verantwortung für Dein eigenes Verhalten auf dem Wasser. Dieser Haftungsausschluss ist eine vertragliche Risikoübernahme &mdash; er <strong>verzichtet nicht</strong> auf Rechte, die nach griechischem Recht nicht verzichtbar sind (siehe §8).
+      </div>
+
+      <h2>§1 Vertragsparteien</h2>
+      <p>
+        <strong>Vermieter:</strong> Nero Lefkada Rental&Retail, Lygia Port, 311 00 Lefkada, Griechenland.<br>
+        <strong>Mieter:</strong> Die Person, die das Jetski bucht und das Briefing-Formular vor Ort unterzeichnet. Der Mieter ist mindestens 18 Jahre alt und verfügt über einen gültigen amtlichen Lichtbildausweis.
+      </p>
+
+      <h2>§2 Anerkannte Risiken</h2>
+      <p>Der Mieter erkennt ausdrücklich an, dass mit dem Jetskifahren untrennbare Risiken verbunden sind, die nicht vollständig ausgeschlossen werden können, insbesondere:</p>
+      <ul>
+        <li>Kollision mit anderen Wasserfahrzeugen, Schwimmern, Bojen, Felsen oder Treibgut</li>
+        <li>Kentern, Herabfallen, Übergehen über Bord</li>
+        <li>Propeller- und Kontaktverletzungen</li>
+        <li>Wellen, Kielwasser, plötzliche Wetter- und Sichtänderungen</li>
+        <li>Mechanisches Versagen des Jetskis trotz ordnungsgemäßer Wartung</li>
+        <li>Verhalten anderer Wassersportler außerhalb des Einflusses des Vermieters</li>
+        <li>Dehydrierung, Sonnenstich, Unterkühlung bei längerem Wasseraufenthalt</li>
+        <li>Verlust oder Beschädigung mitgeführter persönlicher Gegenstände</li>
+      </ul>
+
+      <h2>§3 Bestätigungen des Mieters (am Dock zu unterzeichnen)</h2>
+      <p>Mit Buchung und Unterschrift des Briefings bestätigt der Mieter:</p>
+      <ul>
+        <li>Ich bin mindestens 18 Jahre alt und habe einen gültigen Lichtbildausweis vorgelegt.</li>
+        <li>Ich bin körperlich und geistig gesund, schwimmfähig und nicht schwanger.</li>
+        <li>Ich stehe nicht unter Einfluss von Alkohol, Drogen oder beeinträchtigenden Medikamenten.</li>
+        <li>Ich habe das 10-minütige Sicherheitsbriefing erhalten, verstanden und werde die Regeln befolgen (insbesondere Küstenabstand max. 700 m, Schwimmzonen, Sperrgebiete).</li>
+        <li>Ich trage die bereitgestellte Schwimmweste durchgehend.</li>
+        <li>Ich werde das Jetski sicher, rechtmäßig und nur in der erlaubten Zone und Zeit führen.</li>
+        <li>Ich hafte persönlich für Schäden am Jetski oder an Dritten, die durch Regelverstoß, grobe Fahrlässigkeit oder Vorsatz meinerseits entstehen.</li>
+      </ul>
+
+      <h2>§4 Führerschein & Geführte Touren</h2>
+      <p>
+        Griechisches Recht verlangt für kurze Freizeitvermietungen unter Aufsicht und mit Briefing keinen separaten Bootsführerschein. Mieter <strong>ohne</strong> Bootsführerschein dürfen das Jetski ausschließlich im Rahmen einer <strong>geführten Tour mit einem Nero-Lefkada-Guide</strong> fahren. Mieter <strong>mit</strong> gültigem Bootsführerschein dürfen solo innerhalb der erlaubten Zone und Regeln fahren.
+      </p>
+
+      <h2>§5 Risikoübernahme</h2>
+      <p>
+        Der Mieter übernimmt wissentlich und freiwillig alle mit der Aktivität verbundenen Risiken, einschließlich der in §2 genannten. Der Mieter stimmt zu, dass die Aktivität auf eigenes Risiko stattfindet.
+      </p>
+
+      <h2>§6 Haftung des Vermieters</h2>
+      <p>
+        Soweit nach griechischem Recht zulässig, haftet der Vermieter <strong>nicht</strong> für Personen-, Todes-, Vermögens- oder Sachschäden des Mieters oder Dritter, die entstehen durch:
+      </p>
+      <ul>
+        <li>Verstoß gegen Sicherheitsbriefing, Sicherheitsregeln oder griechische Seerechtsvorschriften durch den Mieter;</li>
+        <li>Betrieb unter Einfluss von Alkohol, Drogen oder Medikamenten;</li>
+        <li>grobe Fahrlässigkeit oder Vorsatz des Mieters oder Dritter;</li>
+        <li>Handlungen anderer Wassersportler, Wetter, höhere Gewalt oder behördliche Anordnungen;</li>
+        <li>Verlust, Beschädigung oder Diebstahl persönlicher Gegenstände auf oder am Jetski.</li>
+      </ul>
+
+      <h2>§7 Haftung des Mieters</h2>
+      <p>
+        Der Mieter haftet persönlich für jegliche Schäden am Jetski, an der Zugausrüstung (einschließlich Jobe Ridge Towable) oder an Dritten, die durch Verletzung der Sicherheitsregeln, grobe Fahrlässigkeit oder Vorsatz entstehen. Die Haftpflichtversicherung des Vermieters (€700.000 pro Vorfall gem. Ν. 4926/2022) deckt nur die gesetzlich gedeckten Schadensfälle.
+      </p>
+
+      <h2>§8 Unabdingbare Rechte</h2>
+      <p>
+        Nichts in diesem Dokument beschränkt oder schließt die Haftung des Vermieters aus, soweit griechisches Recht keine Beschränkung oder Ausschluss zulässt &mdash; insbesondere für <strong>Tod oder Körperverletzung, die durch grobe Fahrlässigkeit oder Vorsatz des Vermieters verursacht wurden</strong>, sowie für Haftung nach zwingenden griechischen Verbraucherschutzvorschriften. Sollte eine Klausel von einem griechischen Gericht für ungültig erklärt werden, bleibt die Gültigkeit der übrigen Klauseln unberührt.
+      </p>
+
+      <h2>§9 Versicherung</h2>
+      <p>
+        Haftpflichtversicherung gem. griech. Gesetz 4926/2022: <strong>€700.000 pro Vorfall</strong>.<br>
+        Eine Unfallversicherung für den Mieter ist <strong>nicht</strong> enthalten. Der Mieter wird ausdrücklich empfohlen, eine Reise- oder Unfallversicherung mit Wassersport-Deckung zu haben.
+      </p>
+
+      <h2>§10 Anwendbares Recht & Gerichtsstand</h2>
+      <p>
+        Dieser Haftungsausschluss unterliegt griechischem Recht. Ausschließlicher Gerichtsstand ist das zuständige Gericht in Lefkada, Griechenland. Ist der Mieter Verbraucher mit Wohnsitz in einem anderen EU-Mitgliedstaat, bleiben die gesetzlichen Verbraucherschutzrechte am Wohnsitz des Mieters unberührt.
+      </p>
+
+      <h2>§11 Unterzeichnung & Elektronische Annahme</h2>
+      <p>
+        Der Mieter nimmt diesen Haftungsausschluss in zwei Schritten an: (a) durch Anklicken der Checkbox „Ich akzeptiere den Haftungsausschluss" bei der Online-Buchung (elektronische Einwilligung gem. VO (EU) 910/2014 &ndash; eIDAS) und (b) durch Unterschrift des gedruckten Briefing-Formulars vor Ort vor Fahrtantritt. Beide Schritte zusammen bilden die wirksame Annahme. Zeitpunkt der Online-Einwilligung, IP-Adresse und Device-Fingerprint werden beweisrechtlich gespeichert.
+      </p>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ ΕΛΛΗΝΙΚΑ -->
+    <div class="lang-block" data-lang="el">
+
+      <div class="info">
+        <strong>Σκοπός του παρόντος:</strong> Με την κράτηση και την υπογραφή, ο/η μισθωτής αναγνωρίζει τους εγγενείς κινδύνους της οδήγησης jet ski, επιβεβαιώνει ότι πληροί τις παρακάτω προϋποθέσεις και αναλαμβάνει την ευθύνη για τη συμπεριφορά του/της στο νερό. Η παρούσα απαλλαγή συνιστά συμβατική ανάληψη κινδύνου &mdash; <strong>δεν</strong> παραιτείται από δικαιώματα που κατά το ελληνικό δίκαιο είναι αναπαραίτητα (βλ. §8).
+      </div>
+
+      <h2>§1 Συμβαλλόμενα Μέρη</h2>
+      <p>
+        <strong>Εκμισθωτής:</strong> Nero Lefkada Rental&Retail, Λιμάνι Λυγιάς, 311 00 Λευκάδα, Ελλάδα.<br>
+        <strong>Μισθωτής:</strong> Το πρόσωπο που κάνει κράτηση του jet ski και υπογράφει το έντυπο ενημέρωσης επί τόπου. Ο μισθωτής είναι τουλάχιστον 18 ετών και φέρει έγκυρη αστυνομική ταυτότητα ή διαβατήριο.
+      </p>
+
+      <h2>§2 Αναγνωρισμένοι Κίνδυνοι</h2>
+      <p>Ο μισθωτής αναγνωρίζει ρητά ότι η οδήγηση jet ski συνεπάγεται εγγενείς κινδύνους που δεν μπορούν να εξαλειφθούν, μεταξύ άλλων:</p>
+      <ul>
+        <li>Σύγκρουση με άλλα σκάφη, κολυμβητές, σημαδούρες, βράχους ή υπολείμματα</li>
+        <li>Ανατροπή, εκτίναξη, πτώση από το σκάφος</li>
+        <li>Τραυματισμοί από προπέλα ή επαφή</li>
+        <li>Κύματα, απόνερα, αιφνίδιες αλλαγές καιρού και ορατότητας</li>
+        <li>Μηχανική βλάβη του jet ski παρά τη σωστή συντήρηση</li>
+        <li>Συμπεριφορά άλλων χρηστών της θάλασσας εκτός του ελέγχου του εκμισθωτή</li>
+        <li>Αφυδάτωση, ηλίαση, υποθερμία σε περίπτωση παρατεταμένης έκθεσης στο νερό</li>
+        <li>Απώλεια ή ζημιά προσωπικών αντικειμένων που μεταφέρονται επί του σκάφους</li>
+      </ul>
+
+      <h2>§3 Δηλώσεις του Μισθωτή (υπογράφονται στην προβλήτα)</h2>
+      <p>Με την κράτηση και την υπογραφή του briefing, ο μισθωτής δηλώνει ότι:</p>
+      <ul>
+        <li>Είμαι τουλάχιστον 18 ετών και έχω επιδείξει έγκυρη ταυτότητα.</li>
+        <li>Είμαι σε καλή σωματική και ψυχική υγεία, γνωρίζω κολύμβηση και δεν είμαι έγκυος.</li>
+        <li>Δεν είμαι υπό την επήρεια αλκοόλ, ναρκωτικών ή φαρμάκων που επηρεάζουν την οδήγηση.</li>
+        <li>Έλαβα, κατανόησα και θα τηρήσω το 10λεπτο briefing ασφαλείας (μέγ. απόσταση από ακτή 700 m, κολυμβητικές ζώνες, απαγορευμένες περιοχές).</li>
+        <li>Θα φορώ το παρεχόμενο σωσίβιο ανελλιπώς.</li>
+        <li>Θα χειρίζομαι το jet ski με ασφάλεια, νόμιμα και μόνο εντός της επιτρεπόμενης ζώνης και ώρας.</li>
+        <li>Αναλαμβάνω προσωπική ευθύνη για ζημιές στο jet ski ή σε τρίτους λόγω παραβίασης κανόνων, βαριάς αμέλειας ή δόλου μου.</li>
+      </ul>
+
+      <h2>§4 Δίπλωμα & Καθοδηγούμενες Περιηγήσεις</h2>
+      <p>
+        Το ελληνικό δίκαιο δεν απαιτεί χωριστό δίπλωμα ταχύπλοου για σύντομες μισθώσεις αναψυχής υπό την επίβλεψη και briefing του εκμισθωτή. Μισθωτές <strong>χωρίς</strong> δίπλωμα μπορούν να οδηγήσουν μόνο στο πλαίσιο <strong>καθοδηγούμενης περιήγησης με οδηγό της Nero Lefkada</strong>. Μισθωτές <strong>με</strong> έγκυρο δίπλωμα μπορούν να οδηγήσουν μόνοι εντός ζώνης και κανόνων.
+      </p>
+
+      <h2>§5 Ανάληψη Κινδύνου</h2>
+      <p>
+        Ο μισθωτής αναλαμβάνει εν γνώσει και οικειοθελώς όλους τους κινδύνους που συνδέονται με τη δραστηριότητα, συμπεριλαμβανομένων εκείνων της §2. Ο μισθωτής συμφωνεί ότι η δραστηριότητα πραγματοποιείται με δική του ευθύνη.
+      </p>
+
+      <h2>§6 Ευθύνη του Εκμισθωτή</h2>
+      <p>
+        Στο μέγιστο βαθμό που επιτρέπει το ελληνικό δίκαιο, ο εκμισθωτής <strong>δεν ευθύνεται</strong> για σωματική βλάβη, θάνατο, απώλεια ή υλική ζημιά του μισθωτή ή τρίτων που οφείλεται σε:
+      </p>
+      <ul>
+        <li>Παραβίαση του briefing ασφαλείας, των κανόνων ή της ελληνικής ναυτιλιακής νομοθεσίας από τον μισθωτή·</li>
+        <li>Οδήγηση υπό επήρεια αλκοόλ, ναρκωτικών ή φαρμάκων·</li>
+        <li>Βαριά αμέλεια ή δόλο του μισθωτή ή τρίτων·</li>
+        <li>Ενέργειες άλλων χρηστών της θάλασσας, καιρικές συνθήκες, ανωτέρα βία ή κρατικές εντολές·</li>
+        <li>Απώλεια, ζημιά ή κλοπή προσωπικών αντικειμένων επί ή γύρω από το jet ski.</li>
+      </ul>
+
+      <h2>§7 Ευθύνη του Μισθωτή</h2>
+      <p>
+        Ο μισθωτής ευθύνεται προσωπικά για τυχόν ζημιές στο jet ski, στον εξοπλισμό ρυμούλκησης (συμπεριλαμβανομένου του Jobe Ridge) ή σε τρίτους που προκαλούνται από παραβίαση κανόνων, βαριά αμέλεια ή δόλο. Η ασφάλεια αστικής ευθύνης του εκμισθωτή (€700.000 ανά περιστατικό κατά τον Ν. 4926/2022) καλύπτει μόνο όσα προβλέπονται από τον νόμο.
+      </p>
+
+      <h2>§8 Μη Παραιτήσιμα Δικαιώματα</h2>
+      <p>
+        Κανένα σημείο του παρόντος δεν περιορίζει ή αποκλείει την ευθύνη του εκμισθωτή όπου το ελληνικό δίκαιο δεν το επιτρέπει &mdash; ιδίως για <strong>θάνατο ή σωματική βλάβη που οφείλεται σε βαριά αμέλεια ή δόλο του εκμισθωτή</strong>, καθώς και για ευθύνη από υποχρεωτικές διατάξεις προστασίας καταναλωτή. Εάν ρήτρα κριθεί άκυρη από ελληνικό δικαστήριο, δεν θίγεται το κύρος των υπολοίπων.
+      </p>
+
+      <h2>§9 Ασφάλιση</h2>
+      <p>
+        Ασφάλεια αστικής ευθύνης κατά Ν. 4926/2022: <strong>€700.000 ανά περιστατικό</strong>.<br>
+        Προσωπική ασφάλεια ατυχήματος για τον μισθωτή <strong>δεν</strong> περιλαμβάνεται. Συνιστάται ταξιδιωτική ή ασφάλεια ατυχήματος με κάλυψη θαλάσσιων σπορ.
+      </p>
+
+      <h2>§10 Εφαρμοστέο Δίκαιο & Δικαιοδοσία</h2>
+      <p>
+        Η παρούσα απαλλαγή διέπεται από το ελληνικό δίκαιο. Αποκλειστική δωσιδικία: αρμόδιο δικαστήριο Λευκάδας. Εάν ο μισθωτής είναι καταναλωτής με κατοικία σε άλλο κράτος-μέλος της ΕΕ, τα δικαιώματα προστασίας καταναλωτή του τόπου κατοικίας του παραμένουν ανέπαφα.
+      </p>
+
+      <h2>§11 Υπογραφή & Ηλεκτρονική Αποδοχή</h2>
+      <p>
+        Ο μισθωτής αποδέχεται την παρούσα απαλλαγή σε δύο βήματα: (α) με επιλογή του πλαισίου «Αποδέχομαι την Απαλλαγή Ευθύνης» κατά την online κράτηση (ηλεκτρονική συγκατάθεση κατά Καν. ΕΕ 910/2014 &ndash; eIDAS) και (β) με υπογραφή του εντύπου briefing επί τόπου πριν από την αναχώρηση. Και τα δύο βήματα μαζί συνιστούν έγκυρη αποδοχή. Ώρα συγκατάθεσης, διεύθυνση IP και device fingerprint αποθηκεύονται ως αποδεικτικό.
+      </p>
+
+    </div>
+
+    <div class="divider"></div>
+    <p style="font-size: 0.85rem; color: #6b7a8d;">
+      Last updated: April 2026 · Nero Lefkada Rental&amp;Retail · Lygia, Lefkada, Greece<br>
+      <em>This document was drafted as a best-practice template and requires review by a qualified Greek lawyer (maritime/tourism law) before legal effect is claimed in court.</em>
+    </p>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.lang-btn');
+    const blocks = document.querySelectorAll('.lang-block');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const lang = tab.getAttribute('data-lang');
+        tabs.forEach((t) => t.classList.toggle('active', t.getAttribute('data-lang') === lang));
+        blocks.forEach((b) => b.classList.toggle('active', b.getAttribute('data-lang') === lang));
+      });
+    });
+  </script>
+</LayoutBare>

@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import AdminShell from "../../components/admin/AdminShell.astro";
-import { jetskiUnits } from "../../data/jetskis";
+import { jetskiUnits, jetskis } from "../../data/jetskis";
 
 const accessToken = Astro.cookies.get("sb-access-token")?.value;
 if (!accessToken) {
@@ -73,7 +73,7 @@ const tokenIsSet = token !== "TOKEN-NOCH-NICHT-GESETZT" && token.length > 10;
         <>
           <div class="grid-cell unit-cell">
             <div class="unit-label">{unit.label}</div>
-            <div class="unit-sub">{unit.modelId === "seadoo-rxtx" ? "RXT-X 300" : "Spark Trixx"}</div>
+            <div class="unit-sub">{jetskis.find((j) => j.id === unit.modelId)?.model ?? unit.modelId}</div>
             <div class={`unit-status status-${unit.status}`}>{unit.status}</div>
           </div>
           {weekDays.map((d) => {

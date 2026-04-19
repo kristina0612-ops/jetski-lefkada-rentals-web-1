@@ -6,20 +6,22 @@ Claude darf NIEMALS Preise oder Regeln erfinden, die hier nicht stehen.
 
 ---
 
-## Flotte (Saison 2026)
+## Flotte (Saison 2026) – final 2026-04-19
 
-Stand 2026-04-18 (Abend): Flotte korrigiert durch Kristina. 4 Einheiten, alle Sea-Doo, alle supercharged.
-**Laut offizieller Preisliste/Flyer: alle 4 Jetskis kosten gleich pro Kategorie** – keine Modell-spezifischen Preise.
-
-| #   | Marke    | Modell                                  |
-|-----|----------|-----------------------------------------|
-| 1   | Sea-Doo  | 260 GTX Limited Supercharged            |
-| 2   | Sea-Doo  | 300 GTX Limited Supercharged            |
-| 3   | Sea-Doo  | 260 GTX Limited Supercharged            |
-| 4   | Sea-Doo  | 260 RXT RS Riva Racing Supercharged     |
-
+4 Sea-Doo Jetskis, alle supercharged, alle 3-Sitzer. Alle 4 kosten gleich pro Kategorie.
 Tagline: **„Fastest Jetskis on the Island"**
-Technische Daten (PS, Sitze, Top-Speed) pro Modell: morgen mit Kristina finalisieren.
+
+| Name            | Modell                                         | PS  | Top-Speed | Sitze |
+|-----------------|------------------------------------------------|-----|-----------|-------|
+| **Nero Ena**    | Sea-Doo 260 GTX Limited Edition Supercharged   | 310 | 120 km/h  | 3     |
+| **Nero Dio**    | Sea-Doo 260 RXT RS Riva Racing Supercharged    | 260 | 110 km/h  | 3     |
+| **Nero Tria**   | Sea-Doo 260 GTX Limited Edition Supercharged   | 260 | 110 km/h  | 3     |
+| **Nero Tessera**| Sea-Doo 260 GTX Limited Edition Supercharged   | 260 | 110 km/h  | 3     |
+
+**Wichtiger Vermerk klein an allen Listen/Cards:**
+- EN: `*3-seater, but 2 persons recommended`
+- DE: `*3-Sitzer, aber 2 Personen empfohlen`
+- GR: `*3θέσιο, αλλά συνιστώνται 2 άτομα`
 
 **Anzahlung:** 30% bei Buchung, Rest am Tag selbst.
 **Zahlungsmethoden:** Viva Wallet, Bar (Euro), Karte.

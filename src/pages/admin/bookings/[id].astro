@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import AdminShell from "../../../components/admin/AdminShell.astro";
+import { jetskis } from "../../../data/jetskis";
 
 const accessToken = Astro.cookies.get("sb-access-token")?.value;
 if (!accessToken) {
@@ -46,7 +47,7 @@ const payments: any[] = [];
           <dt>Datum</dt><dd>{booking.booking_date}</dd>
           <dt>Startzeit</dt><dd>{booking.start_time}</dd>
           <dt>Dauer</dt><dd>{booking.duration_minutes} min</dd>
-          <dt>Jetski</dt><dd>{booking.jetski_id === "seadoo-rxtx" ? "The Challenger" : "The Acrobat"}</dd>
+          <dt>Jetski</dt><dd>{jetskis.find((j) => j.id === booking.jetski_id)?.name ?? booking.jetski_id}</dd>
           <dt>Service</dt><dd>{booking.service_category} / {booking.service_type}</dd>
           <dt>Preis</dt><dd>&euro;{booking.total_price}</dd>
           <dt>Anzahlung</dt><dd>&euro;{booking.deposit_amount}</dd>

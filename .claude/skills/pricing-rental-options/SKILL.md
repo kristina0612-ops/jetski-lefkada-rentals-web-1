@@ -1,30 +1,23 @@
 ---
 name: pricing-rental-options
-description: Use whenever rental durations, rental option structures, or rental pricing for Jetski Lefkada Rentals is discussed or edited – including website pricing sections, booking forms, flyer updates, customer quotes, email replies about duration options, and any code change in `src/data/jetskis.ts`. Provides the single authoritative list of offered rental durations and tells agents where prices live and how to handle missing prices (never invent).
+description: Use whenever rental durations, rental option structures, or rental pricing for Nero Lefkada Rental&Retail is discussed or edited – including website pricing sections, booking forms, flyer updates, customer quotes, email replies about duration options, and any code change in `src/data/jetskis.ts`. Provides the single authoritative list of offered rental durations and tells agents where prices live and how to handle missing prices (never invent).
 ---
 
-# Pricing & Rental Options – Jetski Lefkada Rentals
+# Pricing & Rental Options – Nero Lefkada Rental&Retail
 
 ## Purpose
-Single reference for **which rental durations Jetski Lefkada offers** and **where the prices live**. No agent may invent prices; if a duration is needed but not filled in below, ask David/Kristina.
+Single reference for **which rental durations Nero Lefkada offers** and **where the prices live**. No agent may invent prices; if a duration is needed but not filled in below, ask Kristina.
 
 ## Canonical source of prices
 **`DECISIONS.md`** is the only authoritative source for prices. `src/data/jetskis.ts` mirrors those values for the website. If the two diverge, `DECISIONS.md` wins and `jetskis.ts` must be updated.
 
-## Rental options matrix (aktualisiert 2026-04-18)
+## Rental options matrix (aktualisiert 2026-04-19, von Flyer 2026 bestätigt)
 
 Legend: ✅ offered & priced · 🟡 offered but price TBD · ❌ not offered
 
-**WICHTIG:** Flyer-Preise (Beach Rides, Exclusive, VIP Delivery) gelten für BEIDE Jetskis IDENTISCH. Classic-Preise (hourly/half/full) bleiben pro Jetski unterschiedlich.
+**Alle 4 Neros (Ena/Dio/Tria/Tessera) kosten in jeder Kategorie IDENTISCH.** Es gibt KEINE Modell-spezifischen Preise mehr.
 
-### Classic (pro Jetski unterschiedlich)
-| Option              | Status | Challenger | Acrobat |
-|---------------------|--------|-----------|---------|
-| 1 hour              | ✅     | €140      | €70     |
-| Half-day (4 hours)  | ✅     | €420      | €210    |
-| Full-day (8 hours)  | ✅     | €690      | €350    |
-
-### Beach Rides (kurze Dock-Fahrten) – beide Jetskis gleich
+### Beach Rides (kurze Dock-Fahrten)
 | Duration | Status | Price |
 |----------|--------|-------|
 | 10 min   | ✅     | €80   |
@@ -33,13 +26,13 @@ Legend: ✅ offered & priced · 🟡 offered but price TBD · ❌ not offered
 | 30 min   | ✅     | €130  |
 | 60 min   | ✅     | €200 (BESTSELLER) |
 
-### Exclusive Experiences – beide Jetskis gleich
+### Exclusive Experiences
 | Option               | Status | Price |
 |----------------------|--------|-------|
-| Sunset Ride (30 min) | ✅     | €130  |
-| Couple Ride (30 min) | ✅     | €150  |
+| Sunset Ride (30 min, 1 person) | ✅ | €130 |
+| Couple Ride (30 min, 2 persons) | ✅ | €150 |
 
-### VIP Delivery Service – beide Jetskis gleich
+### VIP Delivery Service (Lieferung an Strand/Yacht/Boot)
 | Option     | Status | Price |
 |------------|--------|-------|
 | 1 hour     | ✅     | €350  |
@@ -47,16 +40,31 @@ Legend: ✅ offered & priced · 🟡 offered but price TBD · ❌ not offered
 | Full Day (8h) | ✅  | €650  |
 | Week       | 🟡     | On Request |
 
-- Kraftstoff NICHT inklusive
-- Kaution: **€1.500** nur bei Delivery
+- **Fuel NOT included** (immer *klein dazuschreiben)
+- **Kaution: €1.500** nur bei VIP Delivery
+- Keine Kaution für Beach Rides / Exclusive / Towable
 
 ### Water Fun / Towable
 | Option                | Status | Price |
 |-----------------------|--------|-------|
 | 10 min tube (pro Person) | ✅  | €30   |
 
-- Tube-Modell: **Jobe Ridge III** (3 Sitze)
-- Offene Detailfragen: Mindestalter, Mindestpersonenzahl
+- Tube-Modell (official flyer name): **„Jobe Ridge Towable 3P"** / Marketing-Name: „Great Big Mable"
+- Gezogen von einem der Sea-Doos mit Guide
+
+### Classic (hourly/half-day/full-day pro Jetski)
+**Nicht mehr offiziell im Flyer 2026.** Falls Kristina das reaktivieren will, hier ergänzen.
+
+## Pflicht-Vermerke (klein, auf jeder Preisliste)
+
+- EN: `*without fuel — fuel billed separately at end of rental`
+- DE: `*ohne Benzin — Kraftstoff wird am Ende der Miete separat abgerechnet`
+- GR: `*χωρίς καύσιμα — τα καύσιμα χρεώνονται στο τέλος της ενοικίασης`
+
+Plus auf Flotten-Section:
+- EN: `*3-seater, but 2 persons recommended`
+- DE: `*3-Sitzer, aber 2 Personen empfohlen`
+- GR: `*3θέσιο, αλλά συνιστώνται 2 άτομα`
 
 ## How to handle missing prices
 If a quote / booking / copy task needs a price that is marked 🟡 TBD:

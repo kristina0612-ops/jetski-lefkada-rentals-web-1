@@ -1,40 +1,44 @@
 ---
-const stops = [
+// Gallery2 – Real customer moments (2025 season, consent confirmed by Kristina 2026-04-19)
+// All photos: `public/gallery/customer-XX.jpg` – stored locally, no external requests.
+// Privacy: All depicted persons gave written consent – see privacy.astro §10.
+// TODO: Order can be re-arranged once Kristina reviews the 12 shots and picks favourites.
+const moments = [
   {
-    title: "Porto Katsiki",
-    caption: "The most photographed beach on Lefkada",
-    src: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=1400&q=85&auto=format&fit=crop",
-    time: "07:40",
+    title: "Father & son",
+    caption: "Thumbs-up at full throttle",
+    src: "/gallery/customer-01.jpg",
+    tag: "Family ride",
   },
   {
-    title: "Egremni",
-    caption: "White cliffs, turquoise water",
-    src: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1400&q=85&auto=format&fit=crop",
-    time: "09:15",
+    title: "Couple on the bay",
+    caption: "Sunglasses, peace sign, good day",
+    src: "/gallery/customer-04.jpg",
+    tag: "Couple ride",
   },
   {
-    title: "Agios Nikitas",
-    caption: "Fishing village & tavernas",
-    src: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1400&q=85&auto=format&fit=crop",
-    time: "12:30",
+    title: "Three Neros",
+    caption: "Group tour leaving Lygia Port",
+    src: "/gallery/customer-08.jpg",
+    tag: "Group ride",
   },
   {
-    title: "Meganisi Channel",
-    caption: "Narrow passage, sometimes dolphins",
-    src: "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1400&q=85&auto=format&fit=crop",
-    time: "16:00",
+    title: "Power pose",
+    caption: "Sometimes you just have to flex",
+    src: "/gallery/customer-10.jpg",
+    tag: "Solo",
   },
   {
-    title: "Vasiliki Bay",
-    caption: "Wind and golden light",
-    src: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1400&q=85&auto=format&fit=crop",
-    time: "17:40",
+    title: "Two at rest",
+    caption: "Victory signs in the shallow water",
+    src: "/gallery/customer-11.jpg",
+    tag: "Couple ride",
   },
   {
-    title: "Lygia Return",
-    caption: "Golden hour on the way back",
-    src: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1400&q=85&auto=format&fit=crop",
-    time: "19:00",
+    title: "End-of-day smile",
+    caption: "Back at the dock, salt in the hair",
+    src: "/gallery/customer-12.jpg",
+    tag: "Solo",
   },
 ];
 ---
@@ -43,22 +47,22 @@ const stops = [
   <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
     <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
       <div class="col-span-12 lg:col-span-8">
-        <div class="v2-eyebrow mb-6"><span>A day on the water</span></div>
+        <div class="v2-eyebrow mb-6"><span>Real riders · Real moments</span></div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
-          Six stops.<br /><em>One perfect loop.</em>
+          The day<br /><em>you&rsquo;ll remember.</em>
         </h2>
       </div>
       <div class="col-span-12 lg:col-span-4 flex items-end">
         <p class="text-lg leading-relaxed" style="color: rgba(7,29,48,0.7);">
-          David sends you off with a printed map and route suggestions. Ride
-          your own way - this loop has never disappointed.
+          Real photos from the 2025 season. Every person here gave us permission
+          to share their smile. Yours could be next.
         </p>
       </div>
     </div>
 
     <div class="grid grid-cols-12 gap-4 lg:gap-6">
       {
-        stops.map((s, i) => {
+        moments.map((m, i) => {
           const spans = [
             "col-span-12 md:col-span-8 aspect-[16/9]",
             "col-span-12 md:col-span-4 aspect-[4/5]",
@@ -70,21 +74,24 @@ const stops = [
           return (
             <figure class:list={["group relative overflow-hidden rounded-3xl", spans[i]]}>
               <img
-                src={s.src}
-                alt={s.title}
+                src={m.src}
+                alt={`${m.title} – ${m.caption}`}
+                width="1400"
+                height="933"
                 loading="lazy"
+                decoding="async"
                 class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
               />
-              <div class="absolute inset-0 pointer-events-none bg-gradient-to-t from-ink-950/80 via-transparent to-transparent" style="background: linear-gradient(to top, rgba(7,29,48,0.85), transparent 50%);"></div>
+              <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(7,29,48,0.85), transparent 50%);"></div>
               <div class="absolute top-5 right-5 px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[10px] uppercase tracking-[0.14em]" style="background: rgba(253,251,244,0.9); color: var(--v2-ink-900);">
-                {s.time}
+                {m.tag}
               </div>
               <figcaption class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
                 <h3 class="font-display text-2xl lg:text-4xl mb-1" style="color: var(--v2-cream-50);">
-                  {s.title}
+                  {m.title}
                 </h3>
                 <p class="text-sm lg:text-base" style="color: rgba(253,251,244,0.8);">
-                  {s.caption}
+                  {m.caption}
                 </p>
               </figcaption>
             </figure>
@@ -92,5 +99,8 @@ const stops = [
         })
       }
     </div>
+    <p class="mt-6 text-xs italic text-center" style="color: rgba(7,29,48,0.45);">
+      All guests depicted have given written consent for publication. See privacy policy for withdrawal options.
+    </p>
   </div>
 </section>

@@ -12,8 +12,8 @@ interface Props {
 }
 
 const {
-  title = "Jetski Lefkada Rentals - Ride the Ionian",
-  description = "Rent a jetski on Lefkada. Book online in 90 seconds. Fully insured, licensed by Hellenic Port Authority. David Goldberg and his crew know every hidden bay.",
+  title = "Nero Lefkada · Jetski Rental on Lygia Port",
+  description = "Rent a Sea-Doo jetski on Lefkada. Book online in 90 seconds. Fully insured, licensed by Hellenic Port Authority. Operated by Nero Lefkada Rental&Retail with David as your guide at Lygia Port.",
   image = "/og-cover.jpg",
 } = Astro.props;
 
@@ -22,7 +22,8 @@ const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "TouristAttraction",
-  "name": "Jetski Lefkada Rentals",
+  "name": "Nero Lefkada Rental&Retail",
+  "alternateName": "Nero Lefkada",
   "description": description,
   "url": "https://jetski-lefkada-rentals.com",
   "image": image,
@@ -30,14 +31,14 @@ const localBusinessSchema = {
   "priceRange": "€€",
   "address": {
     "@type": "PostalAddress",
-    "addressLocality": "Lefkada",
+    "addressLocality": "Lygia, Lefkada",
     "addressRegion": "Ionian Islands",
     "addressCountry": "GR",
   },
   "geo": {
     "@type": "GeoCoordinates",
-    "latitude": 38.7069,
-    "longitude": 20.6403,
+    "latitude": 38.7893,
+    "longitude": 20.7192,
   },
   // aggregateRating entfernt 2026-04-18: Google Business Profile noch nicht
   // angelegt, keine echten Reviews vorhanden. Sobald ≥1 echte Review da ist,

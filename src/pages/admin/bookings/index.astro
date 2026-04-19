@@ -2,6 +2,7 @@
 export const prerender = false;
 
 import AdminShell from "../../../components/admin/AdminShell.astro";
+import { jetskis } from "../../../data/jetskis";
 
 const accessToken = Astro.cookies.get("sb-access-token")?.value;
 if (!accessToken) {
@@ -34,8 +35,10 @@ const bookings: any[] = [];
     <input type="text" id="filter-search" placeholder="Suche nach Kundenname…" />
     <select id="filter-jetski">
       <option value="">Alle Jetskis</option>
-      <option value="seadoo-rxtx">The Challenger</option>
-      <option value="seadoo-spark-trixx">The Acrobat</option>
+      <option value="nero-ena">Nero Ena</option>
+      <option value="nero-dio">Nero Dio</option>
+      <option value="nero-tria">Nero Tria</option>
+      <option value="nero-tessera">Nero Tessera</option>
     </select>
     <select id="filter-status">
       <option value="">Alle Status</option>
@@ -76,7 +79,7 @@ const bookings: any[] = [];
             <tr>
               <td>{b.booking_date}</td>
               <td>{b.start_time}</td>
-              <td>{b.jetski_id === "seadoo-rxtx" ? "Challenger" : "Acrobat"}</td>
+              <td>{jetskis.find((j) => j.id === b.jetski_id)?.name ?? b.jetski_id}</td>
               <td>{b.customer_name}</td>
               <td>{b.service_category}</td>
               <td>€{b.total_price}</td>

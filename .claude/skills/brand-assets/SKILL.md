@@ -1,9 +1,26 @@
 ---
 name: brand-assets
-description: Use whenever working on customer-facing materials for Jetski Lefkada Rentals – marketing copy, social media posts, flyer updates, website text, email templates, Instagram captions, or any visual/design decision. Provides the official brand voice, slogans, taglines, color palette, contact details and flyer content so all agents stay consistent with Kristina's and David's brand identity.
+description: Use whenever working on customer-facing materials for Nero Lefkada Rental&Retail – marketing copy, social media posts, flyer updates, website text, email templates, Instagram captions, or any visual/design decision. Provides the official brand voice, slogans, taglines, color palette, contact details and flyer content so all agents stay consistent with the Nero Lefkada brand identity.
 ---
 
-# Brand Assets – Jetski Lefkada Rentals
+# Brand Assets – Nero Lefkada Rental&Retail
+
+> **Name change 2026-04-19:** Business is now officially called **Nero Lefkada Rental&Retail**. Previous internal name „Jetski Lefkada Rentals" is retired. The Goldberg surname is **not** used publicly – David is referenced as „guide", Kristina drives marketing but is not named publicly. Website credit goes to **AURA Web** (Daniel's company).
+
+## The fleet – four Neros
+
+The four jetskis have official names (Greek numerals). **Always use these names in customer copy:**
+
+| Name           | Model                                          | HP  | Top speed | Seats |
+|----------------|------------------------------------------------|-----|-----------|-------|
+| **Nero Ena**   | Sea-Doo 260 GTX Limited Edition Supercharged   | 310 | 120 km/h  | 3*    |
+| **Nero Dio**   | Sea-Doo 260 RXT RS Riva Racing Supercharged    | 260 | 110 km/h  | 3*    |
+| **Nero Tria**  | Sea-Doo 260 GTX Limited Edition Supercharged   | 260 | 110 km/h  | 3*    |
+| **Nero Tessera** | Sea-Doo 260 GTX Limited Edition Supercharged | 260 | 110 km/h  | 3*    |
+
+`*3-seater, but 2 persons recommended` — always include this disclaimer in EN/DE/GR when listing seat count.
+
+**Nero Ena is the flagship** (310 PS). Position as premium option.
 
 ## When to use this skill
 Invoke this skill automatically when the current task involves any of:
@@ -17,12 +34,18 @@ Invoke this skill automatically when the current task involves any of:
 
 ## Official slogans & taglines
 
-- **Primary slogan:** *"Feel the Thrill. Live the Moment."*
-- **Supporting tagline:** *"The Fastest Jet Skis on the Island."*
+- **Primary tagline:** *"Fastest Jetskis on the Island."* (confirmed on the 2026 flyer)
+- **Emotional slogan:** *"Feel the Thrill. Live the Moment."*
 - **Availability badge:** *"Open Daily"*
-- **Call to action:** *"Book Now!"*
+- **Call to action:** *"Book Now"* / *"Check availability"*
 
-Use these verbatim. Don't invent new slogans without Kristina's approval.
+Use these verbatim. Don't invent new slogans without approval.
+
+## Languages & defaults
+
+- **Default website language: English** (Kristina's explicit request 2026-04-19)
+- Language switcher in the nav supports: EN (default), DE, GR
+- Customer messages: always reply in the customer's language (EN/DE/IT/EL)
 
 ## Contact block (use exactly as written)
 
