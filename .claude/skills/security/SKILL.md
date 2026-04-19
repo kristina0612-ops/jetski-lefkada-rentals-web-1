@@ -1,6 +1,6 @@
 ---
 name: security
-description: Zentrale Security-Referenz für Jetski Lefkada Rentals. Nutze diesen Skill bei JEDEM Code-Change, der Auth, API-Routes, Datenbank-Zugriff, File-Uploads, externe Skripte oder ENV-Variablen berührt. Enthält OWASP-Top-10-Checkliste, Stack-spezifische Fallen (Astro/Vercel/Supabase/React), Secret-Management-Regeln und Incident-Response. Wird bei jedem /security-review und bei jedem Commit konsultiert.
+description: Zentrale Security-Referenz für Nero Lefkada Rental&Retail. Nutze diesen Skill bei JEDEM Code-Change, der Auth, API-Routes, Datenbank-Zugriff, File-Uploads, externe Skripte oder ENV-Variablen berührt. Enthält OWASP-Top-10-Checkliste, Stack-spezifische Fallen (Astro/Vercel/Supabase/React), Secret-Management-Regeln und Incident-Response. Wird bei jedem /security-review und bei jedem Commit konsultiert.
 ---
 
 # Security – Jetski Lefkada Rentals

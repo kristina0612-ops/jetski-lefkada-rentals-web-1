@@ -1,6 +1,6 @@
 ---
 name: website-analytics
-description: Nutze diesen Skill wann immer Website-Traffic, Besucher-Verhalten, Drop-offs, Conversion-Rates oder CRM-Korrelation fuer Jetski Lefkada Rentals untersucht werden soll. Enthaelt alle Datenquellen (GA4, Vercel Analytics, Supabase), API-Zugriffe, Analyse-Methoden, Funnel-Definitionen und Benchmark-Quellen. Wird vom website-analyst-Agent bei jedem Report konsultiert.
+description: Nutze diesen Skill wann immer Website-Traffic, Besucher-Verhalten, Drop-offs, Conversion-Rates oder CRM-Korrelation fuer Nero Lefkada Rental&Retail untersucht werden soll. Enthaelt alle Datenquellen (GA4, Vercel Analytics, Supabase), API-Zugriffe, Analyse-Methoden, Funnel-Definitionen und Benchmark-Quellen. Wird vom website-analyst-Agent bei jedem Report konsultiert.
 ---
 
 # Website & CRM Analytics – Jetski Lefkada Rentals

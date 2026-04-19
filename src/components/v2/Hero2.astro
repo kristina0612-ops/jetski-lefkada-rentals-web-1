@@ -1,23 +1,58 @@
 ---
 // V2 Hero - Azure Day with full-screen jetski video background
+// Video: real footage of David + guest at Lygia Port (not stock)
+// Start-offset: skip the first ~2 seconds (often shaky/boring on phone recordings)
+// and jump straight into the action. Kristina can tune HERO_VIDEO_START below
+// if a different moment is the sweet spot.
+const HERO_VIDEO_START = 2; // seconds — when the jetskis + guide frame comes in
 ---
 
 <section class="relative min-h-[100svh] overflow-hidden flex items-end">
   <!-- Video background -->
   <div class="absolute inset-0 z-0 bg-ink-950">
     <video
+      id="hero-video"
       autoplay
       muted
       loop
       playsinline
       preload="auto"
       class="w-full h-full object-cover"
-      poster="/gallery/customer-01.jpg"
+      poster="/images/customers/nero-guest-01.jpg"
+      data-start={HERO_VIDEO_START}
       aria-hidden="true"
     >
       <source src="/videos/hero-nero.mp4" type="video/mp4" />
     </video>
   </div>
+
+  <script>
+    // Skip boring intro of the clip — jump to the action frame once metadata is ready.
+    const heroVideo = document.getElementById('hero-video') as HTMLVideoElement | null;
+    if (heroVideo) {
+      const startAt = Number(heroVideo.dataset.start ?? 0) || 0;
+
+      const seekToStart = () => {
+        if (startAt > 0 && heroVideo.duration > startAt + 0.2) {
+          try { heroVideo.currentTime = startAt; } catch {}
+        }
+      };
+
+      if (heroVideo.readyState >= 1) {
+        seekToStart();
+      } else {
+        heroVideo.addEventListener('loadedmetadata', seekToStart, { once: true });
+      }
+
+      // When loop restarts, also skip the intro on subsequent plays.
+      heroVideo.addEventListener('seeked', () => {
+        if (heroVideo.currentTime < 0.2 && startAt > 0) {
+          try { heroVideo.currentTime = startAt; } catch {}
+        }
+      });
+      heroVideo.addEventListener('ended', seekToStart);
+    }
+  </script>
 
   <!-- Multi-layer gradient overlay for text legibility -->
   <div class="absolute inset-0 z-10 pointer-events-none">

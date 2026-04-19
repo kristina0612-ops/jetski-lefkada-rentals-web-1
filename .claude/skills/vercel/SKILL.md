@@ -1,6 +1,6 @@
 ---
 name: vercel
-description: Vollständiges Wissen zu Vercel-Hosting für Jetski Lefkada Rentals – Deployment-Workflow, Environment Variables, Security-Headers, Adapter-Konfiguration, Analytics, Limits, Troubleshooting, CLI. Nutze diesen Skill bei ALLEN Fragen rund um Deploy, Build, Preview-URLs, Domains, ENV-Vars, Rollbacks oder Vercel-spezifischen Astro-Integrationen.
+description: Vollständiges Wissen zu Vercel-Hosting für Nero Lefkada Rental&Retail – Deployment-Workflow, Environment Variables, Security-Headers, Adapter-Konfiguration, Analytics, Limits, Troubleshooting, CLI. Nutze diesen Skill bei ALLEN Fragen rund um Deploy, Build, Preview-URLs, Domains, ENV-Vars, Rollbacks oder Vercel-spezifischen Astro-Integrationen.
 ---
 
 # Vercel – Jetski Lefkada Rentals

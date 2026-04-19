@@ -1,6 +1,6 @@
 ---
 name: google-business-profile
-description: Nutze diesen Skill wenn es um das Google Business Profile (Google Maps-Eintrag) von Jetski Lefkada Rentals geht – Einrichtung, Verifizierung, Optimierung (Kategorien, Fotos, Öffnungszeiten), Beantwortung von Google-Bewertungen, oder Synchronisierung von NAP-Daten (Name/Adresse/Telefon) mit Website und Flyer. Enthält mehrsprachige Antwort-Templates (DE/EN/IT/EL) für den review-responder-Agent.
+description: Nutze diesen Skill wenn es um das Google Business Profile (Google Maps-Eintrag) von Nero Lefkada Rental&Retail geht – Einrichtung, Verifizierung, Optimierung (Kategorien, Fotos, Öffnungszeiten), Beantwortung von Google-Bewertungen, oder Synchronisierung von NAP-Daten (Name/Adresse/Telefon) mit Website und Flyer. Enthält mehrsprachige Antwort-Templates (DE/EN/IT/EL) für den review-responder-Agent.
 ---
 
 # Google Business Profile – Jetski Lefkada Rentals

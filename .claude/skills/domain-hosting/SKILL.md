@@ -1,6 +1,6 @@
 ---
 name: domain-hosting
-description: Wissen rund um Domain-Registrierung und Hosting für Jetski Lefkada Rentals. Nutze diesen Skill wenn es um Domain-Kauf, Domain-Verlängerung, Hosting-Wechsel, DNS-Einstellungen, SSL-Zertifikate, E-Mail-Einrichtung auf der eigenen Domain oder ähnliche Infrastruktur-Themen geht.
+description: Wissen rund um Domain-Registrierung und Hosting für Nero Lefkada Rental&Retail. Nutze diesen Skill wenn es um Domain-Kauf, Domain-Verlängerung, Hosting-Wechsel, DNS-Einstellungen, SSL-Zertifikate, E-Mail-Einrichtung auf der eigenen Domain oder ähnliche Infrastruktur-Themen geht.
 ---
 
 # Domain & Hosting – Jetski Lefkada Rentals

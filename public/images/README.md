@@ -1,57 +1,58 @@
 # Bilder-Ordner für die Website
 
-So legst Du Bilder ins Projekt damit ich sie einbauen kann:
+## Was bereits drin liegt (Stand 2026-04-19)
 
-## 1. Wohin welche Bilder?
+### `customers/` – 11 echte Kundenfotos
+- `nero-guest-01.jpg` bis `nero-guest-11.jpg`
+- Quelle: WhatsApp, 19. April 2026 (PHOTO-2026-04-19-22-00-33…)
+- DSGVO-Einwilligung: liegt vor (siehe `src/pages/privacy.astro` §10)
+- Nutzung: Gallery2 (Auswahl), Testimonials-Hintergrund (optional), Hero-Poster
 
-### `jetskis/` – Einzelne Jetski-Portraits
-Saubere Fotos von je einem Nero (möglichst ohne Personen, fürs Produkt-Grid):
+### `gallery/` – Highlight-Shots
+- `fleet-at-lygia-collage.jpg` – 4er-Collage unserer Flotte am Dock
+- `waterfun-jobe-action.jpg` – 3 Gäste auf dem Jobe-Tube in voller Action (auch auf Booking2)
+- `waterfun-tube-in-water.jpg` – Tube im stillen Wasser, ruhiger Moment
 
-- `nero-ena.jpg` – der Sea-Doo 260 GTX Ltd 310 PS (Flaggschiff)
-- `nero-dio.jpg` – der Sea-Doo 260 RXT RS Riva Racing
-- `nero-tria.jpg` – der Sea-Doo 260 GTX Ltd 260 PS
-- `nero-tessera.jpg` – der Sea-Doo 260 GTX Ltd 260 PS
+### `jetskis/` – noch leer
+Hier kommen saubere Einzel-Portraits der 4 Neros rein, sobald David bei ruhigem Wetter am Dock jeweils ein Foto pro Jetski macht (ohne Personen, ohne Wasserspritzer, Querformat).
 
-Empfohlen: Querformat ca. 1600×1100 px, Jetski mittig/leicht rechts, viel Wasser/Himmel.
+---
 
-### `gallery/` – Fotos von Spots, Fahrten, Flotte
-Landschaftsbilder + Action-Fotos aus Lefkada:
+## Wohin neue Bilder gehören
 
-- `lygia-dock-01.jpg`, `lygia-dock-02.jpg` – Dock/Flotte am Hafen
-- `action-01.jpg`, `action-02.jpg`, ... – mehrere Jetskis fahren / Wellen
-- `sunset-01.jpg` – Sonnenuntergang-Ride
-- Beliebige weitere mit aussagekräftigen Namen
+| Was | Ordner | Dateiname-Muster |
+|---|---|---|
+| Jetski-Einzelportrait (ohne Personen) | `jetskis/` | `nero-ena.jpg`, `nero-dio.jpg`, `nero-tria.jpg`, `nero-tessera.jpg` |
+| Kundenfoto (mit Einverständnis) | `customers/` | `nero-guest-XX.jpg` (fortlaufend) |
+| Spots, Dock, Action, Sonnenuntergang | `gallery/` | sinnvoller Name: `lygia-dock-01.jpg`, `sunset-ride.jpg`, `action-wave.jpg` |
+| Preisliste, Flyer (nicht Website, nur intern) | `../../assets/brand/` | bleibt dort |
+| Videos (Hero-Background) | `../videos/` | `hero-nero.mp4` (wird in Hero2 eingebunden) |
 
-### `customers/` – Kundenfotos (mit Einverständnis)
-Nur Fotos mit dokumentierter Einwilligung der abgebildeten Personen:
+---
 
-- `customer-2024-01.jpg`, `customer-2024-02.jpg`, ...
-- `customer-2025-01.jpg`, ...
+## Wie neue Bilder ins Projekt kommen
 
-## 2. Wie die Bilder ins Projekt kommen
+**Einfachster Weg:**
+1. Windows-Explorer öffnen
+2. Pfad eingeben: `C:\Users\User\OneDrive\Dokumente\GitHub\jetski-lefkada-rentals-web\public\images\<unterordner>`
+3. Bilder reinziehen
+4. Mir Bescheid sagen – ich baue sie in Gallery/Fleet/Hero ein
 
-**Variante A – Windows Explorer:**
-Einfach die Bilder in den jeweiligen Unterordner ziehen:
-`C:\Users\User\OneDrive\Dokumente\GitHub\jetski-lefkada-rentals-web\public\images\<unterordner>\`
+**NICHT:**
+- auf Desktop in anderen Ordnern ablegen (z.B. „Kassabuch Jetski") – Astro pickt nur aus `public/`
+- Online hochladen – alles läuft lokal, dann via Vercel-Build automatisch online
 
-**Variante B – VS Code:**
-1. Linke Seitenleiste: öffne den Ordner `public/images/jetskis/` (oder `gallery/` / `customers/`)
-2. Ziehe die Bilder per Drag&Drop direkt in die Dateiliste
-3. Fertig
+---
 
-**Variante C – WhatsApp Desktop:**
-Rechtsklick auf Bild → „Speichern unter…" → wähle den passenden Ordner oben.
+## Dateinamen-Konvention
 
-## 3. Dateinamen
+- Nur Kleinbuchstaben + Bindestriche: `nero-ena.jpg` ✅, nicht `Nero Ena.JPG` ❌
+- Keine Leerzeichen, keine Umlaute
+- Format: `.jpg` oder `.webp`
+- Empfohlene Breite: 1600 px (für Desktop-Retina)
 
-- Nur Kleinbuchstaben und Bindestriche: `nero-ena.jpg`, nicht `Nero Ena.JPG`
-- Keine Umlaute oder Sonderzeichen
-- Format `.jpg` oder `.webp` – Claude kümmert sich um die Optimierung beim Build
+---
 
-## 4. Auflösung
+## Bild-Qualität verbessern
 
-Minimum 1600 px Breite für Fleet-Section und Hero-Backgrounds, sonst werden sie auf Desktop unscharf. Handy-Fotos vom iPhone/Android sind standardmäßig groß genug.
-
-## 5. Was danach passiert
-
-Sobald die Bilder hier liegen, sag einfach „Bilder sind da" – ich baue sie in Fleet2, Gallery2 und ggf. Testimonials ein und passe alt-Texte korrekt an.
+Siehe `/docs/bildbearbeitung-guide.md` – Snapseed + Upscale.media Workflow für typische Problem­situationen (zu dunkle Gesichter, graues Wasser, unscharf).
