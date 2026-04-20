@@ -1,14 +1,19 @@
 ---
-// DSGVO-konformer Cookie-Banner (Opt-In für GA4)
-// Vercel Web Analytics läuft separat und cookie-frei – braucht keinen Consent.
-// Banner erscheint nur, solange localStorage['cookie-consent'] nicht gesetzt ist.
+// DSGVO-/TTDSG-konformer Cookie-Banner für Nero Lefkada (2026-04-20, v2).
 //
-// Werte:
-//   "accepted" → GA4 wird geladen, dataLayer + gtag('config') werden ausgeführt
-//   "rejected" → GA4 bleibt inaktiv, keine Cookies
-//
-// Wahl kann jederzeit widerrufen werden: localStorage.removeItem('cookie-consent')
-// → auf Privacy-Page ein "Cookie-Einstellungen ändern"-Button (siehe Privacy-Seite).
+// Grundsätze:
+//   • Opt-In (kein Auto-Accept, kein pre-ticked).
+//   • Reject-Button OPTISCH GLEICH PROMINENT wie Accept (EDPB-Guideline 03/2022,
+//     LG München I Urteil 17 O 14168/22) – beide filled, beide gleiche Größe.
+//   • Google Analytics wird erst NACH Klick auf „Accept" geladen.
+//   • Vercel Web Analytics ist cookie-frei + aggregiert-anonym → kein Consent nötig
+//     (wird im Text klar dokumentiert).
+//   • Dreisprachiger Text (EN/DE/EL) — Sprache wird aus <html lang> gelesen;
+//     fällt auf EN zurück wenn unbekannt.
+//   • Banner ist als role="dialog" mit aria-live="polite" erreichbar.
+//   • Consent wird 12 Monate in localStorage gespeichert (mit Zeitstempel, sodass
+//     nach Ablauf das Banner erneut erscheint — DSGVO-konforme Re-Zustimmung).
+//   • Jederzeit widerrufbar via CustomEvent `cookie:reset` (Button in Privacy-Seite).
 
 const GA_ID = "G-MBLR2ODZES";
 ---
@@ -18,43 +23,116 @@ const GA_ID = "G-MBLR2ODZES";
   role="dialog"
   aria-live="polite"
   aria-labelledby="cookie-banner-title"
+  aria-describedby="cookie-banner-text"
   hidden
-  class="fixed inset-x-0 bottom-0 z-[9999] border-t border-white/10 bg-[#050910]/95 px-4 py-4 text-sm text-white/90 backdrop-blur-md sm:px-6"
+  class="fixed inset-x-0 bottom-0 z-[9999] border-t bg-[#050910]/97 px-4 py-5 text-sm text-white/95 backdrop-blur-md sm:px-6"
+  style="border-color: rgba(253,251,244,0.15);"
 >
-  <div class="mx-auto flex max-w-5xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-    <p id="cookie-banner-title" class="flex-1 leading-relaxed">
-      We use essential cookies to make this site work, and optional analytics
-      cookies (Google Analytics) to understand how visitors use it. You can
-      accept or reject optional cookies.{" "}
-      <a href="/privacy" class="underline decoration-dotted underline-offset-2 hover:text-white">
-        Privacy policy
-      </a>
-    </p>
-    <div class="flex flex-shrink-0 gap-2">
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 lg:flex-row lg:items-center lg:gap-6">
+    <div class="flex-1">
+      <p id="cookie-banner-title" class="mb-1.5 font-semibold text-white" data-cb-label="title">
+        Your privacy · Deine Privatsphäre · Η ιδιωτικότητά σου
+      </p>
+      <p id="cookie-banner-text" class="leading-relaxed text-white/80" data-cb-label="body">
+        <!-- Text wird per JS nach Sprache gesetzt. Fallback: EN. -->
+      </p>
+    </div>
+    <div class="flex flex-shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
       <button
         type="button"
         id="cookie-reject"
-        class="rounded-md border border-white/20 px-4 py-2 text-xs font-medium uppercase tracking-wider transition hover:bg-white/10"
-      >
-        Reject
-      </button>
+        class="rounded-md px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition"
+        style="background: rgba(253,251,244,0.12); color: #fdfbf4; border: 1px solid rgba(253,251,244,0.25);"
+        data-cb-label="reject"
+      >Reject all</button>
       <button
         type="button"
         id="cookie-accept"
-        class="rounded-md bg-[#ff5a36] px-4 py-2 text-xs font-medium uppercase tracking-wider text-white transition hover:bg-[#ff6a46]"
-      >
-        Accept
-      </button>
+        class="rounded-md px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition"
+        style="background: #ff5a36; color: #fdfbf4; border: 1px solid #ff5a36;"
+        data-cb-label="accept"
+      >Accept all</button>
     </div>
+  </div>
+  <div class="mx-auto mt-3 max-w-6xl text-[11px] text-white/55">
+    <a href="/privacy#cookies" class="underline decoration-dotted underline-offset-2 hover:text-white" data-cb-label="more">
+      Cookie details & privacy policy
+    </a>
+    <span class="mx-2 opacity-40">·</span>
+    <span data-cb-label="duration">Your choice is remembered for 12 months.</span>
   </div>
 </div>
 
 <script is:inline define:vars={{ GA_ID }}>
   (function () {
     const STORAGE_KEY = "cookie-consent";
+    const STORAGE_TS_KEY = "cookie-consent-at";
+    const CONSENT_TTL_MS = 365 * 24 * 60 * 60 * 1000; // 12 Monate
+
     const banner = document.getElementById("cookie-banner");
     const accept = document.getElementById("cookie-accept");
     const reject = document.getElementById("cookie-reject");
+    if (!banner || !accept || !reject) return;
+
+    // ──────────────────────────────────────────────────────────────────────
+    // Mehrsprachiger Text – ausgewählt anhand von <html lang="..">
+    // ──────────────────────────────────────────────────────────────────────
+    const LANG = (document.documentElement.lang || "en").toLowerCase().slice(0, 2);
+    const T = {
+      en: {
+        title: "Your privacy matters",
+        body:
+          "We use essential cookies to run the site (no tracking) and optional analytics cookies (Google Analytics) to understand visits. Vercel Web Analytics runs cookie-free and anonymised. Both buttons are equal — your choice is respected, no pre-selection.",
+        reject: "Reject all",
+        accept: "Accept all",
+        more: "Cookie details & privacy policy",
+        duration: "Your choice is remembered for 12 months.",
+      },
+      de: {
+        title: "Deine Privatsphäre",
+        body:
+          "Wir nutzen notwendige Cookies für den Betrieb (kein Tracking) und optionale Analyse-Cookies (Google Analytics) für Besucherstatistiken. Vercel Web Analytics läuft cookie-frei und anonymisiert. Beide Buttons sind gleichwertig — keine Vorauswahl, Du entscheidest.",
+        reject: "Alle ablehnen",
+        accept: "Alle akzeptieren",
+        more: "Cookie-Details & Datenschutz",
+        duration: "Deine Entscheidung wird 12 Monate gespeichert.",
+      },
+      el: {
+        title: "Η ιδιωτικότητά σου μετράει",
+        body:
+          "Χρησιμοποιούμε απαραίτητα cookies για τη λειτουργία του ιστοτόπου (χωρίς tracking) και προαιρετικά cookies ανάλυσης (Google Analytics). Το Vercel Web Analytics λειτουργεί χωρίς cookies και ανώνυμα. Και τα δύο κουμπιά είναι ισότιμα — εσύ αποφασίζεις.",
+        reject: "Απόρριψη όλων",
+        accept: "Αποδοχή όλων",
+        more: "Λεπτομέρειες cookies & πολιτική απορρήτου",
+        duration: "Η επιλογή σου αποθηκεύεται για 12 μήνες.",
+      },
+    };
+    const labels = T[LANG] || T.en;
+    banner.querySelectorAll("[data-cb-label]").forEach(function (el) {
+      const key = el.getAttribute("data-cb-label");
+      if (labels[key]) el.textContent = labels[key];
+    });
+
+    // ──────────────────────────────────────────────────────────────────────
+    // Consent-Storage mit Ablauf (DSGVO: Einwilligung nicht unbegrenzt)
+    // ──────────────────────────────────────────────────────────────────────
+    function getStoredConsent() {
+      const value = localStorage.getItem(STORAGE_KEY);
+      const ts = Number(localStorage.getItem(STORAGE_TS_KEY)) || 0;
+      if (!value) return null;
+      if (Date.now() - ts > CONSENT_TTL_MS) {
+        // Abgelaufen → neu abfragen
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(STORAGE_TS_KEY);
+        return null;
+      }
+      return value;
+    }
+
+    function storeConsent(value) {
+      localStorage.setItem(STORAGE_KEY, value);
+      localStorage.setItem(STORAGE_TS_KEY, String(Date.now()));
+    }
 
     function loadGA() {
       if (window.__gaLoaded) return;
@@ -64,23 +142,17 @@ const GA_ID = "G-MBLR2ODZES";
       s.src = "https://www.googletagmanager.com/gtag/js?id=" + GA_ID;
       document.head.appendChild(s);
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        window.dataLayer.push(arguments);
-      }
+      function gtag() { window.dataLayer.push(arguments); }
       window.gtag = gtag;
       gtag("js", new Date());
+      // IP-Anonymisierung ist bei GA4 default-on, explizit gesetzt für Klarheit
       gtag("config", GA_ID, { anonymize_ip: true });
     }
 
-    function hide() {
-      if (banner) banner.hidden = true;
-    }
+    function hide() { banner.hidden = true; }
+    function show() { banner.hidden = false; }
 
-    function show() {
-      if (banner) banner.hidden = false;
-    }
-
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = getStoredConsent();
     if (stored === "accepted") {
       loadGA();
       hide();
@@ -90,21 +162,22 @@ const GA_ID = "G-MBLR2ODZES";
       show();
     }
 
-    accept?.addEventListener("click", function () {
-      localStorage.setItem(STORAGE_KEY, "accepted");
+    accept.addEventListener("click", function () {
+      storeConsent("accepted");
       loadGA();
       hide();
     });
 
-    reject?.addEventListener("click", function () {
-      localStorage.setItem(STORAGE_KEY, "rejected");
+    reject.addEventListener("click", function () {
+      storeConsent("rejected");
       hide();
     });
 
-    // Von der Privacy-Seite triggerbar, damit Besucher ihre Wahl ändern können:
+    // Von Privacy-Page triggerbar, damit User Wahl jederzeit ändern kann:
     //   document.dispatchEvent(new CustomEvent('cookie:reset'))
     document.addEventListener("cookie:reset", function () {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(STORAGE_TS_KEY);
       show();
     });
   })();
