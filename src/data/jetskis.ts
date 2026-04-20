@@ -18,6 +18,22 @@
 // BUCHUNGSMODELL: Jede Buchung referenziert GENAU eine Unit (jetski_unit_id).
 // Der fleet-utilization-analyst-Agent aggregiert Umsatz/Auslastung pro Unit.
 
+// ─── MwSt / ΦΠΑ ──────────────────────────────────────────────────────────
+// Griechischer Standard-MwSt-Satz (ΦΠΑ) für Jetski-Vermietung = 24%.
+// Tourismus-Reduziert-Satz 13% gilt NICHT (nur für Beherbergung & ausgewählte Services).
+// Preise im Projekt sind BRUTTO (inkl. MwSt) — EU-Richtlinie 98/6/EG B2C.
+// Rechnungen müssen Netto + MwSt + Brutto getrennt ausweisen (myDATA-Pflicht).
+
+export const VAT_RATE = 0.24;
+
+/** Netto-Betrag aus Brutto-Preis, auf Cent gerundet. */
+export const netFromGross = (gross: number): number =>
+  Math.round((gross / (1 + VAT_RATE)) * 100) / 100;
+
+/** MwSt-Anteil aus Brutto-Preis, auf Cent gerundet. */
+export const vatFromGross = (gross: number): number =>
+  Math.round((gross - netFromGross(gross)) * 100) / 100;
+
 // ─── Types ───────────────────────────────────────────────────────────────
 
 export interface BeachRides {
@@ -134,8 +150,11 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    // Unsplash Sea-Doo in action (kristina 2026-04-20: "internet-fotos für jetskis")
-    image: "https://images.unsplash.com/photo-1595351298020-038700609878?w=1400&q=85&auto=format&fit=crop",
+    // Authentisches Foto von Nero Ena (David + Sohn auf dem silber-gelben Sea-Doo).
+    // Ersetzt Unsplash-Stock am 2026-04-20 nachdem mehrere Stock-URLs nicht mehr
+    // ausgeliefert wurden (Unsplash hat IDs gewechselt, Karten blieben leer).
+    // Zuordnung: siehe .claude/skills/image-asset-usage/SKILL.md
+    image: "/images/customers/nero-guest-01.jpg",
     accent: "#ffc233",
     availableToday: 1,
     totalUnits: 1,
@@ -159,8 +178,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_RXT_RS,
-    // Unsplash Jet-Ski racing/spray shot (RXT RS Riva ist race-tuned)
-    image: "https://images.unsplash.com/photo-1625194398019-62a5362c1e52?w=1400&q=85&auto=format&fit=crop",
+    // Authentisches Foto von Nero Dio (Paar auf dem grau-gelben Sea-Doo).
+    image: "/images/customers/nero-guest-04.jpg",
     accent: "#ff5a36",
     availableToday: 1,
     totalUnits: 1,
@@ -183,8 +202,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    // Unsplash Sea-Doo water action (GTX-Touring-Feel)
-    image: "https://images.unsplash.com/photo-1530866495561-507c9faab2ed?w=1400&q=85&auto=format&fit=crop",
+    // Authentisches Foto von Nero Tria – Gruppe mit 3 Jetskis im Ionischen Meer.
+    image: "/images/customers/nero-guest-08.jpg",
     accent: "#00b3a7",
     availableToday: 1,
     totalUnits: 1,
@@ -207,8 +226,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    // Unsplash Jetski pier/dock
-    image: "https://images.unsplash.com/photo-1569251898438-7a87f2f49bf9?w=1400&q=85&auto=format&fit=crop",
+    // Authentisches Foto von Nero Tessera (Paar auf dem blauen Sea-Doo).
+    image: "/images/customers/nero-guest-11.jpg",
     accent: "#4fb3bf",
     availableToday: 1,
     totalUnits: 1,

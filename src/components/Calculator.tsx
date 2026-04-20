@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { jetskis, pricingExtras, type Jetski } from "../data/jetskis";
+import { jetskis, pricingExtras, vatFromGross, VAT_RATE, type Jetski } from "../data/jetskis";
 
 type Category = "beach" | "exclusive" | "delivery" | "waterFun";
 
@@ -327,6 +327,12 @@ export default function Calculator() {
               style={{ color: "rgba(253,251,244,0.65)" }}
             >
               {result.label}
+            </div>
+            <div
+              className="text-xs mt-1 font-mono uppercase tracking-wider"
+              style={{ color: "rgba(253,251,244,0.45)" }}
+            >
+              incl. {Math.round(VAT_RATE * 100)}% VAT · €{vatFromGross(result.price).toFixed(2).replace(".", ",")}
             </div>
           </>
         ) : (

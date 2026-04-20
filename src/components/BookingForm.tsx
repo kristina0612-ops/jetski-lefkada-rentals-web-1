@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import { jetskis, pricingExtras } from "../data/jetskis";
+import { jetskis, pricingExtras, VAT_RATE, netFromGross, vatFromGross } from "../data/jetskis";
 
 // Hoisted constants — avoid re-allocating these arrays on every render.
 // Impact: fewer heap allocations per keystroke → better INP on low-end laptops.
@@ -51,6 +51,7 @@ export default function BookingForm() {
   const [nationality, setNationality] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [wantsInvoice, setWantsInvoice] = useState(false);
   const [street, setStreet] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
@@ -111,8 +112,8 @@ export default function BookingForm() {
     }
     if (!email.trim()) errs.push("Email is required for booking confirmation.");
     if (!phone.trim()) errs.push("Phone / WhatsApp is required (Greek Port Police requirement).");
-    if (!street.trim() || !postalCode.trim() || !city.trim() || !country.trim())
-      errs.push("Full billing address is required (invoice + Greek Port Police registration).");
+    if (wantsInvoice && (!street.trim() || !postalCode.trim() || !city.trim() || !country.trim()))
+      errs.push("Billing address is required when requesting an invoice with VAT.");
     if (!nationality.trim()) errs.push("Nationality is required (Port Police).");
     if (!date) errs.push("Please choose a date.");
     if (!hasLicence) errs.push("Please indicate whether you hold a boating licence.");
@@ -143,7 +144,8 @@ export default function BookingForm() {
       `${firstName} ${lastName} (${dob}, ${nationality})`,
       `Email: ${email}`,
       `Phone/WhatsApp: ${phone}`,
-      `Address: ${street}, ${postalCode} ${city}, ${country}`,
+      ...(wantsInvoice ? [`Address (invoice): ${street}, ${postalCode} ${city}, ${country}`] : []),
+      `Invoice requested: ${wantsInvoice ? "YES (VAT invoice)" : "NO (simple receipt at dock)"}`,
       `Boating licence: ${hasLicence === "yes" ? "YES – solo rental OK" : "NO – guided tour with David only"}`,
       "",
       `*Estimated total:* ${total} (${category === "towable" ? "per person × " + persons : "flat rate"})`,
@@ -257,8 +259,8 @@ export default function BookingForm() {
 
       {/* ─── Step 3: Contact + Billing ───────────────────────────── */}
       <section style={styles.section}>
-        <div style={styles.sectionLabel}>Step 3 · Contact & billing</div>
-        <p style={styles.sectionHint}>Required for invoicing and Greek Port Police (Λιμεναρχείο) registration.</p>
+        <div style={styles.sectionLabel}>Step 3 · Contact</div>
+        <p style={styles.sectionHint}>Required for booking confirmation and Greek Port Police (Λιμεναρχείο) registration.</p>
 
         <div style={styles.grid2}>
           <label style={styles.field}>
@@ -285,23 +287,42 @@ export default function BookingForm() {
             <span style={styles.fieldLabel}>Phone / WhatsApp *</span>
             <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+49 …" style={styles.input} autoComplete="tel" required />
           </label>
-          <label style={{...styles.field, gridColumn: "1 / -1"}}>
-            <span style={styles.fieldLabel}>Street & number *</span>
-            <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} style={styles.input} autoComplete="street-address" required />
-          </label>
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Postal code *</span>
-            <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} style={styles.input} autoComplete="postal-code" required />
-          </label>
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>City *</span>
-            <input type="text" value={city} onChange={(e) => setCity(e.target.value)} style={styles.input} autoComplete="address-level2" required />
-          </label>
-          <label style={{...styles.field, gridColumn: "1 / -1"}}>
-            <span style={styles.fieldLabel}>Country *</span>
-            <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} style={styles.input} autoComplete="country-name" required />
-          </label>
         </div>
+
+        {/* Invoice toggle: billing address only required if customer wants a VAT invoice */}
+        <label style={{...styles.consent, marginTop: 16}}>
+          <input
+            type="checkbox"
+            checked={wantsInvoice}
+            onChange={(e) => setWantsInvoice(e.target.checked)}
+            style={styles.checkbox}
+          />
+          <span>
+            I need a full VAT invoice for my company (requires billing address).
+            Without this, you get a simple receipt at the dock.
+          </span>
+        </label>
+
+        {wantsInvoice && (
+          <div style={{...styles.grid2, marginTop: 16}}>
+            <label style={{...styles.field, gridColumn: "1 / -1"}}>
+              <span style={styles.fieldLabel}>Street & number *</span>
+              <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} style={styles.input} autoComplete="street-address" required />
+            </label>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Postal code *</span>
+              <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} style={styles.input} autoComplete="postal-code" required />
+            </label>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>City *</span>
+              <input type="text" value={city} onChange={(e) => setCity(e.target.value)} style={styles.input} autoComplete="address-level2" required />
+            </label>
+            <label style={{...styles.field, gridColumn: "1 / -1"}}>
+              <span style={styles.fieldLabel}>Country *</span>
+              <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} style={styles.input} autoComplete="country-name" required />
+            </label>
+          </div>
+        )}
 
         <div style={styles.infoSubtle}>
           Photo ID (passport or national ID card) will be verified at the dock before departure — not required online.
@@ -318,8 +339,16 @@ export default function BookingForm() {
           </div>
           {totalEstimate !== null && (
             <>
+              <div style={{...styles.priceRow, borderTop: "1px solid #e8e4da", paddingTop: 10, marginTop: 10, color: "#6b7a8d", fontSize: "0.85rem"}}>
+                <span>Net</span>
+                <span>€{netFromGross(totalEstimate).toFixed(2).replace(".", ",")}</span>
+              </div>
+              <div style={{...styles.priceRow, color: "#6b7a8d", fontSize: "0.85rem"}}>
+                <span>VAT ({Math.round(VAT_RATE * 100)}%)</span>
+                <span>€{vatFromGross(totalEstimate).toFixed(2).replace(".", ",")}</span>
+              </div>
               <div style={{...styles.priceRow, borderTop: "1px solid #e8e4da", paddingTop: 10, marginTop: 10}}>
-                <span>Estimated total</span>
+                <span>Total (incl. VAT)</span>
                 <strong style={{fontSize: "1.3rem"}}>€{totalEstimate}</strong>
               </div>
               <div style={styles.priceRow}>
