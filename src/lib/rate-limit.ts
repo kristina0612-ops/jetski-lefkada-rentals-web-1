@@ -63,6 +63,11 @@ export async function checkRateLimit(
   const windowSeconds = Math.max(1, Math.floor(windowMs / 1000));
 
   // ─── Primary: Supabase RPC ────────────────────────────────────────────
+  // Wenn ENV-Vars noch nicht gesetzt sind, ist `supabase === null` →
+  // direkt auf In-Memory-Fallback ausweichen, kein Crash.
+  if (!supabase) {
+    return checkRateLimitMemory(key, limit, windowMs);
+  }
   try {
     const { data, error } = await supabase.rpc("check_rate_limit", {
       p_key: key,

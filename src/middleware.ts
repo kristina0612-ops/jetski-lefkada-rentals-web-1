@@ -38,6 +38,12 @@ export const onRequest = defineMiddleware(async ({ url, cookies, redirect }, nex
 
   // JWT-Signatur bei Supabase verifizieren. Das ist der eigentliche Auth-Check.
   // Bei ungültigem/abgelaufenem Token: Cookie löschen und zum Login schicken.
+  // Wenn Supabase noch nicht konfiguriert ist (ENV-Vars fehlen), können wir
+  // den Token nicht verifizieren → sicherheitshalber ablehnen.
+  if (!supabase) {
+    cookies.delete("sb-access-token", { path: "/" });
+    return redirect("/admin/login");
+  }
   try {
     const { data, error } = await supabase.auth.getUser(accessToken);
     if (error || !data?.user) {
