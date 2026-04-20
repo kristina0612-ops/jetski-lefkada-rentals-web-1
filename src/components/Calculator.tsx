@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { jetskis, pricingExtras, vatFromGross, VAT_RATE, type Jetski } from "../data/jetskis";
 
 type Category = "beach" | "exclusive" | "delivery" | "waterFun";
+type Lang = "en" | "de" | "gr";
 
 const WHATSAPP_BASE = "https://wa.me/306955612777?text=";
 
@@ -11,6 +12,80 @@ interface PriceResult {
   label: string;
   whatsappMsg: string;
 }
+
+// UI-Labels pro Sprache. GR fällt bis zur EL-Gegenlese auf EN zurück.
+// WhatsApp-Texte bleiben EN weil David sie auf Englisch liest.
+const UI = {
+  en: {
+    eyebrow: "Price calculator",
+    title: "Find your price.",
+    yourJetski: "Your jetski",
+    service: "Service",
+    duration: "Duration",
+    tube: "Tube",
+    persons: "Persons",
+    seats: "seats",
+    onRequest: "On request",
+    quoteHint: "WhatsApp David for a quote.",
+    vatIncl: (vat: number, amount: string) => `incl. ${vat}% VAT · €${amount}`,
+    depositHint: (deposit: number) =>
+      `Note: VIP Delivery requires a €${deposit} security deposit. Fuel not included.`,
+    btn: "WhatsApp David to book",
+    categories: { beach: "Beach Rides", exclusive: "Exclusive", delivery: "VIP Delivery", waterFun: "Water Fun" },
+    durations: {
+      min10: "10 min", min15: "15 min (BEST)", min20: "20 min", min30: "30 min", min60: "60 min (BESTSELLER)",
+      sunset: "Sunset Ride (30 min)", couple: "Couple Ride (30 min)",
+      hour1: "1 hour", halfDay4h: "Half Day (4h)", fullDay8h: "Full Day (8h)", week: "Full week",
+      tube: "3-seat tube · 10 min (Great Big Mable)",
+    },
+  },
+  de: {
+    eyebrow: "Preisrechner",
+    title: "Finde Deinen Preis.",
+    yourJetski: "Dein Jetski",
+    service: "Service",
+    duration: "Dauer",
+    tube: "Tube",
+    persons: "Personen",
+    seats: "Sitze",
+    onRequest: "Auf Anfrage",
+    quoteHint: "WhatsApp David für ein Angebot.",
+    vatIncl: (vat: number, amount: string) => `inkl. ${vat}% MwSt · €${amount}`,
+    depositHint: (deposit: number) =>
+      `Hinweis: VIP-Delivery benötigt €${deposit} Kaution. Treibstoff nicht inkludiert.`,
+    btn: "Per WhatsApp buchen",
+    categories: { beach: "Beach Rides", exclusive: "Exclusive", delivery: "VIP Delivery", waterFun: "Water Fun" },
+    durations: {
+      min10: "10 Min.", min15: "15 Min. (TOP)", min20: "20 Min.", min30: "30 Min.", min60: "60 Min. (BESTSELLER)",
+      sunset: "Sunset-Ride (30 Min.)", couple: "Couple-Ride (30 Min.)",
+      hour1: "1 Stunde", halfDay4h: "Halber Tag (4h)", fullDay8h: "Ganzer Tag (8h)", week: "Ganze Woche",
+      tube: "3-Sitz-Tube · 10 Min. (Great Big Mable)",
+    },
+  },
+  gr: {
+    eyebrow: "Price calculator",
+    title: "Find your price.",
+    yourJetski: "Your jetski",
+    service: "Service",
+    duration: "Duration",
+    tube: "Tube",
+    persons: "Persons",
+    seats: "seats",
+    onRequest: "On request",
+    quoteHint: "WhatsApp David for a quote.",
+    vatIncl: (vat: number, amount: string) => `incl. ${vat}% VAT · €${amount}`,
+    depositHint: (deposit: number) =>
+      `Note: VIP Delivery requires a €${deposit} security deposit. Fuel not included.`,
+    btn: "WhatsApp David to book",
+    categories: { beach: "Beach Rides", exclusive: "Exclusive", delivery: "VIP Delivery", waterFun: "Water Fun" },
+    durations: {
+      min10: "10 min", min15: "15 min (BEST)", min20: "20 min", min30: "30 min", min60: "60 min (BESTSELLER)",
+      sunset: "Sunset Ride (30 min)", couple: "Couple Ride (30 min)",
+      hour1: "1 hour", halfDay4h: "Half Day (4h)", fullDay8h: "Full Day (8h)", week: "Full week",
+      tube: "3-seat tube · 10 min (Great Big Mable)",
+    },
+  },
+} as const;
 
 function computePrice(
   jetski: Jetski,
@@ -112,7 +187,13 @@ function computePrice(
   };
 }
 
-export default function Calculator() {
+interface CalculatorProps {
+  lang?: Lang;
+}
+
+export default function Calculator({ lang = "en" }: CalculatorProps) {
+  const t = UI[lang];
+
   const [jetskiId, setJetskiId] = useState(jetskis[0].id);
   const [category, setCategory] = useState<Category>("beach");
   const [option, setOption] = useState<string>("min30");
@@ -122,23 +203,23 @@ export default function Calculator() {
 
   const optionSets: Record<Category, Array<{ value: string; label: string }>> = {
     beach: [
-      { value: "min10", label: "10 min" },
-      { value: "min15", label: "15 min (BEST)" },
-      { value: "min20", label: "20 min" },
-      { value: "min30", label: "30 min" },
-      { value: "min60", label: "60 min (BESTSELLER)" },
+      { value: "min10", label: t.durations.min10 },
+      { value: "min15", label: t.durations.min15 },
+      { value: "min20", label: t.durations.min20 },
+      { value: "min30", label: t.durations.min30 },
+      { value: "min60", label: t.durations.min60 },
     ],
     exclusive: [
-      { value: "sunset", label: "Sunset Ride (30 min)" },
-      { value: "couple", label: "Couple Ride (30 min)" },
+      { value: "sunset", label: t.durations.sunset },
+      { value: "couple", label: t.durations.couple },
     ],
     delivery: [
-      { value: "hour1", label: "1 hour" },
-      { value: "halfDay4h", label: "Half Day (4h)" },
-      { value: "fullDay8h", label: "Full Day (8h)" },
-      { value: "week", label: "Full week" },
+      { value: "hour1", label: t.durations.hour1 },
+      { value: "halfDay4h", label: t.durations.halfDay4h },
+      { value: "fullDay8h", label: t.durations.fullDay8h },
+      { value: "week", label: t.durations.week },
     ],
-    waterFun: [{ value: "tube", label: "3-seat tube · 10 min (Great Big Mable)" }],
+    waterFun: [{ value: "tube", label: t.durations.tube }],
   };
 
   const result = useMemo(
@@ -156,7 +237,7 @@ export default function Calculator() {
 
   return (
     <div
-      className="rounded-2xl border p-8 lg:p-10"
+      className="rounded-2xl border p-5 sm:p-8 lg:p-10"
       style={{
         borderColor: "rgba(253,251,244,0.15)",
         background: "rgba(253,251,244,0.04)",
@@ -166,13 +247,13 @@ export default function Calculator() {
         className="v2-eyebrow mb-3"
         style={{ color: "var(--v2-sun-400)" }}
       >
-        <span>Price calculator</span>
+        <span>{t.eyebrow}</span>
       </div>
       <h3
         className="font-display text-3xl lg:text-4xl mb-8"
         style={{ color: "var(--v2-cream-50)" }}
       >
-        Find your price.
+        {t.title}
       </h3>
 
       {/* Jetski */}
@@ -181,7 +262,7 @@ export default function Calculator() {
           className="block text-xs uppercase tracking-[0.15em] mb-3"
           style={{ color: "rgba(253,251,244,0.65)" }}
         >
-          Your jetski
+          {t.yourJetski}
         </label>
         <div className="grid grid-cols-2 gap-3">
           {jetskis.map((j) => (
@@ -189,23 +270,23 @@ export default function Calculator() {
               key={j.id}
               type="button"
               onClick={() => setJetskiId(j.id)}
-              className={`p-4 rounded-xl border text-left transition-colors ${
+              className={`p-3 sm:p-4 rounded-xl border text-left transition-colors ${
                 jetskiId === j.id
                   ? "border-[var(--v2-sun-400)] bg-[rgba(255,194,51,0.1)]"
                   : "border-white/15 hover:border-white/40"
               }`}
             >
               <div
-                className="font-display text-xl"
+                className="font-display text-lg sm:text-xl"
                 style={{ color: "var(--v2-cream-50)" }}
               >
                 {j.name}
               </div>
               <div
-                className="text-xs mt-1"
+                className="text-[10px] sm:text-xs mt-1 leading-tight"
                 style={{ color: "rgba(253,251,244,0.65)" }}
               >
-                {j.model} · {j.hp} HP · {j.seats} seats
+                {j.model} · {j.hp} HP · {j.seats} {t.seats}
               </div>
             </button>
           ))}
@@ -218,15 +299,15 @@ export default function Calculator() {
           className="block text-xs uppercase tracking-[0.15em] mb-3"
           style={{ color: "rgba(253,251,244,0.65)" }}
         >
-          Service
+          {t.service}
         </label>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
           {(
             [
-              { v: "beach", l: "Beach Rides" },
-              { v: "exclusive", l: "Exclusive" },
-              { v: "delivery", l: "VIP Delivery" },
-              { v: "waterFun", l: "Water Fun" },
+              { v: "beach", l: t.categories.beach },
+              { v: "exclusive", l: t.categories.exclusive },
+              { v: "delivery", l: t.categories.delivery },
+              { v: "waterFun", l: t.categories.waterFun },
             ] as const
           ).map((c) => (
             <button
@@ -251,7 +332,7 @@ export default function Calculator() {
           className="block text-xs uppercase tracking-[0.15em] mb-3"
           style={{ color: "rgba(253,251,244,0.65)" }}
         >
-          {category === "waterFun" ? "Tube" : "Duration"}
+          {category === "waterFun" ? t.tube : t.duration}
         </label>
         <select
           value={option}
@@ -277,7 +358,7 @@ export default function Calculator() {
             className="block text-xs uppercase tracking-[0.15em] mb-3"
             style={{ color: "rgba(253,251,244,0.65)" }}
           >
-            Persons
+            {t.persons}
           </label>
           <div className="flex items-center gap-3">
             <button
@@ -332,7 +413,7 @@ export default function Calculator() {
               className="text-xs mt-1 font-mono uppercase tracking-wider"
               style={{ color: "rgba(253,251,244,0.45)" }}
             >
-              incl. {Math.round(VAT_RATE * 100)}% VAT · €{vatFromGross(result.price).toFixed(2).replace(".", ",")}
+              {t.vatIncl(Math.round(VAT_RATE * 100), vatFromGross(result.price).toFixed(2).replace(".", ","))}
             </div>
           </>
         ) : (
@@ -341,13 +422,13 @@ export default function Calculator() {
               className="font-display text-3xl lg:text-4xl italic"
               style={{ color: "var(--v2-sun-400)" }}
             >
-              On request
+              {t.onRequest}
             </div>
             <div
               className="text-sm mt-2"
               style={{ color: "rgba(253,251,244,0.65)" }}
             >
-              WhatsApp David for a quote.
+              {t.quoteHint}
             </div>
           </div>
         )}
@@ -359,25 +440,24 @@ export default function Calculator() {
               color: "rgba(253,251,244,0.8)",
             }}
           >
-            Note: VIP Delivery requires a €{depositDelivery} security deposit.
-            Fuel not included.
+            {t.depositHint(depositDelivery)}
           </div>
         )}
       </div>
 
-      {/* WhatsApp */}
+      {/* WhatsApp — Mobile: schmaler, whitespace-normal damit Button im Container bleibt */}
       <a
         href={WHATSAPP_BASE + encodeURIComponent(result.whatsappMsg)}
         target="_blank"
         rel="noopener"
-        className="v2-btn w-full justify-center"
+        className="v2-btn w-full justify-center !px-3 sm:!px-8 !py-3 sm:!py-[1.1rem] !text-[11px] sm:!text-sm !gap-2 whitespace-normal text-center"
         style={{
           background: "var(--v2-sun-400)",
           color: "var(--v2-ink-950)",
         }}
         data-cro="v2-calculator-whatsapp"
       >
-        WhatsApp David to book
+        <span>{t.btn}</span>
         <svg
           width="16"
           height="16"
