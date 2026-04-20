@@ -8,12 +8,16 @@
 
 <style>
   /* Minimal polish on the hero video.
-     The source is now clean (no IG overlay) so we don't crop or shift.
-     A light filter adds pop without altering composition. */
+     Kristina 2026-04-20: "ich will das Video ganz sehen" — object-fit changed
+     from cover (which crops edges) to contain (which letterboxes). The deep
+     ink-950 background fills any letterbox space and matches the overall
+     page dark theme. Also: small CSS filter for a hint of pop. */
   .hero-video-full {
+    object-fit: contain !important;
     filter: contrast(1.05) saturate(1.1);
     will-change: filter;
     backface-visibility: hidden;
+    background: var(--v2-ink-950);
   }
 </style>
 

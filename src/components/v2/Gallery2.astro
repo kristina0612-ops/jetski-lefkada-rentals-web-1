@@ -9,14 +9,12 @@
 // the images as sharper without re-encoding. Milder kernel than Hero because
 // still images don't need motion-blur compensation.
 // Card-selection updated 2026-04-20 per Kristina:
-// • "Couple on the bay" re-added with nero-guest-05 (real couple photo)
-// • "Family time" uses nero-guest-02 (nero-guest-01 is already Fleet image
-//   for Nero Ena — photos must not duplicate across sections)
-// • Added nero-guest-09 ("Muscle flex" on red Nero Dio) for more variety
-// • Position 1 switched from "Water Fun" (waterfun-jobe-action.jpg) to
-//   "Group ride" with nero-guest-12.jpg — a real group-tour photo (three
-//   jetskis). Water Fun promo stays at Position 6 ("Tube moment"), so the
-//   add-on is still represented but the prime slot now shows riders.
+// • Trimmed to exactly 4 cards — the previous two tiny thumbnails at the
+//   bottom of the section (Muscle flex + Tube moment) are gone. The
+//   remaining four use the 7-5 / 5-7 asymmetric bento cleanly.
+// • Kept: Group ride, Couple on the bay, Family time, Thumbs up.
+// • Add-on "Tube moment" moves to the dedicated Water Fun block in the
+//   Booking section, so the promo stays on the site, just not in Gallery.
 //
 // IMPORTANT: See .claude/skills/image-asset-usage/SKILL.md for the
 // canonical usage map. Before using any photo here, check that skill.
@@ -44,18 +42,6 @@ const moments = [
     caption: "Victory signs, peace signs, whatever fits",
     src: "/images/customers/nero-guest-07.jpg",
     tag: "Solo",
-  },
-  {
-    title: "Muscle flex",
-    caption: "Biceps on the red Nero Dio — why not",
-    src: "/images/customers/nero-guest-09.jpg",
-    tag: "Group vibe",
-  },
-  {
-    title: "Tube moment",
-    caption: "Catching a breath between runs",
-    src: "/images/gallery/waterfun-tube-in-water.jpg",
-    tag: "Add-on · Tube",
   },
 ];
 ---
