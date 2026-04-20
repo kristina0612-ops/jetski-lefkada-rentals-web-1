@@ -108,6 +108,10 @@ Lieferung an Strand, Boot, Yacht oder Katamaran.
 - **Schwimmzonen:** Keine Einfahrt in durch Bojen markierte Schwimmzonen
 - **Schwimmweste:** Pflicht für alle Fahrer (wird gestellt)
 - **Alkohol:** Fahren unter Alkohol-/Drogeneinfluss verboten – führt zu sofortigem Abbruch ohne Rückerstattung
+- **Führerschein-Regel (Stand 2026-04-20):**
+  - Kunden **ohne** Bootsführerschein fahren ausschließlich als **geführte Tour** mit David (Guide fährt mit oder eskortiert in Sichtweite).
+  - Kunden **mit** gültigem EU-Bootsführerschein (Kategorie Personal Watercraft / ταχύπλοο) dürfen **solo** fahren nach Safety-Briefing.
+  - Diese Unterscheidung ist in `src/components/BookingForm.tsx` als Pflicht-Gate eingebaut und in Waiver, AGB (§3) und FAQ konsistent formuliert. Niemals pauschal „no license required" kommunizieren — das wäre rechtlich irreführend.
 
 ---
 
