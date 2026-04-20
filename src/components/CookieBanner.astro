@@ -38,11 +38,14 @@ const GA_ID = "G-MBLR2ODZES";
       </p>
     </div>
     <div class="flex flex-shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
+      <!-- Reject + Accept sind OPTISCH GLEICH PROMINENT (EDPB 03/2022, LG München I 17 O 14168/22):
+           beide solid Füllung, gleicher Kontrast gegen den dunklen Banner, gleiches Padding.
+           Nur die Farbe unterscheidet die Funktion – keine Dark-Pattern-Hierarchie. -->
       <button
         type="button"
         id="cookie-reject"
         class="rounded-md px-5 py-2.5 text-xs font-semibold uppercase tracking-wider transition"
-        style="background: rgba(253,251,244,0.12); color: #fdfbf4; border: 1px solid rgba(253,251,244,0.25);"
+        style="background: #fdfbf4; color: #071d30; border: 1px solid #fdfbf4;"
         data-cb-label="reject"
       >Reject all</button>
       <button
