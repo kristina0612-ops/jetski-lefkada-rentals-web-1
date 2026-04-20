@@ -68,6 +68,35 @@ import LayoutBare from "../layouts/LayoutBare.astro";
 
     <h2>The Rules</h2>
 
+    <!-- Official Port Police rules video — Kristina hat das Video als
+         autoritative Quelle für die 300-m-Regel + Wassersport-Nutzung
+         in Lefkada benannt (2026-04-20 Abend). Als Link eingebunden
+         (nicht iframe), damit YouTube keine Tracking-Cookies ohne
+         Consent setzt und CSP sauber bleibt. -->
+    <a
+      href="https://www.youtube.com/watch?v=FL8HnIgGDU0"
+      target="_blank"
+      rel="noopener"
+      style="display: flex; gap: 1rem; align-items: center; padding: 1.1rem 1.25rem; background: linear-gradient(135deg, #0a1220 0%, #1a2a40 100%); color: #fdfbf4; border-radius: 12px; margin: 0 0 1.5rem; text-decoration: none;"
+      data-cro="safety-portpolice-video"
+    >
+      <span aria-hidden="true" style="flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border-radius: 50%; background: #ff0000;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="#fdfbf4" aria-hidden="true">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </span>
+      <span style="flex: 1;">
+        <span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: #ffc233; margin-bottom: 0.2rem;">Official source · Lefkada Port Police</span>
+        <span style="display: block; font-family: 'Fraunces Variable', Georgia, serif; font-size: 1.05rem; line-height: 1.3; color: #fdfbf4;">Watch the official jetski usage rules on YouTube</span>
+        <span style="display: block; font-size: 0.8rem; color: rgba(253,251,244,0.6); margin-top: 0.25rem;">Opens in a new tab · Greek language, with visual demonstrations</span>
+      </span>
+      <span aria-hidden="true" style="flex-shrink: 0; color: rgba(253,251,244,0.4);">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M7 17l9.2-9.2M17 17V7H7"/>
+        </svg>
+      </span>
+    </a>
+
     <div class="rule-card">
       <div class="rule-icon">🦺</div>
       <div>
@@ -79,8 +108,8 @@ import LayoutBare from "../layouts/LayoutBare.astro";
     <div class="rule-card">
       <div class="rule-icon">📏</div>
       <div>
-        <h3>Stay within 700 metres of shore</h3>
-        <p>Greek Coast Guard regulation. Exceeding this limit ends your rental immediately.</p>
+        <h3>Stay within 300 metres of shore</h3>
+        <p>Lefkada Port Police enforcement. Exceeding this limit ends your rental immediately.</p>
       </div>
     </div>
 

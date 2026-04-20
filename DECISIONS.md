@@ -104,7 +104,7 @@ Lieferung an Strand, Boot, Yacht oder Katamaran.
 
 ## Sicherheitsregeln
 
-- **Maximale Entfernung vom Ufer:** 700 Meter (Küstenwache-Vorschrift, Griechenland)
+- **Maximale Entfernung vom Ufer:** 300 Meter (lokale Durchsetzung durch die Hafenpolizei Lefkada; Π.Δ. 23/2000 national bis 700 m, Lygia-Hafen aber strenger). Autoritative Quelle: offizielles Video der Port Police Lefkada, verlinkt auf `/safety`.
 - **Schwimmzonen:** Keine Einfahrt in durch Bojen markierte Schwimmzonen
 - **Schwimmweste:** Pflicht für alle Fahrer (wird gestellt)
 - **Alkohol:** Fahren unter Alkohol-/Drogeneinfluss verboten – führt zu sofortigem Abbruch ohne Rückerstattung
