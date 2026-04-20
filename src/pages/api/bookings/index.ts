@@ -34,9 +34,10 @@ export const GET: APIRoute = async ({ cookies }) => {
 };
 
 export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
-  // Rate-Limit vor Auth-Check (damit auch anonyme Requests limitiert werden)
+  // Rate-Limit vor Auth-Check (damit auch anonyme Requests limitiert werden).
+  // Seit Sec #3: async, persistent via Supabase (überlebt Vercel Cold-Starts).
   const ip = clientAddress ?? "unknown";
-  const rl = checkRateLimit(`bookings-post:${ip}`, POST_LIMIT, POST_WINDOW_MS);
+  const rl = await checkRateLimit(`bookings-post:${ip}`, POST_LIMIT, POST_WINDOW_MS);
   const rlHeaders = rateLimitHeaders(rl, POST_LIMIT);
   if (!rl.allowed) {
     return new Response(

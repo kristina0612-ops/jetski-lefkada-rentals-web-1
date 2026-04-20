@@ -1,29 +1,37 @@
-// In-Memory Rate-Limiter für Serverless-Functions.
+// Rate-Limiter für Serverless-Functions.
 //
-// Lebt pro Serverless-Instanz – nach Cold-Start fängt der Counter wieder bei 0 an.
-// Das ist OK für "weiche" Schutzmaßnahmen wie Login-Brute-Force-Schutz, wo uns
-// wichtig ist, dass ein Angreifer nicht tausende Requests pro Minute absetzen
-// kann. Für harte Enforcement-Anforderungen (z. B. Billing) müsste ein
-// persistenter Store (Supabase, Upstash Redis) dahinter – siehe Security-Skill §3.
+// Architektur (Sec #3, 2026-04-20):
+//   • PRIMÄR: Supabase-persistent via RPC `check_rate_limit`
+//     → Atomare PostgreSQL-Operation, überlebt Vercel Cold-Starts.
+//     → Verhindert Brute-Force-Umgehung durch parallele Serverless-Instanzen.
+//     → Migration: supabase/migrations/20260420_rate_limits.sql
+//   • FALLBACK: In-Memory-Counter pro Instanz
+//     → Greift wenn Supabase nicht erreichbar ist oder ENV fehlt.
+//     → Weicher Schutz, keine harte Garantie.
 //
-// Siehe auch: .claude/skills/security/SKILL.md A04 (Insecure Design)
+// Verwendung (sync-ähnliches Pattern beibehalten für Backward-Compat):
+//   const rl = await checkRateLimit(`login:${ip}`, 5, 15 * 60 * 1000);
+//   if (!rl.allowed) return json429(...);
+//
+// Siehe: .claude/skills/security/SKILL.md A04 (Insecure Design)
 
-interface Record {
+import { supabase } from "./supabase";
+
+interface LocalRecord {
   count: number;
   windowStart: number;
 }
 
-const store = new Map<string, Record>();
-
-// Damit die Map nicht unbegrenzt wächst – alle 5 Min abgelaufene Einträge löschen.
+// Fallback-Memory-Store für wenn Supabase down ist.
+const memStore = new Map<string, LocalRecord>();
 let lastGc = Date.now();
 const GC_INTERVAL_MS = 5 * 60 * 1000;
 
-function gc(now: number) {
+function gcMem(now: number) {
   if (now - lastGc < GC_INTERVAL_MS) return;
   lastGc = now;
-  for (const [key, rec] of store) {
-    if (now - rec.windowStart > GC_INTERVAL_MS * 2) store.delete(key);
+  for (const [key, rec] of memStore) {
+    if (now - rec.windowStart > GC_INTERVAL_MS * 2) memStore.delete(key);
   }
 }
 
@@ -34,30 +42,76 @@ export interface RateLimitResult {
   resetAt: number;
   /** Sekunden bis zum Reset – praktisch für Retry-After-Header */
   retryAfterSeconds: number;
+  /** true wenn persistent via Supabase, false wenn nur In-Memory-Fallback */
+  persistent: boolean;
 }
 
 /**
  * Prüft und erhöht einen Rate-Limit-Zähler.
+ * Verwendet primär Supabase-RPC (atomar, persistent).
+ * Fällt auf In-Memory zurück wenn Supabase nicht erreichbar ist.
+ *
  * @param key      Eindeutiger Zähler-Schlüssel (z. B. `login:${ip}`)
  * @param limit    Maximale Requests pro Fenster
  * @param windowMs Länge des Zeitfensters in Millisekunden
  */
-export function checkRateLimit(
+export async function checkRateLimit(
+  key: string,
+  limit: number,
+  windowMs: number,
+): Promise<RateLimitResult> {
+  const windowSeconds = Math.max(1, Math.floor(windowMs / 1000));
+
+  // ─── Primary: Supabase RPC ────────────────────────────────────────────
+  try {
+    const { data, error } = await supabase.rpc("check_rate_limit", {
+      p_key: key,
+      p_limit: limit,
+      p_window_seconds: windowSeconds,
+    });
+
+    if (!error && Array.isArray(data) && data.length > 0) {
+      const row = data[0] as { allowed: boolean; remaining: number; reset_at: string };
+      const resetAt = new Date(row.reset_at).getTime();
+      const retryAfterSeconds = Math.max(0, Math.ceil((resetAt - Date.now()) / 1000));
+      return {
+        allowed: row.allowed,
+        remaining: row.remaining,
+        resetAt,
+        retryAfterSeconds,
+        persistent: true,
+      };
+    }
+    // Error oder leeres Ergebnis → fallback
+  } catch {
+    // Netzwerkfehler / Supabase down → fallback
+  }
+
+  // ─── Fallback: In-Memory ──────────────────────────────────────────────
+  return checkRateLimitMemory(key, limit, windowMs);
+}
+
+/**
+ * Reiner In-Memory-Rate-Limiter (Fallback, nicht-persistent).
+ * Öffentlich exportiert falls jemand bewusst keine Supabase-Abhängigkeit will.
+ */
+export function checkRateLimitMemory(
   key: string,
   limit: number,
   windowMs: number,
 ): RateLimitResult {
   const now = Date.now();
-  gc(now);
+  gcMem(now);
 
-  const rec = store.get(key);
+  const rec = memStore.get(key);
   if (!rec || now - rec.windowStart > windowMs) {
-    store.set(key, { count: 1, windowStart: now });
+    memStore.set(key, { count: 1, windowStart: now });
     return {
       allowed: true,
       remaining: limit - 1,
       resetAt: now + windowMs,
       retryAfterSeconds: Math.ceil(windowMs / 1000),
+      persistent: false,
     };
   }
 
@@ -70,6 +124,7 @@ export function checkRateLimit(
     remaining: Math.max(0, limit - rec.count),
     resetAt,
     retryAfterSeconds,
+    persistent: false,
   };
 }
 
@@ -80,8 +135,8 @@ export function checkRateLimit(
 export function rateLimitHeaders(
   res: RateLimitResult,
   limit: number,
-): globalThis.Record<string, string> {
-  const headers: globalThis.Record<string, string> = {
+): Record<string, string> {
+  const headers: Record<string, string> = {
     "X-RateLimit-Limit": String(limit),
     "X-RateLimit-Remaining": String(res.remaining),
     "X-RateLimit-Reset": String(Math.ceil(res.resetAt / 1000)),

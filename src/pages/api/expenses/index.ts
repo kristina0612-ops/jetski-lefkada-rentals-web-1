@@ -28,8 +28,9 @@ export const GET: APIRoute = async ({ cookies }) => {
 };
 
 export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
+  // Seit Sec #3: async, persistent via Supabase.
   const ip = clientAddress ?? "unknown";
-  const rl = checkRateLimit(`expenses-post:${ip}`, POST_LIMIT, POST_WINDOW_MS);
+  const rl = await checkRateLimit(`expenses-post:${ip}`, POST_LIMIT, POST_WINDOW_MS);
   const rlHeaders = rateLimitHeaders(rl, POST_LIMIT);
   if (!rl.allowed) {
     return new Response(

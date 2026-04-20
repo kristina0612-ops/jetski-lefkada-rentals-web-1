@@ -15,8 +15,9 @@ const LOGIN_WINDOW_MS = 15 * 60 * 1000; // 15 Minuten
 export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
   // Rate-Limit pro IP – greift auch solange der Login-Endpoint ein Stub ist,
   // damit ein Angreifer nicht unbegrenzt probieren kann sobald Supabase live geht.
+  // Seit Sec #3 async + persistent (Supabase-RPC), überlebt Cold-Starts.
   const ip = clientAddress ?? "unknown";
-  const rl = checkRateLimit(`login:${ip}`, LOGIN_LIMIT, LOGIN_WINDOW_MS);
+  const rl = await checkRateLimit(`login:${ip}`, LOGIN_LIMIT, LOGIN_WINDOW_MS);
   const rlHeaders = rateLimitHeaders(rl, LOGIN_LIMIT);
 
   if (!rl.allowed) {
