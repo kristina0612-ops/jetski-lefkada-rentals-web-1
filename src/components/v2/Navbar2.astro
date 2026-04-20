@@ -285,11 +285,12 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
         </div>
       </div>
 
-      <!-- CTA (always visible) -->
+      <!-- CTA (always visible) — springt zum Booking-Bereich (Calculator + Form + Calendar) -->
       <a
-        href="#fleet"
+        href="#book"
         class="v2-btn !py-3 !px-5 !text-xs"
         style="background: var(--v2-sun-400); color: var(--v2-ink-950);"
+        data-cro="navbar-cta-book"
       >
         {t.book}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
@@ -395,12 +396,13 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
     </div>
   </nav>
 
-  <!-- Footer CTA -->
+  <!-- Footer CTA — springt zum Booking-Bereich (Calculator + Form + Calendar) -->
   <div class="relative px-6 pb-12 pt-6 border-t" style="border-color: rgba(253,251,244,0.1);">
     <a
-      href="#fleet"
+      href="#book"
       class="v2-btn w-full justify-center !py-4 !text-sm"
       style="background: var(--v2-sun-400, #ffc233); color: var(--v2-ink-950, #071d30);"
+      data-cro="mobile-nav-cta-book"
     >
       {t.bookMobile}
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
