@@ -68,9 +68,10 @@ import LayoutBare from "../layouts/LayoutBare.astro";
 
       <h2>2. Erhobene Daten</h2>
       <ul>
-        <li><strong>Buchungsanfragen:</strong> Name, Kontaktdaten (WhatsApp/E-Mail), gewünschtes Datum, gebuchtes Modell</li>
+        <li><strong>Buchungsanfragen:</strong> Name, Kontaktdaten (WhatsApp/E-Mail), Rechnungsadresse, gewünschtes Datum, gebuchtes Modell, Zustimmung zu AGB/Datenschutz/Haftungsausschluss</li>
         <li><strong>Vor Ort:</strong> Ausweisnummer (Personalausweis oder Reisepass) – Pflicht gemäß griechischer Seerechtsnorm (Ν. 4926/2022)</li>
         <li><strong>Zahlung:</strong> Abwicklung über Viva Wallet – wir speichern keine Kartendaten</li>
+        <li><strong>Beweissicherung der Online-Zustimmungen:</strong> Bei der Online-Buchung werden Zeitstempel der Einwilligung, Deine IP-Adresse und die angekreuzten Checkboxen (Privacy / AGB / Haftungsausschluss) gespeichert. Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an Beweisführung gem. eIDAS-VO 910/2014). Aufbewahrung: 3 Jahre analog zu den Buchungsunterlagen.</li>
       </ul>
 
       <h2>3. Zweck der Verarbeitung</h2>
@@ -93,9 +94,20 @@ import LayoutBare from "../layouts/LayoutBare.astro";
         Buchungsunterlagen werden <strong>3 Jahre</strong> aufbewahrt, wie von der griechischen Steuer- und Seerechtsnorm vorgeschrieben. Danach werden alle personenbezogenen Daten gelöscht.
       </p>
 
-      <h2>6. Empfänger der Daten</h2>
+      <h2>6. Empfänger der Daten / Datenverarbeiter</h2>
       <p>
-        Nur autorisierte Mitarbeiter von Nero Lefkada Rental&Retail haben Zugang zu Deinen Daten. Wir geben keine Daten an Dritte weiter – außer wenn dies gesetzlich vorgeschrieben ist (z. B. Küstenwache-Meldungen bei Unfällen).
+        Nur autorisierte Mitarbeiter von Nero Lefkada Rental&Retail haben direkten Zugang zu Deinen Daten. Wir geben keine Daten an Dritte weiter – außer wenn dies gesetzlich vorgeschrieben ist (z. B. Küstenwache-Meldungen bei Unfällen) oder für den Betrieb der Website technisch notwendig:
+      </p>
+      <ul>
+        <li><strong>Vercel Inc.</strong> (USA/EU) – Website-Hosting + cookie-freie Web-Analytics. EU-Standardvertragsklauseln gem. Art. 46 DSGVO. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Datenschutz</a></li>
+        <li><strong>Supabase Inc.</strong> (EU-Frankfurt-Region) – Buchungs-Datenbank + Login-Authentifizierung. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Datenschutz</a></li>
+        <li><strong>Google Ireland Ltd.</strong> – Google Analytics 4 (nur nach Consent, IP anonymisiert). <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutz</a></li>
+        <li><strong>Viva Wallet Holdings S.A.</strong> (Athen, Griechenland) – Zahlungsabwicklung. <a href="https://www.vivawallet.com/gb_en/privacy-policy" target="_blank" rel="noopener">Datenschutz</a></li>
+        <li><strong>Unsplash Inc.</strong> (USA) – CDN für einzelne Stock-Fotos (Strand-Motive). Keine personenbezogenen Daten, nur anonymer Bildabruf. <a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Datenschutz</a></li>
+        <li><strong>Meta/WhatsApp</strong> – nur wenn Du freiwillig auf den WhatsApp-Button klickst. <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">Datenschutz</a></li>
+      </ul>
+      <p>
+        Mit allen genannten Verarbeitern bestehen Auftragsverarbeitungsverträge gemäß Art. 28 DSGVO oder entsprechende EU-Standardvertragsklauseln. Auf Anfrage stellen wir die Liste gerne zur Verfügung.
       </p>
 
       <h2>7. Datenübermittlung in Drittländer</h2>
@@ -188,9 +200,10 @@ import LayoutBare from "../layouts/LayoutBare.astro";
 
       <h2>2. Data We Collect</h2>
       <ul>
-        <li><strong>Booking inquiries:</strong> Name, contact details (WhatsApp/email), preferred date, booked model</li>
+        <li><strong>Booking inquiries:</strong> Name, contact details (WhatsApp/email), billing address, preferred date, booked model, consent to Terms / Privacy / Liability Waiver</li>
         <li><strong>On site:</strong> Government-issued ID number (passport or national ID) – required by Greek maritime law <span class="law-ref">(Law 4926/2022)</span></li>
         <li><strong>Payment:</strong> Processed via Viva Wallet – we do not store card details</li>
+        <li><strong>Proof of online consents:</strong> When you submit the online booking form, we log the consent timestamp, your IP address and the ticked checkboxes (Privacy / Terms / Liability Waiver). Legal basis: Art. 6(1)(f) GDPR (legitimate interest in proof under eIDAS Regulation 910/2014). Retention: 3 years, same as the booking record.</li>
       </ul>
 
       <h2>3. Purpose of Processing</h2>
@@ -213,9 +226,20 @@ import LayoutBare from "../layouts/LayoutBare.astro";
         Booking records are retained for <strong>3 years</strong> as required by Greek tax and maritime regulations. After this period, all personal data is deleted.
       </p>
 
-      <h2>6. Recipients</h2>
+      <h2>6. Recipients / Data Processors</h2>
       <p>
-        Only authorised staff of Nero Lefkada Rental&Retail have access to your data. We do not share it with third parties except where required by law (e.g. Coast Guard incident reports).
+        Only authorised staff of Nero Lefkada Rental&Retail have direct access to your data. We do not share it with third parties except where required by law (e.g. Coast Guard incident reports) or technically necessary to operate the website:
+      </p>
+      <ul>
+        <li><strong>Vercel Inc.</strong> (US/EU) – website hosting + cookie-free web analytics. EU Standard Contractual Clauses under Art. 46 GDPR. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Privacy</a></li>
+        <li><strong>Supabase Inc.</strong> (EU Frankfurt region) – booking database + login auth. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Privacy</a></li>
+        <li><strong>Google Ireland Ltd.</strong> – Google Analytics 4 (only after consent, IP anonymised). <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Privacy</a></li>
+        <li><strong>Viva Wallet Holdings S.A.</strong> (Athens, Greece) – payment processing. <a href="https://www.vivawallet.com/gb_en/privacy-policy" target="_blank" rel="noopener">Privacy</a></li>
+        <li><strong>Unsplash Inc.</strong> (US) – CDN for selected stock photos (beach motifs). No personal data, only anonymous image retrieval. <a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Privacy</a></li>
+        <li><strong>Meta/WhatsApp</strong> – only when you voluntarily click the WhatsApp button. <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">Privacy</a></li>
+      </ul>
+      <p>
+        Data Processing Agreements under Art. 28 GDPR or equivalent EU Standard Contractual Clauses are in place with all listed processors. Available on request.
       </p>
 
       <h2>7. International Data Transfers</h2>
@@ -333,9 +357,20 @@ import LayoutBare from "../layouts/LayoutBare.astro";
         Τα έγγραφα κράτησης φυλάσσονται για <strong>3 χρόνια</strong>, όπως απαιτείται από την ελληνική φορολογική νομοθεσία και τους ναυτιλιακούς κανονισμούς. Μετά το πέρας αυτής της περιόδου, όλα τα προσωπικά δεδομένα διαγράφονται.
       </p>
 
-      <h2>6. Αποδέκτες Δεδομένων</h2>
+      <h2>6. Αποδέκτες Δεδομένων / Εκτελούντες Επεξεργασία</h2>
       <p>
-        Μόνο εξουσιοδοτημένο προσωπικό της Nero Lefkada Rental&Retail έχει πρόσβαση στα δεδομένα σας. Δεν κοινοποιούμε δεδομένα σε τρίτους, εκτός αν απαιτείται από τον νόμο (π.χ. αναφορά στο Λιμεναρχείο σε περίπτωση ατυχήματος).
+        Μόνο εξουσιοδοτημένο προσωπικό της Nero Lefkada Rental&Retail έχει άμεση πρόσβαση στα δεδομένα σας. Δεν κοινοποιούμε δεδομένα σε τρίτους, εκτός αν απαιτείται από τον νόμο (π.χ. Λιμεναρχείο σε ατύχημα) ή είναι τεχνικά αναγκαίο για τη λειτουργία του ιστοτόπου:
+      </p>
+      <ul>
+        <li><strong>Vercel Inc.</strong> (ΗΠΑ/ΕΕ) – φιλοξενία ιστοσελίδας + αναλυτικά χωρίς cookies. Τυποποιημένες Συμβατικές Ρήτρες ΕΕ κατά Άρθρο 46 ΓΚΠΔ. <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener">Απόρρητο</a></li>
+        <li><strong>Supabase Inc.</strong> (ΕΕ Frankfurt) – βάση κρατήσεων + login. <a href="https://supabase.com/privacy" target="_blank" rel="noopener">Απόρρητο</a></li>
+        <li><strong>Google Ireland Ltd.</strong> – Google Analytics 4 (μόνο μετά από συγκατάθεση, ανωνυμοποιημένη IP). <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Απόρρητο</a></li>
+        <li><strong>Viva Wallet Holdings Α.Ε.</strong> (Αθήνα, Ελλάδα) – επεξεργασία πληρωμών. <a href="https://www.vivawallet.com/gb_en/privacy-policy" target="_blank" rel="noopener">Απόρρητο</a></li>
+        <li><strong>Unsplash Inc.</strong> (ΗΠΑ) – CDN για μεμονωμένες stock φωτογραφίες (μοτίβα παραλίας). Κανένα προσωπικό δεδομένο. <a href="https://unsplash.com/privacy" target="_blank" rel="noopener">Απόρρητο</a></li>
+        <li><strong>Meta/WhatsApp</strong> – μόνο όταν εσείς κάνετε κλικ στο κουμπί WhatsApp. <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">Απόρρητο</a></li>
+      </ul>
+      <p>
+        Υπάρχουν Συμβάσεις Επεξεργασίας Δεδομένων κατά το Άρθρο 28 ΓΚΠΔ ή αντίστοιχες Τυποποιημένες Συμβατικές Ρήτρες ΕΕ με όλους τους εκτελούντες. Διαθέσιμες κατόπιν αιτήματος.
       </p>
 
       <h2>7. Διαβίβαση σε Τρίτες Χώρες</h2>
