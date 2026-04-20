@@ -1,5 +1,13 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { jetskis, pricingExtras } from "../data/jetskis";
+
+// Hoisted constants — avoid re-allocating these arrays on every render.
+// Impact: fewer heap allocations per keystroke → better INP on low-end laptops.
+const TIME_SLOTS = [
+  "09:00", "10:00", "11:00", "12:00",
+  "13:00", "14:00", "15:00", "16:00",
+  "17:00", "18:00", "19:00", "20:00",
+] as const;
 
 // ═══════════════════════════════════════════════════════════════════════════
 // BookingForm – customer-facing booking request form for Nero Lefkada
@@ -83,6 +91,12 @@ export default function BookingForm() {
     (category.startsWith("vip") || category.startsWith("beach-6") || category === "beach-30");
 
   const allChecked = acceptPrivacy && acceptTerms && acceptWaiver;
+
+  // Hoisted handler — keeps the input's onChange reference stable between
+  // renders, reducing layout work on low-end devices.
+  const handlePersonsChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setPersons(Math.max(1, Math.min(3, Number(e.target.value))));
+  }, []);
 
   // ─── submit ────────────────────────────────────────────────────────────
   const handleSubmit = (e: React.FormEvent) => {
@@ -196,7 +210,7 @@ export default function BookingForm() {
           <label style={styles.field}>
             <span style={styles.fieldLabel}>Time</span>
             <select value={time} onChange={(e) => setTime(e.target.value)} style={styles.select}>
-              {["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"].map((t) => (
+              {TIME_SLOTS.map((t) => (
                 <option key={t} value={t}>{t}</option>
               ))}
             </select>
@@ -204,7 +218,7 @@ export default function BookingForm() {
 
           <label style={styles.field}>
             <span style={styles.fieldLabel}>Persons on board</span>
-            <input type="number" min={1} max={3} value={persons} onChange={(e) => setPersons(Math.max(1, Math.min(3, Number(e.target.value))))} style={styles.input} />
+            <input type="number" min={1} max={3} value={persons} onChange={handlePersonsChange} style={styles.input} />
             <small style={styles.hint}>*3-seater, but 2 persons recommended for comfort & performance.</small>
           </label>
         </div>
