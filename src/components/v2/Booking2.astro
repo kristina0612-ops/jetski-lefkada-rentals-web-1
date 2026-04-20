@@ -8,6 +8,7 @@
 const BOKUN_EMBED_CODE = ""; // ← optional: paste Bokun embed to replace the form
 import BookingForm from "../BookingForm.tsx";
 import Calculator from "../Calculator.tsx";
+import PhotoComingSoon from "./PhotoComingSoon.astro";
 ---
 
 <section id="book" class="relative py-24 lg:py-32" style="background: var(--v2-ink-950);">
@@ -23,21 +24,14 @@ import Calculator from "../Calculator.tsx";
     </div>
 
     <!-- Water Fun add-on: 3-seat towable tube pulled behind a Sea-Doo.
-         Photo: waterfun-jobe-action.jpg — echter Jetski mit Jobe-Tube
-         im Schlepp. Ersetzt am 2026-04-20 waterfun-tube-action.jpg, weil
-         das vorige Wikimedia-Bild ein Motorboot statt Jetski zeigte. -->
+         2026-04-20 Abend: Photo auf PhotoComingSoon umgestellt, weil das
+         vorherige waterfun-jobe-action.jpg nur Jetskis ohne Tube zeigte
+         (Kristinas Feedback). Echtes Action-Foto kommt nach. -->
     <div id="water-fun" class="mb-10 rounded-2xl border overflow-hidden grid grid-cols-1 md:grid-cols-2 scroll-mt-24" style="border-color: rgba(255,194,51,0.35); background: linear-gradient(135deg, rgba(255,194,51,0.08), rgba(0,179,167,0.06));">
       <div class="relative aspect-[4/3] md:aspect-auto md:min-h-[380px] overflow-hidden">
-        <img
-          src="/images/gallery/waterfun-jobe-action.jpg"
-          alt="Jobe Ridge three-seat towable tube in action behind a Nero Sea-Doo on the Ionian Sea near Lygia Port"
-          class="absolute inset-0 w-full h-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="absolute inset-0" style="background: linear-gradient(135deg, transparent 30%, rgba(7,29,48,0.35) 100%);"></div>
-        <div class="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full" style="background: rgba(7,29,48,0.75); color: var(--v2-sun-400); backdrop-filter: blur(6px);">
-          Jobe Ridge · 3 seats
+        <PhotoComingSoon />
+        <div class="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full z-10" style="background: rgba(7,29,48,0.75); color: var(--v2-sun-400); backdrop-filter: blur(6px);">
+          Great Big Mable · 3 seats
         </div>
       </div>
 
@@ -48,7 +42,7 @@ import Calculator from "../Calculator.tsx";
           Three seats. One tube. <em style="color: var(--v2-sun-400);">Pure adrenaline.</em>
         </h3>
         <p class="text-base lg:text-lg" style="color: rgba(253,251,244,0.8);">
-          Get pulled through the Ionian on a three-seat Jobe Ridge towable
+          Get pulled through the Ionian on a three-seat Great Big Mable towable
           behind one of our Neros. No driving required &mdash; just hold on and
           laugh. Perfect for groups, families, and anyone who prefers the
           ride to the wheel.
