@@ -140,9 +140,9 @@ Zusätzlich (gilt für beide Jetskis gleich): Beach Rides ab €80 / 10 min, Sun
 **DE:** Ja, gesetzlich vorgeschrieben. Wir stellen Schwimmwesten für alle Fahrer und Mitfahrer in allen Größen.
 
 ### Q18. How far from shore can I go?
-**EN:** Maximum 700 meters from shore (Greek Coast Guard rule). Outside this zone, the coast guard can fine operators and riders.
+**EN:** Maximum 300 meters from shore (Lefkada Port Police enforcement, confirmed 2026-04-20). Outside this zone, the coast guard can fine operators and riders.
 
-**DE:** Maximal 700 Meter vom Ufer entfernt (Vorschrift der griechischen Küstenwache). Außerhalb dieser Zone drohen Strafen für Betreiber und Fahrer.
+**DE:** Maximal 300 Meter vom Ufer entfernt (Hafenpolizei Lefkada, bestätigt am 20.04.2026). Außerhalb dieser Zone drohen Strafen für Betreiber und Fahrer.
 
 ### Q19. Can I ride into swimming beaches?
 **EN:** No. Swimming zones marked by buoys are strictly off-limits. Keep 100m distance from any swimmer.
@@ -201,9 +201,9 @@ Zusätzlich (gilt für beide Jetskis gleich): Beach Rides ab €80 / 10 min, Sun
 **DE:** Ja. Alle Mieten enthalten €700.000 Haftpflichtversicherung (gem. griechisches Gesetz 4926/2022). Das deckt Schäden oder Verletzungen gegenüber Dritten.
 
 ### Q27. What's NOT covered?
-**EN:** Damage from reckless or illegal riding, damage from ignoring safety rules (e.g., exceeding 700m from shore, entering swimming zones), damage from alcohol/drug use. Personal accident insurance for the rider is NOT included – we recommend you check your own travel insurance.
+**EN:** Damage from reckless or illegal riding, damage from ignoring safety rules (e.g., exceeding 300m from shore, entering swimming zones), damage from alcohol/drug use. Personal accident insurance for the rider is NOT included – we recommend you check your own travel insurance.
 
-**DE:** Schäden durch leichtsinniges oder illegales Fahren, Schäden durch Missachtung der Sicherheitsregeln (z.B. >700m vom Ufer, Einfahrt in Schwimmzonen), Schäden durch Alkohol/Drogen. Unfallversicherung für den Fahrer ist NICHT inkludiert – wir empfehlen Deine eigene Reiseversicherung zu prüfen.
+**DE:** Schäden durch leichtsinniges oder illegales Fahren, Schäden durch Missachtung der Sicherheitsregeln (z.B. >300m vom Ufer, Einfahrt in Schwimmzonen), Schäden durch Alkohol/Drogen. Unfallversicherung für den Fahrer ist NICHT inkludiert – wir empfehlen Deine eigene Reiseversicherung zu prüfen.
 
 ### Q28. What if the jetski breaks down?
 **EN:** Call David immediately (WhatsApp +30 695 561 2777). We'll come to you. If the issue is our fault (mechanical failure), we'll reschedule or refund the lost time. If it's caused by misuse, the damage deposit may apply.

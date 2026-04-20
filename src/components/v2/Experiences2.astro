@@ -1,0 +1,209 @@
+---
+// Experiences2 – drei Service-Cards direkt nach Hero.
+// Ziel: dem Besucher in 5 Sekunden die drei Wege zeigen, das Wasser zu
+// erleben — bevor er in die Fleet-Details scrollt. Beantwortet die häufigste
+// Conversion-Frage („brauche ich einen Führerschein?") sofort und holt
+// Water Fun als Upsell nach oben.
+//
+// Aufbau pro Card: SVG-Icon (inline, keine Bild-Asset-Pflege), Eyebrow,
+// Titel, Kurztext, Mini-Badge. Alle Anker-Links springen in die bestehenden
+// Sections (#fleet, #booking-form, #water-fun), keine neuen Routen.
+
+type Experience = {
+  eyebrow: string;
+  title: string;
+  titleAccent: string;
+  body: string;
+  tag: string;
+  anchor: string;
+  icon: "guided" | "solo" | "tube";
+};
+
+const experiences: Experience[] = [
+  {
+    eyebrow: "Experience 01 · Most popular",
+    title: "Guided tours",
+    titleAccent: "with David",
+    body: "No boating licence? No problem. Thousands of guests ride with us every season — David rides alongside or keeps you in sight, chooses the line, and makes sure everyone feels safe on the throttle.",
+    tag: "No licence needed",
+    anchor: "#fleet",
+    icon: "guided",
+  },
+  {
+    eyebrow: "Experience 02 · Full freedom",
+    title: "Solo rides",
+    titleAccent: "your own line",
+    body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.",
+    tag: "EU PWC licence required",
+    anchor: "#fleet",
+    icon: "solo",
+  },
+  {
+    eyebrow: "Experience 03 · Pure laughter",
+    title: "Water Fun",
+    titleAccent: "3-seat tube",
+    body: "A three-seat Great Big Mable towable pulled behind a Nero. No driving, no licence, just good vibes — perfect for groups, families and anyone who wants the thrill without the handlebars.",
+    tag: "€30 / person",
+    anchor: "#water-fun",
+    icon: "tube",
+  },
+];
+---
+
+<section id="experiences" class="relative py-20 lg:py-28" style="background: var(--v2-cream-100);">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+
+    <!-- Header -->
+    <div class="grid grid-cols-12 gap-6 mb-10 lg:mb-14">
+      <div class="col-span-12 lg:col-span-8">
+        <div class="v2-eyebrow mb-6"><span>What we do on the water · Three ways</span></div>
+        <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,5.5vw,6rem)]">
+          Pick your <em>style.</em><br />Leave the rest to us.
+        </h2>
+      </div>
+      <div class="col-span-12 lg:col-span-4 flex items-end">
+        <p class="text-lg leading-relaxed max-w-md" style="color: rgba(7,29,48,0.7);">
+          From first-timers without any licence to solo riders chasing
+          120 km/h — and a three-seat tube for the ones who just want to
+          laugh. Everyone finds their line.
+        </p>
+      </div>
+    </div>
+
+    <!-- Three service cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+      {
+        experiences.map((e) => (
+          <a
+            href={e.anchor}
+            class="group relative flex flex-col rounded-2xl overflow-hidden transition-transform duration-500 hover:-translate-y-1"
+            style="background: var(--v2-cream-50); border: 1px solid rgba(7,29,48,0.08);"
+            data-cro={`experience-${e.icon}`}
+          >
+            {/* Icon area (top third) */}
+            <div
+              class="relative aspect-[16/10] flex items-center justify-center overflow-hidden"
+              style="background: linear-gradient(135deg, rgba(0,179,167,0.08), rgba(255,194,51,0.10));"
+            >
+              {/* Soft wave pattern behind the icon */}
+              <svg
+                class="absolute inset-0 w-full h-full opacity-30"
+                viewBox="0 0 400 250"
+                preserveAspectRatio="none"
+                aria-hidden="true"
+              >
+                <path d="M0,170 C80,140 160,190 240,160 C320,130 400,170 400,170 L400,250 L0,250 Z" fill="rgba(0,179,167,0.25)" />
+                <path d="M0,195 C80,175 160,210 240,185 C320,165 400,195 400,195 L400,250 L0,250 Z" fill="rgba(0,179,167,0.4)" />
+              </svg>
+
+              {/* Service-specific SVG icon */}
+              {e.icon === "guided" && (
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  class="relative z-10 transition-transform duration-[1.2s] ease-out group-hover:scale-110"
+                  aria-hidden="true"
+                >
+                  {/* Two riders on a jetski – guided tour */}
+                  <path d="M20 75 Q 35 60 60 60 L 95 60 L 100 72 L 100 78 L 25 78 Z" fill="var(--v2-ink-950)" />
+                  <path d="M25 78 L 100 78 L 100 82 L 18 82 Z" fill="var(--v2-turquoise-600)" />
+                  {/* Rider 1 (David, front) */}
+                  <circle cx="78" cy="48" r="7" fill="var(--v2-ink-950)" />
+                  <path d="M68 60 Q 68 52 78 52 Q 88 52 88 60 L 88 65 L 68 65 Z" fill="var(--v2-ink-950)" />
+                  {/* Rider 2 (guest, behind) */}
+                  <circle cx="55" cy="50" r="7" fill="var(--v2-sun-500)" />
+                  <path d="M45 62 Q 45 54 55 54 Q 65 54 65 62 L 65 65 L 45 65 Z" fill="var(--v2-sun-500)" />
+                  {/* Spray */}
+                  <path d="M10 78 Q 14 72 18 78 M8 82 Q 12 76 16 82" stroke="var(--v2-turquoise-600)" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+              )}
+
+              {e.icon === "solo" && (
+                <svg
+                  width="120"
+                  height="120"
+                  viewBox="0 0 120 120"
+                  fill="none"
+                  class="relative z-10 transition-transform duration-[1.2s] ease-out group-hover:scale-110"
+                  aria-hidden="true"
+                >
+                  {/* Single rider, speed lines */}
+                  <path d="M25 72 Q 40 58 65 58 L 95 58 L 100 70 L 100 76 L 30 76 Z" fill="var(--v2-ink-950)" />
+                  <path d="M30 76 L 100 76 L 100 80 L 23 80 Z" fill="var(--v2-sun-500)" />
+                  {/* Rider (leaning forward) */}
+                  <circle cx="72" cy="44" r="7" fill="var(--v2-ink-950)" />
+                  <path d="M62 58 Q 64 48 72 48 Q 82 48 84 58 L 82 63 L 64 63 Z" fill="var(--v2-ink-950)" />
+                  {/* Speed lines behind */}
+                  <path d="M8 64 L 22 64 M5 70 L 25 70 M10 76 L 23 76" stroke="var(--v2-ink-950)" stroke-width="2.5" stroke-linecap="round" opacity="0.7" />
+                  {/* Spray */}
+                  <path d="M96 82 Q 102 76 108 82 M100 86 Q 105 80 110 86" stroke="var(--v2-turquoise-600)" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+              )}
+
+              {e.icon === "tube" && (
+                <svg
+                  width="140"
+                  height="120"
+                  viewBox="0 0 140 120"
+                  fill="none"
+                  class="relative z-10 transition-transform duration-[1.2s] ease-out group-hover:scale-110"
+                  aria-hidden="true"
+                >
+                  {/* Jetski (front) */}
+                  <path d="M80 72 Q 90 60 105 60 L 125 60 L 130 70 L 130 76 L 85 76 Z" fill="var(--v2-ink-950)" />
+                  <path d="M85 76 L 130 76 L 130 80 L 83 80 Z" fill="var(--v2-turquoise-600)" />
+                  <circle cx="113" cy="51" r="5" fill="var(--v2-ink-950)" />
+                  {/* Tow rope */}
+                  <path d="M78 74 Q 60 78 42 78" stroke="var(--v2-ink-950)" stroke-width="1.5" stroke-dasharray="2 2" fill="none" />
+                  {/* Tube (3 circles = 3 seats) */}
+                  <ellipse cx="28" cy="82" rx="22" ry="9" fill="var(--v2-sun-400)" />
+                  <ellipse cx="28" cy="82" rx="22" ry="9" fill="none" stroke="var(--v2-ink-950)" stroke-width="1.5" />
+                  <circle cx="16" cy="76" r="3" fill="var(--v2-ink-950)" />
+                  <circle cx="28" cy="75" r="3" fill="var(--v2-ink-950)" />
+                  <circle cx="40" cy="76" r="3" fill="var(--v2-ink-950)" />
+                  {/* Spray */}
+                  <path d="M4 88 Q 8 82 12 88 M2 92 Q 6 86 10 92" stroke="var(--v2-turquoise-600)" stroke-width="2" stroke-linecap="round" fill="none" />
+                </svg>
+              )}
+            </div>
+
+            {/* Copy area */}
+            <div class="flex flex-col flex-1 p-7 lg:p-8">
+              <div class="font-mono text-[10px] uppercase tracking-[0.18em] mb-3" style="color: var(--v2-turquoise-600);">
+                {e.eyebrow}
+              </div>
+              <h3 class="font-display text-3xl lg:text-4xl leading-tight mb-3" style="color: var(--v2-ink-950);">
+                {e.title} <em style="color: var(--v2-sun-500);">{e.titleAccent}</em>
+              </h3>
+              <p class="text-base leading-relaxed mb-6 flex-1" style="color: rgba(7,29,48,0.72);">
+                {e.body}
+              </p>
+
+              <div class="flex items-center justify-between pt-4" style="border-top: 1px solid rgba(7,29,48,0.1);">
+                <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold" style="color: var(--v2-ink-950);">
+                  {e.tag}
+                </span>
+                <span
+                  class="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] group-hover:gap-2.5 transition-all duration-300"
+                  style="color: var(--v2-ink-900);"
+                >
+                  <span>See more</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+
+    <!-- Footnote -->
+    <p class="mt-6 text-xs italic text-center max-w-2xl mx-auto" style="color: rgba(7,29,48,0.5);">
+      Mix and match: guided plus tube is our most-booked combo for groups of three.
+    </p>
+  </div>
+</section>

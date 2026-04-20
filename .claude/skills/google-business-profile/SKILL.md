@@ -33,7 +33,7 @@ Automatisch triggern sobald die aktuelle Aufgabe einen dieser Bereiche berührt:
 | **Sekundärkategorien** | Boat Rental Service, Water Sports Equipment Rental Service |
 | **Gegründet** | 2019 |
 | **Geschäftsführerin (Impressum)** | Kristina Goldberg · öffentliche Marke „Nero Lefkada" · David = Guide/Ops vor Ort (Nachname nie im Marketing) |
-| **Zahlungsmethoden** | Bar (EUR), Karte, Viva Wallet |
+| **Zahlungsmethoden** | Bar (EUR), Mastercard, Visa, Viva Wallet |
 
 Datenquellen (nie duplizieren, immer auf diese verweisen):
 - Geschäftsdaten: `DECISIONS.md`
