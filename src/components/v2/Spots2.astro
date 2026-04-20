@@ -27,11 +27,68 @@ type Spot = {
   icon: "cove" | "beach" | "channel" | "bay" | "cliff" | "return";
 };
 
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const SPOTS_COPY = {
+  en: {
+    eyebrow: "Where the Neros go · Six stops",
+    titleLead: "One loop.",
+    titleAccent: "Six postcards.",
+    intro: "Our favourite line around the island. Tap any stop for the Google Maps pin — or just trust David when he points left.",
+    homeBase: "Home base",
+    openMaps: "Open in Maps ↗",
+    footnote: "Route picks vary with the wind. David decides on the day — the goal is flat water and quiet bays.",
+    captions: [
+      "The postcard: white cliffs, deep blue, zero crowds from the sea.",
+      "Secret swimming stop. Turquoise that doesn't look real.",
+      "Village bay. Coffee on the water before the ride home.",
+      "Crossing to the little sister island — glassy water, few boats.",
+      "Windsurfer paradise in the afternoon — mornings are ours.",
+      "Back to the dock — salty, happy, already planning the next one.",
+    ],
+  },
+  de: {
+    eyebrow: "Wo die Neros hinfahren · Sechs Stops",
+    titleLead: "Eine Runde.",
+    titleAccent: "Sechs Postkarten.",
+    intro: "Unsere Lieblings-Route um die Insel. Tippe auf einen Spot für den Google-Maps-Pin — oder vertrau einfach David, wenn er nach links zeigt.",
+    homeBase: "Heimathafen",
+    openMaps: "In Maps öffnen ↗",
+    footnote: "Die Route richtet sich nach dem Wind. David entscheidet am Tag — Ziel sind flaches Wasser und ruhige Buchten.",
+    captions: [
+      "Die Postkarte: weiße Klippen, tiefes Blau, vom Meer aus keine Menschenmassen.",
+      "Geheimer Badespot. Türkis, das nicht echt aussieht.",
+      "Dorfbucht. Kaffee auf dem Wasser vor der Heimfahrt.",
+      "Kurze Überfahrt zur kleinen Schwesterinsel — glattes Wasser, kaum Boote.",
+      "Nachmittags Windsurfer-Paradies — morgens gehört es uns.",
+      "Zurück zum Steg — salzig, glücklich, schon der nächste Plan.",
+    ],
+  },
+  gr: {
+    eyebrow: "Where the Neros go · Six stops",
+    titleLead: "One loop.",
+    titleAccent: "Six postcards.",
+    intro: "Our favourite line around the island. Tap any stop for the Google Maps pin — or just trust David when he points left.",
+    homeBase: "Home base",
+    openMaps: "Open in Maps ↗",
+    footnote: "Route picks vary with the wind. David decides on the day — the goal is flat water and quiet bays.",
+    captions: [
+      "The postcard: white cliffs, deep blue, zero crowds from the sea.",
+      "Secret swimming stop. Turquoise that doesn't look real.",
+      "Village bay. Coffee on the water before the ride home.",
+      "Crossing to the little sister island — glassy water, few boats.",
+      "Windsurfer paradise in the afternoon — mornings are ours.",
+      "Back to the dock — salty, happy, already planning the next one.",
+    ],
+  },
+}[lang];
+
 const spots: Spot[] = [
   {
     name: "Porto Katsiki",
     greekName: "Πόρτο Κατσίκι",
-    caption: "The postcard: white cliffs, deep blue, zero crowds from the sea.",
+    caption: SPOTS_COPY.captions[0],
     distanceKm: 18,
     durationMin: 40,
     mapsUrl: "https://maps.google.com/?q=Porto+Katsiki+Lefkada",
@@ -42,7 +99,7 @@ const spots: Spot[] = [
   {
     name: "Egremni",
     greekName: "Εγκρεμνοί",
-    caption: "Secret swimming stop. Turquoise that doesn't look real.",
+    caption: SPOTS_COPY.captions[1],
     distanceKm: 15,
     durationMin: 35,
     mapsUrl: "https://maps.google.com/?q=Egremni+Beach+Lefkada",
@@ -53,7 +110,7 @@ const spots: Spot[] = [
   {
     name: "Agios Nikitas",
     greekName: "Άγιος Νικήτας",
-    caption: "Village bay. Coffee on the water before the ride home.",
+    caption: SPOTS_COPY.captions[2],
     distanceKm: 11,
     durationMin: 25,
     mapsUrl: "https://maps.google.com/?q=Agios+Nikitas+Lefkada",
@@ -64,7 +121,7 @@ const spots: Spot[] = [
   {
     name: "Meganisi Channel",
     greekName: "Μεγανήσι",
-    caption: "Crossing to the little sister island — glassy water, few boats.",
+    caption: SPOTS_COPY.captions[3],
     distanceKm: 8,
     durationMin: 15,
     mapsUrl: "https://maps.google.com/?q=Meganisi+Island",
@@ -75,7 +132,7 @@ const spots: Spot[] = [
   {
     name: "Vasiliki Bay",
     greekName: "Βασιλική",
-    caption: "Windsurfer paradise in the afternoon — mornings are ours.",
+    caption: SPOTS_COPY.captions[4],
     distanceKm: 22,
     durationMin: 45,
     mapsUrl: "https://maps.google.com/?q=Vasiliki+Bay+Lefkada",
@@ -86,14 +143,10 @@ const spots: Spot[] = [
   {
     name: "Lygia return",
     greekName: "Επιστροφή",
-    caption: "Back to the dock — salty, happy, already planning the next one.",
+    caption: SPOTS_COPY.captions[5],
     distanceKm: 0,
     durationMin: 0,
     mapsUrl: "https://maps.google.com/?q=38.7893,20.7192",
-    // 2026-04-20 Abend: Swap von fleet-at-lygia-collage.jpg (hatte Hokusai-
-    // Wave-Overlay auf einer Collage — unpassend) auf echtes Lygia-Hafen-
-    // Foto: Fischerboote am Steinquai mit Tavernenstühlen. Von Kristina
-    // geliefert und ins Repo unter /public/images/spots/lygia-port.jpg gelegt.
     image: "/images/spots/lygia-port.jpg",
     gradient: "linear-gradient(135deg, #1a3a50 0%, #ff8a4a 60%, #ffd76a 100%)",
     icon: "return",
@@ -117,15 +170,14 @@ const iconPath = {
     <!-- Header -->
     <div class="grid grid-cols-12 gap-6 mb-6 lg:mb-10">
       <div class="col-span-12 lg:col-span-8">
-        <div class="v2-eyebrow mb-6"><span>Where the Neros go · Six stops</span></div>
+        <div class="v2-eyebrow mb-6"><span>{SPOTS_COPY.eyebrow}</span></div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
-          One loop.<br /><em>Six postcards.</em>
+          {SPOTS_COPY.titleLead}<br /><em>{SPOTS_COPY.titleAccent}</em>
         </h2>
       </div>
       <div class="col-span-12 lg:col-span-4 flex items-end">
         <p class="text-lg leading-relaxed" style="color: rgba(7,29,48,0.7);">
-          Our favourite line around the island. Tap any stop for the Google
-          Maps pin — or just trust David when he points left.
+          {SPOTS_COPY.intro}
         </p>
       </div>
     </div>
@@ -185,7 +237,7 @@ const iconPath = {
               )}
               {spot.distanceKm === 0 && (
                 <div class="absolute top-5 right-5 px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[10px] uppercase tracking-[0.14em]" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
-                  Home base
+                  {SPOTS_COPY.homeBase}
                 </div>
               )}
 
@@ -204,7 +256,7 @@ const iconPath = {
 
               {/* "Open Maps" hover hint */}
               <div class="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[9px] uppercase tracking-[0.14em]" style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50);">
-                Open in Maps ↗
+                {SPOTS_COPY.openMaps}
               </div>
             </a>
           );
@@ -213,7 +265,7 @@ const iconPath = {
     </div>
 
     <p class="mt-4 text-xs italic text-center max-w-2xl mx-auto" style="color: rgba(7,29,48,0.45);">
-      Route picks vary with the wind. David decides on the day — the goal is flat water and quiet bays.
+      {SPOTS_COPY.footnote}
     </p>
     <p class="mt-3 text-[10px] text-center max-w-3xl mx-auto" style="color: rgba(7,29,48,0.4);">
       Spots photography: Porto Katsiki © Dimitra Papadimitriou (CC BY-SA 4.0) ·

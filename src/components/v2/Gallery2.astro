@@ -18,31 +18,57 @@
 //
 // IMPORTANT: See .claude/skills/image-asset-usage/SKILL.md for the
 // canonical usage map. Before using any photo here, check that skill.
+
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const COPY = {
+  en: {
+    eyebrow: "Real riders · Real moments",
+    titleLead: "The day",
+    titleAccent: "you’ll remember.",
+    intro: "Real photos from the 2025 season. Every person here gave us permission to share their smile. Yours could be next.",
+    consent: "All guests depicted have given written consent for publication. See privacy policy for withdrawal options.",
+    moments: [
+      { title: "Group ride", caption: "Three jetskis, one crew, endless bay", tag: "Group · Lygia" },
+      { title: "Couple on the bay", caption: "Sunglasses, smiles, and a full tank", tag: "Couple ride" },
+      { title: "Family time", caption: "Thumbs up from dad and son", tag: "Family" },
+      { title: "Thumbs up", caption: "Victory signs, peace signs, whatever fits", tag: "Solo" },
+    ],
+  },
+  de: {
+    eyebrow: "Echte Fahrer · Echte Momente",
+    titleLead: "Der Tag,",
+    titleAccent: "den Du nie vergisst.",
+    intro: "Echte Fotos aus der Saison 2025. Jede Person hier hat uns die Erlaubnis gegeben, ihr Lächeln zu zeigen. Deins könnte als Nächstes kommen.",
+    consent: "Alle abgebildeten Gäste haben schriftlich zugestimmt. Widerrufsmöglichkeiten in der Datenschutzerklärung.",
+    moments: [
+      { title: "Gruppenfahrt", caption: "Drei Jetskis, eine Crew, endlose Bucht", tag: "Gruppe · Lygia" },
+      { title: "Paar auf dem Wasser", caption: "Sonnenbrille, Lächeln, voller Tank", tag: "Paar-Fahrt" },
+      { title: "Familienzeit", caption: "Daumen hoch von Papa und Sohn", tag: "Familie" },
+      { title: "Daumen hoch", caption: "Siegeszeichen, Peace-Zeichen, was auch immer passt", tag: "Solo" },
+    ],
+  },
+  gr: {
+    eyebrow: "Real riders · Real moments",
+    titleLead: "The day",
+    titleAccent: "you’ll remember.",
+    intro: "Real photos from the 2025 season. Every person here gave us permission to share their smile. Yours could be next.",
+    consent: "All guests depicted have given written consent for publication. See privacy policy for withdrawal options.",
+    moments: [
+      { title: "Group ride", caption: "Three jetskis, one crew, endless bay", tag: "Group · Lygia" },
+      { title: "Couple on the bay", caption: "Sunglasses, smiles, and a full tank", tag: "Couple ride" },
+      { title: "Family time", caption: "Thumbs up from dad and son", tag: "Family" },
+      { title: "Thumbs up", caption: "Victory signs, peace signs, whatever fits", tag: "Solo" },
+    ],
+  },
+}[lang];
+
 const moments = [
-  {
-    title: "Group ride",
-    caption: "Three jetskis, one crew, endless bay",
-    src: "/images/customers/nero-guest-12.jpg",
-    tag: "Group · Lygia",
-  },
-  {
-    title: "Couple on the bay",
-    caption: "Sunglasses, smiles, and a full tank",
-    src: "/images/customers/nero-guest-05.jpg",
-    tag: "Couple ride",
-  },
-  {
-    title: "Family time",
-    caption: "Thumbs up from dad and son",
-    src: "/images/customers/nero-guest-02.jpg",
-    tag: "Family",
-  },
-  {
-    title: "Thumbs up",
-    caption: "Victory signs, peace signs, whatever fits",
-    src: "/images/customers/nero-guest-07.jpg",
-    tag: "Solo",
-  },
+  { title: COPY.moments[0].title, caption: COPY.moments[0].caption, tag: COPY.moments[0].tag, src: "/images/customers/nero-guest-12.jpg" },
+  { title: COPY.moments[1].title, caption: COPY.moments[1].caption, tag: COPY.moments[1].tag, src: "/images/customers/nero-guest-05.jpg" },
+  { title: COPY.moments[2].title, caption: COPY.moments[2].caption, tag: COPY.moments[2].tag, src: "/images/customers/nero-guest-02.jpg" },
+  { title: COPY.moments[3].title, caption: COPY.moments[3].caption, tag: COPY.moments[3].tag, src: "/images/customers/nero-guest-07.jpg" },
 ];
 ---
 
@@ -73,15 +99,14 @@ const moments = [
   <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
     <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
       <div class="col-span-12 lg:col-span-8">
-        <div class="v2-eyebrow mb-6"><span>Real riders · Real moments</span></div>
+        <div class="v2-eyebrow mb-6"><span>{COPY.eyebrow}</span></div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
-          The day<br /><em>you&rsquo;ll remember.</em>
+          {COPY.titleLead}<br /><em>{COPY.titleAccent}</em>
         </h2>
       </div>
       <div class="col-span-12 lg:col-span-4 flex items-end">
         <p class="text-lg leading-relaxed" style="color: rgba(7,29,48,0.7);">
-          Real photos from the 2025 season. Every person here gave us permission
-          to share their smile. Yours could be next.
+          {COPY.intro}
         </p>
       </div>
     </div>
@@ -134,7 +159,7 @@ const moments = [
       }
     </div>
     <p class="mt-6 text-xs italic text-center" style="color: rgba(7,29,48,0.45);">
-      All guests depicted have given written consent for publication. See privacy policy for withdrawal options.
+      {COPY.consent}
     </p>
   </div>
 </section>

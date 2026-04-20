@@ -1,16 +1,32 @@
 ---
 import { testimonials } from "../../data/testimonials";
 
-// Testimonials now rendered as a horizontal auto-scrolling marquee banner
-// (Kristina's request 2026-04-20: "Kundenbereich deutlich kleiner als quasi
-// banner der wie ein film läuft mit fotos und bewertungen"). Film-strip vibe,
-// continuous loop, pauses on hover. Section is ~220px tall instead of ~700px.
-//
-// Data rules stay as before (see testimonials.ts):
-// • Stand-in quotes with invented first-name + initial
-// • Initials avatars (no photos, no photo-name-pairing)
-// • Transparent disclaimer below the banner
-// • No Schema.org aggregateRating, no platform badges
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const COPY = {
+  en: {
+    eyebrow: "Guest voices · 2025 season",
+    titleLead: "They came.",
+    titleAccent: "They returned.",
+    disclaimer: "Anonymised stand-in quotes. Verified Google reviews replace these once the 2026 season opens.",
+    emptyState: "First reviews appear here once the 2026 season opens.",
+  },
+  de: {
+    eyebrow: "Gäste-Stimmen · Saison 2025",
+    titleLead: "Sie kamen.",
+    titleAccent: "Sie kamen wieder.",
+    disclaimer: "Anonymisierte Platzhalter-Zitate. Echte Google-Reviews ersetzen sie, sobald die Saison 2026 startet.",
+    emptyState: "Erste Bewertungen erscheinen hier mit Saisonstart 2026.",
+  },
+  gr: {
+    eyebrow: "Guest voices · 2025 season",
+    titleLead: "They came.",
+    titleAccent: "They returned.",
+    disclaimer: "Anonymised stand-in quotes. Verified Google reviews replace these once the 2026 season opens.",
+    emptyState: "First reviews appear here once the 2026 season opens.",
+  },
+}[lang];
 
 // Duplicate the list so the CSS marquee loop feels seamless.
 const track = [...testimonials, ...testimonials];
@@ -100,21 +116,20 @@ const track = [...testimonials, ...testimonials];
     <div class="flex flex-wrap items-baseline justify-between gap-4 mb-8">
       <div>
         <div class="v2-eyebrow mb-2" style="color: var(--v2-sun-300);">
-          <span>Guest voices · 2025 season</span>
+          <span>{COPY.eyebrow}</span>
         </div>
         <h2 class="v2-display text-3xl lg:text-5xl" style="color: var(--v2-cream-50);">
-          They came. <em class="v2-gradient-sun">They returned.</em>
+          {COPY.titleLead} <em class="v2-gradient-sun">{COPY.titleAccent}</em>
         </h2>
       </div>
       <p class="text-xs italic max-w-xs" style="color: rgba(253,251,244,0.5);">
-        Anonymised stand-in quotes. Verified Google reviews replace these once
-        the 2026 season opens.
+        {COPY.disclaimer}
       </p>
     </div>
 
     {testimonials.length === 0 && (
       <div class="rounded-2xl p-8 text-center" style="background: rgba(253,251,244,0.04); border: 1px solid rgba(253,251,244,0.1);">
-        <p class="font-display text-lg" style="color: rgba(253,251,244,0.8);">First reviews appear here once the 2026 season opens.</p>
+        <p class="font-display text-lg" style="color: rgba(253,251,244,0.8);">{COPY.emptyState}</p>
       </div>
     )}
 

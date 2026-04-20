@@ -2,7 +2,80 @@
 import { jetskis, pricingExtras } from "../../data/jetskis";
 import PhotoComingSoon from "./PhotoComingSoon.astro";
 
-const seatsNote = pricingExtras.seatsNote.en;
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+// seatsNote kommt aus data/jetskis.ts (bereits dreisprachig gepflegt)
+const seatsNote = pricingExtras.seatsNote[lang] ?? pricingExtras.seatsNote.en;
+
+const COPY = {
+  en: {
+    eyebrow: "The Fleet · 4× Sea-Doo Supercharged",
+    titleLead: "Pick your",
+    titleAccent: "weapon.",
+    titleTail: "Then ride it.",
+    intro: "Every Sea-Doo is cleaned, fueled and ready within 15 minutes of your booking window. Live availability updates in real time.",
+    badgeFlag: "★ Flagship",
+    badgeRepainted: "✦ Repainted 2026",
+    badgeFlagship: "2026 · Supercharged · Flagship",
+    badgeStd: "2026 · Supercharged",
+    bookedOut: "Booked out",
+    leftToday: (n: number) => `${n} left today`,
+    specHP: "HP",
+    specKmh: "km/h",
+    specSeats: "Seats",
+    minLabel: "· 10 min",
+    seeAllPrices: "See all prices",
+    ctaBook: "WhatsApp to book",
+    ctaWaitlist: "Join waitlist",
+    whatsapp: (name: string, brand: string, model: string) =>
+      `Hi David, I'd like to book the ${name} (${brand} ${model}). Could I get today's price and availability?`,
+  },
+  de: {
+    eyebrow: "Die Flotte · 4× Sea-Doo Supercharged",
+    titleLead: "Wähle Deine",
+    titleAccent: "Waffe.",
+    titleTail: "Dann fahr sie.",
+    intro: "Jeder Sea-Doo wird innerhalb von 15 Minuten vor Deinem Buchungsfenster gereinigt, betankt und startklar gemacht. Verfügbarkeit in Echtzeit.",
+    badgeFlag: "★ Flaggschiff",
+    badgeRepainted: "✦ Neu lackiert 2026",
+    badgeFlagship: "2026 · Supercharged · Flaggschiff",
+    badgeStd: "2026 · Supercharged",
+    bookedOut: "Ausgebucht",
+    leftToday: (n: number) => `Noch ${n} heute`,
+    specHP: "PS",
+    specKmh: "km/h",
+    specSeats: "Sitze",
+    minLabel: "· 10 Min.",
+    seeAllPrices: "Alle Preise sehen",
+    ctaBook: "WhatsApp zum Buchen",
+    ctaWaitlist: "Warteliste",
+    whatsapp: (name: string, brand: string, model: string) =>
+      `Hallo David, ich möchte den ${name} (${brand} ${model}) buchen. Sag mir bitte Preis und Verfügbarkeit für heute.`,
+  },
+  gr: {
+    eyebrow: "The Fleet · 4× Sea-Doo Supercharged",
+    titleLead: "Pick your",
+    titleAccent: "weapon.",
+    titleTail: "Then ride it.",
+    intro: "Every Sea-Doo is cleaned, fueled and ready within 15 minutes of your booking window. Live availability updates in real time.",
+    badgeFlag: "★ Flagship",
+    badgeRepainted: "✦ Repainted 2026",
+    badgeFlagship: "2026 · Supercharged · Flagship",
+    badgeStd: "2026 · Supercharged",
+    bookedOut: "Booked out",
+    leftToday: (n: number) => `${n} left today`,
+    specHP: "HP",
+    specKmh: "km/h",
+    specSeats: "Seats",
+    minLabel: "· 10 min",
+    seeAllPrices: "See all prices",
+    ctaBook: "WhatsApp to book",
+    ctaWaitlist: "Join waitlist",
+    whatsapp: (name: string, brand: string, model: string) =>
+      `Hi David, I'd like to book the ${name} (${brand} ${model}). Could I get today's price and availability?`,
+  },
+}[lang];
 ---
 
 <section id="fleet" class="relative py-24 lg:py-40" style="background: var(--v2-cream-50);">
@@ -10,15 +83,14 @@ const seatsNote = pricingExtras.seatsNote.en;
     <!-- Header -->
     <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-24">
       <div class="col-span-12 lg:col-span-8">
-        <div class="v2-eyebrow mb-6"><span>The Fleet · 4× Sea-Doo Supercharged</span></div>
+        <div class="v2-eyebrow mb-6"><span>{COPY.eyebrow}</span></div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
-          Pick your <em>weapon.</em><br />Then ride it.
+          {COPY.titleLead} <em>{COPY.titleAccent}</em><br />{COPY.titleTail}
         </h2>
       </div>
       <div class="col-span-12 lg:col-span-4 flex items-end">
         <p class="text-lg leading-relaxed max-w-md" style="color: rgba(7,29,48,0.75);">
-          Every Sea-Doo is cleaned, fueled and ready within 15 minutes of your
-          booking window. Live availability updates in real time.
+          {COPY.intro}
         </p>
       </div>
     </div>
@@ -33,13 +105,11 @@ const seatsNote = pricingExtras.seatsNote.en;
             "col-span-12 lg:col-span-5",
             "col-span-12 lg:col-span-7",
           ];
-          const badge = js.featured ? "2026 · Supercharged · Flagship" : "2026 · Supercharged";
+          const badge = js.featured ? COPY.badgeFlagship : COPY.badgeStd;
           // Nero Ena + Nero Tria bekamen für 2026 eine neue grey-black Lackierung.
           // Quelle: Memory project_fleet_paint_update.md (bestätigt 2026-04-20).
           const isRepainted = js.id === "nero-ena" || js.id === "nero-tria";
-          const whatsappText = encodeURIComponent(
-            `Hi David, I'd like to book the ${js.name} (${js.brand} ${js.model}). Could I get today's price and availability?`
-          );
+          const whatsappText = encodeURIComponent(COPY.whatsapp(js.name, js.brand, js.model));
           return (
             <article
               class:list={["group v2-spotlight", spans[i]]}
@@ -66,12 +136,12 @@ const seatsNote = pricingExtras.seatsNote.en;
                   )}
                   {js.featured && (
                     <div class="absolute top-5 left-5 px-3 py-1.5 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
-                      <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">★ Flagship</span>
+                      <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeFlag}</span>
                     </div>
                   )}
                   {isRepainted && (
                     <div class:list={["absolute px-3 py-1.5 rounded-full backdrop-blur-md", js.featured ? "top-5 right-5" : "top-5 left-5"]} style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50); border: 1px solid rgba(253,251,244,0.2);">
-                      <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">✦ Repainted 2026</span>
+                      <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeRepainted}</span>
                     </div>
                   )}
                   {/* Availability dot */}
@@ -83,7 +153,7 @@ const seatsNote = pricingExtras.seatsNote.en;
                       <span class:list={["relative inline-flex rounded-full h-2 w-2", js.availableToday === 0 ? "bg-gray-400" : js.availableToday === 1 ? "bg-orange-500" : "bg-green-500"]}></span>
                     </span>
                     <span class="font-mono text-[10px] uppercase tracking-[0.12em] font-semibold" style="color: var(--v2-ink-900);">
-                      {js.availableToday === 0 ? "Booked out" : `${js.availableToday} left today`}
+                      {js.availableToday === 0 ? COPY.bookedOut : COPY.leftToday(js.availableToday)}
                     </span>
                   </div>
                 </div>
@@ -102,15 +172,15 @@ const seatsNote = pricingExtras.seatsNote.en;
                     <div class="grid grid-cols-3 gap-3 mb-3">
                       <div>
                         <div class="font-display text-2xl" style="color: var(--v2-ink-950);">{js.hp}</div>
-                        <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">HP</div>
+                        <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">{COPY.specHP}</div>
                       </div>
                       <div>
                         <div class="font-display text-2xl" style="color: var(--v2-ink-950);">{js.topSpeed}</div>
-                        <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">km/h</div>
+                        <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">{COPY.specKmh}</div>
                       </div>
                       <div>
                         <div class="font-display text-2xl" style="color: var(--v2-ink-950);">{js.seats}<span class="text-xs align-top" style="color: var(--v2-turquoise-600);">*</span></div>
-                        <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">Seats</div>
+                        <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">{COPY.specSeats}</div>
                       </div>
                     </div>
                     <div class="font-mono text-[9px] italic mb-5" style="color: rgba(7,29,48,0.5);">{seatsNote}</div>
@@ -126,10 +196,10 @@ const seatsNote = pricingExtras.seatsNote.en;
                     <div class="mb-4">
                       <div class="flex items-baseline gap-1">
                         <span class="v2-display text-4xl v2-gradient-sun">€{js.beachRides.min10}</span>
-                        <span class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v2-turquoise-600);">· 10 min</span>
+                        <span class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v2-turquoise-600);">{COPY.minLabel}</span>
                       </div>
                       <a href="#booking-form" class="inline-flex items-center gap-1.5 mt-1 font-mono text-[10px] uppercase tracking-[0.14em] hover:opacity-70 transition-opacity" style="color: var(--v2-ink-900);">
-                        <span>See all prices</span>
+                        <span>{COPY.seeAllPrices}</span>
                         <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                           <path d="M12 5v14M5 12l7 7 7-7"/>
                         </svg>
@@ -153,7 +223,7 @@ const seatsNote = pricingExtras.seatsNote.en;
                         : "background: var(--v2-ink-950); color: var(--v2-cream-50);"}
                       data-cro={`v2-fleet-whatsapp-${js.id}`}
                     >
-                      {js.availableToday === 0 ? "Join waitlist" : "WhatsApp to book"}
+                      {js.availableToday === 0 ? COPY.ctaWaitlist : COPY.ctaBook}
                       {js.availableToday > 0 && (
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ml-2" aria-hidden="true">
                           <path d="M5 12h14M13 5l7 7-7 7"/>

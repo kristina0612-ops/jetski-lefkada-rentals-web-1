@@ -1,0 +1,47 @@
+---
+// Deutsche Version der Startseite.
+// Jede Komponente bekommt `lang="de"` — die COPY-Objekte sind in den
+// einzelnen v2-Komponenten hinterlegt. Pfad `/de/` wird vom Sprachschalter
+// in Navbar2 angesteuert.
+//
+// Siehe auch: src/pages/index.astro (EN-Original) — Struktur muss 1:1 gleich
+// bleiben, damit die Seite visuell identisch rendert.
+import LayoutBare from "../../layouts/LayoutBare.astro";
+import Navbar2 from "../../components/v2/Navbar2.astro";
+import Hero2 from "../../components/v2/Hero2.astro";
+import TrustMarquee2 from "../../components/v2/TrustMarquee2.astro";
+import Experiences2 from "../../components/v2/Experiences2.astro";
+import Fleet2 from "../../components/v2/Fleet2.astro";
+import HowItWorks2 from "../../components/v2/HowItWorks2.astro";
+import Gallery2 from "../../components/v2/Gallery2.astro";
+import Spots2 from "../../components/v2/Spots2.astro";
+import Testimonials2 from "../../components/v2/Testimonials2.astro";
+import Faq2 from "../../components/v2/Faq2.astro";
+import Booking2 from "../../components/v2/Booking2.astro";
+import CtaFinal2 from "../../components/v2/CtaFinal2.astro";
+import Footer2 from "../../components/v2/Footer2.astro";
+import "../../styles/v2-azure.css";
+---
+
+<LayoutBare
+  lang="de"
+  title="Nero Lefkada · Schnellste Jetskis der Insel"
+  description="Miete einen Sea-Doo-Jetski auf Lefkada, Griechenland. Vier supercharged Sea-Doos (Flotte 2026: Nero Ena, Dio, Tria, Tessera), zehn Minuten Safety-Briefing und die schönsten Buchten des Ionischen Meeres."
+  themeColor="#071d30"
+>
+  <div class="v2">
+    <Navbar2 lang="de" />
+    <Hero2 lang="de" />
+    <TrustMarquee2 lang="de" />
+    <Experiences2 lang="de" />
+    <Fleet2 lang="de" />
+    <HowItWorks2 lang="de" />
+    <Gallery2 lang="de" />
+    <Spots2 lang="de" />
+    <Testimonials2 lang="de" />
+    <Faq2 lang="de" />
+    <Booking2 lang="de" />
+    <CtaFinal2 lang="de" />
+    <Footer2 lang="de" />
+  </div>
+</LayoutBare>

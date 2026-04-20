@@ -1,16 +1,44 @@
 ---
-const items = [
-  "Fully Insured",
-  "Licensed",
-  "Fastest Jetskis on the Island",
-  "Locally Operated",
-  "English · German · Italian · Greek",
-  "Port Authority Lefkada",
-  "Sea-Doo Only",
-  "Viva Wallet Payments",
-  "Free Cancel 48h",
-];
-const doubled = [...items, ...items];
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const COPY = {
+  en: [
+    "Fully Insured",
+    "Licensed",
+    "Fastest Jetskis on the Island",
+    "Locally Operated",
+    "English · German · Italian · Greek",
+    "Port Authority Lefkada",
+    "Sea-Doo Only",
+    "Viva Wallet Payments",
+    "Free Cancel 48h",
+  ],
+  de: [
+    "Voll Versichert",
+    "Lizenziert",
+    "Schnellste Jetskis der Insel",
+    "Lokal Betrieben",
+    "Englisch · Deutsch · Italienisch · Griechisch",
+    "Hafenbehörde Lefkada",
+    "Nur Sea-Doo",
+    "Viva Wallet Zahlungen",
+    "Kostenlose Stornierung 48h",
+  ],
+  gr: [
+    "Fully Insured",
+    "Licensed",
+    "Fastest Jetskis on the Island",
+    "Locally Operated",
+    "English · German · Italian · Greek",
+    "Port Authority Lefkada",
+    "Sea-Doo Only",
+    "Viva Wallet Payments",
+    "Free Cancel 48h",
+  ],
+}[lang];
+
+const doubled = [...COPY, ...COPY];
 ---
 
 <section class="py-8 overflow-hidden border-y" style="background: var(--v2-ink-950); color: var(--v2-cream-50); border-color: var(--v2-ink-900);">

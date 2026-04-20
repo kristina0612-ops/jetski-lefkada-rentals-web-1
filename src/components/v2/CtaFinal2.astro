@@ -1,4 +1,36 @@
 ---
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const COPY = {
+  en: {
+    eyebrow: "Your summer starts here",
+    titleLead: "See you",
+    titleTail: "on the water.",
+    body: "Four supercharged Sea-Doos. Six secret bays. David waiting at the dock. And a single afternoon that will hang in your camera roll forever.",
+    ctaPrimary: "Book your jetski",
+    ctaSecondary: "Chat with David",
+    badges: ["Free cancel 48h", "30% deposit accepted", "Instant confirmation"],
+  },
+  de: {
+    eyebrow: "Dein Sommer startet hier",
+    titleLead: "Bis bald",
+    titleTail: "auf dem Wasser.",
+    body: "Vier supercharged Sea-Doos. Sechs geheime Buchten. David wartet am Steg. Und ein Nachmittag, der für immer in Deinem Fotoalbum bleibt.",
+    ctaPrimary: "Jetski buchen",
+    ctaSecondary: "Mit David chatten",
+    badges: ["Kostenlose Stornierung 48h", "30% Anzahlung akzeptiert", "Sofortige Bestätigung"],
+  },
+  gr: {
+    eyebrow: "Your summer starts here",
+    titleLead: "See you",
+    titleTail: "on the water.",
+    body: "Four supercharged Sea-Doos. Six secret bays. David waiting at the dock. And a single afternoon that will hang in your camera roll forever.",
+    ctaPrimary: "Book your jetski",
+    ctaSecondary: "Chat with David",
+    badges: ["Free cancel 48h", "30% deposit accepted", "Instant confirmation"],
+  },
+}[lang];
 ---
 
 <section class="relative py-24 lg:py-40 overflow-hidden" style="background: var(--v2-cream-100);">
@@ -8,34 +40,33 @@
   </div>
 
   <div class="relative mx-auto max-w-[1200px] px-6 lg:px-12 text-center">
-    <div class="v2-eyebrow mb-8 justify-center inline-flex"><span>Your summer starts here</span></div>
+    <div class="v2-eyebrow mb-8 justify-center inline-flex"><span>{COPY.eyebrow}</span></div>
 
     <h2 class="v2-display text-6xl lg:text-[clamp(5rem,11vw,12rem)]">
-      <em class="v2-gradient-sun">See you</em><br />
-      on the water.
+      <em class="v2-gradient-sun">{COPY.titleLead}</em><br />
+      {COPY.titleTail}
     </h2>
 
     <p class="mt-12 max-w-xl mx-auto text-lg lg:text-xl leading-relaxed" style="color: rgba(7,29,48,0.75);">
-      Four supercharged Sea-Doos. Six secret bays. David waiting at the dock.
-      And a single afternoon that will hang in your camera roll forever.
+      {COPY.body}
     </p>
 
     <div class="mt-12 flex flex-wrap items-center justify-center gap-4">
       <a href="#fleet" class="v2-btn" data-cro="v2-final-cta">
-        Book your jetski
+        {COPY.ctaPrimary}
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <path d="M5 12h14M13 5l7 7-7 7"/>
         </svg>
       </a>
       <a href="https://wa.me/306955612777" target="_blank" rel="noopener" class="v2-btn-ghost">
-        Chat with David
+        {COPY.ctaSecondary}
       </a>
     </div>
 
     <div class="mt-14 pt-8 border-t flex flex-wrap items-center justify-center gap-8 max-w-2xl mx-auto" style="border-color: rgba(7,29,48,0.15);">
-      <div class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: rgba(7,29,48,0.6);">Free cancel 48h</div>
-      <div class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: rgba(7,29,48,0.6);">30% deposit accepted</div>
-      <div class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: rgba(7,29,48,0.6);">Instant confirmation</div>
+      {COPY.badges.map((b) => (
+        <div class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: rgba(7,29,48,0.6);">{b}</div>
+      ))}
     </div>
   </div>
 </section>

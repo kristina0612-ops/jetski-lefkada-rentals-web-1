@@ -19,35 +19,55 @@ type Experience = {
   icon: "guided" | "solo" | "tube";
 };
 
-const experiences: Experience[] = [
-  {
-    eyebrow: "Experience 01 · Most popular",
-    title: "Guided tours",
-    titleAccent: "with David",
-    body: "No boating licence? No problem. Thousands of guests ride with us every season — David rides alongside or keeps you in sight, chooses the line, and makes sure everyone feels safe on the throttle.",
-    tag: "No licence needed",
-    anchor: "#fleet",
-    icon: "guided",
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const COPY = {
+  en: {
+    eyebrow: "What we do on the water · Three ways",
+    titleLead: "Pick your",
+    titleAccent: "style.",
+    titleTail: "Leave the rest to us.",
+    intro: "From first-timers without any licence to solo riders chasing 120 km/h — and a three-seat tube for the ones who just want to laugh. Everyone finds their line.",
+    footnote: "Mix and match: guided plus tube is our most-booked combo for groups of three.",
+    seeMore: "See more",
+    experiences: [
+      { eyebrow: "Experience 01 · Most popular", title: "Guided tours", titleAccent: "with David", body: "No boating licence? No problem. Thousands of guests ride with us every season — David rides alongside or keeps you in sight, chooses the line, and makes sure everyone feels safe on the throttle.", tag: "No licence needed", anchor: "#fleet", icon: "guided" as const },
+      { eyebrow: "Experience 02 · Full freedom", title: "Solo rides", titleAccent: "your own line", body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.", tag: "EU PWC licence required", anchor: "#fleet", icon: "solo" as const },
+      { eyebrow: "Experience 03 · Pure laughter", title: "Water Fun", titleAccent: "3-seat tube", body: "A three-seat Great Big Mable towable pulled behind a Nero. No driving, no licence, just good vibes — perfect for groups, families and anyone who wants the thrill without the handlebars.", tag: "€30 / person", anchor: "#water-fun", icon: "tube" as const },
+    ],
   },
-  {
-    eyebrow: "Experience 02 · Full freedom",
-    title: "Solo rides",
-    titleAccent: "your own line",
-    body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.",
-    tag: "EU PWC licence required",
-    anchor: "#fleet",
-    icon: "solo",
+  de: {
+    eyebrow: "Was wir auf dem Wasser machen · Drei Wege",
+    titleLead: "Wähle Deinen",
+    titleAccent: "Style.",
+    titleTail: "Den Rest machen wir.",
+    intro: "Von Erstfahrern ohne Führerschein bis zu Solo-Piloten mit 120 km/h Ambitionen — und einem 3-Sitz-Tube für alle, die einfach nur lachen wollen. Jeder findet seine Linie.",
+    footnote: "Beides kombinieren: Guided plus Tube ist unsere meistgebuchte Kombi für Dreier-Gruppen.",
+    seeMore: "Mehr ansehen",
+    experiences: [
+      { eyebrow: "Experience 01 · Am beliebtesten", title: "Geführte Touren", titleAccent: "mit David", body: "Kein Bootsführerschein? Kein Problem. Tausende Gäste fahren jede Saison mit uns — David fährt an Deiner Seite oder hat Dich im Blick, wählt die Linie und sorgt dafür, dass alle sich am Gashebel sicher fühlen.", tag: "Kein Führerschein nötig", anchor: "#fleet", icon: "guided" as const },
+      { eyebrow: "Experience 02 · Volle Freiheit", title: "Solo-Fahrten", titleAccent: "Deine eigene Linie", body: "Hast Du einen gültigen EU-PWC-Führerschein? Wähle einen Nero, bekomme das 10-Minuten-Safety-Briefing und verschwinde ins Ionische nach Deinen Regeln. Bis zu 310 PS, 120 km/h Top-Speed.", tag: "EU-PWC-Führerschein erforderlich", anchor: "#fleet", icon: "solo" as const },
+      { eyebrow: "Experience 03 · Pures Lachen", title: "Water Fun", titleAccent: "3-Sitz-Tube", body: "Ein Dreier-Tube (Great Big Mable) hinter einem Nero. Kein Fahren, kein Führerschein, einfach gute Laune — perfekt für Gruppen, Familien und alle, die den Kick ohne Lenker wollen.", tag: "€30 / Person", anchor: "#water-fun", icon: "tube" as const },
+    ],
   },
-  {
-    eyebrow: "Experience 03 · Pure laughter",
-    title: "Water Fun",
-    titleAccent: "3-seat tube",
-    body: "A three-seat Great Big Mable towable pulled behind a Nero. No driving, no licence, just good vibes — perfect for groups, families and anyone who wants the thrill without the handlebars.",
-    tag: "€30 / person",
-    anchor: "#water-fun",
-    icon: "tube",
+  gr: {
+    eyebrow: "What we do on the water · Three ways",
+    titleLead: "Pick your",
+    titleAccent: "style.",
+    titleTail: "Leave the rest to us.",
+    intro: "From first-timers without any licence to solo riders chasing 120 km/h — and a three-seat tube for the ones who just want to laugh. Everyone finds their line.",
+    footnote: "Mix and match: guided plus tube is our most-booked combo for groups of three.",
+    seeMore: "See more",
+    experiences: [
+      { eyebrow: "Experience 01 · Most popular", title: "Guided tours", titleAccent: "with David", body: "No boating licence? No problem. Thousands of guests ride with us every season — David rides alongside or keeps you in sight, chooses the line, and makes sure everyone feels safe on the throttle.", tag: "No licence needed", anchor: "#fleet", icon: "guided" as const },
+      { eyebrow: "Experience 02 · Full freedom", title: "Solo rides", titleAccent: "your own line", body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.", tag: "EU PWC licence required", anchor: "#fleet", icon: "solo" as const },
+      { eyebrow: "Experience 03 · Pure laughter", title: "Water Fun", titleAccent: "3-seat tube", body: "A three-seat Great Big Mable towable pulled behind a Nero. No driving, no licence, just good vibes — perfect for groups, families and anyone who wants the thrill without the handlebars.", tag: "€30 / person", anchor: "#water-fun", icon: "tube" as const },
+    ],
   },
-];
+}[lang];
+
+const experiences: Experience[] = COPY.experiences;
 ---
 
 <section id="experiences" class="relative py-20 lg:py-28" style="background: var(--v2-cream-100);">
@@ -56,16 +76,14 @@ const experiences: Experience[] = [
     <!-- Header -->
     <div class="grid grid-cols-12 gap-6 mb-10 lg:mb-14">
       <div class="col-span-12 lg:col-span-8">
-        <div class="v2-eyebrow mb-6"><span>What we do on the water · Three ways</span></div>
+        <div class="v2-eyebrow mb-6"><span>{COPY.eyebrow}</span></div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,5.5vw,6rem)]">
-          Pick your <em>style.</em><br />Leave the rest to us.
+          {COPY.titleLead} <em>{COPY.titleAccent}</em><br />{COPY.titleTail}
         </h2>
       </div>
       <div class="col-span-12 lg:col-span-4 flex items-end">
         <p class="text-lg leading-relaxed max-w-md" style="color: rgba(7,29,48,0.7);">
-          From first-timers without any licence to solo riders chasing
-          120 km/h — and a three-seat tube for the ones who just want to
-          laugh. Everyone finds their line.
+          {COPY.intro}
         </p>
       </div>
     </div>
@@ -189,7 +207,7 @@ const experiences: Experience[] = [
                   class="inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] group-hover:gap-2.5 transition-all duration-300"
                   style="color: var(--v2-ink-900);"
                 >
-                  <span>See more</span>
+                  <span>{COPY.seeMore}</span>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
                     <path d="M5 12h14M13 5l7 7-7 7" />
                   </svg>
@@ -203,7 +221,7 @@ const experiences: Experience[] = [
 
     <!-- Footnote -->
     <p class="mt-6 text-xs italic text-center max-w-2xl mx-auto" style="color: rgba(7,29,48,0.5);">
-      Mix and match: guided plus tube is our most-booked combo for groups of three.
+      {COPY.footnote}
     </p>
   </div>
 </section>

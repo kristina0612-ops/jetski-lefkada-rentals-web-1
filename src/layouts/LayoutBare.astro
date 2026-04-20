@@ -9,17 +9,21 @@ interface Props {
   title?: string;
   description?: string;
   themeColor?: string;
+  lang?: "en" | "de" | "gr";
 }
 
 const {
   title = "Nero Lefkada · Jetski Rental",
   description = "Rent a Sea-Doo jetski on Lefkada, Greece. Four supercharged Neros, operated by Nero Lefkada Rental&Retail with David as your guide at Lygia Port. Book online in ninety seconds.",
   themeColor = "#071d30",
+  lang = "en",
 } = Astro.props;
+// "gr" maps to HTML code "el" (ISO 639-1) for correct SEO / screen-reader locale.
+const htmlLang = lang === "gr" ? "el" : lang;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
