@@ -42,7 +42,7 @@ wieder im Pool, bis Kristina die echten Jetski-Fotos liefert.
 | `waterfun-jobe-action.jpg` | `src/components/v2/Booking2.astro` (Water Fun block — echter Jetski + Jobe-Tube, assigned 2026-04-20) |
 | `waterfun-tube-action.jpg` | **UNUSED** — war bis 2026-04-20 in Booking2, zeigte aber Motorboot statt Jetski. File bleibt im Repo, sollte aber nicht mehr auf der Website landen. |
 | `waterfun-tube-in-water.jpg` | **UNUSED** — Pool-Reserve für weitere Water-Fun-Flächen. |
-| `fleet-at-lygia-collage.jpg` | `src/components/v2/Spots2.astro` (Position 6 „Lygia return" — assigned 2026-04-20, ersetzt das ortsbild-lastige `/spots/lygia.jpg`) |
+| `fleet-at-lygia-collage.jpg` | **UNUSED** — war kurz in Spots2, aber die Hokusai-Wave-Collage passte nicht. Am 2026-04-20 Abend durch echtes `/spots/lygia-port.jpg` ersetzt. Datei bleibt archiviert im Repo. |
 
 ### Videos (`public/videos/`)
 

@@ -90,10 +90,11 @@ const spots: Spot[] = [
     distanceKm: 0,
     durationMin: 0,
     mapsUrl: "https://maps.google.com/?q=38.7893,20.7192",
-    // 2026-04-20: lygia.jpg zeigte den Ort/Hafen-Ufer und passte nicht zum
-    // „back to the dock am Wasser"-Narrativ. Swap auf fleet-at-lygia-collage.jpg
-    // – die 4 Neros selbst am Dock, thematisch treffend.
-    image: "/images/gallery/fleet-at-lygia-collage.jpg",
+    // 2026-04-20 Abend: Swap von fleet-at-lygia-collage.jpg (hatte Hokusai-
+    // Wave-Overlay auf einer Collage — unpassend) auf echtes Lygia-Hafen-
+    // Foto: Fischerboote am Steinquai mit Tavernenstühlen. Von Kristina
+    // geliefert und ins Repo unter /public/images/spots/lygia-port.jpg gelegt.
+    image: "/images/spots/lygia-port.jpg",
     gradient: "linear-gradient(135deg, #1a3a50 0%, #ff8a4a 60%, #ffd76a 100%)",
     icon: "return",
   },
@@ -110,11 +111,11 @@ const iconPath = {
 } as const;
 ---
 
-<section id="spots" class="relative py-24 lg:py-32" style="background: var(--v2-cream-50);">
+<section id="spots" class="relative py-16 lg:py-24" style="background: var(--v2-cream-50);">
   <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
 
     <!-- Header -->
-    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
+    <div class="grid grid-cols-12 gap-6 mb-6 lg:mb-10">
       <div class="col-span-12 lg:col-span-8">
         <div class="v2-eyebrow mb-6"><span>Where the Neros go · Six stops</span></div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
@@ -130,7 +131,7 @@ const iconPath = {
     </div>
 
     <!-- Bento grid: 6 cards -->
-    <div class="grid grid-cols-12 gap-4 lg:gap-6">
+    <div class="grid grid-cols-12 gap-1 lg:gap-2">
       {
         spots.map((spot, i) => {
           const spans = [
@@ -146,7 +147,7 @@ const iconPath = {
               href={spot.mapsUrl}
               target="_blank"
               rel="noopener"
-              class:list={["group relative overflow-hidden rounded-3xl block", spans[i]]}
+              class:list={["group relative overflow-hidden rounded-xl block", spans[i]]}
               data-cro={`spot-${spot.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
               {spot.image ? (
@@ -211,7 +212,7 @@ const iconPath = {
       }
     </div>
 
-    <p class="mt-8 text-xs italic text-center max-w-2xl mx-auto" style="color: rgba(7,29,48,0.45);">
+    <p class="mt-4 text-xs italic text-center max-w-2xl mx-auto" style="color: rgba(7,29,48,0.45);">
       Route picks vary with the wind. David decides on the day — the goal is flat water and quiet bays.
     </p>
     <p class="mt-3 text-[10px] text-center max-w-3xl mx-auto" style="color: rgba(7,29,48,0.4);">
