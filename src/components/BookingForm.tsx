@@ -176,11 +176,11 @@ export default function BookingForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form} noValidate>
+    <form onSubmit={handleSubmit} style={styles.form} className="p-5 sm:p-8" noValidate>
       {/* ─── Step 1: Activity ────────────────────────────────────── */}
       <section style={styles.section}>
         <div style={styles.sectionLabel}>Step 1 · Activity</div>
-        <div style={styles.grid2}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <label style={styles.field}>
             <span style={styles.fieldLabel}>Category</span>
             <select value={category} onChange={(e) => setCategory(e.target.value as Category)} style={styles.select}>
@@ -229,7 +229,7 @@ export default function BookingForm() {
       {/* ─── Step 2: Licence ─────────────────────────────────────── */}
       <section style={styles.section}>
         <div style={styles.sectionLabel}>Step 2 · Boating licence</div>
-        <div style={styles.radioRow}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <label style={{...styles.radioCard, ...(hasLicence === "yes" ? styles.radioCardActive : {})}}>
             <input type="radio" name="licence" value="yes" checked={hasLicence === "yes"} onChange={() => setHasLicence("yes")} style={styles.radio} />
             <span style={styles.radioTitle}>Yes, I have a licence</span>
@@ -262,7 +262,7 @@ export default function BookingForm() {
         <div style={styles.sectionLabel}>Step 3 · Contact</div>
         <p style={styles.sectionHint}>Required for booking confirmation and Greek Port Police (Λιμεναρχείο) registration.</p>
 
-        <div style={styles.grid2}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <label style={styles.field}>
             <span style={styles.fieldLabel}>First name *</span>
             <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} style={styles.input} autoComplete="given-name" required />
@@ -304,8 +304,8 @@ export default function BookingForm() {
         </label>
 
         {wantsInvoice && (
-          <div style={{...styles.grid2, marginTop: 16}}>
-            <label style={{...styles.field, gridColumn: "1 / -1"}}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+            <label style={styles.field} className="sm:col-span-2">
               <span style={styles.fieldLabel}>Street & number *</span>
               <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} style={styles.input} autoComplete="street-address" required />
             </label>
@@ -317,7 +317,7 @@ export default function BookingForm() {
               <span style={styles.fieldLabel}>City *</span>
               <input type="text" value={city} onChange={(e) => setCity(e.target.value)} style={styles.input} autoComplete="address-level2" required />
             </label>
-            <label style={{...styles.field, gridColumn: "1 / -1"}}>
+            <label style={styles.field} className="sm:col-span-2">
               <span style={styles.fieldLabel}>Country *</span>
               <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} style={styles.input} autoComplete="country-name" required />
             </label>
@@ -429,7 +429,6 @@ const styles: Record<string, React.CSSProperties> = {
     background: "rgba(253,251,244,0.04)",
     border: "1px solid rgba(253,251,244,0.15)",
     borderRadius: 24,
-    padding: "2rem",
     color: "#fdfbf4",
   },
   section: {
