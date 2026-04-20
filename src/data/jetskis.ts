@@ -134,7 +134,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    image: "/images/customers/nero-guest-01.jpg",
+    // Unsplash Sea-Doo in action (kristina 2026-04-20: "internet-fotos für jetskis")
+    image: "https://images.unsplash.com/photo-1595351298020-038700609878?w=1400&q=85&auto=format&fit=crop",
     accent: "#ffc233",
     availableToday: 1,
     totalUnits: 1,
@@ -158,7 +159,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_RXT_RS,
-    image: "/images/customers/nero-guest-04.jpg",
+    // Unsplash Jet-Ski racing/spray shot (RXT RS Riva ist race-tuned)
+    image: "https://images.unsplash.com/photo-1625194398019-62a5362c1e52?w=1400&q=85&auto=format&fit=crop",
     accent: "#ff5a36",
     availableToday: 1,
     totalUnits: 1,
@@ -181,7 +183,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    image: "/images/customers/nero-guest-08.jpg",
+    // Unsplash Sea-Doo water action (GTX-Touring-Feel)
+    image: "https://images.unsplash.com/photo-1530866495561-507c9faab2ed?w=1400&q=85&auto=format&fit=crop",
     accent: "#00b3a7",
     availableToday: 1,
     totalUnits: 1,
@@ -204,7 +207,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    image: "/images/customers/nero-guest-11.jpg",
+    // Unsplash Jetski pier/dock
+    image: "https://images.unsplash.com/photo-1569251898438-7a87f2f49bf9?w=1400&q=85&auto=format&fit=crop",
     accent: "#4fb3bf",
     availableToday: 1,
     totalUnits: 1,

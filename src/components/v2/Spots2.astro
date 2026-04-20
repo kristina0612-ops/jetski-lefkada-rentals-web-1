@@ -1,15 +1,15 @@
 ---
 // Spots2 – Lefkada spots customers love to ride to.
 //
-// 2026-04-20: Photo-placeholders only (gradient + icon), NOT real stock photos.
-// Reason: we don't own real Meganisi/Porto Katsiki/etc. photos yet, and every
-// photo on commercial image banks has licence fine-print that doesn't match a
-// small tourism business. The gradient-tile design keeps the page informative
-// (all the spot names + distance + Google Maps link) without copyright risk.
+// 2026-04-20 (updated): Unsplash-Fotos für alle 6 Stops. Unsplash License ist
+// kommerziell frei nutzbar ohne Attribution. Die IDs unten sind stabile
+// Unsplash-Photo-IDs die Mediterranean Beach-/Bay-/Cliff-Szenen zeigen.
 //
-// When Kristina/David shoot real photos at each stop, swap each spot's
-// `image` from `null` to a local path like `/images/gallery/spots/porto-katsiki.jpg`
-// and the card will automatically show the photo instead of the gradient.
+// Einschränkung: Diese Fotos sind REPRESENTATIVE Stock-Fotos von Mediterranen
+// Stränden — nicht garantiert Porto Katsiki/Egremni/etc. selbst. Visuell
+// passend, marketing-tauglich, lizenzsicher. Wenn Kristina/David echte
+// eigene Fotos von den Stops machen, einfach `image` auf lokalen Pfad
+// ändern: `/images/spots/porto-katsiki.jpg` etc.
 
 type Spot = {
   name: string;
@@ -31,7 +31,7 @@ const spots: Spot[] = [
     distanceKm: 18,
     durationMin: 40,
     mapsUrl: "https://maps.google.com/?q=Porto+Katsiki+Lefkada",
-    image: null,
+    image: "https://images.unsplash.com/photo-1533106418989-88406c7cc8ca?w=1600&q=85&auto=format&fit=crop",
     gradient: "linear-gradient(135deg, #0a6080 0%, #4fb3bf 50%, #c8e8e2 100%)",
     icon: "cliff",
   },
@@ -42,7 +42,7 @@ const spots: Spot[] = [
     distanceKm: 15,
     durationMin: 35,
     mapsUrl: "https://maps.google.com/?q=Egremni+Beach+Lefkada",
-    image: null,
+    image: "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=1600&q=85&auto=format&fit=crop",
     gradient: "linear-gradient(135deg, #035d81 0%, #5bc0be 60%, #e8f4d9 100%)",
     icon: "beach",
   },
@@ -53,7 +53,7 @@ const spots: Spot[] = [
     distanceKm: 11,
     durationMin: 25,
     mapsUrl: "https://maps.google.com/?q=Agios+Nikitas+Lefkada",
-    image: null,
+    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&q=85&auto=format&fit=crop",
     gradient: "linear-gradient(135deg, #1e4a6b 0%, #4a8fa8 50%, #ffd9b3 100%)",
     icon: "bay",
   },
@@ -64,7 +64,7 @@ const spots: Spot[] = [
     distanceKm: 8,
     durationMin: 15,
     mapsUrl: "https://maps.google.com/?q=Meganisi+Island",
-    image: null,
+    image: "https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=1600&q=85&auto=format&fit=crop",
     gradient: "linear-gradient(135deg, #0d4a6b 0%, #2d8ba8 45%, #8ed4c8 100%)",
     icon: "channel",
   },
@@ -75,7 +75,7 @@ const spots: Spot[] = [
     distanceKm: 22,
     durationMin: 45,
     mapsUrl: "https://maps.google.com/?q=Vasiliki+Bay+Lefkada",
-    image: null,
+    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1600&q=85&auto=format&fit=crop",
     gradient: "linear-gradient(135deg, #0a3d5c 0%, #3b7bb8 50%, #ffb787 100%)",
     icon: "bay",
   },
@@ -86,7 +86,7 @@ const spots: Spot[] = [
     distanceKm: 0,
     durationMin: 0,
     mapsUrl: "https://maps.google.com/?q=38.7893,20.7192",
-    image: null,
+    image: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=1600&q=85&auto=format&fit=crop",
     gradient: "linear-gradient(135deg, #1a3a50 0%, #ff8a4a 60%, #ffd76a 100%)",
     icon: "return",
   },
