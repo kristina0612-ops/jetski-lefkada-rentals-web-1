@@ -28,16 +28,17 @@ Before adding a photo anywhere, **check the assignment map below**. If the photo
 | `nero-guest-09.jpg` | `src/components/v2/Gallery2.astro` | Gallery card **„Muscle flex"** (red Nero Dio) |
 | `nero-guest-10.jpg` | **UNUSED** | Pool |
 | `nero-guest-11.jpg` | `src/data/jetskis.ts` | Fleet card for **Nero Tessera** (couple, blue Sea-Doo „Nestor") |
+| `nero-guest-12.jpg` | `src/components/v2/Gallery2.astro` | Gallery card **„Group ride"** (three jetskis, group tour) — added 2026-04-20 |
 
 ### Gallery assets (`public/images/gallery/`)
 
 | File | Used where |
 |------|------------|
-| `waterfun-jobe-action.jpg` | `src/components/v2/Booking2.astro` (Water Fun block) + `src/components/v2/Gallery2.astro` (**„Water Fun"** card) |
-| `waterfun-tube-in-water.jpg` | `src/components/v2/Gallery2.astro` (**„Tube moment"** card) |
+| `waterfun-jobe-action.jpg` | **UNUSED** — removed from Gallery2 Position 1 on 2026-04-20 (replaced with `nero-guest-12.jpg` „Group ride"). File kept in repo for possible reuse. |
+| `waterfun-tube-in-water.jpg` | `src/components/v2/Booking2.astro` (Water Fun block) **+** `src/components/v2/Gallery2.astro` (**„Tube moment"** card, Position 6) |
 | `fleet-at-lygia-collage.jpg` | **UNUSED** (removed 2026-04-20 per Kristina — keep file in case we need it later) |
 
-**Exception:** `waterfun-jobe-action.jpg` appears twice (Booking2 + Gallery2). This is a known deliberate choice — the Water Fun add-on is the single most commercially important card and is worth the visual repetition. If it still bothers someone, use `nero-guest-09.jpg` in Gallery2 "Muscle flex" already covers the colour/energy — we can swap it there.
+**Note (2026-04-20):** `waterfun-tube-in-water.jpg` currently appears on TWO surfaces (Booking2 + Gallery2 Position 6). This was already the state before today; SKILL.md just had it recorded on the wrong file. Kristina can decide whether to keep the duplication (the tube photo is the clearest visual for the add-on and appears in two different contexts: once as a Booking teaser, once as Gallery story) or replace one of them. As long as this sits here documented, agents treat it as a deliberate exception, not sloppy work.
 
 ### Videos (`public/videos/`)
 
@@ -84,5 +85,6 @@ A tiny Node script could scan `src/` for every path like `/images/...` or `/vide
 - `nero-guest-03.jpg` — need to check what it shows before assigning
 - `nero-guest-06.jpg` — same
 - `nero-guest-10.jpg` — same
+- `waterfun-jobe-action.jpg` — freed up on 2026-04-20 when Gallery2 Position 1 switched to `nero-guest-12.jpg`. Shows a Jobe Ridge tube in action behind a jetski; suitable for any future Water-Fun-focused surface.
 
-When Kristina asks for a new gallery card, first peek at these three.
+When Kristina asks for a new gallery card, first peek at these.
