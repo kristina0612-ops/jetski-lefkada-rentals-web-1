@@ -8,9 +8,9 @@ type Lang = "en" | "de" | "gr";
 const currentLang: Lang = (Astro.props.lang as Lang) ?? "en";
 
 const labels = {
-  en: { fleet: "Fleet", waterFun: "Water Fun", how: "How it works", faq: "FAQ", book: "Book Now", bookMobile: "Book your jetski", nav: "Navigation" },
-  de: { fleet: "Flotte", waterFun: "Water Fun", how: "So geht's", faq: "FAQ", book: "Jetzt Buchen", bookMobile: "Jetski buchen", nav: "Navigation" },
-  gr: { fleet: "Στόλος", waterFun: "Water Fun", how: "Πώς λειτουργεί", faq: "Ερωτήσεις", book: "Κράτηση", bookMobile: "Κράτησε το jet ski σου", nav: "Πλοήγηση" },
+  en: { fleet: "Fleet", waterFun: "Water Fun", how: "How it works", faq: "FAQ", book: "Book Now", bookShort: "Book", bookMobile: "Book your jetski", nav: "Navigation" },
+  de: { fleet: "Flotte", waterFun: "Water Fun", how: "So geht's", faq: "FAQ", book: "Jetzt Buchen", bookShort: "Buchen", bookMobile: "Jetski buchen", nav: "Navigation" },
+  gr: { fleet: "Στόλος", waterFun: "Water Fun", how: "Πώς λειτουργεί", faq: "Ερωτήσεις", book: "Κράτηση", bookShort: "Κράτηση", bookMobile: "Κράτησε το jet ski σου", nav: "Πλοήγηση" },
 };
 
 const t = labels[currentLang];
@@ -285,14 +285,18 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
         </div>
       </div>
 
-      <!-- CTA (always visible) — springt zum Booking-Bereich (Calculator + Form + Calendar) -->
+      <!-- CTA (always visible) — springt zum Booking-Bereich (Calculator + Form + Calendar).
+           Mobile (<sm): verkürzter Text (t.bookShort) damit „Jetzt Buchen" auf 320px-
+           Viewport neben Sun-Button + Hamburger nicht überläuft.
+           Desktop (≥sm): voller Text (t.book). -->
       <a
         href="#book"
-        class="v2-btn !py-3 !px-5 !text-xs"
+        class="v2-btn !py-3 !px-4 sm:!px-5 !text-xs"
         style="background: var(--v2-sun-400); color: var(--v2-ink-950);"
         data-cro="navbar-cta-book"
       >
-        {t.book}
+        <span class="sm:hidden">{t.bookShort}</span>
+        <span class="hidden sm:inline">{t.book}</span>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
           <path d="M5 12h14M13 5l7 7-7 7"/>
         </svg>
