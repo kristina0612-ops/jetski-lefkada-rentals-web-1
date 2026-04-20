@@ -3,6 +3,11 @@
 // All photos: `public/images/customers/` + `public/images/gallery/` – stored locally.
 // Privacy: All depicted persons gave written consent – see privacy.astro §10.
 // Kristina can re-arrange the selection by changing the `src` paths below.
+//
+// Quality note (2026-04-20): Phone-shot photos look slightly soft on laptop.
+// Same CSS filter + SVG unsharp-mask approach as Hero2 is applied to perceive
+// the images as sharper without re-encoding. Milder kernel than Hero because
+// still images don't need motion-blur compensation.
 const moments = [
   {
     title: "The fleet at Lygia",
@@ -43,6 +48,29 @@ const moments = [
 ];
 ---
 
+<style>
+  /* Perceptual sharpening for phone-shot customer photos.
+     Base filter works in all browsers; SVG unsharp-mask as progressive enhancement. */
+  .gallery-img-crisp {
+    filter: contrast(1.1) saturate(1.18) brightness(1.02);
+    filter: contrast(1.1) saturate(1.18) brightness(1.02) url(#gallery-sharpen);
+    image-rendering: auto; /* let browser use high-quality sampling for still images */
+    will-change: filter;
+  }
+</style>
+
+<!-- Scoped SVG unsharp-mask. Milder than Hero kernel (center 2.6 vs 3) because
+     still photos should not exaggerate JPEG-artifact edges. -->
+<svg aria-hidden="true" focusable="false" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+  <filter id="gallery-sharpen" color-interpolation-filters="sRGB">
+    <feConvolveMatrix
+      order="3"
+      preserveAlpha="true"
+      kernelMatrix="0 -0.4 0  -0.4 2.6 -0.4  0 -0.4 0"
+    />
+  </filter>
+</svg>
+
 <section class="relative py-24 lg:py-40" style="background: var(--v2-cream-50);">
   <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
     <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
@@ -80,7 +108,7 @@ const moments = [
                 height="933"
                 loading="lazy"
                 decoding="async"
-                class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
+                class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 gallery-img-crisp"
               />
               <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(7,29,48,0.85), transparent 50%);"></div>
               <div class="absolute top-5 right-5 px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[10px] uppercase tracking-[0.14em]" style="background: rgba(253,251,244,0.9); color: var(--v2-ink-900);">

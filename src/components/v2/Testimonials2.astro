@@ -7,9 +7,11 @@ import { testimonials } from "../../data/testimonials";
 
 const hasReviews = testimonials.length > 0;
 const reviewCount = testimonials.length;
-const averageRating = hasReviews
-  ? (testimonials.reduce((sum, t) => sum + t.rating, 0) / reviewCount).toFixed(1)
-  : null;
+// NOTE: We deliberately do NOT display an aggregated "average rating" number
+// because the testimonials are stand-in quotes with uniform 5-star ratings.
+// A visual "5.0 stars" claim next to stand-in content would feel misleading
+// even though each individual quote is transparently rated. Per-card stars
+// remain visible — they reflect the sentiment, not an aggregate claim.
 
 // Format date: "18 Jul 2025"
 const fmtDate = (iso: string) => {
@@ -30,7 +32,7 @@ const fmtDate = (iso: string) => {
     <div class="grid grid-cols-12 gap-6 mb-20">
       <div class="col-span-12 lg:col-span-8">
         <div class="v2-eyebrow mb-6" style="color: var(--v2-sun-300);">
-          <span>{hasReviews ? `${reviewCount} guest voices · ${averageRating} stars` : "Guest voices · 2026 season"}</span>
+          <span>{hasReviews ? `${reviewCount} guest voices` : "Guest voices · 2026 season"}</span>
         </div>
         <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]" style="color: var(--v2-cream-50);">
           {hasReviews ? (
@@ -42,12 +44,11 @@ const fmtDate = (iso: string) => {
       </div>
       {hasReviews && (
         <div class="col-span-12 lg:col-span-4 flex items-end justify-end">
-          <div class="flex items-baseline gap-4">
-            <span class="v2-display text-7xl lg:text-8xl v2-gradient-sun">{averageRating}</span>
-            <div class="font-mono text-[10px] uppercase tracking-[0.18em] leading-relaxed" style="color: rgba(253,251,244,0.6);">
-              Average<br />across all<br />guest feedback
-            </div>
-          </div>
+          <p class="text-base leading-relaxed max-w-sm text-right" style="color: rgba(253,251,244,0.6);">
+            Stand-in voices from the 2025 season, anonymised for privacy.
+            Real Google reviews will replace these as soon as our first
+            2026 guests leave them.
+          </p>
         </div>
       )}
     </div>
