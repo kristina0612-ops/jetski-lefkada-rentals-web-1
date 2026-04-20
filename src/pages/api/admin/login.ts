@@ -12,7 +12,8 @@ import { checkRateLimit, rateLimitHeaders } from "../../../lib/rate-limit";
 const LOGIN_LIMIT = 5; // Versuche
 const LOGIN_WINDOW_MS = 15 * 60 * 1000; // 15 Minuten
 
-export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars -- cookies used once Supabase login is live
+export const POST: APIRoute = async ({ request, cookies: _cookies, clientAddress }) => {
   // Rate-Limit pro IP – greift auch solange der Login-Endpoint ein Stub ist,
   // damit ein Angreifer nicht unbegrenzt probieren kann sobald Supabase live geht.
   // Seit Sec #3 async + persistent (Supabase-RPC), überlebt Cold-Starts.
