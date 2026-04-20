@@ -1,8 +1,6 @@
 ---
 import { jetskis, pricingExtras } from "../../data/jetskis";
 
-// Smallest Beach Ride price used for "from €X · 10 min" hint.
-const fromPrice = Math.min(...jetskis.map((j) => j.beachRides.min10 ?? 80));
 const seatsNote = pricingExtras.seatsNote.en;
 ---
 
@@ -120,7 +118,6 @@ const seatsNote = pricingExtras.seatsNote.en;
                     {/* Pricing */}
                     <div class="mb-4">
                       <div class="flex items-baseline gap-1">
-                        <span class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v2-turquoise-600);">from</span>
                         <span class="v2-display text-4xl v2-gradient-sun">€{js.beachRides.min10}</span>
                         <span class="font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v2-turquoise-600);">· 10 min</span>
                       </div>

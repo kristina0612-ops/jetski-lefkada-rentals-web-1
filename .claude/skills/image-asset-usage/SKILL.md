@@ -34,11 +34,10 @@ Before adding a photo anywhere, **check the assignment map below**. If the photo
 
 | File | Used where |
 |------|------------|
-| `waterfun-jobe-action.jpg` | **UNUSED** — removed from Gallery2 Position 1 on 2026-04-20 (replaced with `nero-guest-12.jpg` „Group ride"). File kept in repo for possible reuse. |
-| `waterfun-tube-in-water.jpg` | `src/components/v2/Booking2.astro` (Water Fun block) **+** `src/components/v2/Gallery2.astro` (**„Tube moment"** card, Position 6) |
-| `fleet-at-lygia-collage.jpg` | **UNUSED** (removed 2026-04-20 per Kristina — keep file in case we need it later) |
-
-**Note (2026-04-20):** `waterfun-tube-in-water.jpg` currently appears on TWO surfaces (Booking2 + Gallery2 Position 6). This was already the state before today; SKILL.md just had it recorded on the wrong file. Kristina can decide whether to keep the duplication (the tube photo is the clearest visual for the add-on and appears in two different contexts: once as a Booking teaser, once as Gallery story) or replace one of them. As long as this sits here documented, agents treat it as a deliberate exception, not sloppy work.
+| `waterfun-jobe-action.jpg` | `src/components/v2/Booking2.astro` (Water Fun block — echter Jetski + Jobe-Tube, assigned 2026-04-20) |
+| `waterfun-tube-action.jpg` | **UNUSED** — war bis 2026-04-20 in Booking2, zeigte aber Motorboot statt Jetski. File bleibt im Repo, sollte aber nicht mehr auf der Website landen. |
+| `waterfun-tube-in-water.jpg` | **UNUSED** — Pool-Reserve für weitere Water-Fun-Flächen. |
+| `fleet-at-lygia-collage.jpg` | `src/components/v2/Spots2.astro` (Position 6 „Lygia return" — assigned 2026-04-20, ersetzt das ortsbild-lastige `/spots/lygia.jpg`) |
 
 ### Videos (`public/videos/`)
 
@@ -85,6 +84,8 @@ A tiny Node script could scan `src/` for every path like `/images/...` or `/vide
 - `nero-guest-03.jpg` — need to check what it shows before assigning
 - `nero-guest-06.jpg` — same
 - `nero-guest-10.jpg` — same
-- `waterfun-jobe-action.jpg` — freed up on 2026-04-20 when Gallery2 Position 1 switched to `nero-guest-12.jpg`. Shows a Jobe Ridge tube in action behind a jetski; suitable for any future Water-Fun-focused surface.
+- `waterfun-tube-action.jpg` — retired aus Booking2 am 2026-04-20 (Motorboot statt Jetski). Nicht erneut auf Website verwenden.
+- `waterfun-tube-in-water.jpg` — Pool-Reserve für Water-Fun-Flächen.
+- `/images/spots/lygia.jpg` — ausrangiert aus Spots am 2026-04-20 (zeigte Ort/Hafenufer, passte nicht zur Sea-Narrativ). Datei bleibt im Repo.
 
 When Kristina asks for a new gallery card, first peek at these.
