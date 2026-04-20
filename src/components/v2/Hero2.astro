@@ -3,11 +3,12 @@
 // Video: real footage of David + guest at Lygia Port (not stock)
 //
 // ⚙️  KRISTINA: Start- und End-Sekunde des sichtbaren Clip-Ausschnitts.
-//     Aktuell: Sekunde 18,5 bis 32 (13,5-Sek.-Loop aus dem 44-Sek.-Video).
-//     Ab Sekunde 32 kommt im Original-Video Fremdwerbung – deshalb hartes Ende.
-//     Wenn Du andere Sekunden willst, einfach die Zahlen hier ändern.
+//     Aktuell: Sekunde 18,5 bis 29 (10,5-Sek.-Loop aus dem 44-Sek.-Video).
+//     Ab ca. Sek. 30 blendet das Original-Video den Instagram-Handle
+//     „@theo_zavitsanos" unten links ein → deshalb hartes Ende bei 29.
+//     Falls Overlay immer noch kurz erscheint: END-Sekunde weiter reduzieren (z.B. 28).
 const HERO_VIDEO_START_SECONDS = 18.5;
-const HERO_VIDEO_END_SECONDS = 32;
+const HERO_VIDEO_END_SECONDS = 29;
 ---
 
 <style>
@@ -22,12 +23,18 @@ const HERO_VIDEO_END_SECONDS = 32;
      If still too soft on Kristina's laptop, next step is physical re-encode
      (Topaz Video AI or Clideo upscale). CSS can only mask, not create pixels. */
   .hero-video-crisp {
-    transform: scale(1.12);
-    transform-origin: center center;
-    /* Base filter: works everywhere */
-    filter: contrast(1.08) saturate(1.18) brightness(1.03);
-    /* Progressive enhancement: adds SVG sharpen kernel on top */
-    filter: contrast(1.08) saturate(1.18) brightness(1.03) url(#hero-sharpen);
+    /* Scale 1.18 = 9 Prozent more crop on each edge than before.
+       That's enough to push the "@theo_zavitsanos" bottom-center watermark
+       further out of the visible area when it briefly flashes. */
+    transform: scale(1.18);
+    transform-origin: center 38%;
+    /* Motif centred horizontally, shifted UP so more of the bottom gets
+       cropped — complements the safety-mask overlay below. */
+    object-position: 50% 32%;
+    /* Base filter: works everywhere (Safari fallback) */
+    filter: contrast(1.12) saturate(1.22) brightness(1.05);
+    /* Progressive enhancement: unsharp-mask kernel on top (Chrome/Firefox) */
+    filter: contrast(1.12) saturate(1.22) brightness(1.05) url(#hero-sharpen);
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
     will-change: transform, filter;
@@ -36,13 +43,14 @@ const HERO_VIDEO_END_SECONDS = 32;
 </style>
 
 <!-- Inline SVG unsharp-mask filter — referenced by .hero-video-crisp above.
-     Kernel: mild Laplacian (center 2.4, edges -0.35). Subtle, no halos. -->
+     Kernel: stronger Laplacian (center 3, edges -0.5). Stronger sharpening
+     than the earlier mild pass; still no haloing on typical video content. -->
 <svg aria-hidden="true" focusable="false" style="position: absolute; width: 0; height: 0; overflow: hidden;">
   <filter id="hero-sharpen" color-interpolation-filters="sRGB">
     <feConvolveMatrix
       order="3"
       preserveAlpha="true"
-      kernelMatrix="0 -0.35 0  -0.35 2.4 -0.35  0 -0.35 0"
+      kernelMatrix="0 -0.5 0  -0.5 3 -0.5  0 -0.5 0"
     />
   </filter>
 </svg>
@@ -108,6 +116,10 @@ const HERO_VIDEO_END_SECONDS = 32;
     <div class="absolute inset-0" style="background: radial-gradient(ellipse at 30% 40%, transparent 40%, rgba(7,29,48,0.7) 100%);"></div>
     <!-- Warm color bleed for mediterranean feel -->
     <div class="absolute inset-0 mix-blend-overlay opacity-60" style="background: radial-gradient(ellipse at 80% 20%, #ffc233, transparent 55%);"></div>
+    <!-- Safety mask bottom-left: hides any frame of "@theo_zavitsanos" IG overlay
+         that might briefly appear before the loop reset at 29s. Strengthened
+         after Kristina reported remaining handle visibility on 2026-04-20. -->
+    <div class="absolute bottom-0 left-0 w-[70%] h-[40%]" style="background: radial-gradient(ellipse at 15% 100%, rgba(7,29,48,0.98) 0%, rgba(7,29,48,0.85) 35%, rgba(7,29,48,0.4) 65%, transparent 85%);"></div>
   </div>
 
   <!-- Decorative sun (rotating slow) -->

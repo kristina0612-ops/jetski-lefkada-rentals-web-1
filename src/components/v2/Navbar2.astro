@@ -22,10 +22,13 @@ const links = [
   { href: "#faq", label: t.faq },
 ];
 
-const languages: { code: Lang; label: string; flag: string; href: string }[] = [
-  { code: "en", label: "English", flag: "🇬🇧", href: "/" },
-  { code: "de", label: "Deutsch", flag: "🇩🇪", href: "/de/" },
-  { code: "gr", label: "Ελληνικά", flag: "🇬🇷", href: "/gr/" },
+// DE + GR routes are not built yet — until Astro i18n is set up, we mark them as
+// "Coming soon" so the click doesn't break the site. English stays the live default.
+type LangOption = { code: Lang; label: string; flag: string; href: string; available: boolean };
+const languages: LangOption[] = [
+  { code: "en", label: "English",  flag: "🇬🇧", href: "/",    available: true  },
+  { code: "de", label: "Deutsch",  flag: "🇩🇪", href: "#",    available: false },
+  { code: "gr", label: "Ελληνικά", flag: "🇬🇷", href: "#",    available: false },
 ];
 
 const currentLangObj = languages.find((l) => l.code === currentLang) ?? languages[0];
@@ -233,23 +236,32 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
         </button>
         <div id="lang-dropdown" role="menu" aria-label="Language selection">
           {
-            languages.map((lang) => (
-              <a
-                href={lang.href}
-                class={`lang-item ${lang.code === currentLang ? "active" : ""}`}
-                role="menuitem"
-                hreflang={lang.code === "gr" ? "el" : lang.code}
-                data-cro={`navbar-lang-${lang.code}`}
-              >
-                <span class="lang-flag" aria-hidden="true">{lang.flag}</span>
-                <span>{lang.label}</span>
-                {lang.code === currentLang && (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: auto;" aria-hidden="true">
-                    <path d="M20 6L9 17l-5-5"/>
-                  </svg>
-                )}
-              </a>
-            ))
+            languages.map((lang) => {
+              const isActive = lang.code === currentLang;
+              const isComingSoon = !lang.available;
+              return (
+                <a
+                  href={isComingSoon ? undefined : lang.href}
+                  class={`lang-item ${isActive ? "active" : ""} ${isComingSoon ? "coming-soon" : ""}`}
+                  role="menuitem"
+                  aria-disabled={isComingSoon ? "true" : "false"}
+                  hreflang={lang.code === "gr" ? "el" : lang.code}
+                  data-cro={`navbar-lang-${lang.code}`}
+                  onclick={isComingSoon ? "event.preventDefault()" : undefined}
+                >
+                  <span class="lang-flag" aria-hidden="true">{lang.flag}</span>
+                  <span>{lang.label}</span>
+                  {isActive && (
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="margin-left: auto;" aria-hidden="true">
+                      <path d="M20 6L9 17l-5-5"/>
+                    </svg>
+                  )}
+                  {isComingSoon && (
+                    <span class="lang-soon" aria-label="Coming soon">soon</span>
+                  )}
+                </a>
+              );
+            })
           }
         </div>
       </div>
