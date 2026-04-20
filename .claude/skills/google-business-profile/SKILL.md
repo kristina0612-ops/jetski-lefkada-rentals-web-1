@@ -27,12 +27,12 @@ Automatisch triggern sobald die aktuelle Aufgabe einen dieser Bereiche berührt:
 | **Telefon** | +30 695 561 2777 (David, WhatsApp) |
 | **Website** | https://www.jetski-lefkada-rentals.com |
 | **Instagram** | @jetski__lefkada (doppelter Underscore!) |
-| **Öffnungszeiten** | Mai–September: Mo–So 10:00–13:00 + 16:00–19:00 |
-| **Nebensaison** | Oktober–April: geschlossen (Saison-Business) |
+| **Öffnungszeiten** | Mai–Oktober: Mo–So 09:00–21:00 durchgehend |
+| **Nebensaison** | November–April: geschlossen (Saison-Business) |
 | **Primärkategorie** | Jet Ski Rental Service |
 | **Sekundärkategorien** | Boat Rental Service, Water Sports Equipment Rental Service |
 | **Gegründet** | 2019 |
-| **Inhaber** | David & Kristina Goldberg (Familienunternehmen) |
+| **Geschäftsführerin (Impressum)** | Kristina Goldberg · öffentliche Marke „Nero Lefkada" · David = Guide/Ops vor Ort (Nachname nie im Marketing) |
 | **Zahlungsmethoden** | Bar (EUR), Karte, Viva Wallet |
 
 Datenquellen (nie duplizieren, immer auf diese verweisen):
@@ -59,8 +59,8 @@ Kurzversion:
 
 ## Optimierungs-Checkliste
 
-- [ ] **Fotos** – min. 10: je ein Foto pro Sea-Doo-Modell (Challenger, Acrobat), Dock von oben, Action-Shot, Safety-Briefing, Team-Foto David & Kristina, Logo/Flyer, Sonnenuntergang, Water-Fun-Tube
-- [ ] **Produkte** – 2 Produkte (pro Sea-Doo-Modell) mit Stundenpreis + Link zur Website
+- [ ] **Fotos** – min. 10: je ein Foto pro Jetski (Nero Ena, Dio, Tria, Tessera), Dock von oben, Action-Shot, Safety-Briefing, Team-Foto David (Kristina nicht namentlich), Logo/Flyer, Sonnenuntergang, Water-Fun-Tube
+- [ ] **Produkte** – 4 Produkte (Nero Ena, Dio, Tria, Tessera) mit Kurz-Specs (HP / Top-Speed / Sitze) + Link zur Website
 - [ ] **Attribute** – *Online-Reservierung*, *Familienfreundlich*, *Parkplatz vorhanden*
 - [ ] **Services** – Stundenmiete, Halbtagesmiete (4h), Ganztagesmiete (8h); Kurzfahrten 10/20/30 min + Wochenmiete erst wenn Preise final (offen seit 2026-04-17)
 - [ ] **Beschreibung** – 750 Zeichen, Slogan *„Feel the Thrill. Live the Moment."* + „Family-run since 2019"

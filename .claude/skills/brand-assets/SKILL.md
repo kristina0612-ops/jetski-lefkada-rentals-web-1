@@ -5,7 +5,7 @@ description: Use whenever working on customer-facing materials for Nero Lefkada 
 
 # Brand Assets – Nero Lefkada Rental&Retail
 
-> **Name change 2026-04-19:** Business is now officially called **Nero Lefkada Rental&Retail**. Previous internal name „Jetski Lefkada Rentals" is retired. The Goldberg surname is **not** used publicly – David is referenced as „guide", Kristina drives marketing but is not named publicly. Website credit goes to **AURA Web** (Daniel's company).
+> **Brand-Stand 2026-04-20 Abend:** Business ist offiziell **Nero Lefkada Rental&Retail**. Marketing-Texte verwenden **keine Nachnamen** — David ist „your guide", Kristina ist operativ nicht öffentlich genannt. **In den Legal-Seiten (Impressum/AGB/Privacy)** steht seit 2026-04-20 Abend **Kristina Goldberg** als rechtliche Eigentümerin / Geschäftsführerin (ersetzt vorige David-Zuschreibung). Website-Credit im Footer: **„Website by AURA Web Studio — by Kristina Goldberg"** (AURA Web Studio = Kristinas eigene Agentur).
 
 ## The fleet – four Neros
 

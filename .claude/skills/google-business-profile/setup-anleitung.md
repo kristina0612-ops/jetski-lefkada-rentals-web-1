@@ -101,7 +101,7 @@ Sobald die E-Mail *„Ihr Unternehmen ist verifiziert"* kommt:
 
 Vorschlag – fertig zum Copy-Paste:
 
-> **Feel the Thrill. Live the Moment.** Family-run jet ski rentals at Lygia Port, Lefkada since 2019. Two 2024 Sea-Doos – the Sea-Doo RXT-X 300 (3 seats, 300 HP) and the Sea-Doo Spark Trixx (2 seats, 90 HP). Hourly rates, half-day, full-day, plus short beach rides from 10 minutes, sunset rides, couple rides, VIP delivery to your beach or boat, and Water Fun tubing. No boat license needed – 10-minute safety briefing at the dock. Open daily May–September, 10:00–13:00 and 16:00–19:00. Family-friendly, life jackets and insurance included. Run by David & Kristina Goldberg. WhatsApp David: +30 695 561 2777.
+> **Feel the Thrill. Live the Moment.** Jet ski rentals at Lygia Port, Lefkada since 2019. Four supercharged Sea-Doos — Nero Ena (310 HP / 120 km/h flagship), Nero Dio, Nero Tria and Nero Tessera (each 260 HP / 110 km/h). Beach rides from 10 minutes (€80), hourly rates, sunset rides, couple rides, VIP delivery to your beach, yacht or boat, and Water Fun tubing (€30 per person). No boat license needed — 10-minute safety briefing at the dock. Open daily May–October, 09:00–21:00 continuously. Life jackets and third-party liability insurance (€700,000) included. WhatsApp David, your guide: +30 695 561 2777.
 
 *Sag Bescheid wenn Du das anpassen willst – ich zeige Dir die überarbeitete Version vor dem Einpflegen.*
 
