@@ -1,4 +1,100 @@
 ---
+// Footer2 — mehrsprachig ab 2026-04-20 Abend (EN + DE + GR).
+// GR fällt vorerst auf EN-Text zurück bis Kristina die EL-Fassung prüft.
+
+type Lang = "en" | "de" | "gr";
+const lang: Lang = (Astro.props.lang as Lang) ?? "en";
+
+const COPY = {
+  en: {
+    tagline: "Fastest jetskis on the island. Four supercharged Sea-Doos — Nero Ena, Dio, Tria & Tessera — fully licensed, built around the best day you can have on water.",
+    scanToFollow: "Scan to follow",
+    scanCaption: "Boats · Beach · Best of Lefkada",
+    chatWhatsApp: "WhatsApp David",
+    exploreHeading: "Explore",
+    exploreLinks: [
+      { href: "#fleet", label: "Fleet" },
+      { href: "#how", label: "How it works" },
+      { href: "#voices", label: "Reviews" },
+      { href: "#faq", label: "FAQ" },
+    ],
+    legalHeading: "Legal",
+    legalLinks: [
+      { href: "/imprint", label: "Imprint" },
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+      { href: "/waiver", label: "Waiver" },
+      { href: "/safety", label: "Safety" },
+    ],
+    hoursHeading: "Operating hours",
+    hoursMonSun: "Mon – Sun",
+    hoursEveryDay: "Every day",
+    hoursEveryDayValue: "12 hours open",
+    hoursSeason: "Season",
+    hoursSeasonValue: "May - Oct",
+    rightsReserved: "All rights reserved · Alle Rechte vorbehalten · Με επιφύλαξη παντός δικαιώματος",
+    forNero: "For Nero Lefkada · Lygia, Lefkada",
+  },
+  de: {
+    tagline: "Die schnellsten Jetskis der Insel. Vier supercharged Sea-Doos — Nero Ena, Dio, Tria & Tessera — vollständig lizenziert, gebaut für den besten Tag, den Du auf dem Wasser haben kannst.",
+    scanToFollow: "Folge uns",
+    scanCaption: "Boote · Strand · Bestes von Lefkada",
+    chatWhatsApp: "WhatsApp David",
+    exploreHeading: "Entdecken",
+    exploreLinks: [
+      { href: "#fleet", label: "Flotte" },
+      { href: "#how", label: "So geht's" },
+      { href: "#voices", label: "Bewertungen" },
+      { href: "#faq", label: "FAQ" },
+    ],
+    legalHeading: "Rechtliches",
+    legalLinks: [
+      { href: "/imprint", label: "Impressum" },
+      { href: "/privacy", label: "Datenschutz" },
+      { href: "/terms", label: "AGB" },
+      { href: "/waiver", label: "Haftungsausschluss" },
+      { href: "/safety", label: "Sicherheit" },
+    ],
+    hoursHeading: "Öffnungszeiten",
+    hoursMonSun: "Mo – So",
+    hoursEveryDay: "Täglich",
+    hoursEveryDayValue: "12 Stunden offen",
+    hoursSeason: "Saison",
+    hoursSeasonValue: "Mai - Okt",
+    rightsReserved: "Alle Rechte vorbehalten · All rights reserved · Με επιφύλαξη παντός δικαιώματος",
+    forNero: "Für Nero Lefkada · Lygia, Lefkada",
+  },
+  gr: {
+    tagline: "Fastest jetskis on the island. Four supercharged Sea-Doos — Nero Ena, Dio, Tria & Tessera — fully licensed, built around the best day you can have on water.",
+    scanToFollow: "Scan to follow",
+    scanCaption: "Boats · Beach · Best of Lefkada",
+    chatWhatsApp: "WhatsApp David",
+    exploreHeading: "Explore",
+    exploreLinks: [
+      { href: "#fleet", label: "Fleet" },
+      { href: "#how", label: "How it works" },
+      { href: "#voices", label: "Reviews" },
+      { href: "#faq", label: "FAQ" },
+    ],
+    legalHeading: "Legal",
+    legalLinks: [
+      { href: "/imprint", label: "Imprint" },
+      { href: "/privacy", label: "Privacy" },
+      { href: "/terms", label: "Terms" },
+      { href: "/waiver", label: "Waiver" },
+      { href: "/safety", label: "Safety" },
+    ],
+    hoursHeading: "Operating hours",
+    hoursMonSun: "Mon – Sun",
+    hoursEveryDay: "Every day",
+    hoursEveryDayValue: "12 hours open",
+    hoursSeason: "Season",
+    hoursSeasonValue: "May - Oct",
+    rightsReserved: "All rights reserved · Alle Rechte vorbehalten · Με επιφύλαξη παντός δικαιώματος",
+    forNero: "For Nero Lefkada · Lygia, Lefkada",
+  },
+}[lang];
+
 const currentYear = new Date().getFullYear();
 ---
 
@@ -19,9 +115,7 @@ const currentYear = new Date().getFullYear();
           </div>
         </div>
         <p class="max-w-md text-sm leading-relaxed mb-5" style="color: rgba(253,251,244,0.6);">
-          Fastest jetskis on the island. Four supercharged Sea-Doos &mdash;
-          Nero Ena, Dio, Tria &amp; Tessera &mdash; fully licensed, built around
-          the best day you can have on water.
+          {COPY.tagline}
         </p>
 
         <!-- Social + contact buttons -->
