@@ -15,19 +15,24 @@ Before adding a photo anywhere, **check the assignment map below**. If the photo
 
 ### Customer photos (`public/images/customers/`)
 
+**Status 2026-04-20 Abend:** Alle Fleet-Karten zeigen bis zur Lieferung
+der echten Studio-Fotos den `PhotoComingSoon`-Placeholder (keine Customer-
+Fotos mehr auf Fleet-Karten). Entsprechend sind nero-guest-01/04/08/11
+wieder im Pool, bis Kristina die echten Jetski-Fotos liefert.
+
 | File | Used where | Purpose |
 |------|------------|---------|
-| `nero-guest-01.jpg` | `src/data/jetskis.ts` | Fleet card for **Nero Ena** (David + son, silver-yellow Sea-Doo) |
+| `nero-guest-01.jpg` | **UNUSED** | Pool — war Fleet-Ena bis Abend 2026-04-20, jetzt frei |
 | `nero-guest-02.jpg` | `src/components/v2/Gallery2.astro` | Gallery card **„Family time"** |
 | `nero-guest-03.jpg` | **UNUSED** | Pool — available for new cards |
-| `nero-guest-04.jpg` | `src/data/jetskis.ts` | Fleet card for **Nero Dio** (couple, grey-yellow Sea-Doo) |
+| `nero-guest-04.jpg` | **UNUSED** | Pool — war Fleet-Dio bis Abend 2026-04-20, jetzt frei |
 | `nero-guest-05.jpg` | `src/components/v2/Gallery2.astro` | Gallery card **„Couple on the bay"** |
 | `nero-guest-06.jpg` | **UNUSED** | Pool |
 | `nero-guest-07.jpg` | `src/components/v2/Gallery2.astro` | Gallery card **„Thumbs up"** |
-| `nero-guest-08.jpg` | `src/data/jetskis.ts` | Fleet card for **Nero Tria** (group shot, three jetskis) |
+| `nero-guest-08.jpg` | **UNUSED** | Pool — war Fleet-Tria bis Abend 2026-04-20, jetzt frei |
 | `nero-guest-09.jpg` | `src/components/v2/Gallery2.astro` | Gallery card **„Muscle flex"** (red Nero Dio) |
 | `nero-guest-10.jpg` | **UNUSED** | Pool |
-| `nero-guest-11.jpg` | `src/data/jetskis.ts` | Fleet card for **Nero Tessera** (couple, blue Sea-Doo „Nestor") |
+| `nero-guest-11.jpg` | **UNUSED** | Pool — war Fleet-Tessera bis Abend 2026-04-20, jetzt frei |
 | `nero-guest-12.jpg` | `src/components/v2/Gallery2.astro` | Gallery card **„Group ride"** (three jetskis, group tour) — added 2026-04-20 |
 
 ### Gallery assets (`public/images/gallery/`)

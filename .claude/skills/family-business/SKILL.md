@@ -1,15 +1,25 @@
 ---
 name: family-business
-description: Use whenever customer-facing text, website copy, social media posts, emails, flyer updates, or "About us" content refers to who runs Nero Lefkada Rental&Retail. The business brand is Nero Lefkada – the Goldberg surname is NOT used publicly; David is referenced as the guide, Kristina runs marketing internally.
+description: Use whenever customer-facing text, website copy, social media posts, emails, flyer updates, or "About us" content refers to who runs Nero Lefkada Rental&Retail. The public brand is „Nero Lefkada" – in Marketing werden keine Nachnamen verwendet. In Legal-Seiten (Impressum/AGB/Privacy) steht seit 2026-04-20 Abend **Kristina Goldberg** als Geschäftsführerin (nicht mehr David).
 ---
 
 # Business Identity – Nero Lefkada Rental&Retail
 
-## 2026-04-19: Brand change — CRITICAL
+## 2026-04-20 Abend: Ownership-Update — CRITICAL
 
-The business is **no longer** presented as „Jetski Lefkada Rentals run by David & Kristina Goldberg".
+**Kristina Goldberg ist rechtliche Eigentümerin / Geschäftsführerin.** Sie
+wird in Impressum, AGB und Datenschutz namentlich als Geschäftsführerin
+(de), managing director (en), διαχειρίστρια (el) genannt — mit korrektem
+femininem Genus in allen drei Sprachen.
 
-The public brand is now **Nero Lefkada Rental&Retail**. Goldberg as a surname is **not used** on the website, imprint, social media or in customer communication.
+Frühere Zuschreibung an David Goldberg (Vormittags-Commit `1a963e2`) ist
+abgelöst und NICHT mehr gültig.
+
+## 2026-04-19: Brand change (weiter gültig)
+
+Marketing-Brand ist **Nero Lefkada Rental&Retail**. Goldberg als Nachname
+taucht **NICHT** in Marketing-Texten, Social Media, Hero, Footer-Description,
+Booking-UI auf — nur in Legal-Seiten und im Footer-Web-Credit.
 
 ## Canonical forms – use exactly
 
@@ -18,8 +28,8 @@ The public brand is now **Nero Lefkada Rental&Retail**. Goldberg as a surname is
 | Legal entity name | `Nero Lefkada Rental&Retail` |
 | Short name | `Nero Lefkada` |
 | Copyright / footer | `© 2026 Nero Lefkada Rental&Retail · All rights reserved` |
-| Impressum owner | `Nero Lefkada Rental&Retail` (the company itself, not a private person) |
-| Website credit | `Website by AURA Web` (Daniel's agency) |
+| Impressum legal representative | `Kristina Goldberg` (Geschäftsführerin / managing director / διαχειρίστρια) — seit 2026-04-20 Abend |
+| Website credit (footer) | `Website by AURA Web Studio — by Kristina Goldberg` |
 | On-dock greeting | `David` (he is the guide customers meet) |
 | Booking reply signature | `– Nero Lefkada` or `– Kristina (Nero Lefkada)` — Kristina may sign internally but not surface her surname |
 | Greek | `Nero Lefkada Rental&Retail · Λυγιά, Λευκάδα` |

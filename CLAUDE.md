@@ -8,13 +8,14 @@ Lies diese Datei ZUERST, bevor du antwortest.
 ## Wer wir sind
 
 - **Firma (offiziell):** Nero Lefkada Rental&Retail
-- **Öffentliche Kommunikation:** als Firma „Nero Lefkada" – kein Goldberg-Name nach außen
-- **David** (intern): Reiseführer / Safety-Briefings / Guide vor Ort – WhatsApp bleibt
-- **Kristina** (intern): Website, Marketing, Kundenkommunikation – nicht öffentlich namentlich genannt
+- **Öffentliche Marke:** „Nero Lefkada" – im Marketing wird kein Goldberg-Name genutzt
+- **Rechtliche Eigentümerin / Geschäftsführerin:** **Kristina Goldberg** – juristisch im Impressum, AGB und Datenschutz namentlich genannt (Update 2026-04-20 Abend, ersetzt die frühere David-Zuschreibung vom selben Tag)
+- **David** (operativ): Reiseführer / Safety-Briefings / Guide vor Ort – WhatsApp bleibt, KEINE juristische Vertretungsfunktion
+- **Kristina** (operativ): Website, Marketing, Kundenkommunikation, CRM, Buchhaltung – gleichzeitig rechtliche Eigentümerin (siehe oben)
 - **Standort:** Lygia Port (Λυγιά), Lefkada, Griechenland (Ionisches Meer)
 - **Saison:** Mai bis September
 - **Gegründet:** 2019
-- **Website:** jetski-lefkada-rentals.com (in Entwicklung, von AURA Web gebaut)
+- **Website:** jetski-lefkada-rentals.com (in Entwicklung, gebaut von **AURA Web Studio** – Kristinas eigene Web-Agentur)
 - **WhatsApp David (Kundenkontakt):** +30 695 561 2777
 
 ---

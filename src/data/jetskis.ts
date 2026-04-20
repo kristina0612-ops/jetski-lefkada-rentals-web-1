@@ -86,7 +86,12 @@ export interface Jetski {
   exclusiveExperiences: ExclusiveExperiences;
   vipDelivery: VipDelivery;
   features: string[];
-  image: string;
+  /**
+   * Bild-URL für die Fleet-Karte. `null` → PhotoComingSoon-Placeholder wird
+   * gerendert (siehe `src/components/v2/PhotoComingSoon.astro`). Kristina
+   * liefert die echten Studio-Fotos nach 2026-04-20; bis dahin alle null.
+   */
+  image: string | null;
   accent: string;
   availableToday: number;
   totalUnits: number;
@@ -150,11 +155,10 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    // Authentisches Foto von Nero Ena (David + Sohn auf dem silber-gelben Sea-Doo).
-    // Ersetzt Unsplash-Stock am 2026-04-20 nachdem mehrere Stock-URLs nicht mehr
-    // ausgeliefert wurden (Unsplash hat IDs gewechselt, Karten blieben leer).
-    // Zuordnung: siehe .claude/skills/image-asset-usage/SKILL.md
-    image: "/images/customers/nero-guest-01.jpg",
+    // 2026-04-20 Abend: Kristina liefert in wenigen Tagen echte Studio-Fotos
+    // der 4 Neros. Bis dahin → PhotoComingSoon-Placeholder (schwarzer BG,
+    // „PHOTO COMING SOON"). Siehe src/components/v2/PhotoComingSoon.astro.
+    image: null,
     accent: "#ffc233",
     availableToday: 1,
     totalUnits: 1,
@@ -178,8 +182,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_RXT_RS,
-    // Authentisches Foto von Nero Dio (Paar auf dem grau-gelben Sea-Doo).
-    image: "/images/customers/nero-guest-04.jpg",
+    // Placeholder bis echte Studio-Fotos da sind (2026-04-20 Abend).
+    image: null,
     accent: "#ff5a36",
     availableToday: 1,
     totalUnits: 1,
@@ -202,8 +206,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    // Authentisches Foto von Nero Tria – Gruppe mit 3 Jetskis im Ionischen Meer.
-    image: "/images/customers/nero-guest-08.jpg",
+    // Placeholder bis echte Studio-Fotos da sind (2026-04-20 Abend).
+    image: null,
     accent: "#00b3a7",
     availableToday: 1,
     totalUnits: 1,
@@ -226,8 +230,8 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_GTX,
-    // Authentisches Foto von Nero Tessera (Paar auf dem blauen Sea-Doo).
-    image: "/images/customers/nero-guest-11.jpg",
+    // Placeholder bis echte Studio-Fotos da sind (2026-04-20 Abend).
+    image: null,
     accent: "#4fb3bf",
     availableToday: 1,
     totalUnits: 1,
@@ -298,7 +302,8 @@ export interface JetskiModel2026 {
   topSpeed: number;
   seats: number;
   recommendedSeats: number;
-  image: string;
+  /** `null` → PhotoComingSoon-Placeholder. Siehe Jetski.image. */
+  image: string | null;
   accent: string;
   featured?: boolean;
   availableToday: number;
