@@ -6,6 +6,7 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import type { Expense } from "../../../types/database";
 import { checkRateLimit, rateLimitHeaders } from "../../../lib/rate-limit";
+import { validateExpenseBody, jsonError } from "../../../lib/validate";
 
 const POST_LIMIT = 20;
 const POST_WINDOW_MS = 5 * 60 * 1000;
@@ -47,10 +48,24 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
     });
   }
 
+  let rawBody: unknown;
   try {
-    await request.json(); // TODO: Validation mit zod, Ergebnis als `body` weiterreichen
+    rawBody = await request.json();
+  } catch {
+    return jsonError(400, "Invalid JSON body", rlHeaders);
+  }
 
-    // TODO: Supabase Insert
+  // Input-Validation (Sec #2, 2026-04-20): verhindert SQL/NoSQL-Injection
+  // + Oversized-Strings. Receipt-URL darf kein `javascript:` sein (XSS).
+  const check = validateExpenseBody(rawBody);
+  if (!check.ok) {
+    return jsonError(400, `Validation failed: ${check.error}`, rlHeaders);
+  }
+  const body = check.data;
+
+  try {
+    // TODO: Supabase Insert — bis dahin dry-run
+    void body;
     return new Response(
       JSON.stringify({
         error: "Expenses-API ist noch nicht aktiviert – Supabase muss erst live sein.",
@@ -59,9 +74,6 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
     );
   } catch (err) {
     console.error("[api/expenses POST] Fehler:", err);
-    return new Response(JSON.stringify({ error: "Serverfehler" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json", ...rlHeaders },
-    });
+    return jsonError(500, "Serverfehler", rlHeaders);
   }
 };

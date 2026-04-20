@@ -28,11 +28,15 @@ const weekDays = Array.from({ length: 7 }, (_, i) => {
   };
 });
 
-// Token aus Environment (später via .env.local)
-const token = import.meta.env.CALENDAR_FEED_TOKEN ?? "TOKEN-NOCH-NICHT-GESETZT";
+// Token aus Environment. Kein Fallback-String mehr (Sec #5, 2026-04-20):
+// wenn ENV fehlt, ist tokenIsSet false → Feed-URL wird in UI nicht gezeigt,
+// der /api/calendar.ics-Endpoint verweigert ohnehin bei ungültigem Token.
+const token = import.meta.env.CALENDAR_FEED_TOKEN ?? "";
 const siteUrl = Astro.site?.toString() ?? "https://jetski-lefkada-rentals.com";
-const feedUrl = `${siteUrl.replace(/\/$/, "")}/api/calendar.ics?token=${token}`;
-const tokenIsSet = token !== "TOKEN-NOCH-NICHT-GESETZT" && token.length > 10;
+const tokenIsSet = token.length >= 20;
+const feedUrl = tokenIsSet
+  ? `${siteUrl.replace(/\/$/, "")}/api/calendar.ics?token=${token}`
+  : "";
 ---
 
 <AdminShell title="Kalender" activePath="calendar">

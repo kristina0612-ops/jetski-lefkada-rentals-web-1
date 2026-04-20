@@ -90,12 +90,14 @@ const moments = [
       {
         moments.map((m, i) => {
           // 4-Card asymmetric bento (7-5 on row 1, 5-7 on row 2).
-          // Each row fills all 12 columns → no empty gaps.
+          // Wide cards (pos 1 + 4) stretch to match the height of the narrow
+          // 4:5-cards so the row doesn't have an empty gap underneath. img
+          // uses object-cover to crop the extra height cleanly.
           const spans = [
-            "col-span-12 md:col-span-7 aspect-[16/9]",
+            "col-span-12 md:col-span-7 aspect-[16/9] md:aspect-auto h-full",
             "col-span-12 md:col-span-5 aspect-[4/5]",
             "col-span-12 md:col-span-5 aspect-[4/5]",
-            "col-span-12 md:col-span-7 aspect-[16/9]",
+            "col-span-12 md:col-span-7 aspect-[16/9] md:aspect-auto h-full",
           ];
           return (
             <figure class:list={["group relative overflow-hidden rounded-3xl", spans[i]]}>

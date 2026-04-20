@@ -6,6 +6,7 @@ export const prerender = false;
 import type { APIRoute } from "astro";
 import type { Booking } from "../../../types/database";
 import { checkRateLimit, rateLimitHeaders } from "../../../lib/rate-limit";
+import { validateBookingBody, jsonError } from "../../../lib/validate";
 
 // Großzügig: 20 Schreibversuche / 5 Minuten pro IP.
 // Soll Spam/Fake-Buchungen bei Supabase-Go-Live verhindern, ohne echte Nutzer
@@ -54,10 +55,26 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
     });
   }
 
+  let rawBody: unknown;
   try {
-    await request.json(); // TODO: Validation mit zod, Ergebnis als `body` weiterreichen
+    rawBody = await request.json();
+  } catch {
+    return jsonError(400, "Invalid JSON body", rlHeaders);
+  }
 
+  // Input-Validation (Sec #2, 2026-04-20): Allow-List-basiert, verhindert
+  // SQL/NoSQL-Injection, Type-Confusion, Oversized-Strings. Error-Messages
+  // sind generisch — verraten keine interne Struktur an Angreifer.
+  const check = validateBookingBody(rawBody);
+  if (!check.ok) {
+    return jsonError(400, `Validation failed: ${check.error}`, rlHeaders);
+  }
+  const body = check.data;
+
+  try {
     // TODO: Supabase-Insert + Rückgabe der angelegten Buchung
+    // supabase.from('bookings').insert({ ...body, user_id: ... })
+    void body; // temporär: Supabase noch nicht live
 
     return new Response(
       JSON.stringify({
@@ -68,9 +85,6 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
     );
   } catch (err) {
     console.error("[api/bookings POST] Fehler:", err);
-    return new Response(JSON.stringify({ error: "Serverfehler" }), {
-      status: 500,
-      headers: { "Content-Type": "application/json", ...rlHeaders },
-    });
+    return jsonError(500, "Serverfehler", rlHeaders);
   }
 };
