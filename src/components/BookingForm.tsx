@@ -196,7 +196,7 @@ export default function BookingForm() {
           <label style={styles.field}>
             <span style={styles.fieldLabel}>Time</span>
             <select value={time} onChange={(e) => setTime(e.target.value)} style={styles.select}>
-              {["10:00","11:00","12:00","16:00","17:00","18:00"].map((t) => (
+              {["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"].map((t) => (
                 <option key={t} value={t}>{t}</option>
               ))}
             </select>

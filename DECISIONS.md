@@ -69,7 +69,7 @@ Lieferung an Strand, Boot, Yacht oder Katamaran.
 - **Bootsführerschein:** Nicht erforderlich
 - **Briefing:** 10 Minuten Safety-Briefing am Dock – Pflicht für alle Fahrer
 - **Treffpunkt:** Lygia Port, Lefkada (GPS: 38.7893° N, 20.7192° E – wird bei Buchungsbestätigung mitgeschickt)
-- **Öffnungszeiten:** 10:00–13:00 und 16:00–19:00 Uhr, Mai bis September
+- **Öffnungszeiten:** Mo – So, 09:00–21:00 Uhr (durchgehend, 7 Tage), Mai bis Oktober
 
 ---
 

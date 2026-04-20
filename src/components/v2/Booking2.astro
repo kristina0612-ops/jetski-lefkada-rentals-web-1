@@ -1,9 +1,13 @@
 ---
 // Booking section – Nero Lefkada v2 Azure Day
-// Integrates the full BookingForm (contact + licence gate + 30% deposit + 3 mandatory consents).
+// Three pieces on this section:
+//   1. Water-Fun add-on card (Jobe Ridge tube)
+//   2. Calculator (instant price check, no obligation)
+//   3. BookingForm (full booking: contact, licence gate, 30% deposit, 3 consents)
 // Bokun embed is kept as optional drop-in for later.
 const BOKUN_EMBED_CODE = ""; // ← optional: paste Bokun embed to replace the form
 import BookingForm from "../BookingForm.tsx";
+import Calculator from "../Calculator.tsx";
 ---
 
 <section id="book" class="relative py-24 lg:py-32" style="background: var(--v2-ink-950);">
@@ -66,12 +70,29 @@ import BookingForm from "../BookingForm.tsx";
       </div>
     </div>
 
+    <!-- Price calculator: quick check without commitment -->
+    <div id="calculator" class="mb-10 scroll-mt-24">
+      <div class="mb-4">
+        <div class="v2-eyebrow" style="color: var(--v2-sun-400);"><span>Step 1 · Quick price check</span></div>
+        <h3 class="font-display text-2xl lg:text-3xl mt-2" style="color: var(--v2-cream-50);">
+          Try the calculator &mdash; <em style="color: var(--v2-sun-400);">no booking yet.</em>
+        </h3>
+      </div>
+      <Calculator client:visible />
+    </div>
+
     {BOKUN_EMBED_CODE ? (
       <!-- Bokun widget takes over once embed code is pasted above -->
       <div class="bokun-widget rounded-2xl overflow-hidden" set:html={BOKUN_EMBED_CODE} />
     ) : (
       <!-- Full booking form: contact, billing, licence gate, 30% deposit, 3 consents -->
       <div id="booking-form" class="scroll-mt-24">
+        <div class="mb-4">
+          <div class="v2-eyebrow" style="color: var(--v2-sun-400);"><span>Step 2 · Complete booking</span></div>
+          <h3 class="font-display text-2xl lg:text-3xl mt-2" style="color: var(--v2-cream-50);">
+            Ready to book? <em style="color: var(--v2-sun-400);">30% deposit online.</em>
+          </h3>
+        </div>
         <BookingForm client:visible />
       </div>
     )}

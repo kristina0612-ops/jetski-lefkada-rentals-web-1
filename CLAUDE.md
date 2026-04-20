@@ -44,8 +44,8 @@ Alle 4 kosten **gleich** in allen Preis-Kategorien – siehe DECISIONS.md.
 
 ## Betrieb
 
-- **Öffnungszeiten:** 10:00–13:00 und 16:00–19:00 Uhr
-- **Saison:** Mai bis September
+- **Öffnungszeiten:** Montag bis Sonntag, 09:00–21:00 Uhr (durchgehend, 7 Tage / Woche)
+- **Saison:** Mai bis Oktober
 - **Treffpunkt:** Lygia Port, Lefkada (GPS: 38.7893° N, 20.7192° E)
 - **Parkplatz:** vorhanden am Dock
 

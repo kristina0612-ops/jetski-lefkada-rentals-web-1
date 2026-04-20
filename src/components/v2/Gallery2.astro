@@ -8,13 +8,12 @@
 // Same CSS filter + SVG unsharp-mask approach as Hero2 is applied to perceive
 // the images as sharper without re-encoding. Milder kernel than Hero because
 // still images don't need motion-blur compensation.
+// Card-selection updated 2026-04-20 per Kristina:
+// • Removed "The fleet at Lygia" collage (she flagged it as low-quality)
+// • Renamed "Guide & guest" → "Family time" (person on that photo isn't David)
+// • Removed "Couple on the bay" (photo showed father+son, not a romantic couple)
+//   Will be re-added when Kristina supplies a proper couple photo.
 const moments = [
-  {
-    title: "The fleet at Lygia",
-    caption: "All four Neros waiting at the dock",
-    src: "/images/gallery/fleet-at-lygia-collage.jpg",
-    tag: "Our dock",
-  },
   {
     title: "Water Fun",
     caption: "Three seats, one tube, zero worries",
@@ -22,16 +21,10 @@ const moments = [
     tag: "Add-on · Tube",
   },
   {
-    title: "Guide & guest",
-    caption: "David on the water with a first-timer",
+    title: "Family time",
+    caption: "On the water with our little riders",
     src: "/images/customers/nero-guest-01.jpg",
-    tag: "Briefing",
-  },
-  {
-    title: "Couple on the bay",
-    caption: "Sunglasses, smiles, and a full tank",
-    src: "/images/customers/nero-guest-03.jpg",
-    tag: "Couple ride",
+    tag: "Family",
   },
   {
     title: "Thumbs up",
@@ -91,13 +84,13 @@ const moments = [
     <div class="grid grid-cols-12 gap-4 lg:gap-6">
       {
         moments.map((m, i) => {
+          // 4-Card asymmetric bento (7-5 on row 1, 5-7 on row 2).
+          // Each row fills all 12 columns → no empty gaps.
           const spans = [
-            "col-span-12 md:col-span-8 aspect-[16/9]",
-            "col-span-12 md:col-span-4 aspect-[4/5]",
-            "col-span-6 md:col-span-4 aspect-square",
-            "col-span-6 md:col-span-4 aspect-square",
-            "col-span-12 md:col-span-4 aspect-square",
-            "col-span-12 aspect-[21/9]",
+            "col-span-12 md:col-span-7 aspect-[16/9]",
+            "col-span-12 md:col-span-5 aspect-[4/5]",
+            "col-span-12 md:col-span-5 aspect-[4/5]",
+            "col-span-12 md:col-span-7 aspect-[16/9]",
           ];
           return (
             <figure class:list={["group relative overflow-hidden rounded-3xl", spans[i]]}>

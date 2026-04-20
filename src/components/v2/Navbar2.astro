@@ -118,6 +118,25 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
     background: rgba(255, 194, 51, 0.18);
     color: var(--v2-sun-400);
   }
+  .lang-item.coming-soon {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .lang-item.coming-soon:hover {
+    background: transparent;
+    color: rgba(253, 251, 244, 0.55);
+  }
+  .lang-soon {
+    margin-left: auto;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: rgba(253, 251, 244, 0.12);
+    color: rgba(253, 251, 244, 0.7);
+  }
   .lang-flag {
     font-size: 18px;
     line-height: 1;
@@ -347,18 +366,31 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
     <!-- Mobile language switcher inline -->
     <div class="mt-8 pt-8 border-t flex gap-2" style="border-color: rgba(253,251,244,0.1);">
       {
-        languages.map((lang) => (
-          <a
-            href={lang.href}
-            class={`flex-1 flex items-center justify-center gap-2 py-3 px-3 rounded-full font-mono text-[11px] uppercase tracking-[0.12em] border transition-all ${lang.code === currentLang ? "" : "hover:bg-white/5"}`}
-            style={lang.code === currentLang
-              ? "background: var(--v2-sun-400); color: var(--v2-ink-950); border-color: var(--v2-sun-400);"
-              : "color: rgba(253,251,244,0.7); border-color: rgba(253,251,244,0.2);"}
-          >
-            <span aria-hidden="true">{lang.flag}</span>
-            <span>{lang.code.toUpperCase()}</span>
-          </a>
-        ))
+        languages.map((lang) => {
+          const isActive = lang.code === currentLang;
+          const isComingSoon = !lang.available;
+          return (
+            <a
+              href={isComingSoon ? undefined : lang.href}
+              aria-disabled={isComingSoon ? "true" : "false"}
+              onclick={isComingSoon ? "event.preventDefault()" : undefined}
+              class={`flex-1 flex flex-col items-center justify-center gap-0.5 py-3 px-3 rounded-full font-mono text-[11px] uppercase tracking-[0.12em] border transition-all ${isActive ? "" : isComingSoon ? "" : "hover:bg-white/5"}`}
+              style={isActive
+                ? "background: var(--v2-sun-400); color: var(--v2-ink-950); border-color: var(--v2-sun-400);"
+                : isComingSoon
+                  ? "color: rgba(253,251,244,0.35); border-color: rgba(253,251,244,0.12); cursor: not-allowed;"
+                  : "color: rgba(253,251,244,0.7); border-color: rgba(253,251,244,0.2);"}
+            >
+              <span class="flex items-center gap-2">
+                <span aria-hidden="true">{lang.flag}</span>
+                <span>{lang.code.toUpperCase()}</span>
+              </span>
+              {isComingSoon && (
+                <span class="text-[8px] tracking-[0.2em] opacity-70">soon</span>
+              )}
+            </a>
+          );
+        })
       }
     </div>
   </nav>
@@ -376,7 +408,7 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
       </svg>
     </a>
     <p class="font-mono text-[9px] tracking-[0.2em] uppercase text-center mt-4" style="color: rgba(253,251,244,0.35);">
-      Lygia · Lefkada · May–Sep
+      Lygia · Lefkada · Daily 09–21
     </p>
   </div>
 </div>

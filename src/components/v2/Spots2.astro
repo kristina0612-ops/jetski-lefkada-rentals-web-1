@@ -1,0 +1,211 @@
+---
+// Spots2 – Lefkada spots customers love to ride to.
+//
+// 2026-04-20: Photo-placeholders only (gradient + icon), NOT real stock photos.
+// Reason: we don't own real Meganisi/Porto Katsiki/etc. photos yet, and every
+// photo on commercial image banks has licence fine-print that doesn't match a
+// small tourism business. The gradient-tile design keeps the page informative
+// (all the spot names + distance + Google Maps link) without copyright risk.
+//
+// When Kristina/David shoot real photos at each stop, swap each spot's
+// `image` from `null` to a local path like `/images/gallery/spots/porto-katsiki.jpg`
+// and the card will automatically show the photo instead of the gradient.
+
+type Spot = {
+  name: string;
+  greekName?: string;
+  caption: string;
+  distanceKm: number;
+  durationMin: number;
+  mapsUrl: string;
+  image: string | null;
+  gradient: string;
+  icon: "cove" | "beach" | "channel" | "bay" | "cliff" | "return";
+};
+
+const spots: Spot[] = [
+  {
+    name: "Porto Katsiki",
+    greekName: "Πόρτο Κατσίκι",
+    caption: "The postcard: white cliffs, deep blue, zero crowds from the sea.",
+    distanceKm: 18,
+    durationMin: 40,
+    mapsUrl: "https://maps.google.com/?q=Porto+Katsiki+Lefkada",
+    image: null,
+    gradient: "linear-gradient(135deg, #0a6080 0%, #4fb3bf 50%, #c8e8e2 100%)",
+    icon: "cliff",
+  },
+  {
+    name: "Egremni",
+    greekName: "Εγκρεμνοί",
+    caption: "Secret swimming stop. Turquoise that doesn't look real.",
+    distanceKm: 15,
+    durationMin: 35,
+    mapsUrl: "https://maps.google.com/?q=Egremni+Beach+Lefkada",
+    image: null,
+    gradient: "linear-gradient(135deg, #035d81 0%, #5bc0be 60%, #e8f4d9 100%)",
+    icon: "beach",
+  },
+  {
+    name: "Agios Nikitas",
+    greekName: "Άγιος Νικήτας",
+    caption: "Village bay. Coffee on the water before the ride home.",
+    distanceKm: 11,
+    durationMin: 25,
+    mapsUrl: "https://maps.google.com/?q=Agios+Nikitas+Lefkada",
+    image: null,
+    gradient: "linear-gradient(135deg, #1e4a6b 0%, #4a8fa8 50%, #ffd9b3 100%)",
+    icon: "bay",
+  },
+  {
+    name: "Meganisi Channel",
+    greekName: "Μεγανήσι",
+    caption: "Crossing to the little sister island — glassy water, few boats.",
+    distanceKm: 8,
+    durationMin: 15,
+    mapsUrl: "https://maps.google.com/?q=Meganisi+Island",
+    image: null,
+    gradient: "linear-gradient(135deg, #0d4a6b 0%, #2d8ba8 45%, #8ed4c8 100%)",
+    icon: "channel",
+  },
+  {
+    name: "Vasiliki Bay",
+    greekName: "Βασιλική",
+    caption: "Windsurfer paradise in the afternoon — mornings are ours.",
+    distanceKm: 22,
+    durationMin: 45,
+    mapsUrl: "https://maps.google.com/?q=Vasiliki+Bay+Lefkada",
+    image: null,
+    gradient: "linear-gradient(135deg, #0a3d5c 0%, #3b7bb8 50%, #ffb787 100%)",
+    icon: "bay",
+  },
+  {
+    name: "Lygia return",
+    greekName: "Επιστροφή",
+    caption: "Back to the dock — salty, happy, already planning the next one.",
+    distanceKm: 0,
+    durationMin: 0,
+    mapsUrl: "https://maps.google.com/?q=38.7893,20.7192",
+    image: null,
+    gradient: "linear-gradient(135deg, #1a3a50 0%, #ff8a4a 60%, #ffd76a 100%)",
+    icon: "return",
+  },
+];
+
+// Inline SVGs for the 6 icon variants — keeps the design consistent without icon library.
+const iconPath = {
+  cliff: "M3 20L8 12L12 15L16 8L21 20H3Z",
+  beach: "M3 18C7 16 11 20 15 18C17 17 19 18 21 18L21 20H3V18Z M6 12C6 9 9 7 12 7C15 7 18 9 18 12",
+  bay: "M3 14C6 10 9 14 12 10C15 6 18 14 21 10L21 20H3V14Z",
+  channel: "M3 12C7 8 11 16 15 12C17 10 19 12 21 10L21 14C19 16 17 14 15 16C11 20 7 12 3 16V12Z",
+  cove: "M3 15A9 4 0 0 1 21 15L21 20H3V15Z",
+  return: "M5 12L10 7M5 12L10 17M5 12H19",
+} as const;
+---
+
+<section id="spots" class="relative py-24 lg:py-32" style="background: var(--v2-cream-50);">
+  <div class="mx-auto max-w-[1600px] px-6 lg:px-12">
+
+    <!-- Header -->
+    <div class="grid grid-cols-12 gap-6 mb-16 lg:mb-20">
+      <div class="col-span-12 lg:col-span-8">
+        <div class="v2-eyebrow mb-6"><span>Where the Neros go · Six stops</span></div>
+        <h2 class="v2-display text-5xl lg:text-[clamp(3.5rem,6vw,6.5rem)]">
+          One loop.<br /><em>Six postcards.</em>
+        </h2>
+      </div>
+      <div class="col-span-12 lg:col-span-4 flex items-end">
+        <p class="text-lg leading-relaxed" style="color: rgba(7,29,48,0.7);">
+          Our favourite line around the island. Tap any stop for the Google
+          Maps pin — or just trust David when he points left.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bento grid: 6 cards -->
+    <div class="grid grid-cols-12 gap-4 lg:gap-6">
+      {
+        spots.map((spot, i) => {
+          const spans = [
+            "col-span-12 md:col-span-8 aspect-[16/9]",
+            "col-span-12 md:col-span-4 aspect-[4/5]",
+            "col-span-6 md:col-span-4 aspect-square",
+            "col-span-6 md:col-span-4 aspect-square",
+            "col-span-12 md:col-span-4 aspect-square",
+            "col-span-12 aspect-[21/9]",
+          ];
+          return (
+            <a
+              href={spot.mapsUrl}
+              target="_blank"
+              rel="noopener"
+              class:list={["group relative overflow-hidden rounded-3xl block", spans[i]]}
+              data-cro={`spot-${spot.name.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              {spot.image ? (
+                <img
+                  src={spot.image}
+                  alt={`${spot.name} – ${spot.caption}`}
+                  width="1400"
+                  height="933"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
+                />
+              ) : (
+                <div class="absolute inset-0 transition-transform duration-[1.2s] ease-out group-hover:scale-105" style={`background: ${spot.gradient};`}>
+                  {/* Abstract wave SVG overlay */}
+                  <svg class="absolute inset-0 w-full h-full opacity-40 mix-blend-overlay" viewBox="0 0 400 300" preserveAspectRatio="none" aria-hidden="true">
+                    <path d="M0,200 C80,170 160,220 240,190 C320,160 400,200 400,200 L400,300 L0,300 Z" fill="rgba(255,255,255,0.3)"/>
+                    <path d="M0,230 C80,210 160,250 240,220 C320,195 400,230 400,230 L400,300 L0,300 Z" fill="rgba(255,255,255,0.4)"/>
+                  </svg>
+                  {/* Large decorative icon */}
+                  <svg class="absolute top-6 left-6 w-12 h-12 lg:w-16 lg:h-16 opacity-70" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d={iconPath[spot.icon]}/>
+                  </svg>
+                </div>
+              )}
+
+              {/* Dark readability overlay */}
+              <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(7,29,48,0.85) 0%, rgba(7,29,48,0.15) 55%, transparent 100%);"></div>
+
+              {/* Distance pill (top-right) */}
+              {spot.distanceKm > 0 && (
+                <div class="absolute top-5 right-5 px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[10px] uppercase tracking-[0.14em]" style="background: rgba(253,251,244,0.9); color: var(--v2-ink-900);">
+                  {spot.distanceKm} km · {spot.durationMin} min
+                </div>
+              )}
+              {spot.distanceKm === 0 && (
+                <div class="absolute top-5 right-5 px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[10px] uppercase tracking-[0.14em]" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
+                  Home base
+                </div>
+              )}
+
+              {/* Name + caption */}
+              <figcaption class="absolute bottom-0 left-0 right-0 p-6 lg:p-8">
+                <div class="font-mono text-[10px] uppercase tracking-[0.16em] mb-1 opacity-80" style="color: rgba(253,251,244,0.8);">
+                  {spot.greekName}
+                </div>
+                <h3 class="font-display text-2xl lg:text-4xl leading-tight mb-1" style="color: var(--v2-cream-50);">
+                  {spot.name}
+                </h3>
+                <p class="text-sm lg:text-base max-w-lg" style="color: rgba(253,251,244,0.8);">
+                  {spot.caption}
+                </p>
+              </figcaption>
+
+              {/* "Open Maps" hover hint */}
+              <div class="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[9px] uppercase tracking-[0.14em]" style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50);">
+                Open in Maps ↗
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+
+    <p class="mt-8 text-xs italic text-center max-w-2xl mx-auto" style="color: rgba(7,29,48,0.45);">
+      Route picks vary with the wind. David decides on the day — the goal is flat water and quiet bays.
+    </p>
+  </div>
+</section>

@@ -35,6 +35,9 @@ const seatsNote = pricingExtras.seatsNote.en;
             "col-span-12 lg:col-span-7",
           ];
           const badge = js.featured ? "2026 · Supercharged · Flagship" : "2026 · Supercharged";
+          // Nero Ena + Nero Tria bekamen für 2026 eine neue grey-black Lackierung.
+          // Quelle: Memory project_fleet_paint_update.md (bestätigt 2026-04-20).
+          const isRepainted = js.id === "nero-ena" || js.id === "nero-tria";
           const whatsappText = encodeURIComponent(
             `Hi David, I'd like to book the ${js.name} (${js.brand} ${js.model}). Could I get today's price and availability?`
           );
@@ -59,6 +62,11 @@ const seatsNote = pricingExtras.seatsNote.en;
                   {js.featured && (
                     <div class="absolute top-5 left-5 px-3 py-1.5 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
                       <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">★ Flagship</span>
+                    </div>
+                  )}
+                  {isRepainted && (
+                    <div class:list={["absolute px-3 py-1.5 rounded-full backdrop-blur-md", js.featured ? "top-5 right-5" : "top-5 left-5"]} style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50); border: 1px solid rgba(253,251,244,0.2);">
+                      <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">✦ Repainted 2026</span>
                     </div>
                   )}
                   {/* Availability dot */}
