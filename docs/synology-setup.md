@@ -2,7 +2,9 @@
 
 **Ziel:** Sensible Kundendaten (Waiver, Passkopien, Zahlungsbelege, Kunden-Fotos) leben ausschließlich auf Deiner Synology zuhause — verschlüsselt, täglich auf USB gebackupt, DSGVO-konform. Claude Code und andere Cloud-Dienste bekommen **nur** anonymisierte oder nicht-personenbezogene Inhalte.
 
-Stand: 2026-04-20 · Gilt für: Kristina (Single-User-Setup) · USB-Backup-Platte: bereits vorhanden
+Stand: 2026-04-21 · Gilt für: Kristina (Single-User-Setup) · USB-Backup-Platte: bereits vorhanden
+
+> 💡 **Für Kristina:** Wenn Du bei einem Schritt hängst, benutze die fertigen Prompts in [`synology-setup-prompts.md`](./synology-setup-prompts.md) — einfach kopieren, Zustand einfügen, an Claude schicken.
 
 ---
 
@@ -248,10 +250,176 @@ Siehe `.claude/rules/privacy-stopp.md`. Claude stoppt und warnt. Chat-Nachricht 
 
 ---
 
+## Teil F — Best-Practice-Härtung (über die Basics hinaus)
+
+Teil A–E bringt Dich auf „sicher und funktional". Teil F ist die professionelle Härtung: was ein Security-Auditor von einem Unternehmen erwartet, das echte Kundendaten verarbeitet. Jeder Unterteil hat einen passenden Prompt in [`synology-setup-prompts.md`](./synology-setup-prompts.md) Teil C.
+
+### F.1 Firewall + Auto-Block + DoS-Schutz
+
+**Warum:** Selbst wenn Du nur im LAN zugreifst — ohne Firewall ist jede offene Synology-Schnittstelle im Heimnetz erreichbar, wenn z.B. ein Gerät infiziert wird (Smart-TV, IoT-Lampe).
+
+**Einrichtung:**
+1. **Systemsteuerung → Sicherheit → Firewall** → **Firewall aktivieren**
+2. Profil „default" → **Regeln bearbeiten**:
+   - Regel 1 (ALLOW): aus **Deinem LAN** (z.B. `192.168.1.0/24`) alle Ports erlauben
+   - Regel 2 (DENY): alles andere ablehnen
+   - Reihenfolge: Allow zuerst, Deny als Catch-All
+3. ⚠️ **Bevor Du „Deny alles andere" klickst:** prüfe Deine aktuelle LAN-Range (Windows: `ipconfig` → IPv4-Adresse). Wenn falsch → Du sperrst Dich aus und musst physisch an die Synology.
+
+**Auto-Block:**
+4. **Systemsteuerung → Sicherheit → Schutz → Automatisches Blockieren**
+5. Aktivieren: **5 Anmeldeversuche in 5 Minuten → 24h IP-Sperre**
+6. Whitelist: Deine lokale IP eintragen (Eigenschutz)
+
+**DoS-Schutz:**
+7. **Systemsteuerung → Sicherheit → Schutz → DoS-Schutz** → aktivieren für LAN-Interface
+8. Anwendbare Regeln: Standard belassen
+
+→ Prompt: `TEIL C.1` in `synology-setup-prompts.md`
+
+### F.2 HTTPS mit Let's-Encrypt-Zertifikat
+
+**Warum:** Das Synology-Self-Signed-Zertifikat produziert jedes Mal eine Browser-Warnung. Unabhängig vom LAN-only-Szenario: der Login-Dialog geht damit als „unsicher" durch — erhöht das Risiko dass Du Warnungen generell wegklickst (klassisches „banner blindness"-Problem).
+
+**Voraussetzung:** eine Domain die auf Deine Synology zeigt. Drei Optionen:
+- **Synology QuickConnect** — einfachste, aber Traffic läuft über Synology-Server (Datenschutz-Trade-off)
+- **Synology DDNS** (`kristina.synology.me`) — kostenlos, direkt, empfohlen wenn nur LAN-Nutzung
+- **Subdomain Deiner echten Domain** (`nas.jetski-lefkada-rentals.com` per A-Record auf Dein LAN) — nur wenn Du eh schon DNS-Zugriff hast
+
+**Empfehlung:** Synology DDNS. Schnell, kostenlos, unabhängig.
+
+**Einrichtung:**
+1. **Systemsteuerung → Externer Zugriff → DDNS** → **Hinzufügen** → Synology wählen → Hostname vergeben
+2. **Systemsteuerung → Sicherheit → Zertifikat** → **Hinzufügen** → Zertifikat von Let's Encrypt anfordern
+3. Domain: der DDNS-Name aus Schritt 1
+4. E-Mail: `info@jetski-lefkada-rentals.com`
+5. Auto-Erneuerung ist standardmäßig AN (alle 90 Tage, Let's Encrypt-Vorgabe)
+6. **Zertifikat zuweisen** → DSM, File Station, Hyper Backup
+
+⚠️ **Wichtig für reines LAN-Szenario:** Port 80 muss kurz für Let's-Encrypt-Challenge offen sein (Router-Port-Forwarding). Danach kannst Du den Port wieder schließen. Synology macht das automatisch bei Auto-Erneuerung — dafür muss die Router-Regel aber dauerhaft stehen, oder Du erneuerst manuell.
+
+**Alternative wenn Du keine Ports öffnen willst:** DNS-Challenge statt HTTP-Challenge (Let's Encrypt → DNS-01). Komplexer, aber ohne offenen Port.
+
+→ Prompt: `TEIL C.2` in `synology-setup-prompts.md`
+
+### F.3 Ransomware-Schutz: BTRFS-Snapshots mit Immutability
+
+**Warum:** Backup allein schützt nicht vor Ransomware, wenn der Ransomware-Verschlüsseler auch das Backup erwischt (Netzlaufwerk ist gemountet → auch das Backup wird verschlüsselt). Snapshots sind **lokale Versionen auf dem gleichen Volume** und können so konfiguriert werden, dass selbst ein kompromittierter Admin-Account sie nicht löschen kann.
+
+**Voraussetzung:** Die Freigabe `NeroLefkada/` muss auf einem BTRFS-Volume liegen (Standard bei DS220+ seit DSM 7).
+
+**Einrichtung:**
+1. **Paket-Zentrum → Snapshot Replication** → Installieren
+2. **Snapshot Replication öffnen → Gemeinsamer Ordner → NeroLefkada** → **Einstellungen**
+3. **Zeitplan:**
+   - Stündlich, behalten: **24** (letzte 24 Stunden)
+   - Täglich, behalten: **30** (letzter Monat)
+   - Wöchentlich, behalten: **12** (letzte 3 Monate)
+4. **Erweitert → Snapshots sichtbar machen** → AN (`#snapshot`-Ordner im Root der Freigabe)
+5. **Unveränderlich machen (Immutability):** Snapshots mit der Einstellung **„Für X Tage nicht löschbar"** anlegen → z.B. 7 Tage. Auch ein Admin kann sie vor Ablauf nicht löschen — schützt vor dem Fall „Angreifer bekommt Admin-Zugang".
+
+**Test-Szenario (mach ihn einmal!):**
+- Lege eine Testdatei `ransomware-test.txt` in `NeroLefkada/03_MARKETING/` an
+- Warte bis zum nächsten stündlichen Snapshot (Status in Snapshot Replication)
+- Lösche `ransomware-test.txt`
+- Rechts-Klick auf `NeroLefkada/` → **Snapshots** → letzten Snapshot wählen → `ransomware-test.txt` → **Wiederherstellen**
+- Datei ist zurück. ✅
+
+**Admin-Account-Trennung (optional, aber Best Practice):**
+Lege einen **zweiten Admin-User** an (nicht Dein Tages-User `kristina`), der **ausschließlich** für Snapshot-Verwaltung gedacht ist. Tages-User hat „Benutzer-Rechte", Snapshot-User hat „Admin-Rechte". Beim Ransomware-Angriff: Angreifer bekommt Tages-Zugang, aber kann Snapshots nicht löschen.
+
+→ Prompt: `TEIL C.3` in `synology-setup-prompts.md`
+
+### F.4 Angriffsfläche reduzieren — Pakete deaktivieren
+
+**Warum:** Jedes installierte Paket ist potenziell angreifbar. Du nutzt die Synology als reinen Datei-Server + Backup — also weg mit allem was Du nicht brauchst.
+
+**Default-Pakete die Nero Lefkada NICHT braucht (deinstallieren):**
+
+| Paket | Was es tut | Weg damit? |
+|---|---|---|
+| Photo Station / Synology Photos | Foto-Galerie | ✅ WEG (wir nutzen nicht) |
+| Video Station | Video-Streaming | ✅ WEG |
+| Audio Station / Synology Audio | Musik-Streaming | ✅ WEG |
+| Download Station | Torrent-Client | ✅ WEG (+ Attack-Vektor) |
+| VPN Server | Server eingehend | ✅ WEG (wenn Du kein VPN brauchst) |
+| Web Station | Web-Hosting | ✅ WEG |
+| MariaDB / PostgreSQL | Datenbank | ✅ WEG (wenn keine App sie braucht) |
+| Surveillance Station | IP-Kameras | ✅ WEG (keine Kameras) |
+| Mail Plus / Mail Server | E-Mail-Server | ✅ WEG (wir nutzen Ionos-Mail) |
+| Note Station | Notizen | ✅ WEG |
+| Drive Server | Cloud-Sync | ✅ WEG (wenn nicht genutzt) |
+
+**Behalten (NICHT löschen!):**
+
+| Paket | Warum |
+|---|---|
+| **Hyper Backup** | Das ist Dein Backup — PFLICHT |
+| **Snapshot Replication** | Ransomware-Schutz — PFLICHT |
+| **Storage Analyzer** | Zeigt Speicher-Verbrauch |
+| **Security Advisor** | Läuft Security-Audits |
+| **File Station** | Datei-Browser (integriert) |
+| **Universal Search** | Suche über Dateien |
+| **Synology Directory Server** | Nur wenn Du Domain-Auth nutzt (bei Dir NEIN) — kannst WEG |
+
+**Vorgehen:**
+1. **Paket-Zentrum → Installiert**
+2. Jedes unnötige Paket → **Aktion → Deinstallieren**
+3. Nach dem Deinstallieren: DSM-Update prüfen (manche deinstallierte Pakete hinterlassen Meldungen)
+
+→ Prompt: `TEIL C.4` in `synology-setup-prompts.md`
+
+### F.5 Monitoring & Benachrichtigungen
+
+**Warum:** Ein Backup, das wochenlang kaputt ist und niemand merkt's, ist kein Backup.
+
+**Einrichtung:**
+1. **Systemsteuerung → Benachrichtigung → E-Mail** → SMTP einrichten
+   - Empfehlung: eigene Business-Adresse `info@jetski-lefkada-rentals.com`
+   - SMTP-Daten von Deinem E-Mail-Anbieter (Ionos: `smtp.ionos.de`, Port 587, STARTTLS, Login = E-Mail + Passwort)
+2. **Systemsteuerung → Benachrichtigung → Regeln** → diese Events einschalten:
+   - ☑ Speicher kritisch (< 15 % frei)
+   - ☑ SMART-Warnungen von Festplatten
+   - ☑ Hyper Backup Fehler
+   - ☑ Hyper Backup Erfolg (erste 2 Wochen, danach kannst Du abschalten)
+   - ☑ Anmeldefehler (Auto-Block-Trigger)
+   - ☑ DSM-Update verfügbar
+   - ☑ Verschlüsselter Ordner konnte nicht entsperrt werden
+3. **Test:** Synology → **Benachrichtigung → Testmail senden**. Kommt nach ~30 Sekunden, landet im Spam → in Whitelist
+
+**2. Überwachungs-Schicht: wöchentlicher Security-Advisor-Lauf**
+4. **Security Advisor → Zeitplan** → **wöchentlich Montag 08:00**
+5. Ergebnisbericht per Mail
+
+### F.6 DSM-Update-Policy
+
+**Regel:** Minor-Updates (7.2.1 → 7.2.2) **automatisch** einspielen. Major-Updates (7.2 → 8.0) **manuell** — 2 Wochen warten, Release-Notes lesen, Forum checken, dann updaten.
+
+**Einrichtung:**
+1. **Systemsteuerung → Aktualisieren & Wiederherstellen → Aktualisierungs-Einstellungen**
+2. **Nur DSM-Update:** „Wichtige Updates automatisch installieren" — AN
+3. **Synology-Paket-Updates:** „Automatisch" — AN
+4. Zeitplan: Updates prüfen **täglich 05:00**, Installation **Mittwoch 03:00** (wenn niemand arbeitet)
+
+⚠️ **Vor JEDEM Major-Update:** letzten Hyper-Backup-Lauf manuell prüfen (Status grün), Snapshot manuell anlegen, **dann** updaten. Rollback ist schmerzhaft.
+
+### F.7 Physische Sicherheit (non-technisch, aber wichtig)
+
+- Synology steht in einem Raum, der abschließbar ist (Büro zuhause, kein offener Durchgang)
+- USB-Backup-Platte wird **nicht daneben** geparkt — wenn einer die Synology klaut, hätte er sonst auch das Backup
+- Monatlich (siehe SPÄTER-Option 3-2-1): zweite USB woanders parken (Davids Wohnung, Bank-Schließfach, Elternhaus)
+- Papier-Passwörter: in verschlossenem Schrank / Tresor, nicht im gleichen Raum wie die Synology
+
+---
+
 ## Referenzen
 
+- [`docs/synology-setup-prompts.md`](./synology-setup-prompts.md) — Copy-Paste-Prompts für Claude zu jedem Schritt
 - `.claude/rules/daten-regel.md` — Ampel-Merkzettel
 - `.claude/rules/privacy-stopp.md` — Claudes Stopp-Regel
 - `.claude/skills/privacy-workflow/SKILL.md` — Anonymisierungs-Workflow
+- `.claude/skills/security/SKILL.md` — zentrale Security-Referenz (OWASP, Incident-Response)
+- `.claude/skills/compliance-high-standard/SKILL.md` — Compliance-Standard HOCH
 - `src/pages/privacy.astro` — öffentliche Datenschutzerklärung (sagt Kunden was wir tun)
-- Synology Offizielle Doku: <https://kb.synology.com/de-de/DSM/help/HyperBackup>
+- Synology offizielle Doku: <https://kb.synology.com/de-de/DSM/help/HyperBackup>
+- Synology Security Hardening Guide: <https://kb.synology.com/en-global/WP/Synology_NAS_Security_Hardening_Guide>
