@@ -59,6 +59,10 @@ const greeting = hour < 11 ? "Guten Morgen" : hour < 17 ? "Hallo" : "Guten Abend
       <div class="action-title">+ Neue Buchung</div>
       <div class="action-sub">WhatsApp-Anfrage eintragen</div>
     </a>
+    <a href="/admin/bookings/block" class="action-card action-card-block">
+      <div class="action-title action-title-block">⛔ Slot sperren</div>
+      <div class="action-sub">Walk-in · Wartung · Wetter</div>
+    </a>
     <a href="/admin/bookings" class="action-card">
       <div class="action-title">Buchungen anzeigen</div>
       <div class="action-sub">Alle Buchungen + Filter</div>
@@ -156,11 +160,18 @@ const greeting = hour < 11 ? "Guten Morgen" : hour < 17 ? "Hallo" : "Guten Abend
     background: rgba(255, 194, 51, 0.05);
     border-color: rgba(255, 194, 51, 0.3);
   }
+  .action-card-block:hover {
+    background: rgba(255, 90, 54, 0.08);
+    border-color: rgba(255, 90, 54, 0.4);
+  }
   .action-title {
     color: #ffc233;
     font-weight: 600;
     font-size: 0.95rem;
     margin-bottom: 0.3rem;
+  }
+  .action-title-block {
+    color: #ff5a36;
   }
   .action-sub {
     color: rgba(253, 251, 244, 0.65);

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { jetskis, VAT_RATE, netFromGross, vatFromGross } from "../data/jetskis";
 
 const TIME_SLOTS = [
@@ -12,6 +12,19 @@ type Category =
   | "sunset" | "couple"
   | "vip-1h" | "vip-half" | "vip-full" | "vip-week"
   | "towable";
+
+// Dauer pro Aktivität in Minuten. Muss zu CATEGORIES passen.
+// VIP-Week = 10080 Min (7 Tage), blockiert den Jetski eine ganze Woche.
+const DURATION_BY_CATEGORY: Record<Category, number> = {
+  "beach-10": 10, "beach-15": 15, "beach-20": 20, "beach-30": 30, "beach-60": 60,
+  "sunset": 30, "couple": 30,
+  "vip-1h": 60, "vip-half": 240, "vip-full": 480, "vip-week": 10080,
+  "towable": 10,
+};
+
+const ALL_UNITS = ["nero-ena", "nero-dio", "nero-tria", "nero-tessera"] as const;
+
+type BusyInterval = { startISO: string; endISO: string };
 
 const CATEGORIES: { id: Category; label: string; price: number | "onRequest"; licenceRequired: boolean; needsGuide: boolean; note?: string }[] = [
   { id: "beach-10", label: "Beach Ride · 10 min",  price: 80,  licenceRequired: false, needsGuide: false },
@@ -31,6 +44,41 @@ const CATEGORIES: { id: Category; label: string; price: number | "onRequest"; li
 function priceLabel(p: number | "onRequest"): string {
   return p === "onRequest" ? "On request" : `€${p}`;
 }
+
+function addDaysIso(isoDate: string, delta: number): string {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  const base = new Date(Date.UTC(y, m - 1, d));
+  base.setUTCDate(base.getUTCDate() + delta);
+  const yy = base.getUTCFullYear();
+  const mo = String(base.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(base.getUTCDate()).padStart(2, "0");
+  return `${yy}-${mo}-${dd}`;
+}
+
+function formatDateLabel(isoDate: string): string {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return dt.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
+}
+
+// Addiert Minuten zu einem naiven ISO-String "YYYY-MM-DDTHH:MM" (Europe/Athens)
+function addMinutesNaiveIso(naiveIso: string, minutes: number): string {
+  const [datePart, timePart] = naiveIso.split("T");
+  const [y, m, d] = datePart.split("-").map(Number);
+  const [h, mi] = timePart.split(":").map(Number);
+  const total = h * 60 + mi + minutes;
+  const dayOffset = Math.floor(total / 1440);
+  const rem = ((total % 1440) + 1440) % 1440;
+  const hh = Math.floor(rem / 60);
+  const mm = rem % 60;
+  const base = new Date(Date.UTC(y, m - 1, d));
+  base.setUTCDate(base.getUTCDate() + dayOffset);
+  const yy = base.getUTCFullYear();
+  const mo = String(base.getUTCMonth() + 1).padStart(2, "0");
+  const dd = String(base.getUTCDate()).padStart(2, "0");
+  return `${yy}-${mo}-${dd}T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
+}
+
 
 const TOTAL_STEPS = 5;
 const STEP_LABELS = ["Activity", "Boating licence", "Contact", "Price summary", "Consent"];
@@ -64,6 +112,11 @@ export default function BookingForm() {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
+  // Verfügbarkeits-Cache: Key = "YYYY-MM-DD|unit-id", Wert = belegte Intervalle
+  const [availCache, setAvailCache] = useState<Record<string, BusyInterval[]>>({});
+  const [availabilityFailed, setAvailabilityFailed] = useState(false);
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
+
   const selectedCategory = useMemo(
     () => CATEGORIES.find((c) => c.id === category)!,
     [category]
@@ -87,10 +140,153 @@ export default function BookingForm() {
     setPersons(Math.max(1, Math.min(3, Number(e.target.value))));
   }, []);
 
+  // Fetcht Busy-Intervalle für ein (date, unit) Paar, cached im State.
+  // Rückgabe: true wenn mind. ein Fallback (Supabase offline).
+  const fetchAvailability = useCallback(
+    async (targetDate: string, units: readonly string[]): Promise<boolean> => {
+      const toFetch = units.filter((u) => !(`${targetDate}|${u}` in availCache));
+      if (toFetch.length === 0) return false;
+
+      const results = await Promise.all(
+        toFetch.map((u) =>
+          fetch(`/api/availability?date=${encodeURIComponent(targetDate)}&jetski_unit_id=${encodeURIComponent(u)}`, {
+            headers: { Accept: "application/json" },
+          })
+            .then((r) => (r.ok ? r.json() : Promise.reject(new Error(`${r.status}`))))
+            .then((j) => ({ unit: u, busy: (j.busy ?? []) as BusyInterval[], fallback: !!j.fallback }))
+            .catch(() => ({ unit: u, busy: [] as BusyInterval[], fallback: true })),
+        ),
+      );
+
+      setAvailCache((prev) => {
+        const next = { ...prev };
+        for (const r of results) next[`${targetDate}|${r.unit}`] = r.busy;
+        return next;
+      });
+      return results.some((r) => r.fallback);
+    },
+    [availCache],
+  );
+
+  // Initial-Fetch für aktuellen Tag + alle 4 Units (damit Alternativ-Jetski sofort berechenbar ist)
+  useEffect(() => {
+    if (!date) return;
+    let cancelled = false;
+    setAvailabilityLoading(true);
+    fetchAvailability(date, ALL_UNITS)
+      .then((hadFallback) => { if (!cancelled) setAvailabilityFailed(hadFallback); })
+      .finally(() => { if (!cancelled) setAvailabilityLoading(false); });
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- fetchAvailability ist stabil durch availCache-dep; wir wollen nur bei date neu laden
+  }, [date]);
+
+  // Prüft ob ein Jetski-Slot belegt ist.
+  const isUnitSlotBlocked = useCallback(
+    (unitId: string, targetDate: string, slotTime: string): boolean => {
+      if (availabilityFailed) return false; // Fail-open
+      const busyList = availCache[`${targetDate}|${unitId}`];
+      if (!busyList) return false; // noch nicht geladen → als frei annehmen
+      const dur = DURATION_BY_CATEGORY[category];
+      const slotStart = `${targetDate}T${slotTime}`;
+      const slotEnd = addMinutesNaiveIso(slotStart, dur);
+      return busyList.some((b) => slotStart < b.endISO && slotEnd > b.startISO);
+    },
+    [category, availCache, availabilityFailed],
+  );
+
+  // Slot-Prüfung für aktuelle User-Auswahl.
+  // Bei "any" ist der Slot nur blockiert wenn ALLE 4 Units ihn belegt haben.
+  const isSlotBlocked = useCallback(
+    (slotTime: string): boolean => {
+      if (!date) return false;
+      if (jetskiId === "any") {
+        return ALL_UNITS.every((u) => isUnitSlotBlocked(u, date, slotTime));
+      }
+      return isUnitSlotBlocked(jetskiId, date, slotTime);
+    },
+    [date, jetskiId, isUnitSlotBlocked],
+  );
+
+  const currentSlotBlocked = isSlotBlocked(time);
+
+  // Alternativen-Suche wenn Slot belegt ist. Priorität: Jetski → Zeit → Datum.
+  const [alternatives, setAlternatives] = useState<{
+    altJetski: { unitId: string; unitName: string } | null;
+    altTime: string | null;
+    altDate: string | null;
+  }>({ altJetski: null, altTime: null, altDate: null });
+
+  // Lazy-Lade nächste 3 Tage wenn Slot belegt ist (für altDate-Vorschlag)
+  useEffect(() => {
+    if (!date || !currentSlotBlocked) return;
+    const futureDates = [1, 2, 3].map((delta) => addDaysIso(date, delta));
+    let cancelled = false;
+    Promise.all(futureDates.map((d) => fetchAvailability(d, ALL_UNITS))).then(() => {
+      if (cancelled) return;
+    });
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date, currentSlotBlocked]);
+
+  // Alternativen berechnen
+  useEffect(() => {
+    if (!date || !currentSlotBlocked) {
+      setAlternatives({ altJetski: null, altTime: null, altDate: null });
+      return;
+    }
+
+    // 1. Alt-Jetski: andere Unit zu gleicher Zeit frei?
+    let altJetski: { unitId: string; unitName: string } | null = null;
+    if (jetskiId !== "any") {
+      for (const u of ALL_UNITS) {
+        if (u === jetskiId) continue;
+        if (!isUnitSlotBlocked(u, date, time)) {
+          const j = jetskis.find((jj) => jj.id === u);
+          if (j) { altJetski = { unitId: u, unitName: j.name }; break; }
+        }
+      }
+    }
+
+    // 2. Alt-Zeit: gleicher Jetski an anderer Uhrzeit am gleichen Tag
+    let altTime: string | null = null;
+    const unitForTimeCheck = jetskiId === "any" ? ALL_UNITS[0] : jetskiId;
+    for (const t of TIME_SLOTS) {
+      if (t === time) continue;
+      const blocked = jetskiId === "any"
+        ? ALL_UNITS.every((u) => isUnitSlotBlocked(u, date, t))
+        : isUnitSlotBlocked(unitForTimeCheck, date, t);
+      if (!blocked) { altTime = t; break; }
+    }
+
+    // 3. Alt-Datum: gleicher Jetski + Zeit an Folgetag
+    let altDate: string | null = null;
+    for (const delta of [1, 2, 3]) {
+      const d = addDaysIso(date, delta);
+      const blocked = jetskiId === "any"
+        ? ALL_UNITS.every((u) => isUnitSlotBlocked(u, d, time))
+        : isUnitSlotBlocked(unitForTimeCheck, d, time);
+      // Nur als Alternative anbieten wenn Daten schon geladen sind
+      const cacheKey = `${d}|${unitForTimeCheck}`;
+      if (cacheKey in availCache && !blocked) { altDate = d; break; }
+    }
+
+    setAlternatives({ altJetski, altTime, altDate });
+  }, [date, time, jetskiId, currentSlotBlocked, availCache, isUnitSlotBlocked]);
+
+  // Nächster freier Slot als Schnell-Fallback (älteres UI-Element)
+  const nextFreeSlot = alternatives.altTime;
+
   function validateStep(step: number): string[] {
     const errs: string[] = [];
     if (step === 1) {
       if (!date) errs.push("Please choose a date.");
+      if (date && currentSlotBlocked) {
+        errs.push(
+          nextFreeSlot
+            ? `This slot is already booked. Next free slot: ${nextFreeSlot}.`
+            : "This slot is already fully booked for the chosen jetski. Please pick another date or jetski.",
+        );
+      }
     }
     if (step === 2) {
       if (!hasLicence) errs.push("Please indicate whether you hold a boating licence.");
@@ -249,11 +445,14 @@ export default function BookingForm() {
               <span style={styles.fieldLabel}>Jetski preference</span>
               <select value={jetskiId} onChange={(e) => setJetskiId(e.target.value)} style={styles.select}>
                 <option value="any">Any available</option>
-                {jetskis.map((j) => (
-                  <option key={j.id} value={j.id}>
-                    {j.name} · {j.hp} HP · {j.topSpeed} km/h
-                  </option>
-                ))}
+                {jetskis.map((j) => {
+                  const blocked = date ? isUnitSlotBlocked(j.id, date, time) : false;
+                  return (
+                    <option key={j.id} value={j.id} disabled={blocked} style={blocked ? {color: "#bbb", textDecoration: "line-through"} : {}}>
+                      {j.name} · {j.hp} HP · {j.topSpeed} km/h{blocked ? " — booked" : ""}
+                    </option>
+                  );
+                })}
               </select>
             </label>
 
@@ -263,12 +462,25 @@ export default function BookingForm() {
             </label>
 
             <label style={styles.field}>
-              <span style={styles.fieldLabel}>Time</span>
+              <span style={styles.fieldLabel}>
+                Time
+                {availabilityLoading && <span style={{marginLeft: 8, fontSize: "0.75rem", color: "#6b7a8d"}}>checking availability...</span>}
+              </span>
               <select value={time} onChange={(e) => setTime(e.target.value)} style={styles.select}>
-                {TIME_SLOTS.map((t) => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
+                {TIME_SLOTS.map((t) => {
+                  const blocked = isSlotBlocked(t);
+                  return (
+                    <option key={t} value={t} disabled={blocked} style={blocked ? {color: "#bbb", textDecoration: "line-through"} : {}}>
+                      {t}{blocked ? " — booked" : ""}
+                    </option>
+                  );
+                })}
               </select>
+              {date && !currentSlotBlocked && availabilityFailed && (
+                <small style={{...styles.hint, marginTop: 4}}>
+                  Live availability check unavailable - we'll confirm manually via WhatsApp.
+                </small>
+              )}
             </label>
 
             <label style={styles.field}>
@@ -277,6 +489,58 @@ export default function BookingForm() {
               <small style={styles.hint}>*3-seater, but 2 persons recommended for comfort & performance.</small>
             </label>
           </div>
+
+          {date && currentSlotBlocked && (
+            <div style={{
+              marginTop: "1rem",
+              padding: "1rem 1.25rem",
+              background: "#fff5f2",
+              border: "1px solid #ffc4b3",
+              borderLeft: "4px solid #ff5a36",
+              borderRadius: "8px",
+            }}>
+              <strong style={{color: "#c0392b", display: "block", marginBottom: "0.5rem"}}>
+                This slot is already booked.
+              </strong>
+              <p style={{fontSize: "0.88rem", color: "#5a3f14", margin: "0 0 0.75rem"}}>
+                Pick one of the free alternatives below:
+              </p>
+              <div style={{display: "flex", flexDirection: "column", gap: "0.5rem"}}>
+                {alternatives.altJetski && (
+                  <button
+                    type="button"
+                    onClick={() => setJetskiId(alternatives.altJetski!.unitId)}
+                    style={styles.altBtn}
+                  >
+                    <strong>Another jetski:</strong> {alternatives.altJetski.unitName} is free at {time} on {formatDateLabel(date)}
+                  </button>
+                )}
+                {alternatives.altTime && (
+                  <button
+                    type="button"
+                    onClick={() => setTime(alternatives.altTime!)}
+                    style={styles.altBtn}
+                  >
+                    <strong>Another time:</strong> {alternatives.altTime} on {formatDateLabel(date)} is free{jetskiId !== "any" ? ` for ${jetskis.find(j => j.id === jetskiId)?.name}` : ""}
+                  </button>
+                )}
+                {alternatives.altDate && (
+                  <button
+                    type="button"
+                    onClick={() => setDate(alternatives.altDate!)}
+                    style={styles.altBtn}
+                  >
+                    <strong>Another day:</strong> {formatDateLabel(alternatives.altDate)} at {time} is free{jetskiId !== "any" ? ` for ${jetskis.find(j => j.id === jetskiId)?.name}` : ""}
+                  </button>
+                )}
+                {!alternatives.altJetski && !alternatives.altTime && !alternatives.altDate && (
+                  <p style={{fontSize: "0.85rem", color: "#6b7a8d", margin: 0, fontStyle: "italic"}}>
+                    No quick alternatives found in the next 3 days. Try another date or WhatsApp David: <a href="https://wa.me/306955612777" style={{color: "#00b3a7"}}>+30 695 561 2777</a>
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
         </section>
       )}
 
@@ -496,6 +760,17 @@ const styles: Record<string, React.CSSProperties> = {
     border: "1px solid rgba(253,251,244,0.15)",
     borderRadius: 24,
     color: "#fdfbf4",
+  },
+  altBtn: {
+    textAlign: "left",
+    padding: "0.65rem 0.9rem",
+    borderRadius: 8,
+    border: "1px solid #ffc4b3",
+    background: "#fff",
+    color: "#2a3a4a",
+    fontSize: "0.88rem",
+    cursor: "pointer",
+    transition: "all 0.2s",
   },
   progressWrap: {
     display: "flex",

@@ -1,0 +1,28 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../../components/admin/AdminShell.astro";
+import BlockSlotForm from "../../../components/admin/BlockSlotForm.tsx";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+---
+
+<AdminShell title="Slot sperren" activePath="bookings">
+  <div style="margin-bottom: 2rem;">
+    <a href="/admin/bookings" style="color: rgba(253, 251, 244, 0.5); font-size: 0.85rem; text-decoration: none;">
+      ← Zurück zu Buchungen
+    </a>
+    <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em; margin-top: 0.75rem;">
+      Slot sperren
+    </h1>
+    <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
+      Walk-in-Kunde, Wartung, Wetter – hier ein Jetski für einen Zeitraum blockieren.
+      Ohne Kundendaten. Erscheint sofort als „belegt" auf der öffentlichen Website.
+    </p>
+  </div>
+
+  <BlockSlotForm client:load />
+</AdminShell>

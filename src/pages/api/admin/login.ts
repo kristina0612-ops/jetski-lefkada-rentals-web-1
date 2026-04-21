@@ -3,20 +3,22 @@ export const prerender = false;
 // POST /api/admin/login
 // Body: { email, password }
 // Bei Erfolg: Session-Cookie setzen, 200 OK
-// Bei Fehler: 401 mit error message
+// Bei Fehler: 401 mit generischer Fehlermeldung
 // Bei Brute-Force: 429 Too Many Requests
 
 import type { APIRoute } from "astro";
+import { createClient } from "@supabase/supabase-js";
 import { checkRateLimit, rateLimitHeaders } from "../../../lib/rate-limit";
 
 const LOGIN_LIMIT = 5; // Versuche
 const LOGIN_WINDOW_MS = 15 * 60 * 1000; // 15 Minuten
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- cookies used once Supabase login is live
-export const POST: APIRoute = async ({ request, cookies: _cookies, clientAddress }) => {
-  // Rate-Limit pro IP, greift auch solange der Login-Endpoint ein Stub ist,
-  // damit ein Angreifer nicht unbegrenzt probieren kann sobald Supabase live geht.
-  // Seit Sec #3 async + persistent (Supabase-RPC), überlebt Cold-Starts.
+// Cookie-TTLs (siehe middleware.ts für Verifikation)
+const ACCESS_TOKEN_MAX_AGE = 60 * 60 * 8; // 8h
+const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 7; // 7d
+
+export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
+  // Rate-Limit pro IP. Persistent via Supabase-RPC, überlebt Cold-Starts.
   const ip = clientAddress ?? "unknown";
   const rl = await checkRateLimit(`login:${ip}`, LOGIN_LIMIT, LOGIN_WINDOW_MS);
   const rlHeaders = rateLimitHeaders(rl, LOGIN_LIMIT);
@@ -46,37 +48,61 @@ export const POST: APIRoute = async ({ request, cookies: _cookies, clientAddress
       );
     }
 
-    // TODO: Ersetzen durch echten Supabase-Auth-Call sobald Keys da sind
-    //
-    // import { createClient } from '@supabase/supabase-js';
-    // const supabase = createClient(
-    //   import.meta.env.PUBLIC_SUPABASE_URL,
-    //   import.meta.env.PUBLIC_SUPABASE_ANON_KEY
-    // );
-    // const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-    // if (error) return new Response(JSON.stringify({ error: error.message }), { status: 401 });
-    //
-    // cookies.set('sb-access-token', data.session.access_token, {
-    //   httpOnly: true, secure: true, sameSite: 'lax', path: '/',
-    //   maxAge: 60 * 60 * 8, // 8h
-    // });
-    // cookies.set('sb-refresh-token', data.session.refresh_token, {
-    //   httpOnly: true, secure: true, sameSite: 'lax', path: '/',
-    //   maxAge: 60 * 60 * 24 * 7,
-    // });
+    const supabaseUrl = process.env.PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.PUBLIC_SUPABASE_ANON_KEY;
 
-    // STUB: verweigert bis Supabase aktiv ist
-    return new Response(
-      JSON.stringify({
-        error:
-          "Login ist noch nicht aktiviert, Supabase muss erst eingerichtet werden. Siehe .claude/plans/WELLE-2-STATUS.md",
-      }),
-      {
-        status: 503,
-        headers: { "Content-Type": "application/json", ...rlHeaders },
-      },
-    );
-  } catch (err) {
+    if (!supabaseUrl || !supabaseAnonKey) {
+      return new Response(
+        JSON.stringify({ error: "Login-System noch nicht konfiguriert" }),
+        {
+          status: 503,
+          headers: { "Content-Type": "application/json", ...rlHeaders },
+        },
+      );
+    }
+
+    // Auth-Client mit Anon-Key (nicht Service-Role!). signInWithPassword
+    // gibt ein JWT zurück, das die Middleware bei jedem /admin-Request verifiziert.
+    const authClient = createClient(supabaseUrl, supabaseAnonKey, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+
+    const { data, error } = await authClient.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    // Generische Fehlermeldung: verrät nicht ob E-Mail oder Passwort falsch war
+    if (error || !data.session) {
+      return new Response(
+        JSON.stringify({ error: "E-Mail oder Passwort falsch" }),
+        {
+          status: 401,
+          headers: { "Content-Type": "application/json", ...rlHeaders },
+        },
+      );
+    }
+
+    cookies.set("sb-access-token", data.session.access_token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: ACCESS_TOKEN_MAX_AGE,
+    });
+    cookies.set("sb-refresh-token", data.session.refresh_token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: REFRESH_TOKEN_MAX_AGE,
+    });
+
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...rlHeaders },
+    });
+  } catch {
     return new Response(JSON.stringify({ error: "Serverfehler" }), {
       status: 500,
       headers: { "Content-Type": "application/json", ...rlHeaders },

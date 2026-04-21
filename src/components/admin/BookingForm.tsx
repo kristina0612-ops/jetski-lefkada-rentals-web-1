@@ -127,6 +127,7 @@ export default function BookingForm() {
     setSubmitting(true);
     try {
       const body = {
+        source: "whatsapp" as const, // Manuell aus WhatsApp-Anfrage eingetragen
         booking_date: bookingDate,
         start_time: startTime,
         duration_minutes: durationMin,
@@ -135,16 +136,16 @@ export default function BookingForm() {
         service_category: category,
         service_type: serviceType,
         customer_name: customerName,
-        customer_email: customerEmail,
+        customer_email: customerEmail || undefined,
         customer_phone: customerPhone,
         customer_country: customerCountry || undefined,
         towable_persons: towablePersons || undefined,
         delivery_location: deliveryLocation || undefined,
         total_price: effectivePrice,
         deposit_amount: effectiveDeposit ?? 0,
-        status,
         notes: notes || undefined,
       };
+      void status; // Status wird serverseitig auf 'confirmed' gesetzt
 
       const res = await fetch("/api/bookings", {
         method: "POST",

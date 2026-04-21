@@ -1,51 +1,82 @@
 // Welle 2: Datenbank-Schema & API-Typen
 // Quelle der Wahrheit für Supabase RLS, API-Endpunkte, CRM-Formulare
+// Stand 2026-04-21: Bookings erweitert um source + buffer_minutes (Overlap-Schutz)
+
+export type JetskiUnitId =
+  | "nero-ena"
+  | "nero-dio"
+  | "nero-tria"
+  | "nero-tessera";
+
+export type BookingSource =
+  | "website"
+  | "whatsapp"
+  | "walk_in"
+  | "maintenance"
+  | "weather"
+  | "admin_block";
+
+export type BookingStatus =
+  | "pending"
+  | "confirmed"
+  | "completed"
+  | "cancelled"
+  | "no_show";
+
+export type ServiceCategory =
+  | "beach_rides"
+  | "exclusive_experiences"
+  | "vip_delivery"
+  | "towable";
 
 export interface Booking {
   id: string;
   created_at: string;
-  user_id: string; // Kristina's Supabase UID
+  updated_at: string;
+  user_id: string | null; // NULL wenn Admin-User später gelöscht wird (FK ON DELETE SET NULL)
 
-  // Booking-Details
+  // Slot-Kerndaten
+  jetski_unit_id: JetskiUnitId;
   booking_date: string; // YYYY-MM-DD
-  start_time: string; // HH:MM (09:00)
+  start_time: string; // HH:MM
   duration_minutes: number;
-  jetski_id: "seadoo-rxtx" | "seadoo-spark-trixx"; // Modell (für Pricing)
-  jetski_unit_id: "challenger-1" | "challenger-2" | "acrobat-1" | "acrobat-2"; // Konkrete Einheit
-  service_category: "beach_rides" | "exclusive_experiences" | "vip_delivery";
-  service_type?: string; // z.B. "sunsetRide30", "coupleRide30"
+  buffer_minutes: number; // Default 15, pro Buchung anpassbar
 
-  // Kundendaten
-  customer_name: string;
-  customer_email: string;
-  customer_phone: string;
+  // Klassifizierung
+  source: BookingSource;
+  status: BookingStatus;
+
+  // Modell-Referenz (für Preise/Reporting, aktuell == jetski_unit_id da jede Unit 1 Modell ist)
+  jetski_id?: string;
+  service_category?: ServiceCategory;
+  service_type?: string;
+
+  // Kundendaten (nullable bei source in maintenance/weather/admin_block)
+  customer_name?: string;
+  customer_email?: string;
+  customer_phone?: string;
   customer_country?: string;
 
   // Zusätze
-  towable_persons?: number; // Water Fun: wie viele Personen
-  delivery_location?: string; // VIP Delivery: Strand-/Koordinaten-Angabe
+  towable_persons?: number;
+  delivery_location?: string;
 
-  // Preise
-  total_price: number; // EUR
-  deposit_amount: number; // 30% oder 1500 bei Delivery
+  // Preise (nullable bei Blockern)
+  total_price?: number;
+  deposit_amount?: number;
 
-  // Status
-  status: "pending" | "confirmed" | "completed" | "cancelled";
   notes?: string;
-
-  // Automatisch
-  updated_at: string;
 }
 
 export interface Payment {
   id: string;
   created_at: string;
-  user_id: string; // Kristina's UID
+  user_id: string;
 
-  booking_id: string; // FK → bookings
-  amount: number; // EUR
+  booking_id: string;
+  amount: number;
   payment_method: "viva_wallet" | "bank_transfer" | "cash";
-  payment_date: string; // YYYY-MM-DD
+  payment_date: string;
   notes?: string;
 
   updated_at: string;
@@ -54,13 +85,13 @@ export interface Payment {
 export interface Expense {
   id: string;
   created_at: string;
-  user_id: string; // Kristina's UID
+  user_id: string;
 
-  expense_date: string; // YYYY-MM-DD
+  expense_date: string;
   category: "fuel" | "maintenance" | "insurance" | "other";
-  amount: number; // EUR
+  amount: number;
   description: string;
-  receipt_url?: string; // optional S3/Supabase Storage
+  receipt_url?: string;
   notes?: string;
 
   updated_at: string;
@@ -69,29 +100,23 @@ export interface Expense {
 export interface Invoice {
   id: string;
   created_at: string;
-  user_id: string; // Kristina's UID
+  user_id: string;
 
-  invoice_number: string; // "001", "002", etc., global counter
-  booking_id: string; // FK → bookings
+  invoice_number: string;
+  booking_id: string;
 
-  // PDF
-  pdf_url: string; // Supabase Storage URL oder externe PDF-URL
+  pdf_url: string;
 
-  // Status
   sent_to_accountant: boolean;
-  sent_date?: string; // YYYY-MM-DD
+  sent_date?: string;
   notes?: string;
 
   updated_at: string;
 }
 
 // Row-Level Security (RLS) Policies:
-// - Bookings: user_id = auth.uid() (nur Kristina sieht ihre Bookings)
-// - Payments: user_id = auth.uid()
-// - Expenses: user_id = auth.uid()
-// - Invoices: user_id = auth.uid()
-// - Service-Accounts (Agenten) bekommen eingeschränkte Rechte über separate JWT
+// - bookings: RLS aktiviert, keine Policies → nur service_role (Server) hat Zugriff.
+//   Der Client bekommt Buchungsdaten nie direkt, sondern nur über API-Endpoints.
+// - Andere Tabellen (Payments/Expenses/Invoices): user_id = auth.uid()
 
-// Kalender-Feed (public, aber token-protected):
-// - Lesezugriff auf bookings (nur confirmed/completed) für iCal-Generation
-// - Token = nicht-ratbarer Secret in URL (?token=xyz)
+// Public availability-Endpoint leakt nur startISO/endISO-Paare, keine PII.
