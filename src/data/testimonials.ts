@@ -5,7 +5,7 @@
 // Kundennamen aus Datenschutzgründen NICHT veröffentlicht werden sollen.
 //
 // Die ZITATE selbst sind repräsentativ für das Feedback, das Kristina/David
-// real von Gästen hören — also glaubwürdig, aber nicht wortgetreu zitiert.
+// real von Gästen hören, also glaubwürdig, aber nicht wortgetreu zitiert.
 // Ersetzen durch echte Google-Business-Profile-Reviews sobald diese einlaufen.
 //
 // WICHTIG: KEINE direkte Zuordnung zu den Fotos in public/images/customers/
@@ -14,11 +14,11 @@
 
 export interface Testimonial {
   quote: string;
-  author: string;          // "Marco R." – Vorname + Initial, keine vollen Namen
-  initials: string;        // "MR" – für Avatar
+  author: string;          // "Marco R.", Vorname + Initial, keine vollen Namen
+  initials: string;        // "MR", für Avatar
   origin: string;          // "Milan, Italy"
   language: "EN" | "DE" | "IT" | "EL";
-  date: string;            // "2025-07-18" – plausibel in der letzten Saison
+  date: string;            // "2025-07-18", plausibel in der letzten Saison
   rating: number;          // 5
   source: "TripAdvisor" | "Google" | "Viator" | "Instagram" | "Guest feedback";
   category?: string;       // Was hat der Gast gebucht? (optional für Kontext)
@@ -28,7 +28,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     quote:
-      "David's briefing was spot-on — 10 minutes and I felt completely safe. The Sunset Ride was the highlight of the whole trip.",
+      "David's briefing was spot-on. 10 minutes and I felt completely safe. The Sunset Ride was the highlight of the whole trip.",
     author: "Marco R.",
     initials: "MR",
     origin: "Milan, Italy",
@@ -41,7 +41,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "Wir haben den Water-Fun-Tube für die Kids gebucht — zwei Stunden pures Lachen. Die Neros sind gepflegt, David total entspannt.",
+      "Wir haben den Water-Fun-Tube für die Kids gebucht. Zwei Stunden pures Lachen. Die Neros sind gepflegt, David total entspannt.",
     author: "Sophie K.",
     initials: "SK",
     origin: "München, Deutschland",
@@ -54,7 +54,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "First time on a jetski, no licence — David guided us personally the whole time. Never felt pushed, only welcomed.",
+      "First time on a jetski, no licence. David guided us personally the whole time. Never felt pushed, only welcomed.",
     author: "James W.",
     initials: "JW",
     origin: "London, UK",
@@ -80,7 +80,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     quote:
-      "Der Couple-Ride bei Sonnenuntergang — einer dieser Urlaubsmomente, die man nicht mehr vergisst. Preis völlig fair.",
+      "Der Couple-Ride bei Sonnenuntergang. Einer dieser Urlaubsmomente, die man nicht mehr vergisst. Preis völlig fair.",
     author: "Tobias H.",
     initials: "TH",
     origin: "Wien, Österreich",

@@ -4,15 +4,15 @@
 // Grundsätze:
 //   • Opt-In (kein Auto-Accept, kein pre-ticked).
 //   • Reject-Button OPTISCH GLEICH PROMINENT wie Accept (EDPB-Guideline 03/2022,
-//     LG München I Urteil 17 O 14168/22) – beide filled, beide gleiche Größe.
+//     LG München I Urteil 17 O 14168/22), beide filled, beide gleiche Größe.
 //   • Google Analytics wird erst NACH Klick auf „Accept" geladen.
 //   • Vercel Web Analytics ist cookie-frei + aggregiert-anonym → kein Consent nötig
 //     (wird im Text klar dokumentiert).
-//   • Dreisprachiger Text (EN/DE/EL) — Sprache wird aus <html lang> gelesen;
+//   • Dreisprachiger Text (EN/DE/EL), Sprache wird aus <html lang> gelesen;
 //     fällt auf EN zurück wenn unbekannt.
 //   • Banner ist als role="dialog" mit aria-live="polite" erreichbar.
 //   • Consent wird 12 Monate in localStorage gespeichert (mit Zeitstempel, sodass
-//     nach Ablauf das Banner erneut erscheint — DSGVO-konforme Re-Zustimmung).
+//     nach Ablauf das Banner erneut erscheint, DSGVO-konforme Re-Zustimmung).
 //   • Jederzeit widerrufbar via CustomEvent `cookie:reset` (Button in Privacy-Seite).
 
 const GA_ID = "G-MBLR2ODZES";
@@ -40,7 +40,7 @@ const GA_ID = "G-MBLR2ODZES";
     <div class="flex flex-shrink-0 flex-col gap-2 sm:flex-row sm:items-center">
       <!-- Reject + Accept sind OPTISCH GLEICH PROMINENT (EDPB 03/2022, LG München I 17 O 14168/22):
            beide solid Füllung, gleicher Kontrast gegen den dunklen Banner, gleiches Padding.
-           Nur die Farbe unterscheidet die Funktion – keine Dark-Pattern-Hierarchie. -->
+           Nur die Farbe unterscheidet die Funktion, keine Dark-Pattern-Hierarchie. -->
       <button
         type="button"
         id="cookie-reject"
@@ -78,14 +78,14 @@ const GA_ID = "G-MBLR2ODZES";
     if (!banner || !accept || !reject) return;
 
     // ──────────────────────────────────────────────────────────────────────
-    // Mehrsprachiger Text – ausgewählt anhand von <html lang="..">
+    // Mehrsprachiger Text, ausgewählt anhand von <html lang="..">
     // ──────────────────────────────────────────────────────────────────────
     const LANG = (document.documentElement.lang || "en").toLowerCase().slice(0, 2);
     const T = {
       en: {
         title: "Your privacy matters",
         body:
-          "We use essential cookies to run the site (no tracking) and optional analytics cookies (Google Analytics) to understand visits. Vercel Web Analytics runs cookie-free and anonymised. Both buttons are equal — your choice is respected, no pre-selection.",
+          "We use essential cookies to run the site (no tracking) and optional analytics cookies (Google Analytics) to understand visits. Vercel Web Analytics runs cookie-free and anonymised. Both buttons are equal, your choice is respected, no pre-selection.",
         reject: "Reject all",
         accept: "Accept all",
         more: "Cookie details & privacy policy",
@@ -94,7 +94,7 @@ const GA_ID = "G-MBLR2ODZES";
       de: {
         title: "Deine Privatsphäre",
         body:
-          "Wir nutzen notwendige Cookies für den Betrieb (kein Tracking) und optionale Analyse-Cookies (Google Analytics) für Besucherstatistiken. Vercel Web Analytics läuft cookie-frei und anonymisiert. Beide Buttons sind gleichwertig — keine Vorauswahl, Du entscheidest.",
+          "Wir nutzen notwendige Cookies für den Betrieb (kein Tracking) und optionale Analyse-Cookies (Google Analytics) für Besucherstatistiken. Vercel Web Analytics läuft cookie-frei und anonymisiert. Beide Buttons sind gleichwertig, keine Vorauswahl, Du entscheidest.",
         reject: "Alle ablehnen",
         accept: "Alle akzeptieren",
         more: "Cookie-Details & Datenschutz",
@@ -103,7 +103,7 @@ const GA_ID = "G-MBLR2ODZES";
       el: {
         title: "Η ιδιωτικότητά σου μετράει",
         body:
-          "Χρησιμοποιούμε απαραίτητα cookies για τη λειτουργία του ιστοτόπου (χωρίς tracking) και προαιρετικά cookies ανάλυσης (Google Analytics). Το Vercel Web Analytics λειτουργεί χωρίς cookies και ανώνυμα. Και τα δύο κουμπιά είναι ισότιμα — εσύ αποφασίζεις.",
+          "Χρησιμοποιούμε απαραίτητα cookies για τη λειτουργία του ιστοτόπου (χωρίς tracking) και προαιρετικά cookies ανάλυσης (Google Analytics). Το Vercel Web Analytics λειτουργεί χωρίς cookies και ανώνυμα. Και τα δύο κουμπιά είναι ισότιμα, εσύ αποφασίζεις.",
         reject: "Απόρριψη όλων",
         accept: "Αποδοχή όλων",
         more: "Λεπτομέρειες cookies & πολιτική απορρήτου",

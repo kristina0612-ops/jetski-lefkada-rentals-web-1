@@ -86,10 +86,10 @@ const currentMonth = new Date().toLocaleDateString("de-DE", { month: "long", yea
             {payments.map((p) => (
               <tr>
                 <td>{p.payment_date}</td>
-                <td>{p.bookings?.customer_name ?? "—"}</td>
+                <td>{p.bookings?.customer_name ?? "-"}</td>
                 <td style="color: #86efac;">+€{p.amount}</td>
                 <td>{p.payment_method}</td>
-                <td>{p.notes ?? "—"}</td>
+                <td>{p.notes ?? "-"}</td>
               </tr>
             ))}
           </tbody>
@@ -130,7 +130,7 @@ const currentMonth = new Date().toLocaleDateString("de-DE", { month: "long", yea
                 <td>
                   {e.receipt_url ? (
                     <a href={e.receipt_url} target="_blank" rel="noopener" style="color: #ffc233;">Ansehen</a>
-                  ) : "—"}
+                  ) : "-"}
                 </td>
               </tr>
             ))}

@@ -1,7 +1,7 @@
 // Kleine, abhängigkeitsfreie Validation-Helfer für API-Bodies.
 // Ziel: Angriffe durch malformed-Input verhindern (SQL-/NoSQL-Injection,
 // Buffer-Overflow-artige Probleme, Type-Verwechslung), ohne Zod o.ä. zu
-// installieren. Prinzip: Allow-List — nur explizit erlaubte Felder + Typen
+// installieren. Prinzip: Allow-List, nur explizit erlaubte Felder + Typen
 // + Längen werden akzeptiert, alles andere wird verworfen.
 //
 // Pattern pro Endpoint:
@@ -48,7 +48,7 @@ export function isTimeHHMM(v: unknown): v is string {
 }
 
 export function isEmail(v: unknown): v is string {
-  // Pragmatischer Check — kein vollständiger RFC-5322, aber sicher genug
+  // Pragmatischer Check, kein vollständiger RFC-5322, aber sicher genug
   // gegen Injection und reicht für Newsletter-/Buchungs-Empfang
   return typeof v === "string"
     && v.length <= 254
@@ -101,11 +101,11 @@ export function validateBookingBody(body: unknown): Result<BookingInput> {
   if (!isEnum(body.jetski_unit_id, ALLOWED_UNIT_IDS)) return { ok: false, error: "jetski_unit_id not allowed" };
   if (!isEnum(body.service_category, ALLOWED_SERVICE_CATEGORIES)) return { ok: false, error: "service_category not allowed" };
   if (body.service_type !== undefined && !isStr(body.service_type, 1, 60)) return { ok: false, error: "service_type too long" };
-  if (!isStr(body.customer_name, 2, 120)) return { ok: false, error: "customer_name 2–120 chars" };
+  if (!isStr(body.customer_name, 2, 120)) return { ok: false, error: "customer_name 2-120 chars" };
   if (!isEmail(body.customer_email)) return { ok: false, error: "customer_email invalid" };
   if (!isPhone(body.customer_phone)) return { ok: false, error: "customer_phone invalid" };
   if (body.customer_country !== undefined && !isStr(body.customer_country, 2, 60)) return { ok: false, error: "customer_country invalid" };
-  if (body.towable_persons !== undefined && !isInt(body.towable_persons, 1, 8)) return { ok: false, error: "towable_persons 1–8" };
+  if (body.towable_persons !== undefined && !isInt(body.towable_persons, 1, 8)) return { ok: false, error: "towable_persons 1-8" };
   if (body.delivery_location !== undefined && !isStr(body.delivery_location, 2, 200)) return { ok: false, error: "delivery_location too long" };
   if (!isNum(body.total_price, 0, 10000)) return { ok: false, error: "total_price out of range" };
   if (!isNum(body.deposit_amount, 0, 10000)) return { ok: false, error: "deposit_amount out of range" };
@@ -151,11 +151,11 @@ export function validateExpenseBody(body: unknown): Result<ExpenseInput> {
   if (!isISODate(body.expense_date)) return { ok: false, error: "expense_date must be YYYY-MM-DD" };
   if (!isEnum(body.category, ALLOWED_EXPENSE_CATEGORIES)) return { ok: false, error: "category not allowed" };
   if (!isNum(body.amount, 0, 100000)) return { ok: false, error: "amount out of range" };
-  if (!isStr(body.description, 2, 500)) return { ok: false, error: "description 2–500 chars" };
+  if (!isStr(body.description, 2, 500)) return { ok: false, error: "description 2-500 chars" };
   if (body.receipt_url !== undefined && !isStr(body.receipt_url, 5, 1000)) return { ok: false, error: "receipt_url too long" };
   if (body.notes !== undefined && !isStr(body.notes, 0, 2000)) return { ok: false, error: "notes too long" };
 
-  // URL format check (wenn vorhanden) — muss https:// sein, kein javascript:
+  // URL format check (wenn vorhanden), muss https:// sein, kein javascript:
   if (body.receipt_url !== undefined) {
     const url = body.receipt_url as string;
     if (!/^https?:\/\//.test(url) || /^javascript:/i.test(url)) {

@@ -4,7 +4,7 @@ import { jetskis, jetskiUnits, pricingExtras, type Jetski } from "../../data/jet
 type ServiceCategory = "beach_rides" | "exclusive_experiences" | "vip_delivery";
 
 const CATEGORY_LABELS: Record<ServiceCategory, string> = {
-  beach_rides: "Beach Rides (10–60 min)",
+  beach_rides: "Beach Rides (10-60 min)",
   exclusive_experiences: "Exclusive Experiences",
   vip_delivery: "VIP Delivery Service",
 };

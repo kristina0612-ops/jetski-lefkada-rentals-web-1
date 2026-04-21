@@ -14,7 +14,7 @@ const LOGIN_WINDOW_MS = 15 * 60 * 1000; // 15 Minuten
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars -- cookies used once Supabase login is live
 export const POST: APIRoute = async ({ request, cookies: _cookies, clientAddress }) => {
-  // Rate-Limit pro IP – greift auch solange der Login-Endpoint ein Stub ist,
+  // Rate-Limit pro IP, greift auch solange der Login-Endpoint ein Stub ist,
   // damit ein Angreifer nicht unbegrenzt probieren kann sobald Supabase live geht.
   // Seit Sec #3 async + persistent (Supabase-RPC), überlebt Cold-Starts.
   const ip = clientAddress ?? "unknown";
@@ -69,7 +69,7 @@ export const POST: APIRoute = async ({ request, cookies: _cookies, clientAddress
     return new Response(
       JSON.stringify({
         error:
-          "Login ist noch nicht aktiviert — Supabase muss erst eingerichtet werden. Siehe .claude/plans/WELLE-2-STATUS.md",
+          "Login ist noch nicht aktiviert, Supabase muss erst eingerichtet werden. Siehe .claude/plans/WELLE-2-STATUS.md",
       }),
       {
         status: 503,

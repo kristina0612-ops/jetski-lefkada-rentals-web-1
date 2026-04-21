@@ -1,22 +1,11 @@
 import { useCallback, useMemo, useState } from "react";
-import { jetskis, pricingExtras, VAT_RATE, netFromGross, vatFromGross } from "../data/jetskis";
+import { jetskis, VAT_RATE, netFromGross, vatFromGross } from "../data/jetskis";
 
-// Hoisted constants — avoid re-allocating these arrays on every render.
-// Impact: fewer heap allocations per keystroke → better INP on low-end laptops.
 const TIME_SLOTS = [
   "09:00", "10:00", "11:00", "12:00",
   "13:00", "14:00", "15:00", "16:00",
   "17:00", "18:00", "19:00", "20:00",
 ] as const;
-
-// ═══════════════════════════════════════════════════════════════════════════
-// BookingForm – customer-facing booking request form for Nero Lefkada
-// ═══════════════════════════════════════════════════════════════════════════
-// Collects: contact + billing address (invoice + Greek Port Police requirement)
-// Logic: license question → if NO, only guided tours available
-// Price calc: shows estimated total + 30% deposit
-// Compliance: 3 mandatory checkboxes (Privacy, Terms, Waiver) before submit
-// Submit: composes a WhatsApp message to David for now (no payment gateway yet)
 
 type Category =
   | "beach-10" | "beach-15" | "beach-20" | "beach-30" | "beach-60"
@@ -43,8 +32,10 @@ function priceLabel(p: number | "onRequest"): string {
   return p === "onRequest" ? "On request" : `€${p}`;
 }
 
+const TOTAL_STEPS = 5;
+const STEP_LABELS = ["Activity", "Boating licence", "Contact", "Price summary", "Consent"];
+
 export default function BookingForm() {
-  // ─── form state ────────────────────────────────────────────────────────
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [dob, setDob] = useState("");
@@ -69,10 +60,10 @@ export default function BookingForm() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [acceptWaiver, setAcceptWaiver] = useState(false);
 
+  const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
 
-  // ─── derived ───────────────────────────────────────────────────────────
   const selectedCategory = useMemo(
     () => CATEGORIES.find((c) => c.id === category)!,
     [category]
@@ -86,54 +77,86 @@ export default function BookingForm() {
 
   const deposit = totalEstimate !== null ? Math.round(totalEstimate * 0.3) : null;
 
-  // License gate: certain categories (VIP) need licence OR explicit guided option
   const licenceWarningNeeded =
     hasLicence === "no" &&
     (category.startsWith("vip") || category.startsWith("beach-6") || category === "beach-30");
 
   const allChecked = acceptPrivacy && acceptTerms && acceptWaiver;
 
-  // Hoisted handler — keeps the input's onChange reference stable between
-  // renders, reducing layout work on low-end devices.
   const handlePersonsChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setPersons(Math.max(1, Math.min(3, Number(e.target.value))));
   }, []);
 
-  // ─── submit ────────────────────────────────────────────────────────────
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  function validateStep(step: number): string[] {
     const errs: string[] = [];
-
-    if (!firstName.trim() || !lastName.trim()) errs.push("Please enter your full name.");
-    if (!dob) errs.push("Please enter your date of birth.");
-    else {
-      const age = (Date.now() - new Date(dob).getTime()) / (365.25 * 24 * 3600 * 1000);
-      if (age < 18) errs.push("Driver must be at least 18 years old.");
+    if (step === 1) {
+      if (!date) errs.push("Please choose a date.");
     }
-    if (!email.trim()) errs.push("Email is required for booking confirmation.");
-    if (!phone.trim()) errs.push("Phone / WhatsApp is required (Greek Port Police requirement).");
-    if (wantsInvoice && (!street.trim() || !postalCode.trim() || !city.trim() || !country.trim()))
-      errs.push("Billing address is required when requesting an invoice with VAT.");
-    if (!nationality.trim()) errs.push("Nationality is required (Port Police).");
-    if (!date) errs.push("Please choose a date.");
-    if (!hasLicence) errs.push("Please indicate whether you hold a boating licence.");
-    if (!acceptPrivacy || !acceptTerms || !acceptWaiver)
-      errs.push("All three consent checkboxes are mandatory.");
+    if (step === 2) {
+      if (!hasLicence) errs.push("Please indicate whether you hold a boating licence.");
+    }
+    if (step === 3) {
+      if (!firstName.trim() || !lastName.trim()) errs.push("Please enter your full name.");
+      if (!dob) errs.push("Please enter your date of birth.");
+      else {
+        const age = (Date.now() - new Date(dob).getTime()) / (365.25 * 24 * 3600 * 1000);
+        if (age < 18) errs.push("Driver must be at least 18 years old.");
+      }
+      if (!email.trim()) errs.push("Email is required for booking confirmation.");
+      if (!phone.trim()) errs.push("Phone / WhatsApp is required (Greek Port Police requirement).");
+      if (!nationality.trim()) errs.push("Nationality is required (Port Police).");
+      if (wantsInvoice && (!street.trim() || !postalCode.trim() || !city.trim() || !country.trim()))
+        errs.push("Billing address is required when requesting an invoice with VAT.");
+    }
+    if (step === 5) {
+      if (!acceptPrivacy || !acceptTerms || !acceptWaiver)
+        errs.push("All three consent checkboxes are mandatory.");
+    }
+    return errs;
+  }
 
+  const handleContinue = () => {
+    const errs = validateStep(currentStep);
     if (errs.length) {
       setErrors(errs);
       return;
     }
     setErrors([]);
+    if (currentStep < TOTAL_STEPS) {
+      setCurrentStep((s) => s + 1);
+      window.scrollTo({ top: document.getElementById("booking-form")?.offsetTop ?? 0, behavior: "smooth" });
+    }
+  };
 
-    // Compose WhatsApp message
+  const handleBack = () => {
+    setErrors([]);
+    if (currentStep > 1) {
+      setCurrentStep((s) => s - 1);
+      window.scrollTo({ top: document.getElementById("booking-form")?.offsetTop ?? 0, behavior: "smooth" });
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const allErrs = [
+      ...validateStep(1),
+      ...validateStep(2),
+      ...validateStep(3),
+      ...validateStep(5),
+    ];
+    if (allErrs.length) {
+      setErrors(allErrs);
+      return;
+    }
+    setErrors([]);
+
     const cat = selectedCategory.label;
     const total = totalEstimate !== null ? `€${totalEstimate}` : "on request";
     const dep = deposit !== null ? `€${deposit}` : "on request";
     const jetLabel = jetskiId === "any" ? "Any available" : jetskis.find((j) => j.id === jetskiId)?.name ?? jetskiId;
 
     const lines = [
-      "*New Booking Request – Nero Lefkada*",
+      "*New Booking Request - Nero Lefkada*",
       "",
       `*Activity:* ${cat}`,
       `*Jetski:* ${jetLabel}`,
@@ -146,9 +169,9 @@ export default function BookingForm() {
       `Phone/WhatsApp: ${phone}`,
       ...(wantsInvoice ? [`Address (invoice): ${street}, ${postalCode} ${city}, ${country}`] : []),
       `Invoice requested: ${wantsInvoice ? "YES (VAT invoice)" : "NO (simple receipt at dock)"}`,
-      `Boating licence: ${hasLicence === "yes" ? "YES – solo rental OK" : "NO – guided tour with David only"}`,
+      `Boating licence: ${hasLicence === "yes" ? "YES, solo rental OK" : "NO, guided tour with David only"}`,
       "",
-      `*Estimated total:* ${total} (${category === "towable" ? "per person × " + persons : "flat rate"})`,
+      `*Estimated total:* ${total} (${category === "towable" ? "per person x " + persons : "flat rate"})`,
       `*Deposit (30%):* ${dep}`,
       "",
       "Customer has accepted: Privacy · Terms · Waiver (online timestamp logged).",
@@ -158,7 +181,6 @@ export default function BookingForm() {
     setSubmitted(true);
   };
 
-  // ─── render ────────────────────────────────────────────────────────────
   if (submitted) {
     return (
       <div style={styles.successCard}>
@@ -168,7 +190,7 @@ export default function BookingForm() {
           A WhatsApp draft to David has opened. Send it to receive a price
           confirmation and deposit payment link. Usually answered within the hour.
         </p>
-        <button type="button" onClick={() => setSubmitted(false)} style={styles.secondaryBtn}>
+        <button type="button" onClick={() => { setSubmitted(false); setCurrentStep(1); }} style={styles.secondaryBtn}>
           Make another booking
         </button>
       </div>
@@ -177,272 +199,344 @@ export default function BookingForm() {
 
   return (
     <form onSubmit={handleSubmit} style={styles.form} className="p-5 sm:p-8" noValidate>
-      {/* ─── Step 1: Activity ────────────────────────────────────── */}
-      <section style={styles.section}>
-        <div style={styles.sectionLabel}>Step 1 · Activity</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Category</span>
-            <select value={category} onChange={(e) => setCategory(e.target.value as Category)} style={styles.select}>
-              {CATEGORIES.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.label} — {priceLabel(c.price)}{c.note ? ` (${c.note})` : ""}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Jetski preference</span>
-            <select value={jetskiId} onChange={(e) => setJetskiId(e.target.value)} style={styles.select}>
-              <option value="any">Any available</option>
-              {jetskis.map((j) => (
-                <option key={j.id} value={j.id}>
-                  {j.name} — {j.hp} HP · {j.topSpeed} km/h
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Date</span>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} style={styles.input} required />
-          </label>
-
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Time</span>
-            <select value={time} onChange={(e) => setTime(e.target.value)} style={styles.select}>
-              {TIME_SLOTS.map((t) => (
-                <option key={t} value={t}>{t}</option>
-              ))}
-            </select>
-          </label>
-
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Persons on board</span>
-            <input type="number" min={1} max={3} value={persons} onChange={handlePersonsChange} style={styles.input} />
-            <small style={styles.hint}>*3-seater, but 2 persons recommended for comfort & performance.</small>
-          </label>
+      {/* Progress indicator */}
+      <div style={styles.progressWrap}>
+        <div style={styles.dots}>
+          {Array.from({ length: TOTAL_STEPS }, (_, i) => {
+            const n = i + 1;
+            const isCurrent = n === currentStep;
+            const isDone = n < currentStep;
+            return (
+              <span
+                key={n}
+                style={{
+                  ...styles.dot,
+                  ...(isDone ? styles.dotDone : {}),
+                  ...(isCurrent ? styles.dotCurrent : {}),
+                }}
+                aria-label={`Step ${n} ${isDone ? "completed" : isCurrent ? "current" : "upcoming"}`}
+              />
+            );
+          })}
         </div>
-      </section>
-
-      {/* ─── Step 2: Licence ─────────────────────────────────────── */}
-      <section style={styles.section}>
-        <div style={styles.sectionLabel}>Step 2 · Boating licence</div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <label style={{...styles.radioCard, ...(hasLicence === "yes" ? styles.radioCardActive : {})}}>
-            <input type="radio" name="licence" value="yes" checked={hasLicence === "yes"} onChange={() => setHasLicence("yes")} style={styles.radio} />
-            <span style={styles.radioTitle}>Yes, I have a licence</span>
-            <span style={styles.radioSub}>You can operate solo within the rules.</span>
-          </label>
-          <label style={{...styles.radioCard, ...(hasLicence === "no" ? styles.radioCardActive : {})}}>
-            <input type="radio" name="licence" value="no" checked={hasLicence === "no"} onChange={() => setHasLicence("no")} style={styles.radio} />
-            <span style={styles.radioTitle}>No licence</span>
-            <span style={styles.radioSub}>Guided tour with David only — you still drive, he stays close.</span>
-          </label>
+        <div style={styles.progressLabel}>
+          Step {currentStep} of {TOTAL_STEPS} · {STEP_LABELS[currentStep - 1]}
         </div>
-
-        {hasLicence === "no" && (
-          <div style={styles.info}>
-            <strong>Good news:</strong> Without a licence, you still get the full Nero experience.
-            David will guide your ride personally, staying close to ensure safety. You drive the
-            jetski yourself — he just makes sure you stay within the rules.
-          </div>
-        )}
-        {licenceWarningNeeded && (
-          <div style={styles.warn}>
-            <strong>Heads up:</strong> VIP Delivery and longer rentals normally assume a licence.
-            Since you don't have one, David will contact you to arrange a guided version.
-          </div>
-        )}
-      </section>
-
-      {/* ─── Step 3: Contact + Billing ───────────────────────────── */}
-      <section style={styles.section}>
-        <div style={styles.sectionLabel}>Step 3 · Contact</div>
-        <p style={styles.sectionHint}>Required for booking confirmation and Greek Port Police (Λιμεναρχείο) registration.</p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>First name *</span>
-            <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} style={styles.input} autoComplete="given-name" required />
-          </label>
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Last name *</span>
-            <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} style={styles.input} autoComplete="family-name" required />
-          </label>
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Date of birth * (must be 18+)</span>
-            <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} style={styles.input} autoComplete="bday" required />
-          </label>
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Nationality *</span>
-            <input type="text" value={nationality} onChange={(e) => setNationality(e.target.value)} placeholder="e.g. German" style={styles.input} required />
-          </label>
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Email *</span>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={styles.input} autoComplete="email" required />
-          </label>
-          <label style={styles.field}>
-            <span style={styles.fieldLabel}>Phone / WhatsApp *</span>
-            <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+49 …" style={styles.input} autoComplete="tel" required />
-          </label>
-        </div>
-
-        {/* Invoice toggle: billing address only required if customer wants a VAT invoice */}
-        <label style={{...styles.consent, marginTop: 16}}>
-          <input
-            type="checkbox"
-            checked={wantsInvoice}
-            onChange={(e) => setWantsInvoice(e.target.checked)}
-            style={styles.checkbox}
-          />
-          <span>
-            I need a full VAT invoice for my company (requires billing address).
-            Without this, you get a simple receipt at the dock.
-          </span>
-        </label>
-
-        {wantsInvoice && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-            <label style={styles.field} className="sm:col-span-2">
-              <span style={styles.fieldLabel}>Street & number *</span>
-              <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} style={styles.input} autoComplete="street-address" required />
-            </label>
-            <label style={styles.field}>
-              <span style={styles.fieldLabel}>Postal code *</span>
-              <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} style={styles.input} autoComplete="postal-code" required />
-            </label>
-            <label style={styles.field}>
-              <span style={styles.fieldLabel}>City *</span>
-              <input type="text" value={city} onChange={(e) => setCity(e.target.value)} style={styles.input} autoComplete="address-level2" required />
-            </label>
-            <label style={styles.field} className="sm:col-span-2">
-              <span style={styles.fieldLabel}>Country *</span>
-              <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} style={styles.input} autoComplete="country-name" required />
-            </label>
-          </div>
-        )}
-
-        <div style={styles.infoSubtle}>
-          Photo ID (passport or national ID card) will be verified at the dock before departure — not required online.
-        </div>
-      </section>
-
-      {/* ─── Step 4: Price summary ───────────────────────────────── */}
-      <section style={styles.section}>
-        <div style={styles.sectionLabel}>Step 4 · Price summary</div>
-        <div style={styles.priceBox}>
-          <div style={styles.priceRow}>
-            <span>{selectedCategory.label}</span>
-            <strong>{priceLabel(selectedCategory.price)}{category === "towable" ? ` × ${persons}` : ""}</strong>
-          </div>
-          {totalEstimate !== null && (
-            <>
-              <div style={{...styles.priceRow, borderTop: "1px solid #e8e4da", paddingTop: 10, marginTop: 10, color: "#6b7a8d", fontSize: "0.85rem"}}>
-                <span>Net</span>
-                <span>€{netFromGross(totalEstimate).toFixed(2).replace(".", ",")}</span>
-              </div>
-              <div style={{...styles.priceRow, color: "#6b7a8d", fontSize: "0.85rem"}}>
-                <span>VAT ({Math.round(VAT_RATE * 100)}%)</span>
-                <span>€{vatFromGross(totalEstimate).toFixed(2).replace(".", ",")}</span>
-              </div>
-              <div style={{...styles.priceRow, borderTop: "1px solid #e8e4da", paddingTop: 10, marginTop: 10}}>
-                <span>Total (incl. VAT)</span>
-                <strong style={{fontSize: "1.3rem"}}>€{totalEstimate}</strong>
-              </div>
-              <div style={styles.priceRow}>
-                <span>Deposit online (30%)</span>
-                <strong style={{color: "#ff5a36"}}>€{deposit}</strong>
-              </div>
-              <div style={styles.priceRow}>
-                <span style={{color: "#6b7a8d", fontSize: "0.85rem"}}>Remaining at dock</span>
-                <span style={{color: "#6b7a8d"}}>€{totalEstimate - deposit!}</span>
-              </div>
-            </>
-          )}
-          <div style={styles.priceNote}>
-            *without fuel — fuel billed separately at end of rental.
-            {category.startsWith("vip") && <><br/>*VIP Delivery requires €1,500 deposit (refundable).</>}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Step 5: Consent ─────────────────────────────────────── */}
-      <section style={styles.section}>
-        <div style={styles.sectionLabel}>Step 5 · Consent (all three mandatory)</div>
-
-        <label style={styles.consent}>
-          <input type="checkbox" checked={acceptPrivacy} onChange={(e) => setAcceptPrivacy(e.target.checked)} style={styles.checkbox} />
-          <span>
-            I have read and accept the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
-          </span>
-        </label>
-
-        <label style={styles.consent}>
-          <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} style={styles.checkbox} />
-          <span>
-            I have read and accept the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.
-          </span>
-        </label>
-
-        <label style={styles.consent}>
-          <input type="checkbox" checked={acceptWaiver} onChange={(e) => setAcceptWaiver(e.target.checked)} style={styles.checkbox} />
-          <span>
-            I have read, understood and accept the <a href="/waiver" target="_blank" rel="noopener">Liability Waiver</a> — including the acknowledged risks and my personal responsibility on the water.
-          </span>
-        </label>
-      </section>
+      </div>
 
       {errors.length > 0 && (
         <div style={styles.errorBox}>
-          <strong>Please fix before submitting:</strong>
+          <strong>Please fix before continuing:</strong>
           <ul style={{margin: "8px 0 0 20px"}}>
             {errors.map((err, i) => (<li key={i}>{err}</li>))}
           </ul>
         </div>
       )}
 
-      <button type="submit" disabled={!allChecked} style={{...styles.submitBtn, ...(!allChecked ? styles.submitBtnDisabled : {})}}>
-        {allChecked ? "Request booking & pay 30% deposit" : "Tick all three boxes to continue"}
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="M5 12h14M13 5l7 7-7 7"/>
-        </svg>
-      </button>
+      {currentStep === 1 && (
+        <section style={styles.section}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Category</span>
+              <select value={category} onChange={(e) => setCategory(e.target.value as Category)} style={styles.select}>
+                {CATEGORIES.map((c) => (
+                  <option key={c.id} value={c.id}>
+                    {c.label} · {priceLabel(c.price)}{c.note ? ` (${c.note})` : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-      <p style={styles.footNote}>
-        On submit, a pre-filled WhatsApp message opens. David confirms availability and sends
-        the Viva Wallet deposit link within the hour. Your timestamp, IP and checkbox states
-        are logged as proof of consent.
-      </p>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Jetski preference</span>
+              <select value={jetskiId} onChange={(e) => setJetskiId(e.target.value)} style={styles.select}>
+                <option value="any">Any available</option>
+                {jetskis.map((j) => (
+                  <option key={j.id} value={j.id}>
+                    {j.name} · {j.hp} HP · {j.topSpeed} km/h
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Date</span>
+              <input type="date" value={date} onChange={(e) => setDate(e.target.value)} style={styles.input} required />
+            </label>
+
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Time</span>
+              <select value={time} onChange={(e) => setTime(e.target.value)} style={styles.select}>
+                {TIME_SLOTS.map((t) => (
+                  <option key={t} value={t}>{t}</option>
+                ))}
+              </select>
+            </label>
+
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Persons on board</span>
+              <input type="number" min={1} max={3} value={persons} onChange={handlePersonsChange} style={styles.input} />
+              <small style={styles.hint}>*3-seater, but 2 persons recommended for comfort & performance.</small>
+            </label>
+          </div>
+        </section>
+      )}
+
+      {currentStep === 2 && (
+        <section style={styles.section}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label style={{...styles.radioCard, ...(hasLicence === "yes" ? styles.radioCardActive : {})}}>
+              <input type="radio" name="licence" value="yes" checked={hasLicence === "yes"} onChange={() => setHasLicence("yes")} style={styles.radio} />
+              <span style={styles.radioTitle}>Yes, I have a licence</span>
+              <span style={styles.radioSub}>You can operate solo within the rules.</span>
+            </label>
+            <label style={{...styles.radioCard, ...(hasLicence === "no" ? styles.radioCardActive : {})}}>
+              <input type="radio" name="licence" value="no" checked={hasLicence === "no"} onChange={() => setHasLicence("no")} style={styles.radio} />
+              <span style={styles.radioTitle}>No licence</span>
+              <span style={styles.radioSub}>Guided tour with David only. You still drive, he stays close.</span>
+            </label>
+          </div>
+
+          {hasLicence === "no" && (
+            <div style={styles.info}>
+              <strong>Good news:</strong> Without a licence, you still get the full Nero experience.
+              David will guide your ride personally, staying close to ensure safety. You drive the
+              jetski yourself. He just makes sure you stay within the rules.
+            </div>
+          )}
+          {licenceWarningNeeded && (
+            <div style={styles.warn}>
+              <strong>Heads up:</strong> VIP Delivery and longer rentals normally assume a licence.
+              Since you don't have one, David will contact you to arrange a guided version.
+            </div>
+          )}
+        </section>
+      )}
+
+      {currentStep === 3 && (
+        <section style={styles.section}>
+          <p style={styles.sectionHint}>Required for booking confirmation and Greek Port Police (Λιμεναρχείο) registration.</p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>First name *</span>
+              <input type="text" value={firstName} onChange={(e) => setFirstName(e.target.value)} style={styles.input} autoComplete="given-name" required />
+            </label>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Last name *</span>
+              <input type="text" value={lastName} onChange={(e) => setLastName(e.target.value)} style={styles.input} autoComplete="family-name" required />
+            </label>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Date of birth * (must be 18+)</span>
+              <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} style={styles.input} autoComplete="bday" required />
+            </label>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Nationality *</span>
+              <input type="text" value={nationality} onChange={(e) => setNationality(e.target.value)} placeholder="e.g. German" style={styles.input} required />
+            </label>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Email *</span>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} style={styles.input} autoComplete="email" required />
+            </label>
+            <label style={styles.field}>
+              <span style={styles.fieldLabel}>Phone / WhatsApp *</span>
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+49 ..." style={styles.input} autoComplete="tel" required />
+            </label>
+          </div>
+
+          <label style={{...styles.consent, marginTop: 16}}>
+            <input
+              type="checkbox"
+              checked={wantsInvoice}
+              onChange={(e) => setWantsInvoice(e.target.checked)}
+              style={styles.checkbox}
+            />
+            <span>
+              I need a full VAT invoice for my company (requires billing address).
+              Without this, you get a simple receipt at the dock.
+            </span>
+          </label>
+
+          {wantsInvoice && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              <label style={styles.field} className="sm:col-span-2">
+                <span style={styles.fieldLabel}>Street & number *</span>
+                <input type="text" value={street} onChange={(e) => setStreet(e.target.value)} style={styles.input} autoComplete="street-address" required />
+              </label>
+              <label style={styles.field}>
+                <span style={styles.fieldLabel}>Postal code *</span>
+                <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} style={styles.input} autoComplete="postal-code" required />
+              </label>
+              <label style={styles.field}>
+                <span style={styles.fieldLabel}>City *</span>
+                <input type="text" value={city} onChange={(e) => setCity(e.target.value)} style={styles.input} autoComplete="address-level2" required />
+              </label>
+              <label style={styles.field} className="sm:col-span-2">
+                <span style={styles.fieldLabel}>Country *</span>
+                <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} style={styles.input} autoComplete="country-name" required />
+              </label>
+            </div>
+          )}
+
+          <div style={styles.infoSubtle}>
+            Photo ID (passport or national ID card) will be verified at the dock before departure. Not required online.
+          </div>
+        </section>
+      )}
+
+      {currentStep === 4 && (
+        <section style={styles.section}>
+          <div style={styles.priceBox}>
+            <div style={styles.priceRow}>
+              <span>{selectedCategory.label}</span>
+              <strong>{priceLabel(selectedCategory.price)}{category === "towable" ? ` × ${persons}` : ""}</strong>
+            </div>
+            {totalEstimate !== null && (
+              <>
+                <div style={{...styles.priceRow, borderTop: "1px solid #e8e4da", paddingTop: 10, marginTop: 10, color: "#6b7a8d", fontSize: "0.85rem"}}>
+                  <span>Net</span>
+                  <span>€{netFromGross(totalEstimate).toFixed(2).replace(".", ",")}</span>
+                </div>
+                <div style={{...styles.priceRow, color: "#6b7a8d", fontSize: "0.85rem"}}>
+                  <span>VAT ({Math.round(VAT_RATE * 100)}%)</span>
+                  <span>€{vatFromGross(totalEstimate).toFixed(2).replace(".", ",")}</span>
+                </div>
+                <div style={{...styles.priceRow, borderTop: "1px solid #e8e4da", paddingTop: 10, marginTop: 10}}>
+                  <span>Total (incl. VAT)</span>
+                  <strong style={{fontSize: "1.3rem"}}>€{totalEstimate}</strong>
+                </div>
+                <div style={styles.priceRow}>
+                  <span>Deposit online (30%)</span>
+                  <strong style={{color: "#ff5a36"}}>€{deposit}</strong>
+                </div>
+                <div style={styles.priceRow}>
+                  <span style={{color: "#6b7a8d", fontSize: "0.85rem"}}>Remaining at dock</span>
+                  <span style={{color: "#6b7a8d"}}>€{totalEstimate - deposit!}</span>
+                </div>
+              </>
+            )}
+            <div style={styles.priceNote}>
+              *without fuel. Fuel billed separately at end of rental.
+              {category.startsWith("vip") && <><br/>*VIP Delivery requires €1,500 deposit (refundable).</>}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {currentStep === 5 && (
+        <section style={styles.section}>
+          <label style={styles.consent}>
+            <input type="checkbox" checked={acceptPrivacy} onChange={(e) => setAcceptPrivacy(e.target.checked)} style={styles.checkbox} />
+            <span>
+              I have read and accept the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+            </span>
+          </label>
+
+          <label style={styles.consent}>
+            <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} style={styles.checkbox} />
+            <span>
+              I have read and accept the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.
+            </span>
+          </label>
+
+          <label style={styles.consent}>
+            <input type="checkbox" checked={acceptWaiver} onChange={(e) => setAcceptWaiver(e.target.checked)} style={styles.checkbox} />
+            <span>
+              I have read, understood and accept the <a href="/waiver" target="_blank" rel="noopener">Liability Waiver</a>, including the acknowledged risks and my personal responsibility on the water.
+            </span>
+          </label>
+
+          <p style={styles.footNote}>
+            On submit, a pre-filled WhatsApp message opens. David confirms availability and sends
+            the Viva Wallet deposit link within the hour. Your timestamp, IP and checkbox states
+            are logged as proof of consent.
+          </p>
+        </section>
+      )}
+
+      {/* Navigation buttons */}
+      <div style={styles.navRow}>
+        {currentStep > 1 ? (
+          <button type="button" onClick={handleBack} style={styles.backBtn}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+              <path d="M19 12H5M11 19l-7-7 7-7"/>
+            </svg>
+            Back
+          </button>
+        ) : (
+          <span />
+        )}
+
+        {currentStep < TOTAL_STEPS && (
+          <button type="button" onClick={handleContinue} style={styles.continueBtn}>
+            Continue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </button>
+        )}
+
+        {currentStep === TOTAL_STEPS && (
+          <button type="submit" disabled={!allChecked} style={{...styles.submitBtn, ...(!allChecked ? styles.submitBtnDisabled : {})}}>
+            {allChecked ? "Request booking & pay 30% deposit" : "Tick all three boxes to continue"}
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path d="M5 12h14M13 5l7 7-7 7"/>
+            </svg>
+          </button>
+        )}
+      </div>
     </form>
   );
 }
-
-// ─── styles (inline, design-system colors from v2-azure) ─────────────────
 
 const styles: Record<string, React.CSSProperties> = {
   form: {
     display: "flex",
     flexDirection: "column",
-    gap: "2rem",
+    gap: "1.75rem",
     background: "rgba(253,251,244,0.04)",
     border: "1px solid rgba(253,251,244,0.15)",
     borderRadius: 24,
     color: "#fdfbf4",
   },
+  progressWrap: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.75rem",
+    paddingBottom: "0.5rem",
+    borderBottom: "1px solid rgba(253,251,244,0.1)",
+  },
+  dots: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+  },
+  dot: {
+    width: 10,
+    height: 10,
+    borderRadius: "50%",
+    background: "rgba(253,251,244,0.2)",
+    transition: "background 0.3s, transform 0.3s",
+  },
+  dotCurrent: {
+    background: "#ffc233",
+    transform: "scale(1.35)",
+    boxShadow: "0 0 0 4px rgba(255,194,51,0.18)",
+  },
+  dotDone: {
+    background: "#00b3a7",
+  },
+  progressLabel: {
+    fontFamily: "JetBrains Mono, monospace",
+    fontSize: "0.72rem",
+    letterSpacing: "0.14em",
+    textTransform: "uppercase",
+    color: "rgba(253,251,244,0.85)",
+  },
   section: {
     display: "flex",
     flexDirection: "column",
     gap: "0.75rem",
-  },
-  sectionLabel: {
-    fontFamily: "JetBrains Mono, monospace",
-    fontSize: "0.68rem",
-    letterSpacing: "0.18em",
-    textTransform: "uppercase",
-    color: "#ffc233",
-    marginBottom: "0.25rem",
   },
   sectionHint: {
     fontSize: "0.85rem",
@@ -490,11 +584,6 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: "0.75rem",
     color: "rgba(253,251,244,0.55)",
     marginTop: "0.25rem",
-  },
-  radioRow: {
-    display: "grid",
-    gridTemplateColumns: "repeat(2, 1fr)",
-    gap: "0.75rem",
   },
   radioCard: {
     display: "flex",
@@ -593,6 +682,45 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: "0.88rem",
     color: "#fff",
   },
+  navRow: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "1rem",
+    paddingTop: "0.5rem",
+    borderTop: "1px solid rgba(253,251,244,0.1)",
+  },
+  backBtn: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    padding: "0.75rem 1.25rem",
+    background: "transparent",
+    color: "rgba(253,251,244,0.8)",
+    border: "1.5px solid rgba(253,251,244,0.25)",
+    borderRadius: 9999,
+    fontFamily: "inherit",
+    fontSize: "0.88rem",
+    fontWeight: 500,
+    cursor: "pointer",
+    transition: "background 0.2s, border 0.2s",
+  },
+  continueBtn: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    padding: "0.85rem 1.5rem",
+    background: "#ffc233",
+    color: "#071d30",
+    border: "none",
+    borderRadius: 9999,
+    fontFamily: "inherit",
+    fontWeight: 700,
+    fontSize: "0.92rem",
+    letterSpacing: "0.02em",
+    cursor: "pointer",
+    transition: "transform 0.2s, box-shadow 0.2s",
+  },
   submitBtn: {
     display: "inline-flex",
     alignItems: "center",
@@ -621,6 +749,7 @@ const styles: Record<string, React.CSSProperties> = {
     color: "rgba(253,251,244,0.55)",
     textAlign: "center",
     lineHeight: 1.6,
+    marginTop: "0.5rem",
   },
   successCard: {
     padding: "3rem 2rem",

@@ -1,19 +1,19 @@
 // ═══════════════════════════════════════════════════════════════════════════
-// NERO LEFKADA RENTAL&RETAIL – Fleet & Pricing
+// NERO LEFKADA RENTAL&RETAIL, Fleet & Pricing
 // Final Stand: 2026-04-19
 // ═══════════════════════════════════════════════════════════════════════════
 //
 // FLOTTE: 4 Sea-Doo Jetskis, alle supercharged, alle 3-Sitzer.
-//   Nero Ena    – Sea-Doo 260 GTX Limited Edition, 310 PS, 120 km/h (Flaggschiff)
-//   Nero Dio    – Sea-Doo 260 RXT RS Riva Racing,  260 PS, 110 km/h
-//   Nero Tria   – Sea-Doo 260 GTX Limited Edition, 260 PS, 110 km/h
-//   Nero Tessera – Sea-Doo 260 GTX Limited Edition, 260 PS, 110 km/h
+//   Nero Ena   , Sea-Doo 260 GTX Limited Edition, 310 PS, 120 km/h (Flaggschiff)
+//   Nero Dio   , Sea-Doo 260 RXT RS Riva Racing,  260 PS, 110 km/h
+//   Nero Tria  , Sea-Doo 260 GTX Limited Edition, 260 PS, 110 km/h
+//   Nero Tessera, Sea-Doo 260 GTX Limited Edition, 260 PS, 110 km/h
 //
 // VERMERK (immer klein auf der Website):
 //   "*3-seater, but 2 persons recommended"
 //
 // PREISE: Alle 4 Jetskis kosten GLEICH in allen Kategorien (laut Flyer 2026).
-//   Vermerk: "*without fuel – fuel billed separately at end of rental"
+//   Vermerk: "*without fuel, fuel billed separately at end of rental"
 //
 // BUCHUNGSMODELL: Jede Buchung referenziert GENAU eine Unit (jetski_unit_id).
 // Der fleet-utilization-analyst-Agent aggregiert Umsatz/Auslastung pro Unit.
@@ -21,7 +21,7 @@
 // ─── MwSt / ΦΠΑ ──────────────────────────────────────────────────────────
 // Griechischer Standard-MwSt-Satz (ΦΠΑ) für Jetski-Vermietung = 24%.
 // Tourismus-Reduziert-Satz 13% gilt NICHT (nur für Beherbergung & ausgewählte Services).
-// Preise im Projekt sind BRUTTO (inkl. MwSt) — EU-Richtlinie 98/6/EG B2C.
+// Preise im Projekt sind BRUTTO (inkl. MwSt), EU-Richtlinie 98/6/EG B2C.
 // Rechnungen müssen Netto + MwSt + Brutto getrennt ausweisen (myDATA-Pflicht).
 
 export const VAT_RATE = 0.24;
@@ -140,7 +140,7 @@ export const jetskis: Jetski[] = [
   {
     id: "nero-ena",
     name: "Nero Ena",
-    tagline: "The flagship — fastest on the island.",
+    tagline: "The flagship. Fastest on the island.",
     brand: "Sea-Doo",
     model: "260 GTX Limited Edition Supercharged",
     year: 2026,
@@ -337,7 +337,7 @@ export const pricingExtras = {
     tubeModel: "Jobe Ridge Towable 3P",          // offizieller Flyer-Name
     tubeModelMarketing: "Great Big Mable",       // Marketing-Alias (3-Reifen-Tube)
     tubeSeats: 3,
-    label: "Water Fun – Jobe Ridge Towable 3P (3 seats) behind the jetski",
+    label: "Water Fun, Jobe Ridge Towable 3P (3 seats) behind the jetski",
   },
   // Kaution: 1.500 € nur bei VIP Delivery Service
   depositDelivery: 1500,
@@ -345,9 +345,9 @@ export const pricingExtras = {
   depositStandard: 0,
   // Fuel-Hinweis (IMMER klein auf Preislisten)
   fuelNote: {
-    en: "*without fuel — fuel billed separately at end of rental",
-    de: "*ohne Benzin — Kraftstoff wird am Ende der Miete separat abgerechnet",
-    gr: "*χωρίς καύσιμα — τα καύσιμα χρεώνονται στο τέλος της ενοικίασης",
+    en: "*without fuel. Fuel billed separately at end of rental",
+    de: "*ohne Benzin. Kraftstoff wird am Ende der Miete separat abgerechnet",
+    gr: "*χωρίς καύσιμα. Τα καύσιμα χρεώνονται στο τέλος της ενοικίασης",
   },
   // Sitze-Hinweis (IMMER klein auf Flotten-Section)
   seatsNote: {

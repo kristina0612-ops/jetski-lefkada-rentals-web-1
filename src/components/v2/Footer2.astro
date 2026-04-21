@@ -1,5 +1,5 @@
 ---
-// Footer2 — mehrsprachig ab 2026-04-20 Abend (EN + DE + GR).
+// Footer2, mehrsprachig ab 2026-04-20 Abend (EN + DE + GR).
 // GR fällt vorerst auf EN-Text zurück bis Kristina die EL-Fassung prüft.
 
 type Lang = "en" | "de" | "gr";
@@ -7,7 +7,7 @@ const lang: Lang = (Astro.props.lang as Lang) ?? "en";
 
 const COPY = {
   en: {
-    tagline: "Fastest jetskis on the island. Four supercharged Sea-Doos — Nero Ena, Dio, Tria & Tessera — fully licensed, built around the best day you can have on water.",
+    tagline: "Fastest jetskis on the island. Four supercharged Sea-Doo jetskis: Nero Ena, Dio, Tria & Tessera. Fully licensed, built around the best day you can have on water.",
     scanToFollow: "Scan to follow",
     scanCaption: "Boats · Beach · Best of Lefkada",
     chatWhatsApp: "WhatsApp David",
@@ -27,7 +27,7 @@ const COPY = {
       { href: "/safety", label: "Safety" },
     ],
     hoursHeading: "Operating hours",
-    hoursMonSun: "Mon – Sun",
+    hoursMonSun: "Mon to Sun",
     hoursEveryDay: "Every day",
     hoursEveryDayValue: "12 hours open",
     hoursSeason: "Season",
@@ -36,7 +36,7 @@ const COPY = {
     forNero: "For Nero Lefkada · Lygia, Lefkada",
   },
   de: {
-    tagline: "Die schnellsten Jetskis der Insel. Vier supercharged Sea-Doos — Nero Ena, Dio, Tria & Tessera — vollständig lizenziert, gebaut für den besten Tag, den Du auf dem Wasser haben kannst.",
+    tagline: "Die schnellsten Jetskis der Insel. Vier supercharged Sea-Doo Jetskis: Nero Ena, Dio, Tria & Tessera. Vollständig lizenziert, gebaut für den besten Tag, den Du auf dem Wasser haben kannst.",
     scanToFollow: "Folge uns",
     scanCaption: "Boote · Strand · Bestes von Lefkada",
     chatWhatsApp: "WhatsApp David",
@@ -56,7 +56,7 @@ const COPY = {
       { href: "/safety", label: "Sicherheit" },
     ],
     hoursHeading: "Öffnungszeiten",
-    hoursMonSun: "Mo – So",
+    hoursMonSun: "Mo bis So",
     hoursEveryDay: "Täglich",
     hoursEveryDayValue: "12 Stunden offen",
     hoursSeason: "Saison",
@@ -65,7 +65,7 @@ const COPY = {
     forNero: "Für Nero Lefkada · Lygia, Lefkada",
   },
   gr: {
-    tagline: "Fastest jetskis on the island. Four supercharged Sea-Doos — Nero Ena, Dio, Tria & Tessera — fully licensed, built around the best day you can have on water.",
+    tagline: "Fastest jetskis on the island. Four supercharged Sea-Doo jetskis: Nero Ena, Dio, Tria & Tessera. Fully licensed, built around the best day you can have on water.",
     scanToFollow: "Scan to follow",
     scanCaption: "Boats · Beach · Best of Lefkada",
     chatWhatsApp: "WhatsApp David",
@@ -85,7 +85,7 @@ const COPY = {
       { href: "/safety", label: "Safety" },
     ],
     hoursHeading: "Operating hours",
-    hoursMonSun: "Mon – Sun",
+    hoursMonSun: "Mon to Sun",
     hoursEveryDay: "Every day",
     hoursEveryDayValue: "12 hours open",
     hoursSeason: "Season",
@@ -190,7 +190,7 @@ const currentYear = new Date().getFullYear();
       <div class="col-span-12 lg:col-span-3">
         <div class="font-mono text-[10px] uppercase tracking-[0.18em] mb-4" style="color: var(--v2-sun-300);">Operating hours</div>
         <div class="space-y-2 text-sm" style="color: rgba(253,251,244,0.8);">
-          <div class="flex justify-between"><span>Mon – Sun</span><span style="color: var(--v2-sun-300);">09:00 – 21:00</span></div>
+          <div class="flex justify-between"><span>Mon to Sun</span><span style="color: var(--v2-sun-300);">09:00 to 21:00</span></div>
           <div class="flex justify-between"><span>Every day</span><span style="color: var(--v2-sun-300);">12 hours open</span></div>
           <div class="flex justify-between pt-3 mt-3 border-t" style="border-color: rgba(253,251,244,0.15);"><span>Season</span><span style="color: var(--v2-sun-300);">May - Oct</span></div>
         </div>
@@ -216,7 +216,7 @@ const currentYear = new Date().getFullYear();
           </div>
         </div>
         <div class="font-mono text-[10px] uppercase tracking-[0.18em] text-right" style="color: rgba(253,251,244,0.5);">
-          <div>Website by <a href="#" class="hover:underline" style="color: var(--v2-sun-300);">AURA Web Studio &mdash; by Kristina Goldberg</a></div>
+          <div>Website by <a href="#" class="hover:underline" style="color: var(--v2-sun-300);">AURA Web Studio · by Kristina Goldberg</a></div>
           <div class="mt-1 opacity-60">For Nero Lefkada · Lygia, Lefkada</div>
         </div>
       </div>

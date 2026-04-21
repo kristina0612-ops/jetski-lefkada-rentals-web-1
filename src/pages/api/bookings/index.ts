@@ -1,7 +1,7 @@
 export const prerender = false;
 
-// GET /api/bookings — Liste (nur eingeloggt)
-// POST /api/bookings — Neue Buchung anlegen
+// GET /api/bookings, Liste (nur eingeloggt)
+// POST /api/bookings, Neue Buchung anlegen
 
 import type { APIRoute } from "astro";
 import type { Booking } from "../../../types/database";
@@ -65,7 +65,7 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
 
   // Input-Validation (Sec #2, 2026-04-20): Allow-List-basiert, verhindert
   // SQL/NoSQL-Injection, Type-Confusion, Oversized-Strings. Error-Messages
-  // sind generisch — verraten keine interne Struktur an Angreifer.
+  // sind generisch, verraten keine interne Struktur an Angreifer.
   const check = validateBookingBody(rawBody);
   if (!check.ok) {
     return jsonError(400, `Validation failed: ${check.error}`, rlHeaders);
@@ -80,7 +80,7 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
     return new Response(
       JSON.stringify({
         error:
-          "Buchung-API ist noch nicht aktiviert — Supabase muss erst live sein.",
+          "Buchung-API ist noch nicht aktiviert, Supabase muss erst live sein.",
       }),
       { status: 503, headers: { "Content-Type": "application/json", ...rlHeaders } },
     );

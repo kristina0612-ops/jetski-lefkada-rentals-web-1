@@ -83,10 +83,10 @@ const nextInvoiceNumber = String(invoices.length + 1).padStart(3, "0");
             <tr>
               <td style="color: #ffc233; font-family: 'JetBrains Mono', monospace;">{inv.invoice_number}</td>
               <td>{new Date(inv.created_at).toLocaleDateString("de-DE")}</td>
-              <td>—</td>
-              <td>—</td>
-              <td>—</td>
-              <td>{inv.sent_to_accountant ? "✓" : "—"}</td>
+              <td>-</td>
+              <td>-</td>
+              <td>-</td>
+              <td>{inv.sent_to_accountant ? "✓" : "-"}</td>
               <td>
                 {inv.pdf_url && (
                   <a href={inv.pdf_url} target="_blank" rel="noopener" style="color: #ffc233;">PDF</a>

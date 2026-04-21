@@ -445,7 +445,7 @@ export default function Calculator({ lang = "en" }: CalculatorProps) {
         )}
       </div>
 
-      {/* WhatsApp — Mobile: schmaler, whitespace-normal damit Button im Container bleibt */}
+      {/* WhatsApp, Mobile: schmaler, whitespace-normal damit Button im Container bleibt */}
       <a
         href={WHATSAPP_BASE + encodeURIComponent(result.whatsappMsg)}
         target="_blank"

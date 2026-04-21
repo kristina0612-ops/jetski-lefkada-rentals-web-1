@@ -40,7 +40,7 @@ export interface RateLimitResult {
   remaining: number;
   /** Unix-Timestamp (ms), zu dem das aktuelle Fenster endet */
   resetAt: number;
-  /** Sekunden bis zum Reset – praktisch für Retry-After-Header */
+  /** Sekunden bis zum Reset, praktisch für Retry-After-Header */
   retryAfterSeconds: number;
   /** true wenn persistent via Supabase, false wenn nur In-Memory-Fallback */
   persistent: boolean;

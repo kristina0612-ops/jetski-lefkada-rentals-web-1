@@ -142,7 +142,7 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
     line-height: 1;
   }
 
-  /* Sun button – the language trigger */
+  /* Sun button, the language trigger */
   .sun-btn {
     position: relative;
     width: 44px;
@@ -285,12 +285,12 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
         </div>
       </div>
 
-      <!-- CTA (always visible) — springt zum Booking-Bereich (Calculator + Form + Calendar).
+      <!-- CTA (always visible), springt zum Booking-Bereich (Calculator + Form + Calendar).
            Mobile (<sm): verkürzter Text (t.bookShort) damit „Jetzt Buchen" auf 320px-
            Viewport neben Sun-Button + Hamburger nicht überläuft.
            Desktop (≥sm): voller Text (t.book). -->
       <a
-        href="#book"
+        href="#booking-form"
         class="v2-btn !py-3 !px-4 sm:!px-5 !text-xs"
         style="background: var(--v2-sun-400); color: var(--v2-ink-950);"
         data-cro="navbar-cta-book"
@@ -400,10 +400,10 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
     </div>
   </nav>
 
-  <!-- Footer CTA — springt zum Booking-Bereich (Calculator + Form + Calendar) -->
+  <!-- Footer CTA, springt zum Booking-Bereich (Calculator + Form + Calendar) -->
   <div class="relative px-6 pb-12 pt-6 border-t" style="border-color: rgba(253,251,244,0.1);">
     <a
-      href="#book"
+      href="#booking-form"
       class="v2-btn w-full justify-center !py-4 !text-sm"
       style="background: var(--v2-sun-400, #ffc233); color: var(--v2-ink-950, #071d30);"
       data-cro="mobile-nav-cta-book"
@@ -414,7 +414,7 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
       </svg>
     </a>
     <p class="font-mono text-[9px] tracking-[0.2em] uppercase text-center mt-4" style="color: rgba(253,251,244,0.35);">
-      Lygia · Lefkada · Daily 09–21
+      Lygia · Lefkada · Daily 09-21
     </p>
   </div>
 </div>

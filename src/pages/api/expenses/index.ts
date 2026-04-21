@@ -1,7 +1,7 @@
 export const prerender = false;
 
-// GET /api/expenses — Liste
-// POST /api/expenses — Neue Ausgabe
+// GET /api/expenses, Liste
+// POST /api/expenses, Neue Ausgabe
 
 import type { APIRoute } from "astro";
 import type { Expense } from "../../../types/database";
@@ -65,11 +65,11 @@ export const POST: APIRoute = async ({ request, cookies, clientAddress }) => {
   const body = check.data;
 
   try {
-    // TODO: Supabase Insert — bis dahin dry-run
+    // TODO: Supabase Insert, bis dahin dry-run
     void body;
     return new Response(
       JSON.stringify({
-        error: "Expenses-API ist noch nicht aktiviert – Supabase muss erst live sein.",
+        error: "Expenses-API ist noch nicht aktiviert, Supabase muss erst live sein.",
       }),
       { status: 503, headers: { "Content-Type": "application/json", ...rlHeaders } },
     );

@@ -71,7 +71,7 @@ export interface Invoice {
   created_at: string;
   user_id: string; // Kristina's UID
 
-  invoice_number: string; // "001", "002", etc. — global counter
+  invoice_number: string; // "001", "002", etc., global counter
   booking_id: string; // FK → bookings
 
   // PDF

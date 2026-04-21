@@ -1,7 +1,7 @@
 ---
-// Gallery2 – Real customer moments (2025 season, consent confirmed by Kristina 2026-04-19)
-// All photos: `public/images/customers/` + `public/images/gallery/` – stored locally.
-// Privacy: All depicted persons gave written consent – see privacy.astro §10.
+// Gallery2, Real customer moments (2025 season, consent confirmed by Kristina 2026-04-19)
+// All photos: `public/images/customers/` + `public/images/gallery/`, stored locally.
+// Privacy: All depicted persons gave written consent, see privacy.astro §10.
 // Kristina can re-arrange the selection by changing the `src` paths below.
 //
 // Quality note (2026-04-20): Phone-shot photos look slightly soft on laptop.
@@ -9,7 +9,7 @@
 // the images as sharper without re-encoding. Milder kernel than Hero because
 // still images don't need motion-blur compensation.
 // Card-selection updated 2026-04-20 per Kristina:
-// • Trimmed to exactly 4 cards — the previous two tiny thumbnails at the
+// • Trimmed to exactly 4 cards, the previous two tiny thumbnails at the
 //   bottom of the section (Muscle flex + Tube moment) are gone. The
 //   remaining four use the 7-5 / 5-7 asymmetric bento cleanly.
 // • Kept: Group ride, Couple on the bay, Family time, Thumbs up.
@@ -118,9 +118,9 @@ const moments = [
           // Mobile: jede Karte bekommt ihre eigene aspect-ratio (16/9 bzw 4/5)
           //         und stapelt als col-span-12 untereinander.
           // Desktop: alle 4 Karten bekommen dieselbe fixe Höhe (md:h-[480px])
-          //         und aspect-auto — damit liegen beide Paare nebeneinander
+          //         und aspect-auto, damit liegen beide Paare nebeneinander
           //         auf gleicher Höhe, keine Lücke unter der Zeile.
-          //         (2026-04-20 Abend-Fix — vorher standen schmale Karten
+          //         (2026-04-20 Abend-Fix, vorher standen schmale Karten
           //         auf aspect-[4/5] und breite auf h-full, was die Zeilen
           //         auf Desktop mit Whitespace unter der kleineren Karte
           //         auseinandergerissen hat.)
@@ -134,7 +134,7 @@ const moments = [
             <figure class:list={["group relative overflow-hidden rounded-3xl", spans[i]]}>
               <img
                 src={m.src}
-                alt={`${m.title} – ${m.caption}`}
+                alt={`${m.title}, ${m.caption}`}
                 width="1400"
                 height="933"
                 loading="lazy"

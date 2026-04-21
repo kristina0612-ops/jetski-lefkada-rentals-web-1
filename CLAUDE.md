@@ -93,6 +93,7 @@ Freundlich und direkt – wie wenn David selbst antwortet: entspannt, ehrlich, b
 - `.claude/rules/autonomy-rules.md` – was ich alleine darf vs. fragen muss
 - `.claude/rules/red-lines.md` – was ich NIEMALS tue
 - `.claude/rules/basics.md` – Grundregeln für die Zusammenarbeit
+- `.claude/rules/code-quality.md` – Wann Step-by-Step, wann direkt, Review-Checkliste bei Code-Tasks
 - `feedback/tone.md` – Tonfall-Beispiele und Feedback von Kristina
 - `feedback/review-log.md` – Protokoll aller Google-Bewertungen und gesendeten Antworten
 - `src/data/jetskis.ts` – autoritative Jetski-Daten

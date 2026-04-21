@@ -1,9 +1,9 @@
 ---
-// Spots2 – Lefkada spots customers love to ride to.
+// Spots2, Lefkada spots customers love to ride to.
 //
 // 2026-04-20 FINAL: Echte Lefkada-Fotos der jeweiligen Spots, lokal gespeichert.
 // 5 aus Wikimedia Commons (CC-lizenziert), 1 aus Unsplash. Credits in
-// `public/images/spots/CREDITS.md` — Attribution auf der Website per
+// `public/images/spots/CREDITS.md`, Attribution auf der Website per
 // Credits-Link unter dem Spots-Grid.
 //
 // Warum lokal: DSGVO. Externe Image-Hosts (Unsplash/Wikimedia-CDN) laden
@@ -11,7 +11,7 @@
 // umgeht das sauber.
 //
 // Warum diese Fotos: Dimitra Papadimitriou, Dollbaby78, Blackberrijack,
-// Cabeza2000, DominikCK1999 — Wikimedia-Fotografen die ihre Lefkada-
+// Cabeza2000, DominikCK1999, Wikimedia-Fotografen die ihre Lefkada-
 // Aufnahmen unter CC/Public Domain/CC0 freigegeben haben. Keine Stock-
 // Bank, kein Copyright-Risiko.
 
@@ -35,51 +35,51 @@ const SPOTS_COPY = {
     eyebrow: "Where the Neros go · Six stops",
     titleLead: "One loop.",
     titleAccent: "Six postcards.",
-    intro: "Our favourite line around the island. Tap any stop for the Google Maps pin — or just trust David when he points left.",
+    intro: "Our favourite line around the island. Tap any stop for the Google Maps pin. Or just trust David when he points left.",
     homeBase: "Home base",
     openMaps: "Open in Maps ↗",
-    footnote: "Route picks vary with the wind. David decides on the day — the goal is flat water and quiet bays.",
+    footnote: "Route picks vary with the wind. David decides on the day. The goal is flat water and quiet bays.",
     captions: [
       "The postcard: white cliffs, deep blue, zero crowds from the sea.",
       "Secret swimming stop. Turquoise that doesn't look real.",
       "Village bay. Coffee on the water before the ride home.",
-      "Crossing to the little sister island — glassy water, few boats.",
-      "Windsurfer paradise in the afternoon — mornings are ours.",
-      "Back to the dock — salty, happy, already planning the next one.",
+      "Crossing to the little sister island. Glassy water, few boats.",
+      "Windsurfer paradise in the afternoon. Mornings are ours.",
+      "Back to the dock. Salty, happy, already planning the next one.",
     ],
   },
   de: {
     eyebrow: "Wo die Neros hinfahren · Sechs Stops",
     titleLead: "Eine Runde.",
     titleAccent: "Sechs Postkarten.",
-    intro: "Unsere Lieblings-Route um die Insel. Tippe auf einen Spot für den Google-Maps-Pin — oder vertrau einfach David, wenn er nach links zeigt.",
+    intro: "Unsere Lieblings-Route um die Insel. Tippe auf einen Spot für den Google-Maps-Pin. Oder vertrau einfach David, wenn er nach links zeigt.",
     homeBase: "Heimathafen",
     openMaps: "In Maps öffnen ↗",
-    footnote: "Die Route richtet sich nach dem Wind. David entscheidet am Tag — Ziel sind flaches Wasser und ruhige Buchten.",
+    footnote: "Die Route richtet sich nach dem Wind. David entscheidet am Tag. Ziel sind flaches Wasser und ruhige Buchten.",
     captions: [
       "Die Postkarte: weiße Klippen, tiefes Blau, vom Meer aus keine Menschenmassen.",
       "Geheimer Badespot. Türkis, das nicht echt aussieht.",
       "Dorfbucht. Kaffee auf dem Wasser vor der Heimfahrt.",
-      "Kurze Überfahrt zur kleinen Schwesterinsel — glattes Wasser, kaum Boote.",
-      "Nachmittags Windsurfer-Paradies — morgens gehört es uns.",
-      "Zurück zum Steg — salzig, glücklich, schon der nächste Plan.",
+      "Kurze Überfahrt zur kleinen Schwesterinsel. Glattes Wasser, kaum Boote.",
+      "Nachmittags Windsurfer-Paradies. Morgens gehört es uns.",
+      "Zurück zum Steg. Salzig, glücklich, schon der nächste Plan.",
     ],
   },
   gr: {
     eyebrow: "Where the Neros go · Six stops",
     titleLead: "One loop.",
     titleAccent: "Six postcards.",
-    intro: "Our favourite line around the island. Tap any stop for the Google Maps pin — or just trust David when he points left.",
+    intro: "Our favourite line around the island. Tap any stop for the Google Maps pin. Or just trust David when he points left.",
     homeBase: "Home base",
     openMaps: "Open in Maps ↗",
-    footnote: "Route picks vary with the wind. David decides on the day — the goal is flat water and quiet bays.",
+    footnote: "Route picks vary with the wind. David decides on the day. The goal is flat water and quiet bays.",
     captions: [
       "The postcard: white cliffs, deep blue, zero crowds from the sea.",
       "Secret swimming stop. Turquoise that doesn't look real.",
       "Village bay. Coffee on the water before the ride home.",
-      "Crossing to the little sister island — glassy water, few boats.",
-      "Windsurfer paradise in the afternoon — mornings are ours.",
-      "Back to the dock — salty, happy, already planning the next one.",
+      "Crossing to the little sister island. Glassy water, few boats.",
+      "Windsurfer paradise in the afternoon. Mornings are ours.",
+      "Back to the dock. Salty, happy, already planning the next one.",
     ],
   },
 }[lang];
@@ -153,7 +153,7 @@ const spots: Spot[] = [
   },
 ];
 
-// Inline SVGs for the 6 icon variants — keeps the design consistent without icon library.
+// Inline SVGs for the 6 icon variants, keeps the design consistent without icon library.
 const iconPath = {
   cliff: "M3 20L8 12L12 15L16 8L21 20H3Z",
   beach: "M3 18C7 16 11 20 15 18C17 17 19 18 21 18L21 20H3V18Z M6 12C6 9 9 7 12 7C15 7 18 9 18 12",
@@ -205,7 +205,7 @@ const iconPath = {
               {spot.image ? (
                 <img
                   src={spot.image}
-                  alt={`${spot.name} – ${spot.caption}`}
+                  alt={`${spot.name}, ${spot.caption}`}
                   width="1400"
                   height="933"
                   loading="lazy"

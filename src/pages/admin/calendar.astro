@@ -13,7 +13,7 @@ if (!accessToken) {
 // Gruppiert nach jetski_unit_id
 const bookingsThisWeek: any[] = [];
 
-// Aktuelle Woche berechnen (Montag–Sonntag)
+// Aktuelle Woche berechnen (Montag-Sonntag)
 const today = new Date();
 const dayOfWeek = today.getDay() === 0 ? 6 : today.getDay() - 1; // Mo=0..So=6
 const monday = new Date(today);
@@ -53,7 +53,7 @@ const feedUrl = tokenIsSet
   <section style="margin-bottom: 4rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
       <h3 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 1.25rem; font-weight: 400; margin: 0;">
-        Diese Woche ({weekDays[0].date} – {weekDays[6].date})
+        Diese Woche ({weekDays[0].date}, {weekDays[6].date})
       </h3>
       <div style="display: flex; gap: 0.5rem;">
         <button class="btn-secondary" disabled>&larr; Vorherige</button>
@@ -87,7 +87,7 @@ const feedUrl = tokenIsSet
             return (
               <div class={`grid-cell slot-cell ${d.isToday ? "is-today" : ""}`}>
                 {daysBookings.length === 0 ? (
-                  <span class="empty-slot">—</span>
+                  <span class="empty-slot">-</span>
                 ) : (
                   daysBookings.map((b: any) => (
                     <a href={`/admin/bookings/${b.id}`} class="booking-pill">
@@ -105,7 +105,7 @@ const feedUrl = tokenIsSet
 
     {bookingsThisWeek.length === 0 && (
       <div class="empty-banner">
-        Noch keine Buchungen diese Woche — sobald Supabase angebunden ist und Du Buchungen eintragst, erscheinen sie hier automatisch in der richtigen Zeile + Spalte.
+        Noch keine Buchungen diese Woche, sobald Supabase angebunden ist und Du Buchungen eintragst, erscheinen sie hier automatisch in der richtigen Zeile + Spalte.
       </div>
     )}
   </section>
@@ -172,7 +172,7 @@ const feedUrl = tokenIsSet
     <li>
       <strong>Fertig</strong>
       <p>
-        Outlook zeigt Deine Buchungen jetzt automatisch an. Aktualisierung erfolgt alle 1–2 Stunden.
+        Outlook zeigt Deine Buchungen jetzt automatisch an. Aktualisierung erfolgt alle 1-2 Stunden.
       </p>
     </li>
   </ol>
@@ -181,7 +181,7 @@ const feedUrl = tokenIsSet
   <h3 class="section-title">Wichtig</h3>
   <ul class="info-list">
     <li>📖 <strong>Schreibgeschützt:</strong> Du siehst in Outlook, kannst aber nicht direkt editieren. Änderungen im CRM machen → Outlook updatet sich automatisch.</li>
-    <li>🔄 <strong>Sync-Rhythmus:</strong> Outlook fragt die URL alle 1–2 Stunden ab. Für sofortige Aktualisierung: Rechtsklick auf Kalender → „Senden/Empfangen".</li>
+    <li>🔄 <strong>Sync-Rhythmus:</strong> Outlook fragt die URL alle 1-2 Stunden ab. Für sofortige Aktualisierung: Rechtsklick auf Kalender → „Senden/Empfangen".</li>
     <li>🔒 <strong>Sicherheit:</strong> URL niemals weitergeben. Bei Verdacht auf Missbrauch: neues Token generieren.</li>
     <li>📱 <strong>Handy:</strong> Funktioniert auch mit iOS/Android-Kalendern (als „Internetkalender" hinzufügen).</li>
   </ul>

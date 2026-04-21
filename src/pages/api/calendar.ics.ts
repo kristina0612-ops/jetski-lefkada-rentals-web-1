@@ -62,7 +62,7 @@ export const GET: APIRoute = async ({ url }) => {
     return new Response("Forbidden", { status: 403 });
   }
 
-  // TODO: Bookings aus Supabase laden — nur confirmed/completed
+  // TODO: Bookings aus Supabase laden, nur confirmed/completed
   // const { data: bookings } = await supabase
   //   .from('bookings')
   //   .select('*')
