@@ -426,21 +426,21 @@ export default function BookingForm() {
           <label style={styles.consent}>
             <input type="checkbox" checked={acceptPrivacy} onChange={(e) => setAcceptPrivacy(e.target.checked)} style={styles.checkbox} />
             <span>
-              I have read and accept the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.
+              I have read and accept the <a href="/privacy" target="_blank" rel="noopener" style={styles.consentLink} onClick={(e) => e.stopPropagation()}>Privacy Policy</a>.
             </span>
           </label>
 
           <label style={styles.consent}>
             <input type="checkbox" checked={acceptTerms} onChange={(e) => setAcceptTerms(e.target.checked)} style={styles.checkbox} />
             <span>
-              I have read and accept the <a href="/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>.
+              I have read and accept the <a href="/terms" target="_blank" rel="noopener" style={styles.consentLink} onClick={(e) => e.stopPropagation()}>Terms &amp; Conditions</a>.
             </span>
           </label>
 
           <label style={styles.consent}>
             <input type="checkbox" checked={acceptWaiver} onChange={(e) => setAcceptWaiver(e.target.checked)} style={styles.checkbox} />
             <span>
-              I have read, understood and accept the <a href="/waiver" target="_blank" rel="noopener">Liability Waiver</a>, including the acknowledged risks and my personal responsibility on the water.
+              I have read, understood and accept the <a href="/waiver" target="_blank" rel="noopener" style={styles.consentLink} onClick={(e) => e.stopPropagation()}>Liability Waiver</a>, including the acknowledged risks and my personal responsibility on the water.
             </span>
           </label>
 
@@ -664,6 +664,11 @@ const styles: Record<string, React.CSSProperties> = {
     fontSize: "0.9rem",
     lineHeight: 1.6,
     cursor: "pointer",
+  },
+  consentLink: {
+    color: "#00b3a7",
+    textDecoration: "underline",
+    fontWeight: 500,
   },
   checkbox: {
     marginTop: "0.15rem",
