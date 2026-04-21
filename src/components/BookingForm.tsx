@@ -124,7 +124,6 @@ export default function BookingForm() {
     setErrors([]);
     if (currentStep < TOTAL_STEPS) {
       setCurrentStep((s) => s + 1);
-      window.scrollTo({ top: document.getElementById("booking-form")?.offsetTop ?? 0, behavior: "smooth" });
     }
   };
 
@@ -132,7 +131,6 @@ export default function BookingForm() {
     setErrors([]);
     if (currentStep > 1) {
       setCurrentStep((s) => s - 1);
-      window.scrollTo({ top: document.getElementById("booking-form")?.offsetTop ?? 0, behavior: "smooth" });
     }
   };
 
