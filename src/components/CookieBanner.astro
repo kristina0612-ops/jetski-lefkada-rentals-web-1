@@ -18,6 +18,21 @@
 const GA_ID = "G-MBLR2ODZES";
 ---
 
+<!-- Confirmation toast shown for 3s after Accept/Reject click -->
+<div
+  id="cookie-toast"
+  role="status"
+  aria-live="polite"
+  hidden
+  class="fixed inset-x-0 bottom-0 z-[9999] px-4 py-4 text-sm text-white backdrop-blur-md sm:px-6"
+  style="background: rgba(0,179,167,0.95); border-top: 1px solid rgba(253,251,244,0.2);"
+>
+  <div class="mx-auto max-w-6xl flex items-center gap-3">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+    <span data-cb-label="saved">Your cookie preferences have been saved. You can change them any time under Privacy.</span>
+  </div>
+</div>
+
 <div
   id="cookie-banner"
   role="dialog"
@@ -90,6 +105,7 @@ const GA_ID = "G-MBLR2ODZES";
         accept: "Accept all",
         more: "Cookie details & privacy policy",
         duration: "Your choice is remembered for 12 months.",
+        saved: "Your cookie preferences have been saved. You can change them any time under Privacy.",
       },
       de: {
         title: "Deine Privatsphäre",
@@ -99,6 +115,7 @@ const GA_ID = "G-MBLR2ODZES";
         accept: "Alle akzeptieren",
         more: "Cookie-Details & Datenschutz",
         duration: "Deine Entscheidung wird 12 Monate gespeichert.",
+        saved: "Deine Cookie-Einstellungen wurden gespeichert. Änderbar jederzeit unter Datenschutz.",
       },
       el: {
         title: "Η ιδιωτικότητά σου μετράει",
@@ -108,6 +125,7 @@ const GA_ID = "G-MBLR2ODZES";
         accept: "Αποδοχή όλων",
         more: "Λεπτομέρειες cookies & πολιτική απορρήτου",
         duration: "Η επιλογή σου αποθηκεύεται για 12 μήνες.",
+        saved: "Οι προτιμήσεις cookies αποθηκεύτηκαν. Μπορείς να τις αλλάξεις οποιαδήποτε στιγμή στην Πολιτική Απορρήτου.",
       },
     };
     const labels = T[LANG] || T.en;
@@ -115,6 +133,20 @@ const GA_ID = "G-MBLR2ODZES";
       const key = el.getAttribute("data-cb-label");
       if (labels[key]) el.textContent = labels[key];
     });
+    // Toast bekommt auch den passenden Sprach-Text
+    const toast = document.getElementById("cookie-toast");
+    if (toast) {
+      toast.querySelectorAll("[data-cb-label]").forEach(function (el) {
+        const key = el.getAttribute("data-cb-label");
+        if (labels[key]) el.textContent = labels[key];
+      });
+    }
+
+    function showToast() {
+      if (!toast) return;
+      toast.hidden = false;
+      setTimeout(function () { toast.hidden = true; }, 3000);
+    }
 
     // ──────────────────────────────────────────────────────────────────────
     // Consent-Storage mit Ablauf (DSGVO: Einwilligung nicht unbegrenzt)
@@ -169,11 +201,13 @@ const GA_ID = "G-MBLR2ODZES";
       storeConsent("accepted");
       loadGA();
       hide();
+      showToast();
     });
 
     reject.addEventListener("click", function () {
       storeConsent("rejected");
       hide();
+      showToast();
     });
 
     // Von Privacy-Page triggerbar, damit User Wahl jederzeit ändern kann:
