@@ -22,7 +22,7 @@ Single reference fuer **Datenquellen, Analyse-Methoden, Benchmarks und Report-Lo
 
 ### 2. Google Analytics 4 (GA4)
 - **Status:** Aktiv seit 2026-04-18 (gtag.js in beiden Layouts)
-- **Tracking-ID:** `G-MBLR2ODZES`
+- **Tracking-ID:** `G-MBLR20DZES`
 - **Dashboard:** https://analytics.google.com
 - **API:** Google Analytics Data API v1 (OAuth / Service-Account)
 - **Daten:** alles Vercel + Events, Funnel, Kohorten, User-Flow, Engagement, Scroll

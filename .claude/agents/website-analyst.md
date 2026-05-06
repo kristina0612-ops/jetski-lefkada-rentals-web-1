@@ -71,7 +71,7 @@ Drop-off-Analyse:
 ### Schritt 1 – Daten holen
 Siehe `website-analytics/SKILL.md` für API-Details. Kurz:
 - **Vercel Analytics:** REST API (Bearer Token)
-- **Google Analytics 4:** Data API (OAuth/Service-Account, ID: `G-MBLR2ODZES`)
+- **Google Analytics 4:** Data API (OAuth/Service-Account, ID: `G-MBLR20DZES`)
 - **Supabase CRM:** Service-Role-Key
 
 Wenn eine API nicht antwortet: ehrlich sagen „Vercel Analytics geblockt – ich arbeite mit den anderen Quellen". Keine erfundenen Zahlen.

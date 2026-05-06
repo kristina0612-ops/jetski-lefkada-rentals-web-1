@@ -29,7 +29,7 @@ unten noch aktuell ist** (Stichproben machen, bei Zweifel Kristina fragen).
 | Region | Auto (Vercel Edge Network) |
 | SSL | Auto-managed (Let's Encrypt) |
 | Domain | bei Vercel Domains registriert, Auto-Renewal |
-| Analytics | Vercel Web Analytics (via `@vercel/analytics/astro`) + GA4 (`G-MBLR2ODZES`) parallel |
+| Analytics | Vercel Web Analytics (via `@vercel/analytics/astro`) + GA4 (`G-MBLR20DZES`) parallel |
 | Speed Insights | **nicht aktiviert** (Empfehlung: einschalten, siehe §8) |
 | Preview Protection | **zu prüfen** – auf Pro möglich, Dashboard-Setting (siehe §11) |
 
@@ -167,7 +167,7 @@ Danach sieht Kristina in Search Console:
 - Retention: auf Pro **länger als 30 Tage** (siehe §12 zum genauen Limit)
 
 ### Google Analytics 4
-- Tracking-ID: `G-MBLR2ODZES`
+- Tracking-ID: `G-MBLR20DZES`
 - Script in beiden Layouts (gtag.js)
 - Setzt Cookies → **DSGVO-Banner vermutlich pflichtig** (offen – siehe `feedback/todo.md`)
 - Dashboard: https://analytics.google.com
