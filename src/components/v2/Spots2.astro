@@ -203,15 +203,19 @@ const iconPath = {
               data-cro={`spot-${spot.name.toLowerCase().replace(/\s+/g, "-")}`}
             >
               {spot.image ? (
-                <img
-                  src={spot.image}
-                  alt={`${spot.name}, ${spot.caption}`}
-                  width="1400"
-                  height="933"
-                  loading="lazy"
-                  decoding="async"
-                  class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
-                />
+                <picture>
+                  <source srcset={spot.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                  <img
+                    src={spot.image}
+                    alt={`${spot.name}, ${spot.caption}`}
+                    width="1400"
+                    height="933"
+                    loading={i === 0 ? 'eager' : 'lazy'}
+                    fetchpriority={i === 0 ? 'high' : 'auto'}
+                    decoding="async"
+                    class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105"
+                  />
+                </picture>
               ) : (
                 <div class="absolute inset-0 transition-transform duration-[1.2s] ease-out group-hover:scale-105" style={`background: ${spot.gradient};`}>
                   {/* Abstract wave SVG overlay */}

@@ -132,15 +132,18 @@ const moments = [
           ];
           return (
             <figure class:list={["group relative overflow-hidden rounded-3xl", spans[i]]}>
-              <img
-                src={m.src}
-                alt={`${m.title}, ${m.caption}`}
-                width="1400"
-                height="933"
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 gallery-img-crisp"
-              />
+              <picture>
+                <source srcset={m.src.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                <img
+                  src={m.src}
+                  alt={`${m.title}, ${m.caption}`}
+                  width="1400"
+                  height="933"
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-105 gallery-img-crisp"
+                />
+              </picture>
               <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(7,29,48,0.85), transparent 50%);"></div>
               <div class="absolute top-5 right-5 px-3 py-1.5 rounded-full backdrop-blur-md font-mono text-[10px] uppercase tracking-[0.14em]" style="background: rgba(253,251,244,0.9); color: var(--v2-ink-900);">
                 {m.tag}
