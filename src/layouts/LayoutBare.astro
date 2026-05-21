@@ -52,6 +52,41 @@ const htmlLang = lang === "gr" ? "el" : lang;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content="https://jetski-lefkada-rentals.com/og-cover.jpg" />
 
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "TouristAttraction",
+      "name": "Nero Lefkada",
+      "legalName": "Nero Lefkada Rental & Retail",
+      "slogan": "Fastest Jetskis on the Island",
+      "description": "Sea-Doo jetski rentals at Lygia Port, Lefkada, Greece. Four supercharged Neros (Ena, Dio, Tria, Tessera), family-run by Kristina and David Goldberg.",
+      "url": "https://jetski-lefkada-rentals.com/",
+      "image": "https://jetski-lefkada-rentals.com/og-cover.jpg",
+      "telephone": "+30 695 561 2777",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Lygia Port",
+        "addressLocality": "Lefkada",
+        "addressCountry": "GR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 38.7893,
+        "longitude": 20.7192
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "09:00",
+        "closes": "21:00"
+      },
+      "priceRange": "€€",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Lefkada, Greece"
+      },
+      "sameAs": ["https://www.instagram.com/jetski__lefkada/"]
+    })} />
+
     <link
       rel="icon"
       type="image/svg+xml"
