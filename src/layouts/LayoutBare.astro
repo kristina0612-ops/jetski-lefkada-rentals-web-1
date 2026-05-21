@@ -95,6 +95,9 @@ const htmlLang = lang === "gr" ? "el" : lang;
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
     <link rel="dns-prefetch" href="https://assets.mixkit.co" />
 
+    <!-- Preload LCP candidate: hero poster image -->
+    <link rel="preload" as="image" href="/images/spots/lygia.webp" type="image/webp" fetchpriority="high" />
+
     <!-- Google Analytics 4 wird NICHT direkt hier geladen, Opt-In via CookieBanner -->
   </head>
   <body class="!bg-transparent !min-h-0">
@@ -104,19 +107,26 @@ const htmlLang = lang === "gr" ? "el" : lang;
     <SpeedInsights />
     <CtaTracker />
     <script>
-      import Lenis from "lenis";
+      // Defer Lenis until idle so it does not delay LCP.
       const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
       if (!mq.matches) {
-        const lenis = new Lenis({
-          duration: 1.25,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-        });
-        const raf = (t: number) => {
-          lenis.raf(t);
+        const start = () => import("lenis").then(({ default: Lenis }) => {
+          const lenis = new Lenis({
+            duration: 1.25,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+          });
+          const raf = (t: number) => {
+            lenis.raf(t);
+            requestAnimationFrame(raf);
+          };
           requestAnimationFrame(raf);
-        };
-        requestAnimationFrame(raf);
+        });
+        if ("requestIdleCallback" in window) {
+          (window as any).requestIdleCallback(start, { timeout: 2000 });
+        } else {
+          window.addEventListener("load", () => setTimeout(start, 200));
+        }
       }
     </script>
   </body>

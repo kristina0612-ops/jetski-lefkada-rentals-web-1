@@ -89,6 +89,9 @@ const localBusinessSchema = {
     <!-- Preconnect for perf -->
     <link rel="dns-prefetch" href="https://images.unsplash.com" />
 
+    <!-- Preload LCP candidate: hero poster image -->
+    <link rel="preload" as="image" href="/images/spots/lygia.webp" type="image/webp" fetchpriority="high" />
+
     <!-- Google Analytics 4 wird NICHT direkt hier geladen, Opt-In via CookieBanner -->
   </head>
   <body>
@@ -99,20 +102,28 @@ const localBusinessSchema = {
     <CtaTracker />
 
     <script>
-      // Lenis smooth scroll - progressive enhancement
-      import Lenis from "lenis";
+      // Lenis smooth scroll - progressive enhancement.
+      // Defer until after first paint + user idle so it does not compete with
+      // LCP-critical work on initial load.
       const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
       if (!mediaQuery.matches) {
-        const lenis = new Lenis({
-          duration: 1.25,
-          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          smoothWheel: true,
-        });
-        const raf = (time: number) => {
-          lenis.raf(time);
+        const start = () => import("lenis").then(({ default: Lenis }) => {
+          const lenis = new Lenis({
+            duration: 1.25,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+          });
+          const raf = (time: number) => {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+          };
           requestAnimationFrame(raf);
-        };
-        requestAnimationFrame(raf);
+        });
+        if ("requestIdleCallback" in window) {
+          (window as any).requestIdleCallback(start, { timeout: 2000 });
+        } else {
+          window.addEventListener("load", () => setTimeout(start, 200));
+        }
       }
     </script>
   </body>
