@@ -136,11 +136,35 @@ const COMMON_FEATURES_RXT_RS = [
 
 // ─── FLOTTE: Die 4 Neros (authoritative source for website + calculator) ─
 
-// 2026-05-23: Kristina hat die Studio-Fotos der 4 Neros geliefert. Reihenfolge
-// auf Wunsch umgestellt: erst die zwei rein-schwarzen (Ena bleibt Flaggschiff,
-// dann Tessera), dann die zwei mit roten Akzenten (Dio, Tria). Ena + Tessera
-// teilen sich dasselbe Studio-Foto (gleiches grey-black Repaint).
+// 2026-05-23: Reihenfolge angepasst — „Tessera" (7 Zeichen) brach in der schmalen
+// 5-Spalten-Bento-Karte um („Tess|era"). Daher: Tessera in Position 1 (breite
+// 7-Spalten-Karte), Ena in Position 2 (5-Spalten). FLAGSHIP-Badge bleibt auf
+// Ena, weil es `featured: true` folgt, nicht der Position. Ena + Tessera teilen
+// sich dasselbe Studio-Foto (gleiches grey-black Repaint).
 export const jetskis: Jetski[] = [
+  {
+    id: "nero-tessera",
+    name: "Nero Tessera",
+    tagline: "Refined, reliable, ready.",
+    brand: "Sea-Doo",
+    model: "260 GTX Limited Edition Supercharged",
+    year: 2026,
+    seats: 3,
+    recommendedSeats: 2,
+    hp: 260,
+    topSpeed: 110,
+    pricePerHour: 200,
+    priceHalfDay: null,
+    priceFullDay: null,
+    beachRides: COMMON_BEACH_RIDES,
+    exclusiveExperiences: COMMON_EXCLUSIVE,
+    vipDelivery: COMMON_VIP_DELIVERY,
+    features: COMMON_FEATURES_GTX,
+    image: "/images/fleet/nero-tessera.jpg",
+    accent: "#4fb3bf",
+    availableToday: 1,
+    totalUnits: 1,
+  },
   {
     id: "nero-ena",
     name: "Nero Ena",
@@ -164,29 +188,6 @@ export const jetskis: Jetski[] = [
     availableToday: 1,
     totalUnits: 1,
     featured: true,
-  },
-  {
-    id: "nero-tessera",
-    name: "Nero Tessera",
-    tagline: "Refined, reliable, ready.",
-    brand: "Sea-Doo",
-    model: "260 GTX Limited Edition Supercharged",
-    year: 2026,
-    seats: 3,
-    recommendedSeats: 2,
-    hp: 260,
-    topSpeed: 110,
-    pricePerHour: 200,
-    priceHalfDay: null,
-    priceFullDay: null,
-    beachRides: COMMON_BEACH_RIDES,
-    exclusiveExperiences: COMMON_EXCLUSIVE,
-    vipDelivery: COMMON_VIP_DELIVERY,
-    features: COMMON_FEATURES_GTX,
-    image: "/images/fleet/nero-tessera.jpg",
-    accent: "#4fb3bf",
-    availableToday: 1,
-    totalUnits: 1,
   },
   {
     id: "nero-dio",
