@@ -7,7 +7,6 @@
     "dev": "astro dev --port 4330 --host",
     "start": "astro dev --port 4330 --host",
     "build": "astro build",
-    "vercel-build": "node ./node_modules/astro/astro.js build",
     "preview": "astro preview --port 4330",
     "astro": "astro"
   },
