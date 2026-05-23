@@ -42,6 +42,7 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
     transform: translateX(0) !important;
     opacity: 1 !important;
     pointer-events: auto !important;
+    visibility: visible !important;
   }
 
   /* Hamburger → X animation */
@@ -325,7 +326,7 @@ const currentLangObj = languages.find((l) => l.code === currentLang) ?? language
   aria-modal="true"
   aria-label={t.nav}
   class="fixed inset-0 z-50 md:hidden flex flex-col"
-  style="background: var(--v2-ink-950, #071d30); transform: translateX(100%); opacity: 0; pointer-events: none;"
+  style="background: var(--v2-ink-950, #071d30); transform: translateX(100%); opacity: 0; pointer-events: none; visibility: hidden;"
 >
   <!-- Decorative glow -->
   <div class="absolute bottom-0 right-0 w-80 h-80 rounded-full pointer-events-none" style="background: radial-gradient(circle, rgba(0,179,167,0.08), transparent 70%);"></div>

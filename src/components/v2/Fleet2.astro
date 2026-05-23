@@ -99,15 +99,13 @@ const COPY = {
          Bento), aber die schmalen 5er-Karten quetschten die Specs ("260110 3*")
          und brachen lange Namen wie "Tessera". Gleichgroß = konsistent lesbar
          für alle 4 Jetskis. Mobile bleibt 12 (stacked). -->
-    <div class="grid grid-cols-12 gap-6 lg:gap-8">
+    <div class="flex lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none -mx-6 px-6 lg:mx-0 lg:px-0 pb-6 lg:pb-0 scroll-smooth">
       {
         jetskis.map((js, i) => {
-          const spans = [
-            "col-span-12 lg:col-span-6",
-            "col-span-12 lg:col-span-6",
-            "col-span-12 lg:col-span-6",
-            "col-span-12 lg:col-span-6",
-          ];
+          // Mobile: horizontal swiper (88vw per card, snap-center)
+          // lg+: original 2x2 grid (col-span-6 each)
+          const sliderClass = "shrink-0 w-[88vw] max-w-[24rem] lg:w-auto lg:max-w-none lg:shrink snap-center lg:col-span-6";
+          const spans = [sliderClass, sliderClass, sliderClass, sliderClass];
           const badge = js.featured ? COPY.badgeFlagship : COPY.badgeStd;
           // Nero Ena + Nero Tria bekamen für 2026 eine neue grey-black Lackierung.
           // Quelle: Memory project_fleet_paint_update.md (bestätigt 2026-04-20).
