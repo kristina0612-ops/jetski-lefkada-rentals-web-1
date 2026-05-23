@@ -344,6 +344,12 @@
   50%      { opacity: 0.5; transform: scale(1.2); }
 }
 
+@keyframes slide-hint {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50%      { transform: translateX(4px); opacity: 1; }
+}
+.animate-slide-hint { animation: slide-hint 1.6s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

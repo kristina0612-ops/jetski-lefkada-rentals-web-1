@@ -17,6 +17,7 @@ type Experience = {
   tag: string;
   anchor: string;
   icon: "guided" | "solo" | "tube";
+  image?: string;
 };
 
 type Lang = "en" | "de" | "gr";
@@ -33,7 +34,7 @@ const COPY = {
     seeMore: "See more",
     experiences: [
       { eyebrow: "Experience 01 · Most popular", title: "Guided tours", titleAccent: "with David", body: "No boating licence? No problem. Thousands of guests ride with us every season. David rides alongside or keeps you in sight, chooses the line, and makes sure everyone feels safe on the throttle.", tag: "No licence needed", anchor: "#fleet", icon: "guided" as const },
-      { eyebrow: "Experience 02 · Full freedom", title: "Solo rides", titleAccent: "your own line", body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.", tag: "EU PWC licence required", anchor: "#fleet", icon: "solo" as const },
+      { eyebrow: "Experience 02 · Full freedom", title: "Solo rides", titleAccent: "your own line", body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.", tag: "EU PWC licence required", anchor: "#fleet", icon: "solo" as const, image: "/images/experiences/solo-couple.jpg" },
       { eyebrow: "Experience 03 · Pure laughter", title: "Water Fun", titleAccent: "3-seat tube", body: "A three-seat Great Big Mable towable pulled behind a Nero. No driving, no licence, just good vibes. Perfect for groups, families and anyone who wants the thrill without the handlebars.", tag: "€30 / person", anchor: "#water-fun", icon: "tube" as const },
     ],
   },
@@ -47,7 +48,7 @@ const COPY = {
     seeMore: "Mehr ansehen",
     experiences: [
       { eyebrow: "Experience 01 · Am beliebtesten", title: "Geführte Touren", titleAccent: "mit David", body: "Kein Bootsführerschein? Kein Problem. Tausende Gäste fahren jede Saison mit uns. David fährt an Deiner Seite oder hat Dich im Blick, wählt die Linie und sorgt dafür, dass alle sich am Gashebel sicher fühlen.", tag: "Kein Führerschein nötig", anchor: "#fleet", icon: "guided" as const },
-      { eyebrow: "Experience 02 · Volle Freiheit", title: "Solo-Fahrten", titleAccent: "Deine eigene Linie", body: "Hast Du einen gültigen EU-PWC-Führerschein? Wähle einen Nero, bekomme das 10-Minuten-Safety-Briefing und verschwinde ins Ionische nach Deinen Regeln. Bis zu 310 PS, 120 km/h Top-Speed.", tag: "EU-PWC-Führerschein erforderlich", anchor: "#fleet", icon: "solo" as const },
+      { eyebrow: "Experience 02 · Volle Freiheit", title: "Solo-Fahrten", titleAccent: "Deine eigene Linie", body: "Hast Du einen gültigen EU-PWC-Führerschein? Wähle einen Nero, bekomme das 10-Minuten-Safety-Briefing und verschwinde ins Ionische nach Deinen Regeln. Bis zu 310 PS, 120 km/h Top-Speed.", tag: "EU-PWC-Führerschein erforderlich", anchor: "#fleet", icon: "solo" as const, image: "/images/experiences/solo-couple.jpg" },
       { eyebrow: "Experience 03 · Pures Lachen", title: "Water Fun", titleAccent: "3-Sitz-Tube", body: "Ein Dreier-Tube (Great Big Mable) hinter einem Nero. Kein Fahren, kein Führerschein, einfach gute Laune. Perfekt für Gruppen, Familien und alle, die den Kick ohne Lenker wollen.", tag: "€30 / Person", anchor: "#water-fun", icon: "tube" as const },
     ],
   },
@@ -61,7 +62,7 @@ const COPY = {
     seeMore: "See more",
     experiences: [
       { eyebrow: "Experience 01 · Most popular", title: "Guided tours", titleAccent: "with David", body: "No boating licence? No problem. Thousands of guests ride with us every season. David rides alongside or keeps you in sight, chooses the line, and makes sure everyone feels safe on the throttle.", tag: "No licence needed", anchor: "#fleet", icon: "guided" as const },
-      { eyebrow: "Experience 02 · Full freedom", title: "Solo rides", titleAccent: "your own line", body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.", tag: "EU PWC licence required", anchor: "#fleet", icon: "solo" as const },
+      { eyebrow: "Experience 02 · Full freedom", title: "Solo rides", titleAccent: "your own line", body: "Got a valid EU personal-watercraft licence? Pick a Nero, get the 10-minute safety briefing, and disappear into the Ionian on your terms. Up to 310 HP, 120 km/h top speed.", tag: "EU PWC licence required", anchor: "#fleet", icon: "solo" as const, image: "/images/experiences/solo-couple.jpg" },
       { eyebrow: "Experience 03 · Pure laughter", title: "Water Fun", titleAccent: "3-seat tube", body: "A three-seat Great Big Mable towable pulled behind a Nero. No driving, no licence, just good vibes. Perfect for groups, families and anyone who wants the thrill without the handlebars.", tag: "€30 / person", anchor: "#water-fun", icon: "tube" as const },
     ],
   },
@@ -89,33 +90,49 @@ const experiences: Experience[] = COPY.experiences;
     </div>
 
     <!-- Three service cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+    <div class="flex md:grid md:grid-cols-3 gap-4 lg:gap-6 items-stretch overflow-x-auto md:overflow-visible snap-x snap-mandatory md:snap-none -mx-6 px-6 md:mx-0 md:px-0 pb-4 md:pb-0 scroll-smooth">
       {
         experiences.map((e) => (
           <a
             href={e.anchor}
-            class="group relative flex flex-col rounded-2xl overflow-hidden transition-transform duration-500 hover:-translate-y-1"
+            class="group relative flex flex-col rounded-2xl overflow-hidden transition-transform duration-500 hover:-translate-y-1 shrink-0 w-[85vw] max-w-[22rem] md:w-auto md:max-w-none md:shrink snap-center"
             style="background: var(--v2-cream-50); border: 1px solid rgba(7,29,48,0.08);"
             data-cro={`experience-${e.icon}`}
           >
-            {/* Icon area (top third) */}
+            {/* Icon area (top third) - real photo when e.image set, else SVG */}
             <div
               class="relative aspect-[16/10] flex items-center justify-center overflow-hidden"
               style="background: linear-gradient(135deg, rgba(0,179,167,0.08), rgba(255,194,51,0.10));"
             >
-              {/* Soft wave pattern behind the icon */}
-              <svg
-                class="absolute inset-0 w-full h-full opacity-30"
-                viewBox="0 0 400 250"
-                preserveAspectRatio="none"
-                aria-hidden="true"
-              >
-                <path d="M0,170 C80,140 160,190 240,160 C320,130 400,170 400,170 L400,250 L0,250 Z" fill="rgba(0,179,167,0.25)" />
-                <path d="M0,195 C80,175 160,210 240,185 C320,165 400,195 400,195 L400,250 L0,250 Z" fill="rgba(0,179,167,0.4)" />
-              </svg>
+              {e.image && (
+                <picture>
+                  <source srcset={e.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                  <img
+                    src={e.image}
+                    alt={`${e.title} ${e.titleAccent}`}
+                    width="1400"
+                    height="875"
+                    loading="lazy"
+                    decoding="async"
+                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-105"
+                  />
+                </picture>
+              )}
 
-              {/* Service-specific SVG icon */}
-              {e.icon === "guided" && (
+              {!e.image && (
+                <svg
+                  class="absolute inset-0 w-full h-full opacity-30"
+                  viewBox="0 0 400 250"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path d="M0,170 C80,140 160,190 240,160 C320,130 400,170 400,170 L400,250 L0,250 Z" fill="rgba(0,179,167,0.25)" />
+                  <path d="M0,195 C80,175 160,210 240,185 C320,165 400,195 400,195 L400,250 L0,250 Z" fill="rgba(0,179,167,0.4)" />
+                </svg>
+              )}
+
+              {/* Service-specific SVG icon (only when no photo) */}
+              {!e.image && e.icon === "guided" && (
                 <svg
                   width="120"
                   height="120"
@@ -138,7 +155,7 @@ const experiences: Experience[] = COPY.experiences;
                 </svg>
               )}
 
-              {e.icon === "solo" && (
+              {!e.image && e.icon === "solo" && (
                 <svg
                   width="120"
                   height="120"
@@ -160,7 +177,7 @@ const experiences: Experience[] = COPY.experiences;
                 </svg>
               )}
 
-              {e.icon === "tube" && (
+              {!e.image && e.icon === "tube" && (
                 <svg
                   width="140"
                   height="120"

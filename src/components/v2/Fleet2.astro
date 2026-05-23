@@ -99,13 +99,16 @@ const COPY = {
          Bento), aber die schmalen 5er-Karten quetschten die Specs ("260110 3*")
          und brachen lange Namen wie "Tessera". Gleichgroß = konsistent lesbar
          für alle 4 Jetskis. Mobile bleibt 12 (stacked). -->
-    <div class="flex lg:grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none -mx-6 px-6 lg:mx-0 lg:px-0 pb-6 lg:pb-0 scroll-smooth">
+    <div class="grid grid-cols-2 lg:grid-cols-12 gap-3 lg:gap-8">
       {
         jetskis.map((js, i) => {
-          // Mobile: horizontal swiper (88vw per card, snap-center)
-          // lg+: original 2x2 grid (col-span-6 each)
-          const sliderClass = "shrink-0 w-[88vw] max-w-[24rem] lg:w-auto lg:max-w-none lg:shrink snap-center lg:col-span-6";
-          const spans = [sliderClass, sliderClass, sliderClass, sliderClass];
+          // Mobile + Desktop: 2x2 collage. Cards always equal-size.
+          const spans = [
+            "col-span-1 lg:col-span-6",
+            "col-span-1 lg:col-span-6",
+            "col-span-1 lg:col-span-6",
+            "col-span-1 lg:col-span-6",
+          ];
           const badge = js.featured ? COPY.badgeFlagship : COPY.badgeStd;
           // Nero Ena + Nero Tria bekamen für 2026 eine neue grey-black Lackierung.
           // Quelle: Memory project_fleet_paint_update.md (bestätigt 2026-04-20).
@@ -165,27 +168,27 @@ const COPY = {
                 </div>
 
                 {/* Content */}
-                <div class="col-span-5 md:col-span-3 p-7 lg:p-9 flex flex-col justify-between" style="background: var(--v2-cream-100);">
+                <div class="col-span-5 md:col-span-3 p-4 lg:p-9 flex flex-col justify-between" style="background: var(--v2-cream-100);">
                   <div>
-                    <div class="font-mono text-[10px] uppercase tracking-[0.18em] mb-2" style="color: var(--v2-turquoise-600);">
+                    <div class="font-mono text-[9px] lg:text-[10px] uppercase tracking-[0.18em] mb-2" style="color: var(--v2-turquoise-600);">
                       {js.brand} · {js.year}
                     </div>
-                    <h3 class="font-display text-2xl lg:text-3xl leading-tight mb-1 whitespace-nowrap" style="color: var(--v2-ink-950);">{js.name}</h3>
+                    <h3 class="font-display text-lg lg:text-3xl leading-tight mb-1 whitespace-nowrap" style="color: var(--v2-ink-950);">{js.name}</h3>
                     <div class="font-mono text-[11px] uppercase tracking-[0.12em] mb-3" style="color: rgba(7,29,48,0.55);">{js.model}</div>
                     <p class="font-display italic text-lg mb-5" style="color: rgba(7,29,48,0.6);">{js.tagline}</p>
 
                     {/* Specs */}
                     <div class="grid grid-cols-3 gap-3 mb-3">
                       <div>
-                        <div class="font-display text-2xl" style="color: var(--v2-ink-950);">{js.hp}</div>
+                        <div class="font-display text-lg lg:text-2xl" style="color: var(--v2-ink-950);">{js.hp}</div>
                         <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">{COPY.specHP}</div>
                       </div>
                       <div>
-                        <div class="font-display text-2xl" style="color: var(--v2-ink-950);">{js.topSpeed}</div>
+                        <div class="font-display text-lg lg:text-2xl" style="color: var(--v2-ink-950);">{js.topSpeed}</div>
                         <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">{COPY.specKmh}</div>
                       </div>
                       <div>
-                        <div class="font-display text-2xl" style="color: var(--v2-ink-950);">{js.seats}<span class="text-xs align-top" style="color: var(--v2-turquoise-600);">*</span></div>
+                        <div class="font-display text-lg lg:text-2xl" style="color: var(--v2-ink-950);">{js.seats}<span class="text-xs align-top" style="color: var(--v2-turquoise-600);">*</span></div>
                         <div class="font-mono text-[9px] uppercase tracking-[0.12em]" style="color: var(--v2-turquoise-600);">{COPY.specSeats}</div>
                       </div>
                     </div>

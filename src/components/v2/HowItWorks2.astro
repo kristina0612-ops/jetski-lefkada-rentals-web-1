@@ -81,5 +81,13 @@ const steps = COPY.steps;
         ))
       }
     </div>
+
+    {/* Swipe hint, mobile-only */}
+    <div class="md:hidden mt-4 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em]" style="color: var(--v2-turquoise-600);">
+      <span>{lang === 'de' ? 'Wischen' : 'Swipe'}</span>
+      <svg class="w-4 h-4 animate-slide-hint" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M5 12h14M13 5l7 7-7 7"/>
+      </svg>
+    </div>
   </div>
 </section>
