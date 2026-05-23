@@ -7,6 +7,8 @@ const COPY = {
     eyebrow: "The small print, big",
     titleLead: "Questions we",
     titleAccent: "love.",
+    showMore: "Show 6 more questions",
+    showLess: "Show less",
     faqs: [
       { q: "Do I need a boat license?", a: "No licence? No problem. Thousands of happy guests ride with us every season without any boating licence. You simply join a guided tour with David (he rides alongside or escorts you in sight). WITH a valid boating licence (any EU personal-watercraft category) you can ride solo after the safety briefing. Minimum age 18 and a valid photo ID are always required." },
       { q: "What's included in the price?", a: "The Sea-Doo, life jackets for driver + passengers, our 10-minute safety briefing and €700,000 third-party liability insurance (Greek law). Fuel is NOT included. It's billed separately at the end of your rental based on actual usage." },
@@ -25,6 +27,8 @@ const COPY = {
     eyebrow: "Das Kleingedruckte, groß",
     titleLead: "Fragen, die wir",
     titleAccent: "lieben.",
+    showMore: "Weitere 6 Fragen anzeigen",
+    showLess: "Weniger anzeigen",
     faqs: [
       { q: "Brauche ich einen Bootsführerschein?", a: "Kein Führerschein? Kein Problem. Tausende Gäste fahren jede Saison ohne Führerschein mit uns. Du machst einfach eine geführte Tour mit David (er fährt an Deiner Seite oder hat Dich im Blick). MIT gültigem EU-PWC-Führerschein kannst Du nach dem Safety-Briefing solo fahren. Mindestalter 18 und gültiger Lichtbildausweis sind immer Pflicht." },
       { q: "Was ist im Preis enthalten?", a: "Der Sea-Doo, Rettungswesten für Fahrer + Mitfahrer, unser 10-Minuten-Safety-Briefing und 700 000 € Haftpflichtversicherung (griech. Recht). Treibstoff ist NICHT enthalten. Er wird am Ende der Miete nach tatsächlichem Verbrauch abgerechnet." },
@@ -43,6 +47,8 @@ const COPY = {
     eyebrow: "The small print, big",
     titleLead: "Questions we",
     titleAccent: "love.",
+    showMore: "Show 6 more questions",
+    showLess: "Show less",
     faqs: [
       { q: "Do I need a boat license?", a: "No licence? No problem. Thousands of happy guests ride with us every season without any boating licence. You simply join a guided tour with David (he rides alongside or escorts you in sight). WITH a valid boating licence (any EU personal-watercraft category) you can ride solo after the safety briefing. Minimum age 18 and a valid photo ID are always required." },
       { q: "What's included in the price?", a: "The Sea-Doo, life jackets for driver + passengers, our 10-minute safety briefing and €700,000 third-party liability insurance (Greek law). Fuel is NOT included. It's billed separately at the end of your rental based on actual usage." },
@@ -76,8 +82,8 @@ const faqs = COPY.faqs;
     <div class="grid grid-cols-12 gap-6">
       <div class="col-span-12 lg:col-span-10 lg:col-start-2">
         {
-          faqs.map((f, i) => (
-            <details class="group border-b last:border-b-2" style="border-color: rgba(7,29,48,0.2);">
+          faqs.slice(0, 5).map((f, i) => (
+            <details class="group border-b" style="border-color: rgba(7,29,48,0.2);">
               <summary class="cursor-pointer list-none py-6 flex items-start justify-between gap-8 hover:opacity-80 transition-opacity">
                 <div class="flex items-start gap-6 lg:gap-10">
                   <span class="font-display text-3xl italic" style="color: var(--v2-sun-500);">{String(i + 1).padStart(2, "0")}</span>
@@ -99,7 +105,74 @@ const faqs = COPY.faqs;
             </details>
           ))
         }
+
+        <div id="faq-more" hidden>
+          {
+            faqs.slice(5).map((f, idx) => {
+              const i = idx + 5;
+              return (
+                <details class="group border-b" style="border-color: rgba(7,29,48,0.2);">
+                  <summary class="cursor-pointer list-none py-6 flex items-start justify-between gap-8 hover:opacity-80 transition-opacity">
+                    <div class="flex items-start gap-6 lg:gap-10">
+                      <span class="font-display text-3xl italic" style="color: var(--v2-sun-500);">{String(i + 1).padStart(2, "0")}</span>
+                      <h3 class="font-display text-2xl lg:text-3xl leading-tight" style="color: var(--v2-ink-950);">
+                        {f.q}
+                      </h3>
+                    </div>
+                    <span class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 group-open:rotate-45" style="background: var(--v2-ink-950); color: var(--v2-cream-50);">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                        <path d="M12 5v14M5 12h14"/>
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="pb-8 pl-12 lg:pl-20">
+                    <p class="text-lg leading-relaxed max-w-3xl" style="color: rgba(7,29,48,0.75);">
+                      {f.a}
+                    </p>
+                  </div>
+                </details>
+              );
+            })
+          }
+        </div>
+
+        <div class="mt-10 flex justify-center">
+          <button
+            id="faq-toggle"
+            type="button"
+            data-show-text={COPY.showMore}
+            data-hide-text={COPY.showLess}
+            class="inline-flex items-center gap-3 px-6 py-3 rounded-full font-mono text-[11px] uppercase tracking-[0.18em] font-semibold transition-all duration-300 hover:scale-[1.02]"
+            style="background: var(--v2-ink-950); color: var(--v2-cream-50);"
+          >
+            <span data-faq-toggle-label>{COPY.showMore}</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="transition-transform duration-300" data-faq-toggle-icon aria-hidden="true">
+              <path d="M6 9l6 6 6-6"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
+
+  <script>
+    const btn = document.getElementById("faq-toggle");
+    const more = document.getElementById("faq-more");
+    const label = btn?.querySelector<HTMLElement>("[data-faq-toggle-label]");
+    const icon = btn?.querySelector<SVGElement>("[data-faq-toggle-icon]");
+    btn?.addEventListener("click", () => {
+      if (!more || !label) return;
+      const isHidden = more.hasAttribute("hidden");
+      if (isHidden) {
+        more.removeAttribute("hidden");
+        label.textContent = btn.dataset.hideText ?? "";
+        icon?.style.setProperty("transform", "rotate(180deg)");
+      } else {
+        more.setAttribute("hidden", "");
+        label.textContent = btn.dataset.showText ?? "";
+        icon?.style.setProperty("transform", "rotate(0deg)");
+        btn.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+  </script>
 </section>
