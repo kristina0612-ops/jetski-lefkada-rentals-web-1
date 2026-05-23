@@ -1,7 +1,6 @@
 ---
 import "../styles/global.css";
 import Analytics from "@vercel/analytics/astro";
-import SpeedInsights from "@vercel/speed-insights/astro";
 import CookieBanner from "../components/CookieBanner.astro";
 import CtaTracker from "../components/CtaTracker.astro";
 
@@ -101,7 +100,6 @@ const htmlLang = lang === "gr" ? "el" : lang;
     <slot />
     <CookieBanner />
     <Analytics />
-    <SpeedInsights />
     <CtaTracker />
     <script>
       // Defer Lenis until idle so it does not delay LCP.

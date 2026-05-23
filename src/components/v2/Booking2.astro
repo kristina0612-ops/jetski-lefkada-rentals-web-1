@@ -90,12 +90,22 @@ const waterFunWaLink = `https://wa.me/306955612777?text=${encodeURIComponent(COP
     </div>
 
     <!-- Water Fun add-on: 3-seat towable tube pulled behind a Sea-Doo.
-         2026-04-20 Abend: Photo auf PhotoComingSoon umgestellt, weil das
-         vorherige waterfun-jobe-action.jpg nur Jetskis ohne Tube zeigte
-         (Kristinas Feedback). Echtes Action-Foto kommt nach. -->
+         2026-05-23: Echtes Action-Foto eingebaut (drei Personen auf dem Tube
+         hinter einem Jetski, Ionian-Setting). -->
     <div id="water-fun" class="mb-10 rounded-2xl border overflow-hidden grid grid-cols-1 md:grid-cols-2 scroll-mt-24" style="border-color: rgba(255,194,51,0.35); background: linear-gradient(135deg, rgba(255,194,51,0.08), rgba(0,179,167,0.06));">
       <div class="relative aspect-[4/3] md:aspect-auto md:min-h-[380px] overflow-hidden">
-        <PhotoComingSoon />
+        <picture>
+          <source srcset="/images/gallery/waterfun-action.webp" type="image/webp" />
+          <img
+            src="/images/gallery/waterfun-action.jpg"
+            alt="Three riders on a Jobe Ridge towable tube behind a Sea-Doo on the Ionian Sea"
+            width="1153"
+            height="720"
+            loading="lazy"
+            decoding="async"
+            class="w-full h-full object-cover"
+          />
+        </picture>
         <div class="absolute top-4 left-4 font-mono text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full z-10" style="background: rgba(7,29,48,0.75); color: var(--v2-sun-400); backdrop-filter: blur(6px);">
           Great Big Mable · 3 seats
         </div>
