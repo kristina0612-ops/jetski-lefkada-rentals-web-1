@@ -129,7 +129,12 @@ const COPY = {
                 <div class="col-span-5 md:col-span-2 relative overflow-hidden aspect-[2/1] md:aspect-auto md:min-h-[360px]">
                   {js.image ? (
                     <picture>
-                      <source srcset={js.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                      {/* nero-dio hat keine .webp mehr (gelöscht beim Cache-Bust).
+                          Source skippen, sonst lädt Browser eine 404-webp und
+                          fällt NICHT automatisch auf das <img> zurück. */}
+                      {js.id !== "nero-dio" && (
+                        <source srcset={js.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                      )}
                       <img
                         src={js.image}
                         alt={`${js.name}, ${js.brand} ${js.model}`}
