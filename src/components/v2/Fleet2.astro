@@ -151,14 +151,18 @@ const COPY = {
                   {js.image && (
                     <div class="absolute inset-0 pointer-events-none mix-blend-multiply opacity-30" style={`background: linear-gradient(135deg, transparent, ${js.accent})`}></div>
                   )}
-                  {js.featured && (
-                    <div class="hidden md:block absolute top-5 left-5 px-3 py-1.5 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
-                      <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeFlag}</span>
-                    </div>
-                  )}
-                  {isRepainted && (
-                    <div class:list={["hidden md:block absolute px-3 py-1.5 rounded-full backdrop-blur-md", js.featured ? "top-5 right-5" : "top-5 left-5"]} style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50); border: 1px solid rgba(253,251,244,0.2);">
-                      <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeRepainted}</span>
+                  {(js.featured || isRepainted) && (
+                    <div class="hidden md:flex flex-col absolute top-5 left-5 items-start gap-2">
+                      {js.featured && (
+                        <div class="px-3 py-1.5 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
+                          <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeFlag}</span>
+                        </div>
+                      )}
+                      {isRepainted && (
+                        <div class="px-3 py-1.5 rounded-full backdrop-blur-md" style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50); border: 1px solid rgba(253,251,244,0.2);">
+                          <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeRepainted}</span>
+                        </div>
+                      )}
                     </div>
                   )}
                   {/* Availability dot — auf Mobile ausgeblendet (zu wenig Platz im 2-Spalten-Foto) */}
