@@ -84,10 +84,10 @@ const faqs = COPY.faqs;
         {
           faqs.slice(0, 5).map((f, i) => (
             <details class="group border-b" style="border-color: rgba(7,29,48,0.2);">
-              <summary class="cursor-pointer list-none py-6 flex items-start justify-between gap-8 hover:opacity-80 transition-opacity">
-                <div class="flex items-start gap-6 lg:gap-10">
-                  <span class="font-display text-3xl italic" style="color: var(--v2-sun-500);">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 class="font-display text-2xl lg:text-3xl leading-tight" style="color: var(--v2-ink-950);">
+              <summary class="cursor-pointer list-none py-6 flex items-start justify-between gap-3 md:gap-8 hover:opacity-80 transition-opacity">
+                <div class="flex items-start gap-3 lg:gap-10 min-w-0 flex-1">
+                  <span class="font-display text-3xl italic shrink-0" style="color: var(--v2-sun-500);">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 class="font-display text-xl lg:text-3xl leading-tight break-words min-w-0" style="color: var(--v2-ink-950);">
                     {f.q}
                   </h3>
                 </div>
@@ -112,10 +112,10 @@ const faqs = COPY.faqs;
               const i = idx + 5;
               return (
                 <details class="group border-b" style="border-color: rgba(7,29,48,0.2);">
-                  <summary class="cursor-pointer list-none py-6 flex items-start justify-between gap-8 hover:opacity-80 transition-opacity">
-                    <div class="flex items-start gap-6 lg:gap-10">
-                      <span class="font-display text-3xl italic" style="color: var(--v2-sun-500);">{String(i + 1).padStart(2, "0")}</span>
-                      <h3 class="font-display text-2xl lg:text-3xl leading-tight" style="color: var(--v2-ink-950);">
+                  <summary class="cursor-pointer list-none py-6 flex items-start justify-between gap-3 md:gap-8 hover:opacity-80 transition-opacity">
+                    <div class="flex items-start gap-3 lg:gap-10 min-w-0 flex-1">
+                      <span class="font-display text-3xl italic shrink-0" style="color: var(--v2-sun-500);">{String(i + 1).padStart(2, "0")}</span>
+                      <h3 class="font-display text-xl lg:text-3xl leading-tight break-words min-w-0" style="color: var(--v2-ink-950);">
                         {f.q}
                       </h3>
                     </div>
