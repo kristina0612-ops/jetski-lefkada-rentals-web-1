@@ -76,7 +76,7 @@ const COPY = {
           {COPY.calcTitle} <em style="color: var(--v2-sun-400);">{COPY.calcAccent}</em>
         </h3>
       </div>
-      <Calculator lang={lang} client:visible />
+      <Calculator lang={lang} client:idle />
     </div>
 
     {BOKUN_EMBED_CODE ? (
@@ -91,7 +91,7 @@ const COPY = {
             {COPY.formTitle} <em style="color: var(--v2-sun-400);">{COPY.formAccent}</em>
           </h3>
         </div>
-        <BookingForm client:visible />
+        <BookingForm client:idle />
       </div>
     )}
 
