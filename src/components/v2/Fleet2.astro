@@ -151,12 +151,12 @@ const COPY = {
                     </div>
                   )}
                   {isRepainted && (
-                    <div class:list={["absolute px-3 py-1.5 rounded-full backdrop-blur-md", js.featured ? "top-5 right-5" : "top-5 left-5"]} style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50); border: 1px solid rgba(253,251,244,0.2);">
+                    <div class:list={["hidden md:block absolute px-3 py-1.5 rounded-full backdrop-blur-md", js.featured ? "top-5 right-5" : "top-5 left-5"]} style="background: rgba(7,29,48,0.75); color: var(--v2-cream-50); border: 1px solid rgba(253,251,244,0.2);">
                       <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeRepainted}</span>
                     </div>
                   )}
-                  {/* Availability dot */}
-                  <div class="absolute bottom-5 left-5 flex items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md" style="background: rgba(253,251,244,0.9);">
+                  {/* Availability dot — auf Mobile ausgeblendet (zu wenig Platz im 2-Spalten-Foto) */}
+                  <div class="hidden md:flex absolute bottom-5 left-5 items-center gap-2 px-3 py-1.5 rounded-full backdrop-blur-md" style="background: rgba(253,251,244,0.9);">
                     <span class="relative flex h-2 w-2">
                       {js.availableToday > 0 && (
                         <span class:list={["absolute inline-flex h-full w-full rounded-full opacity-75", js.availableToday === 1 ? "bg-orange-500" : "bg-green-500"]} style="animation: pulse-dot 2s ease-in-out infinite;"></span>
