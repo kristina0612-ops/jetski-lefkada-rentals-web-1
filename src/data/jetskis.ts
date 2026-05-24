@@ -208,7 +208,7 @@ export const jetskis: Jetski[] = [
     exclusiveExperiences: COMMON_EXCLUSIVE,
     vipDelivery: COMMON_VIP_DELIVERY,
     features: COMMON_FEATURES_RXT_RS,
-    image: "/images/fleet/nero-dio.jpg",
+    image: "/images/fleet/nero-dio-2026.jpg",
     accent: "#ff5a36",
     availableToday: 1,
     totalUnits: 1,

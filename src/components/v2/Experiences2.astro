@@ -106,7 +106,11 @@ const experiences: Experience[] = COPY.experiences;
             >
               {e.image && (
                 <picture>
-                  <source srcset={e.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                  {/* Für 'guided' wurde die JPG geschärft + re-encodiert. WebP ist
+                      noch die alte komprimierte Version, daher Source skippen. */}
+                  {e.icon !== "guided" && (
+                    <source srcset={e.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
+                  )}
                   <img
                     src={e.image}
                     alt={`${e.title} ${e.titleAccent}`}
