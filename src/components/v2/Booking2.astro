@@ -6,13 +6,13 @@
 // Bokun embed is kept as optional drop-in for later.
 //
 // 2026-05-23: Water-Fun-Block aus dieser Sektion entfernt und in eigene
-// WaterFun2.astro-Komponente extrahiert — wird jetzt direkt nach Fleet2
+// WaterFun2.astro-Komponente extrahiert â€” wird jetzt direkt nach Fleet2
 // gerendert, damit das Angebot prominenter sichtbar ist.
 //
 // HINWEIS i18n (2026-04-21): Nur die Astro-Wrapper-Texte sind dreisprachig.
 // Calculator.tsx und BookingForm.tsx (React) bleiben vorerst EN, die
 // werden in einem separaten Step mehrsprachig gemacht.
-const BOKUN_EMBED_CODE = ""; // ← optional: paste Bokun embed to replace the form
+const BOKUN_EMBED_CODE = ""; // â† optional: paste Bokun embed to replace the form
 import BookingForm from "../BookingForm.tsx";
 import Calculator from "../Calculator.tsx";
 
@@ -24,21 +24,21 @@ const COPY = {
     eyebrow: "Book your ride",
     titleLead: "Pick a date.",
     titleAccent: "We handle the rest.",
-    calcEyebrow: "Step 1 · Quick price check",
+    calcEyebrow: "Step 1 Â· Quick price check",
     calcTitle: "Try the calculator.",
     calcAccent: "no booking yet.",
-    formEyebrow: "Step 2 · Complete booking",
+    formEyebrow: "Step 2 Â· Complete booking",
     formTitle: "Ready to book?",
     formAccent: "30% deposit online.",
   },
   de: {
     eyebrow: "Buch Deine Fahrt",
-    titleLead: "Wähl ein Datum.",
+    titleLead: "WÃ¤hl ein Datum.",
     titleAccent: "Den Rest machen wir.",
-    calcEyebrow: "Schritt 1 · Schneller Preis-Check",
+    calcEyebrow: "Schritt 1 Â· Schneller Preis-Check",
     calcTitle: "Probier den Rechner.",
     calcAccent: "noch keine Buchung.",
-    formEyebrow: "Schritt 2 · Buchung abschließen",
+    formEyebrow: "Schritt 2 Â· Buchung abschlieÃŸen",
     formTitle: "Bereit zu buchen?",
     formAccent: "30% Anzahlung online.",
   },
@@ -46,10 +46,10 @@ const COPY = {
     eyebrow: "Book your ride",
     titleLead: "Pick a date.",
     titleAccent: "We handle the rest.",
-    calcEyebrow: "Step 1 · Quick price check",
+    calcEyebrow: "Step 1 Â· Quick price check",
     calcTitle: "Try the calculator.",
     calcAccent: "no booking yet.",
-    formEyebrow: "Step 2 · Complete booking",
+    formEyebrow: "Step 2 Â· Complete booking",
     formTitle: "Ready to book?",
     formAccent: "30% deposit online.",
   },
@@ -76,7 +76,7 @@ const COPY = {
           {COPY.calcTitle} <em style="color: var(--v2-sun-400);">{COPY.calcAccent}</em>
         </h3>
       </div>
-      <Calculator lang={lang} client:visible />
+      <Calculator lang={lang} client:idle />
     </div>
 
     {BOKUN_EMBED_CODE ? (
@@ -91,7 +91,7 @@ const COPY = {
             {COPY.formTitle} <em style="color: var(--v2-sun-400);">{COPY.formAccent}</em>
           </h3>
         </div>
-        <BookingForm client:visible />
+        <BookingForm client:idle />
       </div>
     )}
 
