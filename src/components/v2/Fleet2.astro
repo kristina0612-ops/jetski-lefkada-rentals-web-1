@@ -123,9 +123,10 @@ const COPY = {
                 {/* Image (oder Platzhalter bis echte Studio-Fotos da sind).
                     Image bekommt 2/5, Text 3/5 - so passt "Nero Tessera"
                     auch im 2x2-Grid in eine Zeile ohne Umbruch.
-                    Mobile: aspect-[3/2] statt min-h, sonst riesiges Letterboxing
-                    auf den schmalen 2-Spalten-Karten. Desktop unverändert. */}
-                <div class="col-span-5 md:col-span-2 relative overflow-hidden aspect-[3/2] md:aspect-auto md:min-h-[360px]">
+                    Mobile: aspect-[2/1] passt zum Bild-Aspect (1400x700), damit
+                    keine Jetskis vorne/hinten abgeschnitten werden. Desktop
+                    unverändert. */}
+                <div class="col-span-5 md:col-span-2 relative overflow-hidden aspect-[2/1] md:aspect-auto md:min-h-[360px]">
                   {js.image ? (
                     <picture>
                       <source srcset={js.image.replace(/\.(jpe?g|png)$/i, '.webp')} type="image/webp" />
