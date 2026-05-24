@@ -146,7 +146,7 @@ const COPY = {
                     <div class="absolute inset-0 pointer-events-none mix-blend-multiply opacity-30" style={`background: linear-gradient(135deg, transparent, ${js.accent})`}></div>
                   )}
                   {js.featured && (
-                    <div class="absolute top-5 left-5 px-3 py-1.5 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
+                    <div class="hidden md:block absolute top-5 left-5 px-3 py-1.5 rounded-full" style="background: var(--v2-sun-400); color: var(--v2-ink-950);">
                       <span class="font-mono text-[10px] uppercase tracking-[0.14em] font-semibold">{COPY.badgeFlag}</span>
                     </div>
                   )}
@@ -225,7 +225,7 @@ const COPY = {
                       target={js.availableToday === 0 ? "_self" : "_blank"}
                       rel={js.availableToday === 0 ? "" : "noopener"}
                       class:list={[
-                        "inline-flex items-center justify-center w-full py-3 rounded-full font-mono text-[11px] uppercase tracking-[0.14em] font-semibold transition-all duration-500",
+                        "inline-flex items-center justify-center text-center w-full py-3 px-4 rounded-full font-mono text-[11px] uppercase tracking-[0.08em] md:tracking-[0.14em] font-semibold transition-all duration-500",
                         js.availableToday === 0
                           ? "opacity-50 cursor-not-allowed pointer-events-none"
                           : "hover:scale-[1.02]",
@@ -237,7 +237,7 @@ const COPY = {
                     >
                       {js.availableToday === 0 ? COPY.ctaWaitlist : COPY.ctaBook}
                       {js.availableToday > 0 && (
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ml-2" aria-hidden="true">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="ml-2 hidden md:inline-block" aria-hidden="true">
                           <path d="M5 12h14M13 5l7 7-7 7"/>
                         </svg>
                       )}
