@@ -88,6 +88,9 @@ const COPY = {
       class="w-full h-full object-cover hero-video-full"
       aria-label="Cinematic footage of Nero Lefkada jetski adventures on the Ionian Sea"
     >
+      <!-- Mobile gets the 587KB / 400px-wide variant; desktop gets the full 2.6MB. -->
+      <!-- Browser picks the first <source> whose media query matches. -->
+      <source src="/videos/hero-nero-mobile.mp4" type="video/mp4" media="(max-width: 767px)" />
       <source src="/videos/hero-nero.mp4" type="video/mp4" />
       <source src="/videos/hero-nero.mp4" type="video/quicktime" />
     </video>
