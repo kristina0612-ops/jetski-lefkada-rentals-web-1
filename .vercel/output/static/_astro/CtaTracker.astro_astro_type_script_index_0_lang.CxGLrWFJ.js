@@ -1,1 +1,0 @@
-import{t as c}from"./index.Cj4yIN0M.js";document.addEventListener("click",a=>{const e=a.target?.closest("[data-cro]");if(!e)return;const t=e.dataset.cro;if(!t)return;c(t);const n=window.gtag;typeof n=="function"&&n("event",t,{event_category:"cta"})});
