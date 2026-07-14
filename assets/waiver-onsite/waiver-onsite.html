@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Nero Lefkada — On-Site Rental Agreement & Liability Waiver</title>
+<style>
+  @page { size: A4; margin: 8mm 10mm; }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #0a1220;
+    background: #fdfbf4;
+    font-size: 9pt;
+    line-height: 1.35;
+  }
+
+  /* ───────── HEADER ───────── */
+  .brand-bar {
+    height: 4mm;
+    background: linear-gradient(90deg, #ff5a36 0%, #ffc233 60%, #00b3a7 100%);
+    margin-bottom: 4mm;
+  }
+
+  .head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-bottom: 1.5pt solid #0a1220;
+    padding-bottom: 2mm;
+    margin-bottom: 4mm;
+  }
+  .head .brand {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20pt; font-weight: 400;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .head .brand em { font-style: italic; color: #ff5a36; }
+  .head .brand .sub {
+    display: block;
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    font-size: 7pt; letter-spacing: 0.22em; text-transform: uppercase;
+    color: #6b7a8d; margin-top: 1mm; font-style: normal;
+  }
+  .head .doc-title {
+    text-align: right; font-size: 8pt; line-height: 1.4;
+  }
+  .head .doc-title strong {
+    display: block; font-size: 10pt; color: #0a1220;
+  }
+  .head .doc-title .de { color: #6b7a8d; font-style: italic; }
+
+  /* ───────── SECTIONS ───────── */
+  h2.sec {
+    margin: 3mm 0 1.5mm;
+    font-size: 9pt; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: #0a1220;
+    border-bottom: 0.5pt solid #d0ccc4;
+    padding-bottom: 0.8mm;
+  }
+  h2.sec .de {
+    font-weight: 400; color: #6b7a8d; text-transform: none;
+    letter-spacing: 0; font-style: italic; font-size: 8pt;
+    margin-left: 0.5em;
+  }
+
+  /* ───────── FORM FIELDS ───────── */
+  .row { display: flex; gap: 4mm; margin-bottom: 1.8mm; }
+  .field {
+    flex: 1; display: flex; align-items: flex-end; gap: 1.5mm;
+    font-size: 8pt; color: #6b7a8d;
+  }
+  .field .lbl { white-space: nowrap; }
+  .field .lbl .de { color: #a0a8b3; font-style: italic; }
+  .field .line {
+    flex: 1; border-bottom: 0.6pt solid #0a1220;
+    height: 4.5mm;
+  }
+  .field .line.short { max-width: 28mm; }
+  .field .line.medium { max-width: 50mm; }
+
+  /* ───────── CHECKBOXES ───────── */
+  .checks { margin-top: 1mm; }
+  .check {
+    display: flex; align-items: flex-start; gap: 2mm;
+    margin-bottom: 1.3mm; font-size: 8pt;
+  }
+  .check .box {
+    flex-shrink: 0;
+    width: 3mm; height: 3mm;
+    border: 0.8pt solid #0a1220;
+    margin-top: 0.5mm;
+  }
+  .check .txt .de {
+    color: #6b7a8d; font-style: italic;
+  }
+  .check.inline { display: inline-flex; margin-right: 4mm; }
+
+  /* ───────── JETSKI CHECKBOX GRID ───────── */
+  .jetski-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5mm;
+    margin: 1mm 0 1.5mm;
+    font-size: 8pt;
+  }
+  .jetski-grid .check { margin-bottom: 0; }
+
+  .type-row { font-size: 8pt; margin: 1mm 0; }
+
+  /* ───────── BILINGUAL WAIVER COLUMNS ───────── */
+  .waiver-section {
+    page-break-before: always;
+  }
+  .cols {
+    column-count: 2;
+    column-gap: 4mm;
+    column-rule: 0.4pt solid #d0ccc4;
+    font-size: 6.4pt;
+    line-height: 1.25;
+    text-align: justify;
+    hyphens: auto;
+  }
+  .clause {
+    break-inside: avoid;
+    margin-bottom: 1.3mm;
+  }
+  .clause h3 {
+    font-size: 6.8pt; font-weight: 700;
+    margin: 0 0 0.4mm;
+    color: #0a1220;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .clause .de-block {
+    color: #2a3a4a; font-style: italic;
+    margin-top: 0.6mm;
+    padding-top: 0.6mm;
+    border-top: 0.3pt dotted #c0bcb4;
+  }
+  .clause p { margin: 0 0 0.5mm; }
+  .clause ul { margin: 0.5mm 0; padding-left: 3mm; }
+  .clause li { margin-bottom: 0.4mm; }
+
+  .highlight {
+    background: #fff0ec;
+    padding: 1.2mm 2mm;
+    border-left: 1.5pt solid #ff5a36;
+    margin-bottom: 1.5mm;
+    font-size: 7pt;
+    line-height: 1.3;
+  }
+
+  /* ───────── SIGNATURES ───────── */
+  .sig-block {
+    margin-top: 2.5mm;
+    border-top: 0.8pt solid #0a1220;
+    padding-top: 2mm;
+  }
+  .sig-row {
+    display: flex; gap: 6mm; margin-bottom: 2.5mm;
+  }
+  .sig-col { flex: 1; }
+  .sig-line {
+    border-bottom: 0.8pt solid #0a1220;
+    height: 9mm;
+    margin-bottom: 0.8mm;
+  }
+  .sig-label {
+    font-size: 7pt; color: #6b7a8d;
+    letter-spacing: 0.05em;
+  }
+  .sig-label .de { font-style: italic; color: #a0a8b3; }
+
+  .footer {
+    margin-top: 3mm;
+    padding-top: 2mm;
+    border-top: 0.4pt solid #d0ccc4;
+    font-size: 6.5pt;
+    color: #6b7a8d;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .footer .accent { color: #ff5a36; font-weight: 600; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ SEITE 1 ════════════════════ -->
+
+<div class="brand-bar"></div>
+
+<div class="head">
+  <div class="brand">
+    NERO <em>Lefkada</em>
+    <span class="sub">Jet Ski Rentals · Lygia Port</span>
+  </div>
+  <div class="doc-title">
+    <strong>Rental Agreement &amp; Liability Waiver</strong>
+    <span class="de">Mietvertrag &amp; Haftungsausschluss</span>
+  </div>
+</div>
+
+<!-- ───── CUSTOMER ───── -->
+<h2 class="sec">1 · Customer <span class="de">Kunde</span></h2>
+
+<div class="row">
+  <div class="field">
+    <span class="lbl">Full name <span class="de">/ Vollständiger Name</span></span>
+    <span class="line"></span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="field">
+    <span class="lbl">Date of birth <span class="de">/ Geburtsdatum</span></span>
+    <span class="line short"></span>
+  </div>
+  <div class="field">
+    <span class="lbl">Nationality <span class="de">/ Nationalität</span></span>
+    <span class="line medium"></span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="field">
+    <span class="lbl">ID / Passport No. <span class="de">/ Ausweis-Nr.</span></span>
+    <span class="line"></span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="field">
+    <span class="lbl">Phone <span class="de">/ Telefon</span></span>
+    <span class="line medium"></span>
+  </div>
+  <div class="field">
+    <span class="lbl">E-Mail</span>
+    <span class="line"></span>
+  </div>
+</div>
+
+<!-- ───── EMERGENCY ───── -->
+<h2 class="sec">2 · Emergency Contact <span class="de">Notfallkontakt</span></h2>
+
+<div class="row">
+  <div class="field">
+    <span class="lbl">Name</span>
+    <span class="line"></span>
+  </div>
+  <div class="field">
+    <span class="lbl">Phone <span class="de">/ Telefon</span></span>
+    <span class="line medium"></span>
+  </div>
+</div>
+
+<!-- ───── BOOKING ───── -->
+<h2 class="sec">3 · Booking <span class="de">Buchung</span></h2>
+
+<div class="row">
+  <div class="field">
+    <span class="lbl">Date <span class="de">/ Datum</span></span>
+    <span class="line short"></span>
+  </div>
+  <div class="field">
+    <span class="lbl">Time <span class="de">/ Uhrzeit</span></span>
+    <span class="line short"></span>
+  </div>
+  <div class="field">
+    <span class="lbl">Duration (min) <span class="de">/ Dauer</span></span>
+    <span class="line short"></span>
+  </div>
+  <div class="field">
+    <span class="lbl">Price € <span class="de">(incl. 24% VAT)</span></span>
+    <span class="line short"></span>
+  </div>
+</div>
+
+<div style="margin-top: 1.5mm;">
+  <div style="font-size: 7.5pt; color: #6b7a8d; margin-bottom: 1mm; letter-spacing: 0.05em;">
+    Jet Ski <span style="font-style: italic;">/ Jetski-Modell</span>
+  </div>
+  <div class="jetski-grid">
+    <div class="check"><div class="box"></div><div class="txt">Nero Ena <span class="de">(310 PS)</span></div></div>
+    <div class="check"><div class="box"></div><div class="txt">Nero Dio <span class="de">(260 PS)</span></div></div>
+    <div class="check"><div class="box"></div><div class="txt">Nero Tria <span class="de">(260 PS)</span></div></div>
+    <div class="check"><div class="box"></div><div class="txt">Nero Tessera <span class="de">(260 PS)</span></div></div>
+  </div>
+</div>
+
+<div class="type-row">
+  <div style="font-size: 7.5pt; color: #6b7a8d; margin-bottom: 1mm; letter-spacing: 0.05em;">
+    Type <span style="font-style: italic;">/ Art</span>
+  </div>
+  <div class="check inline"><div class="box"></div><div class="txt">Beach Ride</div></div>
+  <div class="check inline"><div class="box"></div><div class="txt">Sunset</div></div>
+  <div class="check inline"><div class="box"></div><div class="txt">Couple</div></div>
+  <div class="check inline"><div class="box"></div><div class="txt">VIP Delivery <span class="de">(Deposit € 1,500)</span></div></div>
+  <div class="check inline"><div class="box"></div><div class="txt">Water Fun / Tubing</div></div>
+</div>
+
+<div class="row" style="margin-top: 1.5mm;">
+  <div class="field">
+    <span class="lbl">Deposit € <span class="de">/ Kaution (VIP only)</span></span>
+    <span class="line short"></span>
+  </div>
+  <div class="field">
+    <span class="lbl">Guide <span class="de">/ Begleitung</span></span>
+    <div class="check inline" style="margin-left: 1mm;"><div class="box"></div><div class="txt">with guide / mit Guide</div></div>
+    <div class="check inline"><div class="box"></div><div class="txt">solo (boating licence shown)</div></div>
+  </div>
+</div>
+
+<!-- ───── HEALTH & SKILLS ───── -->
+<h2 class="sec">4 · Health, Skills &amp; Required Confirmations <span class="de">Gesundheit, Fähigkeiten &amp; Pflichtbestätigungen</span></h2>
+
+<div class="checks">
+  <div class="check"><div class="box"></div><div class="txt">
+    I am at least 18 years old and have presented a valid photo ID.
+    <span class="de">Ich bin mindestens 18 Jahre alt und habe einen gültigen Lichtbildausweis vorgelegt.</span>
+  </div></div>
+  <div class="check"><div class="box"></div><div class="txt">
+    I am a competent swimmer.
+    <span class="de">Ich bin schwimmfähig.</span>
+  </div></div>
+  <div class="check"><div class="box"></div><div class="txt">
+    I am in good physical &amp; mental health, with no heart, back, neurological or other condition that could be aggravated by jet skiing.
+    <span class="de">Ich bin körperlich und geistig gesund, ohne Herz-, Rücken-, Nerven- oder andere Vorerkrankungen, die durch Jetskifahren verschlimmert werden könnten.</span>
+  </div></div>
+  <div class="check"><div class="box"></div><div class="txt">
+    I am not pregnant.
+    <span class="de">Ich bin nicht schwanger.</span>
+  </div></div>
+  <div class="check"><div class="box"></div><div class="txt">
+    I am not under the influence of alcohol, drugs, or impairing medication.
+    <span class="de">Ich stehe nicht unter Einfluss von Alkohol, Drogen oder beeinträchtigenden Medikamenten.</span>
+  </div></div>
+  <div class="check"><div class="box"></div><div class="txt">
+    I have received and understood the 10-minute safety briefing (life jacket mandatory, max. 300 m from shore, swim zones, prohibited areas).
+    <span class="de">Ich habe das 10-minütige Sicherheitsbriefing erhalten und verstanden (Schwimmweste Pflicht, max. 300 m Küstenabstand, Schwimmzonen, Sperrgebiete).</span>
+  </div></div>
+  <div class="check"><div class="box"></div><div class="txt">
+    I have read and accept the Liability Waiver on the next page.
+    <span class="de">Ich habe den Haftungsausschluss auf der nächsten Seite gelesen und akzeptiert.</span>
+  </div></div>
+</div>
+
+<!-- ════════════════════ SEITE 2 ════════════════════ -->
+
+<div class="waiver-section">
+
+<div class="brand-bar"></div>
+
+<div class="head">
+  <div class="brand" style="font-size: 14pt;">
+    NERO <em>Lefkada</em>
+    <span class="sub">Liability Waiver &mdash; Page 2 of 2</span>
+  </div>
+  <div class="doc-title">
+    <strong>Risk Acknowledgement</strong>
+    <span class="de">Risikobestätigung &amp; Haftungsausschluss</span>
+  </div>
+</div>
+
+<div class="highlight">
+  <strong>By signing below, you acknowledge the inherent risks of jet ski operation and accept responsibility for your own conduct on the water.</strong>
+  This waiver is a contractual assumption of risk and does <strong>not</strong> waive rights that Greek law makes non-waivable.
+  <br><em>Mit Ihrer Unterschrift bestätigen Sie die mit dem Jetskifahren verbundenen Risiken und übernehmen Verantwortung für Ihr Verhalten auf dem Wasser. Unabdingbare Rechte nach griechischem Recht bleiben unberührt.</em>
+</div>
+
+<div class="cols">
+
+  <div class="clause">
+    <h3>§1 Acknowledged Risks</h3>
+    <p>Jet ski operation involves inherent risks that cannot be eliminated: collision with watercraft, swimmers, buoys, rocks or debris; capsizing, ejection, falling overboard; propeller and contact injuries; waves, sudden weather changes; mechanical failure despite proper maintenance; conduct of other water users; dehydration, sunstroke, hypothermia; loss of personal belongings.</p>
+    <p><strong>Water Fun / Tubing</strong> additionally: sudden deceleration, rollover, ejection at speed; whiplash, shoulder dislocation, sprains; impact with water or other riders; risk of being run over if tow line slackens.</p>
+    <div class="de-block">
+      Jetskifahren birgt untrennbare Risiken: Kollision mit Wasserfahrzeugen, Schwimmern, Bojen, Felsen oder Treibgut; Kentern, Abwurf, Übergehen über Bord; Propeller- und Kontaktverletzungen; Wellen, plötzliche Wetterwechsel; mechanisches Versagen trotz Wartung; Verhalten Dritter; Dehydrierung, Sonnenstich, Unterkühlung; Verlust persönlicher Gegenstände. <strong>Water Fun / Tubing</strong> zusätzlich: plötzliche Bremsmanöver, Überschlag, Abwurf bei Geschwindigkeit; Schleudertrauma, Schulterluxation, Verstauchungen; Aufprall auf Wasser oder Mitfahrer; Überfahren-Risiko bei erschlaffendem Zugseil.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§2 Renter Confirmations</h3>
+    <p>The Renter confirms being ≥ 18 years old with valid photo ID; healthy and a competent swimmer; not pregnant; sober; will wear the provided life jacket at all times; will follow the 10-minute safety briefing including <strong>max. 300 m from shore</strong>, swim zones and prohibited areas; will operate the jet ski safely, lawfully and only within the permitted zone and time.</p>
+    <div class="de-block">
+      Der Mieter bestätigt: mindestens 18 Jahre alt mit gültigem Lichtbildausweis; gesund und schwimmfähig; nicht schwanger; nüchtern; trägt die Schwimmweste durchgehend; befolgt das 10-minütige Sicherheitsbriefing inkl. <strong>max. 300 m Küstenabstand</strong>, Schwimmzonen und Sperrgebieten; fährt sicher, rechtmäßig und nur in der erlaubten Zone und Zeit.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§3 Minors &amp; Passengers</h3>
+    <p>Driver must be ≥ 18. Children <strong>under 6</strong> are not permitted as passengers. Minors aged <strong>6–17</strong> may ride only if accompanied on the same jet ski by a parent / legal guardian who is the Renter and driver. The guardian signs on behalf of the minor, confirming the minor can swim and is healthy, and assumes full responsibility. A minor may never operate the jet ski. Water Fun: minors only from age 10, with guardian on tube or in towing jet ski.</p>
+    <div class="de-block">
+      Fahrer muss ≥ 18 sein. Kinder <strong>unter 6 Jahren</strong> nicht zugelassen. Minderjährige <strong>6–17 Jahre</strong> nur mit Erziehungsberechtigtem (Mieter und Fahrer) auf demselben Jetski. Der Erziehungsberechtigte unterzeichnet stellvertretend, bestätigt Schwimmfähigkeit und Gesundheit, übernimmt volle Verantwortung. Ein Minderjähriger darf das Jetski niemals selbst führen. Water Fun: Minderjährige erst ab 10 Jahren, mit Erziehungsberechtigtem auf Tube oder im ziehenden Jetski.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§4 Licence &amp; Guided Tours</h3>
+    <p>Renters <strong>without</strong> a boating licence may operate the jet ski only as part of a guided tour with a Nero Lefkada guide. Renters <strong>with</strong> a valid boating licence may operate solo within the permitted zone and rules.</p>
+    <div class="de-block">
+      Mieter <strong>ohne</strong> Bootsführerschein dürfen nur im Rahmen einer geführten Tour mit Nero-Lefkada-Guide fahren. Mieter <strong>mit</strong> gültigem Bootsführerschein dürfen solo innerhalb der erlaubten Zone und Regeln fahren.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§5 Assumption of Risk</h3>
+    <p>The Renter knowingly and voluntarily assumes all risks associated with the activity, including those listed in §1. The activity takes place at the Renter's own risk.</p>
+    <div class="de-block">
+      Der Mieter übernimmt wissentlich und freiwillig alle mit der Aktivität verbundenen Risiken einschließlich §1. Die Aktivität findet auf eigenes Risiko statt.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§6 Operator Liability</h3>
+    <p>To the fullest extent permitted by Greek law, the Operator is <strong>not liable</strong> for injury, death, loss or property damage resulting from: violation of the safety briefing or Greek maritime regulations; operation under the influence of alcohol, drugs or medication; gross negligence or wilful misconduct of the Renter or third parties; weather, force majeure, or government orders; loss, damage or theft of personal belongings.</p>
+    <div class="de-block">
+      Soweit nach griechischem Recht zulässig, haftet der Vermieter <strong>nicht</strong> für Personen-, Todes-, Vermögens- oder Sachschäden durch: Verstoß gegen Briefing oder griech. Seerecht; Betrieb unter Alkohol-/Drogen-/Medikamenten-Einfluss; grobe Fahrlässigkeit oder Vorsatz des Mieters oder Dritter; Wetter, höhere Gewalt, behördliche Anordnungen; Verlust/Diebstahl persönlicher Gegenstände.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§7 Renter Liability &amp; VIP Deposit</h3>
+    <p>The Renter is personally liable for damage to the jet ski, tow equipment or third parties caused by breach of safety rules, gross negligence or wilful misconduct. For <strong>VIP Delivery</strong>: a security deposit of <strong>€ 1,500</strong> is due before delivery; small damage up to €1,500 is deducted from the deposit; damage exceeding €1,500 remains the Renter's personal liability up to full repair/replacement cost (workshop estimate within 14 days). Fuel is not included in VIP Delivery.</p>
+    <div class="de-block">
+      Der Mieter haftet persönlich für Schäden am Jetski, an Zugausrüstung oder Dritten durch Regelverstoß, grobe Fahrlässigkeit oder Vorsatz. <strong>VIP Delivery</strong>: Kaution <strong>€ 1.500</strong> vor Lieferung fällig; kleinere Schäden bis €1.500 werden einbehalten; Schäden über €1.500 bleiben persönliche Haftung bis zur Höhe vollständiger Reparatur-/Wiederbeschaffungskosten (Kostenvoranschlag binnen 14 Tagen). Kraftstoff bei VIP Delivery nicht enthalten.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§8 Incident Reporting</h3>
+    <p>Any accident, damage, collision or injury must be reported <strong>immediately</strong>: medical emergency call <strong>112</strong>; Coast Guard <strong>108</strong>; then notify Operator via WhatsApp <strong>+30 695 561 2777</strong> (David) with photo, time and brief description. Failure to report or false information is a material breach and may result in loss of insurance coverage.</p>
+    <div class="de-block">
+      Jeder Unfall, Schaden, Zusammenstoß oder jede Verletzung ist <strong>unverzüglich</strong> zu melden: Notfall <strong>112</strong>; Küstenwache <strong>108</strong>; Vermieter via WhatsApp <strong>+30 695 561 2777</strong> (David) mit Foto, Uhrzeit und Kurzbeschreibung. Nicht-Meldung oder Falschangaben sind wesentliche Vertragsverletzung und können Versicherungsschutz aufheben.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§9 Insurance</h3>
+    <p>Third-party liability insurance pursuant to Greek Law 4926/2022: <strong>€ 700,000 per incident</strong>. Personal accident insurance is <strong>not</strong> included — the Renter is strongly advised to hold travel/accident insurance covering water sports.</p>
+    <div class="de-block">
+      Haftpflichtversicherung gem. griech. Gesetz 4926/2022: <strong>€ 700.000 pro Vorfall</strong>. Unfallversicherung für den Mieter <strong>nicht</strong> enthalten — eigene Reise-/Unfallversicherung mit Wassersport-Deckung dringend empfohlen.
+    </div>
+  </div>
+
+  <div class="clause">
+    <h3>§10 Non-waivable Rights &amp; Governing Law</h3>
+    <p>Nothing in this document limits liability where Greek law does not permit limitation — in particular for death or personal injury caused by the Operator's own gross negligence or wilful misconduct, and for mandatory consumer protection. Governed by Greek law; exclusive jurisdiction: court of Lefkada, Greece. EU consumer protection at the Renter's place of residence remains unaffected. Full text: <strong>jetski-lefkada-rentals.com/waiver</strong>.</p>
+    <div class="de-block">
+      Nichts hier beschränkt die Haftung, soweit griech. Recht keine Beschränkung zulässt — insbesondere bei Tod/Körperverletzung durch grobe Fahrlässigkeit oder Vorsatz des Vermieters sowie bei zwingendem Verbraucherschutz. Griechisches Recht; ausschließlicher Gerichtsstand: Lefkada. EU-Verbraucherschutz am Wohnsitz unberührt. Volltext: <strong>jetski-lefkada-rentals.com/waiver</strong>.
+    </div>
+  </div>
+
+</div>
+
+<!-- ───── SIGNATURES ───── -->
+<div class="sig-block">
+
+  <div class="sig-row">
+    <div class="sig-col">
+      <div class="sig-line"></div>
+      <div class="sig-label">
+        Renter signature
+        <span class="de">/ Unterschrift Mieter</span>
+      </div>
+    </div>
+    <div class="sig-col" style="max-width: 45mm;">
+      <div class="sig-line"></div>
+      <div class="sig-label">
+        Place &amp; date
+        <span class="de">/ Ort &amp; Datum</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sig-row">
+    <div class="sig-col">
+      <div class="sig-line"></div>
+      <div class="sig-label">
+        For minors: signature of parent / legal guardian
+        <span class="de">/ Bei Minderjährigen: Unterschrift Erziehungsberechtigter</span>
+      </div>
+    </div>
+    <div class="sig-col" style="max-width: 45mm;">
+      <div class="sig-line"></div>
+      <div class="sig-label">
+        Relationship
+        <span class="de">/ Verhältnis</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="sig-row">
+    <div class="sig-col">
+      <div class="sig-line"></div>
+      <div class="sig-label">
+        Operator signature (Nero Lefkada)
+        <span class="de">/ Unterschrift Vermieter</span>
+      </div>
+    </div>
+    <div class="sig-col" style="max-width: 45mm;">
+      <div class="sig-line"></div>
+      <div class="sig-label">
+        Date
+        <span class="de">/ Datum</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span class="accent">NERO LEFKADA</span> Rental &amp; Retail · Lygia Port, 311 00 Lefkada, Greece · WhatsApp +30 695 561 2777 (David) · jetski-lefkada-rentals.com<br>
+  Emergency 112 · Coast Guard 108 · Instagram @jetski__lefkada
+</div>
+
+</div>
+
+</body>
+</html>

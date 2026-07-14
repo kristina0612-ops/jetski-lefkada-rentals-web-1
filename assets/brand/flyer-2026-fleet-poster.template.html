@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Nero Lefkada — Fleet Poster A3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  @page { size: A3 portrait; margin: 0; }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy-950: #061826;
+    --navy-900: #071d30;
+    --navy-800: #0b2c47;
+    --gold-300: #ffd76a;
+    --gold-400: #ffc233;
+    --gold-500: #ffaa00;
+    --coral:    #ff5a36;
+    --teal:     #00b3a7;
+    --teal-300: #4fb3bf;
+    --cream-50: #fdfbf4;
+    --cream-100:#faf5e6;
+    --ink:      #07223a;
+  }
+
+  html, body {
+    background: #1a1a1a;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    display: flex;
+    justify-content: center;
+    font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .poster {
+    position: relative;
+    width: 297mm;
+    height: 420mm;
+    overflow: hidden;
+    color: var(--cream-50);
+    display: flex;
+    flex-direction: column;
+    background-color: #0a3a52;
+    background-image:
+      linear-gradient(180deg,
+        rgba(4,24,42,0.70) 0%,
+        rgba(4,24,42,0.44) 12%,
+        rgba(4,24,42,0.12) 26%,
+        rgba(4,24,42,0.03) 42%,
+        rgba(4,24,42,0.03) 56%,
+        rgba(4,24,42,0.20) 68%,
+        rgba(3,16,30,0.72) 84%,
+        rgba(3,14,26,0.86) 100%),
+      url('__BG__');
+    background-size: cover, cover;
+    background-position: center, center 30%;
+    background-repeat: no-repeat, no-repeat;
+  }
+
+  /* soft sun disc behind the headline */
+  .sun {
+    position: absolute;
+    top: -38mm; left: 50%;
+    width: 150mm; height: 150mm;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,249,228,0.55) 0%, rgba(255,228,150,0.22) 36%, rgba(255,228,150,0) 70%);
+    filter: blur(2mm);
+    pointer-events: none;
+  }
+  /* faint horizon shimmer line */
+  .horizon {
+    position: absolute;
+    top: 92mm; left: 0; right: 0;
+    height: 0.4mm;
+    background: linear-gradient(90deg, transparent, rgba(255,214,106,0.55), transparent);
+  }
+
+  /* ───────── HEADER ───────── */
+  header {
+    position: relative;
+    padding: 11mm 18mm 0;
+    text-align: center;
+    z-index: 2;
+  }
+  .eyebrow {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-weight: 600;
+    font-size: 4.1mm;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--cream-50);
+    text-shadow: 0 0.4mm 2mm rgba(0,40,60,0.45);
+    margin-bottom: 5mm;
+    padding-left: 0.42em;
+  }
+  .brand {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 700;
+    font-size: 27mm;
+    line-height: 0.92;
+    letter-spacing: -0.015em;
+    color: var(--cream-50);
+    text-shadow: 0 1.2mm 6mm rgba(0,0,0,0.45);
+  }
+  .brand .nero { color: #ffffff; text-shadow: 0 1.2mm 5mm rgba(0,0,0,0.6), 0 0 2mm rgba(0,0,0,0.45); }
+  .brand .lef { color: #ffffff; text-shadow: 0 1.2mm 5mm rgba(0,0,0,0.6), 0 0 2mm rgba(0,0,0,0.45); }
+  .slogan {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+    font-size: 10.5mm;
+    line-height: 1.05;
+    color: var(--gold-300);
+    margin-top: 5mm;
+    text-shadow: 0 0.6mm 1.4mm rgba(5,35,55,0.6), 0 1mm 5mm rgba(0,0,0,0.25);
+  }
+  .tagline {
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 600;
+    font-size: 6.2mm;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--cream-50);
+    text-shadow: 0 0.5mm 2mm rgba(5,35,55,0.55);
+    margin-top: 5.5mm;
+  }
+  .subline {
+    font-size: 4.5mm;
+    font-weight: 500;
+    color: rgba(253,251,244,0.72);
+    margin-top: 3mm;
+    letter-spacing: 0.01em;
+  }
+  .pretitle {
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    font-size: 4.6mm;
+    color: rgba(253,251,244,0.88);
+    margin-top: 6mm;
+    text-shadow: 0 0.5mm 2mm rgba(5,35,55,0.6);
+  }
+  .punch {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 4.4mm;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+    color: var(--gold-300);
+    margin-top: 4.5mm;
+    padding-left: 0.17em;
+    text-shadow: 0 0.5mm 2mm rgba(5,35,55,0.55);
+  }
+
+  /* ───────── FLEET GRID ───────── */
+  .fleet {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 7mm;
+    padding: 7mm 18mm 4mm;
+    min-height: 0;
+    z-index: 2;
+  }
+  .card {
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #fbf6ea 100%);
+    border-radius: 6mm;
+    border: 0.5mm solid rgba(255,194,51,0.55);
+    box-shadow: 0 5mm 14mm rgba(0,0,0,0.38);
+    padding: 5mm 6mm 5.5mm;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  /* accent rail at top of card */
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2mm;
+    background: var(--accent, var(--gold-400));
+  }
+  .flag {
+    position: absolute;
+    top: 6mm; right: 0;
+    background: var(--gold-400);
+    color: var(--ink);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 3mm;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1.6mm 5mm 1.6mm 4mm;
+    border-radius: 999px 0 0 999px;
+    box-shadow: 0 1mm 3mm rgba(0,0,0,0.2);
+  }
+  .photo-wrap {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1mm;
+  }
+  .photo-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .name-badge {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 2mm;
+    background: var(--accent, var(--gold-400));
+    color: var(--badge-ink, var(--ink));
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 5.4mm;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 2mm 5mm;
+    border-radius: 999px;
+    margin-top: 3mm;
+  }
+  .model {
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 600;
+    font-size: 4.6mm;
+    color: var(--ink);
+    margin-top: 4mm;
+    letter-spacing: 0.005em;
+  }
+  .specs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2.5mm;
+    margin-top: 4mm;
+  }
+  .chip {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 3.5mm;
+    letter-spacing: 0.02em;
+    color: var(--navy-800);
+    background: rgba(11,44,71,0.08);
+    border: 0.3mm solid rgba(11,44,71,0.16);
+    padding: 1.3mm 3.2mm;
+    border-radius: 2mm;
+    white-space: nowrap;
+  }
+  .card-tagline {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 4.6mm;
+    line-height: 1.25;
+    color: rgba(7,34,58,0.78);
+    margin-top: auto;
+    padding-top: 3.5mm;
+  }
+
+  /* ───────── FOOTER ───────── */
+  footer {
+    position: relative;
+    background: linear-gradient(180deg, rgba(5,42,66,0.0) 0%, #06324e 20%, #041d2f 100%);
+    padding: 6mm 16mm 9mm;
+    z-index: 2;
+    text-align: center;
+  }
+  .cta-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12mm;
+  }
+  .cta-left { display: flex; flex-direction: column; align-items: center; }
+  .book-now {
+    display: inline-block;
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 800;
+    font-size: 10mm;
+    line-height: 1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #fff;
+    background: linear-gradient(95deg, var(--coral) 0%, var(--gold-500) 100%);
+    padding: 5.5mm 22mm;
+    border-radius: 999px;
+    box-shadow: 0 5mm 16mm rgba(255,90,54,0.45);
+  }
+  .book-sub {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 3.8mm;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold-300);
+    margin-top: 3.5mm;
+  }
+  .foot-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10mm;
+    margin-top: 5mm;
+    padding-top: 5mm;
+    border-top: 0.4mm solid rgba(255,214,106,0.28);
+    text-align: left;
+  }
+  .foot-contact { display: flex; flex-direction: column; gap: 3.5mm; }
+  .fc-line {
+    display: inline-flex;
+    align-items: center;
+    gap: 3mm;
+    font-family: "Instrument Sans", sans-serif;
+    font-weight: 600;
+    font-size: 6.4mm;
+    color: var(--cream-50);
+  }
+  .fc-line .ico {
+    width: 9.5mm; height: 9.5mm;
+    flex: 0 0 9.5mm;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255,194,51,0.16);
+    border: 0.35mm solid rgba(255,194,51,0.5);
+  }
+  .fc-line .ico svg { width: 5.2mm; height: 5.2mm; fill: var(--gold-300); }
+  .fc-sub {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 500;
+    font-size: 4mm;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(253,251,244,0.66);
+    margin-top: 1mm;
+  }
+  .qr-wrap { display: flex; gap: 8mm; flex: 0 0 auto; }
+  .qr { display: flex; flex-direction: column; align-items: center; gap: 2.5mm; }
+  .qr img {
+    width: 27mm; height: 27mm;
+    background: #fff;
+    padding: 2mm;
+    border-radius: 3mm;
+    box-shadow: 0 2mm 8mm rgba(0,0,0,0.3);
+    display: block;
+  }
+  .qr figcaption {
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 600;
+    font-size: 3.4mm;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--cream-50);
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+  <div class="poster">
+    <header>
+      <div class="eyebrow">Lygia Port · Lefkada · Open Daily 09:00–21:00</div>
+      <h1 class="brand"><span class="nero">NERO</span> <span class="lef">LEFKADA</span></h1>
+      <div class="pretitle">Forget 130 HP &amp; 170 HP jet skis with locked acceleration.</div>
+      <div class="slogan">Ride the fastest jet skis in Lefkada.</div>
+      <div class="tagline">260+ HP Supercharged Sea-Doo</div>
+      <div class="punch">Real power. Real speed. No compromises.</div>
+    </header>
+
+    <main class="fleet">
+      <!-- Nero Ena (flagship, black) -->
+      <article class="card" style="--accent:#ffc233; --badge-ink:#07223a;">
+        <div class="flag">★ Flagship</div>
+        <div class="photo-wrap"><img src="__IMG_ENA__" alt="Nero Ena — Sea-Doo 260 GTX Limited Edition" /></div>
+        <div class="name-badge">Nero Ena</div>
+        <div class="model">Sea-Doo 260 GTX Limited Edition</div>
+        <div class="specs">
+          <span class="chip">310 HP</span>
+          <span class="chip">120 km/h</span>
+          <span class="chip">3 seats</span>
+        </div>      </article>
+
+      <!-- Nero Dio (red, Riva) -->
+      <article class="card" style="--accent:#ff5a36; --badge-ink:#ffffff;">
+        <div class="photo-wrap"><img src="__IMG_DIO__" alt="Nero Dio — Sea-Doo 260 RXT RS Riva Racing" /></div>
+        <div class="name-badge">Nero Dio</div>
+        <div class="model">Sea-Doo 260 RXT RS Riva Racing</div>
+        <div class="specs">
+          <span class="chip">260 HP</span>
+          <span class="chip">110 km/h</span>
+          <span class="chip">3 seats</span>
+        </div>      </article>
+
+      <!-- Nero Tria (teal) -->
+      <article class="card" style="--accent:#00b3a7; --badge-ink:#ffffff;">
+        <div class="photo-wrap"><img src="__IMG_TRIA__" alt="Nero Tria — Sea-Doo 260 GTX Limited Edition" /></div>
+        <div class="name-badge">Nero Tria</div>
+        <div class="model">Sea-Doo 260 GTX Limited Edition</div>
+        <div class="specs">
+          <span class="chip">260 HP</span>
+          <span class="chip">110 km/h</span>
+          <span class="chip">3 seats</span>
+        </div>      </article>
+
+      <!-- Nero Tessera (light teal, black) -->
+      <article class="card" style="--accent:#4fb3bf; --badge-ink:#07223a;">
+        <div class="photo-wrap"><img src="__IMG_TESSERA__" alt="Nero Tessera — Sea-Doo 260 GTX Limited Edition" /></div>
+        <div class="name-badge">Nero Tessera</div>
+        <div class="model">Sea-Doo 260 GTX Limited Edition</div>
+        <div class="specs">
+          <span class="chip">260 HP</span>
+          <span class="chip">110 km/h</span>
+          <span class="chip">3 seats</span>
+        </div>      </article>
+    </main>
+
+    <footer>
+      <div class="cta-row">
+        <div class="cta-left">
+          <span class="book-now">Book Now</span>
+          <div class="book-sub">Online or WhatsApp · Open Daily · May–Oct</div>
+        </div>
+        <figure class="qr">
+          <img src="__QR_WEB__" alt="Booking website QR code" />
+          <figcaption>Scan to book</figcaption>
+        </figure>
+      </div>
+      <div class="foot-row">
+        <div class="foot-contact">
+          <span class="fc-line">
+            <span class="ico"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .7-.2 1l-2.3 2.2z"/></svg></span>
+            +30 695 561 2777
+          </span>
+          <span class="fc-sub">Lygia Port · Lefkada · Greece</span>
+        </div>
+        <figure class="qr">
+          <img src="__QR_INSTA__" alt="Instagram QR code" />
+          <figcaption>Scan · @jetski__lefkada</figcaption>
+        </figure>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

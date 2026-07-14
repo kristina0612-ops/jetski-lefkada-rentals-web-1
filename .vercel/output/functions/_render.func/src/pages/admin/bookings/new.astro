@@ -1,0 +1,27 @@
+---
+export const prerender = false;
+
+import AdminShell from "../../../components/admin/AdminShell.astro";
+import BookingForm from "../../../components/admin/BookingForm.tsx";
+
+const accessToken = Astro.cookies.get("sb-access-token")?.value;
+if (!accessToken) {
+  return Astro.redirect("/admin/login");
+}
+---
+
+<AdminShell title="Neue Buchung" activePath="bookings">
+  <div style="margin-bottom: 2rem;">
+    <a href="/admin/bookings" style="color: rgba(253, 251, 244, 0.5); font-size: 0.85rem; text-decoration: none;">
+      ← Zurück zu Buchungen
+    </a>
+    <h1 style="font-family: 'Fraunces Variable', Georgia, serif; font-size: 2.5rem; font-weight: 400; letter-spacing: -0.02em; margin-top: 0.75rem;">
+      Neue Buchung
+    </h1>
+    <p style="color: rgba(253, 251, 244, 0.65); margin-top: 0.5rem;">
+      WhatsApp-Anfrage hier eintragen. Preis wird aus <code style="font-family: 'JetBrains Mono', monospace; font-size: 0.85em;">jetskis.ts</code> vorgeschlagen.
+    </p>
+  </div>
+
+  <BookingForm client:load />
+</AdminShell>
