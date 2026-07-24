@@ -6,8 +6,8 @@ import vercel from "@astrojs/vercel";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://jetski-lefkada-rentals.com",
-  // output: "static" ist Default in Astro 5. Dynamische Routes (/admin/*, /api/*)
+  site: "https://www.jetski-lefkada-rentals.com",
+  // output: "static" ist Default in Astro 6. Dynamische Routes (/admin/*, /api/*)
   // markieren sich selbst per `export const prerender = false;`
   adapter: vercel(),
   build: {

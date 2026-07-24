@@ -32,7 +32,7 @@ const weekDays = Array.from({ length: 7 }, (_, i) => {
 // wenn ENV fehlt, ist tokenIsSet false → Feed-URL wird in UI nicht gezeigt,
 // der /api/calendar.ics-Endpoint verweigert ohnehin bei ungültigem Token.
 const token = import.meta.env.CALENDAR_FEED_TOKEN ?? "";
-const siteUrl = Astro.site?.toString() ?? "https://jetski-lefkada-rentals.com";
+const siteUrl = Astro.site?.toString() ?? "https://www.jetski-lefkada-rentals.com";
 const tokenIsSet = token.length >= 20;
 const feedUrl = tokenIsSet
   ? `${siteUrl.replace(/\/$/, "")}/api/calendar.ics?token=${token}`
