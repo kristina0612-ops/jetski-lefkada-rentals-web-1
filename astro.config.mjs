@@ -21,8 +21,23 @@ export default defineConfig({
     "/v1": "/",
     "/v2": "/",
     "/v3": "/",
+    // Betrieb dauerhaft geschlossen (08/2026): Seiten, die einen aktiven
+    // Verleih beschreiben, gibt es nicht mehr. Alte Links und Google-Treffer
+    // landen auf der Abschluss-Seite statt im 404. Die Inhalte liegen
+    // weiterhin in der Git-Historie (Commit 751ffba).
+    "/safety": "/",
+    "/terms": "/",
+    "/waiver": "/",
   },
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    // Nur noch die vier verbliebenen öffentlichen Seiten in die Sitemap:
+    // Abschluss-Seite EN/DE plus Impressum und Datenschutz.
+    sitemap({
+      filter: (page) =>
+        !page.includes("/admin") && !page.includes("/api"),
+    }),
+  ],
   vite: {
     plugins: [tailwindcss()],
     server: {
