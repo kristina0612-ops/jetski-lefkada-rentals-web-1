@@ -1,0 +1,337 @@
+---
+import LayoutBare from "../layouts/LayoutBare.astro";
+---
+
+<LayoutBare
+  title="Liability Waiver / Haftungsausschluss / Απαλλαγή Ευθύνης · Nero Lefkada"
+  description="Risk acknowledgement and liability waiver for Nero Lefkada Rental&Retail, Lefkada, Greece."
+  themeColor="#fdfbf4"
+>
+  <style>
+    body { background: #fdfbf4; color: #0a1220; font-family: "Instrument Sans", ui-sans-serif, system-ui, sans-serif; }
+    .legal-page { max-width: 740px; margin: 0 auto; padding: 6rem 2rem 4rem; }
+    h1 { font-family: "Fraunces Variable", Georgia, serif; font-size: 3rem; font-weight: 400; letter-spacing: -0.03em; margin-bottom: 2rem; line-height: 1.1; }
+    h1 em { font-style: italic; color: #ff5a36; }
+    h2 { font-family: "Fraunces Variable", Georgia, serif; font-size: 1.25rem; font-weight: 400; margin: 2.5rem 0 0.6rem; }
+    h3 { font-size: 1rem; font-weight: 600; margin: 1.25rem 0 0.4rem; color: #0a1220; }
+    p, ul, ol { font-size: 0.95rem; line-height: 1.75; color: #2a3a4a; margin-bottom: 1rem; }
+    ul, ol { padding-left: 1.5rem; }
+    li { margin-bottom: 0.4rem; }
+    a { color: #00b3a7; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: #6b7a8d; margin-bottom: 3rem; }
+    .divider { width: 40px; height: 2px; background: linear-gradient(90deg, #ff5a36, #ffc233); margin: 2rem 0; border-radius: 1px; }
+    .warn { background: #fff0ec; border-left: 3px solid #ff5a36; padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; }
+    .info { background: #f0f7f6; border-left: 3px solid #00b3a7; padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; margin: 1.5rem 0; font-size: 0.9rem; }
+    .law-ref { font-size: 0.8rem; color: #6b7a8d; font-style: italic; }
+
+    .lang-tabs { display: flex; gap: 0.5rem; margin-bottom: 2.5rem; flex-wrap: wrap; }
+    .lang-btn {
+      padding: 0.45rem 1.1rem; border: 1.5px solid #d0ccc4; border-radius: 100px;
+      background: transparent; font-size: 0.82rem; letter-spacing: 0.08em;
+      cursor: pointer; font-family: "Instrument Sans", sans-serif; color: #6b7a8d;
+      transition: all 0.15s ease;
+    }
+    .lang-btn:hover { border-color: #ff5a36; color: #0a1220; }
+    .lang-btn.active { background: #ff5a36; border-color: #ff5a36; color: #fff; font-weight: 600; }
+    .lang-block[data-lang] { display: none; }
+    .lang-block[data-lang].active { display: block; }
+  </style>
+
+  <div class="legal-page">
+    <a href="/" class="back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M11 5l-7 7 7 7"/></svg>
+      Back to site
+    </a>
+
+    <h1>Liability Waiver /<br><em>Haftungsausschluss</em></h1>
+    <div class="divider"></div>
+
+    <div class="lang-tabs">
+      <button class="lang-btn active" data-lang="en">English</button>
+      <button class="lang-btn" data-lang="de">Deutsch</button>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ ENGLISH (default) -->
+    <div class="lang-block active" data-lang="en">
+
+      <div class="info">
+        <strong>What this document does:</strong> By booking and signing, you acknowledge the inherent risks of jet ski operation, confirm that you meet the requirements below, and accept responsibility for your own conduct on the water. This waiver is a contractual assumption of risk &mdash; it does <strong>not</strong> waive rights that Greek law makes non-waivable (see §8).
+      </div>
+
+      <h2>§1 Parties</h2>
+      <p>
+        <strong>Operator:</strong> Nero Lefkada Rental and Retail Monoprosopi IKE (ΑΦΜ 803268718), Lygia Port, 311 00 Lefkada, Greece.<br>
+        <strong>Renter:</strong> The person booking the jet ski and signing the briefing form on site. The Renter is at least 18 years old and holds a valid government-issued photo ID.
+      </p>
+
+      <h2>§2 Acknowledged Risks</h2>
+      <p>The Renter expressly acknowledges that jet ski operation involves inherent risks that cannot be eliminated, including but not limited to:</p>
+      <ul>
+        <li>Collision with other watercraft, swimmers, buoys, rocks or debris</li>
+        <li>Capsizing, being ejected, falling overboard</li>
+        <li>Propeller injuries and contact injuries</li>
+        <li>Waves, wakes, sudden weather changes, visibility changes</li>
+        <li>Mechanical failure of the jet ski despite proper maintenance</li>
+        <li>Conduct of other water users beyond the Operator's control</li>
+        <li>Dehydration, sunstroke, hypothermia in case of extended water exposure</li>
+        <li>Loss of or damage to personal belongings carried on board</li>
+      </ul>
+
+      <h3>§2a Additional risks for Water Fun / Towable (Jobe Ridge)</h3>
+      <p>Riding a towable tube behind the jet ski carries elevated risks beyond those listed above. By booking Water Fun, the Renter and all tube riders additionally acknowledge:</p>
+      <ul>
+        <li>Sudden deceleration, rollover and ejection from the tube at speed</li>
+        <li>Whiplash, shoulder dislocation, sprains and bruising from jerking motions</li>
+        <li>Impact with the water surface or other tube riders</li>
+        <li>Risk of being run over by the towing jet ski if the tow line slackens unexpectedly</li>
+        <li>Inhalation of water, temporary loss of orientation after a fall</li>
+      </ul>
+      <p>Tube riders must wear the provided life jacket at all times, keep fingers and feet inside the tube handles, and release the tube immediately if instructed by the guide.</p>
+
+      <h2>§3 Renter Confirmations (signed at the dock)</h2>
+      <p>By booking and signing the briefing, the Renter confirms:</p>
+      <ul>
+        <li>I am at least 18 years old and have presented a valid photo ID.</li>
+        <li>I am in good physical and mental health, a competent swimmer, and not pregnant.</li>
+        <li>I am not under the influence of alcohol, drugs, or medication that impairs operation of a motorised watercraft.</li>
+        <li>I have received, understood and will follow the Operator's 10-minute safety briefing, including the rules on distance from shore (max. 300 m), swim zones, and prohibited areas.</li>
+        <li>I will wear the provided life jacket at all times.</li>
+        <li>I will operate the jet ski safely, lawfully, and only within the permitted area and time.</li>
+        <li>I accept personal liability for damage to the jet ski or third parties caused by my violation of the safety rules, gross negligence, or wilful misconduct.</li>
+      </ul>
+
+      <h3>§3a Minors and Passengers</h3>
+      <p>The driver of the jet ski must always be at least 18 years old. Passengers may be younger, subject to these rules:</p>
+      <ul>
+        <li><strong>Children under 6</strong> are <strong>not permitted</strong> as passengers on any jet ski or towable.</li>
+        <li><strong>Minors aged 6 to 17</strong> may ride only if accompanied on the same jet ski by a parent or legal guardian who is the Renter and driver.</li>
+        <li>The parent or legal guardian signs this waiver on behalf of the minor and thereby consents to the activity, confirms the minor can swim, confirms the minor is healthy, and assumes full responsibility for the minor's conduct and safety.</li>
+        <li>A minor may never operate the jet ski.</li>
+        <li>For Water Fun / Towable: minors aged 10 and above only, with parent or legal guardian on the tube or in the towing jet ski.</li>
+      </ul>
+      <p>The Operator reserves the right to refuse carriage of a minor at its discretion if safety concerns arise.</p>
+
+      <h2>§4 Licence & Guided Tours</h2>
+      <p>
+        Greek law does not require a separate boating licence for short recreational rentals under the Operator's supervision and briefing. Renters <strong>without</strong> a boating licence may only operate the jet ski as part of a <strong>guided tour with a Nero Lefkada guide</strong>. Renters <strong>with</strong> a valid boating licence may operate solo within the permitted zone and rules.
+      </p>
+
+      <h2>§5 Assumption of Risk</h2>
+      <p>
+        The Renter knowingly and voluntarily assumes all risks associated with the activity, including those listed in §2. The Renter agrees that the activity takes place at the Renter's own risk.
+      </p>
+
+      <h2>§6 Liability of the Operator</h2>
+      <p>
+        To the fullest extent permitted by Greek law, the Operator shall <strong>not be liable</strong> for personal injury, death, loss or property damage of the Renter or third parties resulting from:
+      </p>
+      <ul>
+        <li>Violation of the safety briefing, safety rules, or Greek maritime regulations by the Renter;</li>
+        <li>Operation of the jet ski under the influence of alcohol, drugs, or medication;</li>
+        <li>Gross negligence or wilful misconduct of the Renter or third parties;</li>
+        <li>Acts of other water users, weather, force majeure, or government orders;</li>
+        <li>Personal belongings lost, damaged or stolen on or around the jet ski.</li>
+      </ul>
+
+      <h2>§7 Liability of the Renter</h2>
+      <p>
+        The Renter is personally liable for any damage to the jet ski, the tow equipment (including the Jobe Ridge towable), or any third party caused by breach of the safety rules, gross negligence or wilful misconduct. The Operator's third-party liability insurance (€700,000 per incident pursuant to Greek Law 4926/2022) covers qualifying incidents to the extent required by law.
+      </p>
+
+      <h3>§7a Mandatory Damage and Incident Reporting</h3>
+      <p>The Renter is obliged to report any accident, damage, collision, injury or near-miss incident to the Operator <strong>immediately and without delay</strong>:</p>
+      <ul>
+        <li><strong>Medical emergency:</strong> call <strong>112</strong> first (Greek emergency number), then notify the Operator.</li>
+        <li><strong>Coast Guard intervention:</strong> call <strong>108</strong> for serious incidents at sea.</li>
+        <li><strong>Operator notification:</strong> WhatsApp <strong>+30 695 561 2777</strong> (David · Guide) with photo, time and brief description.</li>
+        <li>Return to the dock immediately if safe, otherwise secure the jet ski and await instructions.</li>
+        <li>Cooperate with the Operator in preparing a written damage report and signing it on return.</li>
+      </ul>
+      <p>Failure to report an incident within the rental period, or providing false information in the incident report, constitutes a material breach of this contract and may result in additional liability, including loss of insurance coverage.</p>
+
+      <h3>§7b Security Deposit and Extended Liability (VIP Delivery)</h3>
+      <p>For VIP Delivery bookings (jet ski delivered to a beach, yacht, boat or catamaran), a security deposit of <strong>€1,500</strong> is due before delivery, held by the Operator for the duration of the rental.</p>
+      <ul>
+        <li>Small damage to paint, hull or accessories up to €1,500 is deducted from the deposit without further claim.</li>
+        <li>Damage <strong>exceeding €1,500</strong> remains the personal liability of the Renter, up to the full repair or replacement cost. The Operator will provide a workshop estimate in writing within 14 days.</li>
+        <li>Missing or unusable life jacket, dock line or accessories: replacement charged at cost.</li>
+        <li>Deposit is returned in full if the jet ski is returned in the condition in which it was delivered (less normal wear).</li>
+        <li><strong>Fuel is not included</strong> in VIP Delivery; fuel used is billed separately at the end of the rental.</li>
+      </ul>
+      <p>For Beach Rides, Exclusive Experiences and Water Fun at the dock, no deposit is required, but the Renter remains personally liable for damage caused by breach of the safety rules, gross negligence or wilful misconduct.</p>
+
+      <h2>§8 Non-waivable Rights</h2>
+      <p>
+        Nothing in this document limits or excludes the Operator's liability where Greek law does not permit limitation or exclusion &mdash; in particular for <strong>death or personal injury caused by the Operator's own gross negligence or wilful misconduct</strong>, and for liability under mandatory Greek consumer protection provisions. Any clause deemed invalid by a Greek court does not affect the validity of the remaining clauses.
+      </p>
+
+      <h2>§9 Insurance</h2>
+      <p>
+        Third-party liability insurance under Greek Law 4926/2022: <strong>€700,000 per incident</strong>.<br>
+        Personal accident insurance for the Renter is <strong>not</strong> included. The Renter is strongly advised to hold travel or accident insurance covering water sports.
+      </p>
+
+      <h2>§10 Governing Law & Jurisdiction</h2>
+      <p>
+        This waiver is governed by Greek law. Exclusive place of jurisdiction is the competent court of Lefkada, Greece. If the Renter is a consumer domiciled in another EU Member State, statutory consumer protection rights at the Renter's place of residence remain unaffected.
+      </p>
+
+      <h2>§11 Signing & Electronic Acceptance</h2>
+      <p>
+        The Renter accepts this waiver in two steps: (a) by ticking the "I accept the Liability Waiver" checkbox during online booking (electronic consent pursuant to Reg. (EU) No. 910/2014 &ndash; eIDAS), and (b) by signing the printed briefing form at the dock before departure. Both steps together constitute effective acceptance. Time of online consent, IP address and device fingerprint are logged as evidence.
+      </p>
+
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════ DEUTSCH -->
+    <div class="lang-block" data-lang="de">
+
+      <div class="info">
+        <strong>Zweck dieses Dokuments:</strong> Mit der Buchung und Unterschrift bestätigst Du die mit dem Jetskifahren verbundenen Risiken, bestätigst dass Du die unten genannten Voraussetzungen erfüllst und übernimmst Verantwortung für Dein eigenes Verhalten auf dem Wasser. Dieser Haftungsausschluss ist eine vertragliche Risikoübernahme &mdash; er <strong>verzichtet nicht</strong> auf Rechte, die nach griechischem Recht nicht verzichtbar sind (siehe §8).
+      </div>
+
+      <h2>§1 Vertragsparteien</h2>
+      <p>
+        <strong>Vermieter:</strong> Nero Lefkada Rental and Retail Monoprosopi IKE (ΑΦΜ 803268718), Lygia Port, 311 00 Lefkada, Griechenland.<br>
+        <strong>Mieter:</strong> Die Person, die das Jetski bucht und das Briefing-Formular vor Ort unterzeichnet. Der Mieter ist mindestens 18 Jahre alt und verfügt über einen gültigen amtlichen Lichtbildausweis.
+      </p>
+
+      <h2>§2 Anerkannte Risiken</h2>
+      <p>Der Mieter erkennt ausdrücklich an, dass mit dem Jetskifahren untrennbare Risiken verbunden sind, die nicht vollständig ausgeschlossen werden können, insbesondere:</p>
+      <ul>
+        <li>Kollision mit anderen Wasserfahrzeugen, Schwimmern, Bojen, Felsen oder Treibgut</li>
+        <li>Kentern, Herabfallen, Übergehen über Bord</li>
+        <li>Propeller- und Kontaktverletzungen</li>
+        <li>Wellen, Kielwasser, plötzliche Wetter- und Sichtänderungen</li>
+        <li>Mechanisches Versagen des Jetskis trotz ordnungsgemäßer Wartung</li>
+        <li>Verhalten anderer Wassersportler außerhalb des Einflusses des Vermieters</li>
+        <li>Dehydrierung, Sonnenstich, Unterkühlung bei längerem Wasseraufenthalt</li>
+        <li>Verlust oder Beschädigung mitgeführter persönlicher Gegenstände</li>
+      </ul>
+
+      <h3>§2a Zusätzliche Risiken Water Fun / Tubing (Jobe Ridge)</h3>
+      <p>Das Fahren auf einem hinter dem Jetski gezogenen Reifen (Tube) birgt erhöhte Risiken über §2 hinaus. Mit Buchung von Water Fun bestätigen der Mieter und alle Tube-Mitfahrer zusätzlich:</p>
+      <ul>
+        <li>Plötzliche Bremsmanöver, Überschlag und Abgeworfenwerden bei Geschwindigkeit</li>
+        <li>Schleudertrauma, Schulterluxation, Verstauchungen und Prellungen durch ruckartige Bewegungen</li>
+        <li>Aufprall auf Wasseroberfläche oder andere Tube-Mitfahrer</li>
+        <li>Risiko durch Überfahren durch das ziehende Jetski bei unerwartetem Erschlaffen des Zugseils</li>
+        <li>Wassereinatmung, vorübergehende Orientierungslosigkeit nach Sturz</li>
+      </ul>
+      <p>Tube-Mitfahrer müssen durchgehend die bereitgestellte Schwimmweste tragen, Finger und Füße innerhalb der Tube-Griffe halten und die Tube bei Anweisung des Guides sofort loslassen.</p>
+
+      <h2>§3 Bestätigungen des Mieters (am Dock zu unterzeichnen)</h2>
+      <p>Mit Buchung und Unterschrift des Briefings bestätigt der Mieter:</p>
+      <ul>
+        <li>Ich bin mindestens 18 Jahre alt und habe einen gültigen Lichtbildausweis vorgelegt.</li>
+        <li>Ich bin körperlich und geistig gesund, schwimmfähig und nicht schwanger.</li>
+        <li>Ich stehe nicht unter Einfluss von Alkohol, Drogen oder beeinträchtigenden Medikamenten.</li>
+        <li>Ich habe das 10-minütige Sicherheitsbriefing erhalten, verstanden und werde die Regeln befolgen (insbesondere Küstenabstand max. 300 m, Schwimmzonen, Sperrgebiete).</li>
+        <li>Ich trage die bereitgestellte Schwimmweste durchgehend.</li>
+        <li>Ich werde das Jetski sicher, rechtmäßig und nur in der erlaubten Zone und Zeit führen.</li>
+        <li>Ich hafte persönlich für Schäden am Jetski oder an Dritten, die durch Regelverstoß, grobe Fahrlässigkeit oder Vorsatz meinerseits entstehen.</li>
+      </ul>
+
+      <h3>§3a Minderjährige und Mitfahrer</h3>
+      <p>Der Fahrer des Jetskis muss stets mindestens 18 Jahre alt sein. Mitfahrer dürfen jünger sein, unter folgenden Voraussetzungen:</p>
+      <ul>
+        <li><strong>Kinder unter 6 Jahren</strong> sind als Mitfahrer auf Jetski oder Tube <strong>nicht zugelassen</strong>.</li>
+        <li><strong>Minderjährige von 6 bis 17 Jahren</strong> dürfen nur dann mitfahren, wenn sie auf demselben Jetski von einem Erziehungsberechtigten begleitet werden, der Mieter und Fahrer ist.</li>
+        <li>Der Erziehungsberechtigte unterzeichnet diesen Haftungsausschluss stellvertretend für den Minderjährigen und stimmt damit der Aktivität zu, bestätigt dass der Minderjährige schwimmen kann und gesund ist, und übernimmt die volle Verantwortung für Verhalten und Sicherheit des Minderjährigen.</li>
+        <li>Ein Minderjähriger darf das Jetski zu keinem Zeitpunkt selbst führen.</li>
+        <li>Für Water Fun / Tubing: Minderjährige erst ab 10 Jahren, mit Erziehungsberechtigtem auf dem Tube oder im ziehenden Jetski.</li>
+      </ul>
+      <p>Der Vermieter behält sich das Recht vor, die Beförderung eines Minderjährigen bei Sicherheitsbedenken nach pflichtgemäßem Ermessen zu verweigern.</p>
+
+      <h2>§4 Führerschein & Geführte Touren</h2>
+      <p>
+        Griechisches Recht verlangt für kurze Freizeitvermietungen unter Aufsicht und mit Briefing keinen separaten Bootsführerschein. Mieter <strong>ohne</strong> Bootsführerschein dürfen das Jetski ausschließlich im Rahmen einer <strong>geführten Tour mit einem Nero-Lefkada-Guide</strong> fahren. Mieter <strong>mit</strong> gültigem Bootsführerschein dürfen solo innerhalb der erlaubten Zone und Regeln fahren.
+      </p>
+
+      <h2>§5 Risikoübernahme</h2>
+      <p>
+        Der Mieter übernimmt wissentlich und freiwillig alle mit der Aktivität verbundenen Risiken, einschließlich der in §2 genannten. Der Mieter stimmt zu, dass die Aktivität auf eigenes Risiko stattfindet.
+      </p>
+
+      <h2>§6 Haftung des Vermieters</h2>
+      <p>
+        Soweit nach griechischem Recht zulässig, haftet der Vermieter <strong>nicht</strong> für Personen-, Todes-, Vermögens- oder Sachschäden des Mieters oder Dritter, die entstehen durch:
+      </p>
+      <ul>
+        <li>Verstoß gegen Sicherheitsbriefing, Sicherheitsregeln oder griechische Seerechtsvorschriften durch den Mieter;</li>
+        <li>Betrieb unter Einfluss von Alkohol, Drogen oder Medikamenten;</li>
+        <li>grobe Fahrlässigkeit oder Vorsatz des Mieters oder Dritter;</li>
+        <li>Handlungen anderer Wassersportler, Wetter, höhere Gewalt oder behördliche Anordnungen;</li>
+        <li>Verlust, Beschädigung oder Diebstahl persönlicher Gegenstände auf oder am Jetski.</li>
+      </ul>
+
+      <h2>§7 Haftung des Mieters</h2>
+      <p>
+        Der Mieter haftet persönlich für jegliche Schäden am Jetski, an der Zugausrüstung (einschließlich Jobe Ridge Towable) oder an Dritten, die durch Verletzung der Sicherheitsregeln, grobe Fahrlässigkeit oder Vorsatz entstehen. Die Haftpflichtversicherung des Vermieters (€700.000 pro Vorfall gem. Ν. 4926/2022) deckt nur die gesetzlich gedeckten Schadensfälle.
+      </p>
+
+      <h3>§7a Pflicht zur Schadens- und Unfallmeldung</h3>
+      <p>Der Mieter ist verpflichtet, jeden Unfall, Schaden, Zusammenstoß, jede Verletzung oder jeden Beinahe-Zwischenfall <strong>unverzüglich und ohne Verzögerung</strong> zu melden:</p>
+      <ul>
+        <li><strong>Medizinischer Notfall:</strong> zuerst <strong>112</strong> anrufen (griechischer Notruf), dann den Vermieter informieren.</li>
+        <li><strong>Küstenwache:</strong> <strong>108</strong> für schwere Zwischenfälle auf See.</li>
+        <li><strong>Vermieter-Meldung:</strong> WhatsApp <strong>+30 695 561 2777</strong> (David · Guide) mit Foto, Uhrzeit und Kurzbeschreibung.</li>
+        <li>Sofort zum Dock zurückkehren, soweit sicher möglich, andernfalls Jetski sichern und auf Anweisungen warten.</li>
+        <li>Mit dem Vermieter bei Erstellung und Unterzeichnung eines schriftlichen Schadensprotokolls mitwirken.</li>
+      </ul>
+      <p>Die Nicht-Meldung eines Vorfalls innerhalb der Mietdauer oder Falschangaben im Schadensprotokoll stellen eine wesentliche Vertragsverletzung dar und können zu erweiterter Haftung führen, einschließlich Verlust des Versicherungsschutzes.</p>
+
+      <h3>§7b Kaution und erweiterte Haftung (VIP Delivery)</h3>
+      <p>Bei VIP-Delivery-Buchungen (Lieferung des Jetskis an Strand, Yacht, Boot oder Katamaran) ist eine Kaution von <strong>€1.500</strong> vor Lieferung fällig, die der Vermieter für die Dauer der Miete einbehält.</p>
+      <ul>
+        <li>Kleinere Schäden an Lack, Rumpf oder Zubehör bis €1.500 werden ohne weitere Forderung von der Kaution einbehalten.</li>
+        <li>Schäden <strong>über €1.500</strong> bleiben persönliche Haftung des Mieters bis zur Höhe der vollständigen Reparatur- oder Wiederbeschaffungskosten. Der Vermieter legt binnen 14 Tagen einen Werkstatt-Kostenvoranschlag schriftlich vor.</li>
+        <li>Fehlende oder unbrauchbare Schwimmweste, Leine oder Zubehör: Ersatz zum Einstandspreis berechnet.</li>
+        <li>Die Kaution wird vollständig zurückerstattet, wenn das Jetski im Lieferzustand zurückgegeben wird (abzgl. normaler Abnutzung).</li>
+        <li><strong>Kraftstoff ist nicht enthalten</strong> bei VIP Delivery; verbrauchter Kraftstoff wird am Ende der Miete separat abgerechnet.</li>
+      </ul>
+      <p>Für Beach Rides, Exclusive Experiences und Water Fun am Dock wird keine Kaution erhoben; der Mieter haftet jedoch persönlich für Schäden durch Verletzung der Sicherheitsregeln, grobe Fahrlässigkeit oder Vorsatz.</p>
+
+      <h2>§8 Unabdingbare Rechte</h2>
+      <p>
+        Nichts in diesem Dokument beschränkt oder schließt die Haftung des Vermieters aus, soweit griechisches Recht keine Beschränkung oder Ausschluss zulässt &mdash; insbesondere für <strong>Tod oder Körperverletzung, die durch grobe Fahrlässigkeit oder Vorsatz des Vermieters verursacht wurden</strong>, sowie für Haftung nach zwingenden griechischen Verbraucherschutzvorschriften. Sollte eine Klausel von einem griechischen Gericht für ungültig erklärt werden, bleibt die Gültigkeit der übrigen Klauseln unberührt.
+      </p>
+
+      <h2>§9 Versicherung</h2>
+      <p>
+        Haftpflichtversicherung gem. griech. Gesetz 4926/2022: <strong>€700.000 pro Vorfall</strong>.<br>
+        Eine Unfallversicherung für den Mieter ist <strong>nicht</strong> enthalten. Der Mieter wird ausdrücklich empfohlen, eine Reise- oder Unfallversicherung mit Wassersport-Deckung zu haben.
+      </p>
+
+      <h2>§10 Anwendbares Recht & Gerichtsstand</h2>
+      <p>
+        Dieser Haftungsausschluss unterliegt griechischem Recht. Ausschließlicher Gerichtsstand ist das zuständige Gericht in Lefkada, Griechenland. Ist der Mieter Verbraucher mit Wohnsitz in einem anderen EU-Mitgliedstaat, bleiben die gesetzlichen Verbraucherschutzrechte am Wohnsitz des Mieters unberührt.
+      </p>
+
+      <h2>§11 Unterzeichnung & Elektronische Annahme</h2>
+      <p>
+        Der Mieter nimmt diesen Haftungsausschluss in zwei Schritten an: (a) durch Anklicken der Checkbox „Ich akzeptiere den Haftungsausschluss" bei der Online-Buchung (elektronische Einwilligung gem. VO (EU) 910/2014 &ndash; eIDAS) und (b) durch Unterschrift des gedruckten Briefing-Formulars vor Ort vor Fahrtantritt. Beide Schritte zusammen bilden die wirksame Annahme. Zeitpunkt der Online-Einwilligung, IP-Adresse und Device-Fingerprint werden beweisrechtlich gespeichert.
+      </p>
+
+    </div>
+
+    <div class="divider"></div>
+    <p style="font-size: 0.85rem; color: #6b7a8d;">
+      Last updated: April 2026 · Nero Lefkada Rental&amp;Retail · Lygia, Lefkada, Greece<br>
+      <em>This document was drafted as a best-practice template and requires review by a qualified Greek lawyer (maritime/tourism law) before legal effect is claimed in court.</em>
+    </p>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.lang-btn');
+    const blocks = document.querySelectorAll('.lang-block');
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const lang = tab.getAttribute('data-lang');
+        tabs.forEach((t) => t.classList.toggle('active', t.getAttribute('data-lang') === lang));
+        blocks.forEach((b) => b.classList.toggle('active', b.getAttribute('data-lang') === lang));
+      });
+    });
+  </script>
+</LayoutBare>

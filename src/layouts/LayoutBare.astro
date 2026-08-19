@@ -1,27 +1,23 @@
 ---
-// Layout der verbliebenen Rechtsseiten (Impressum, Datenschutz).
-//
-// Stand 08/2026: Betrieb dauerhaft geschlossen. Entfernt wurden deshalb
-//   - das TouristAttraction-Schema samt Öffnungszeiten und Preisspanne
-//     (irreführende strukturierte Daten für einen geschlossenen Betrieb),
-//   - Vercel Analytics, CookieBanner und CtaTracker (kein Verarbeitungs-
-//     zweck mehr, damit auch keine Einwilligung mehr nötig),
-//   - der Lenis-Smoothscroll (unnötiges JS auf zwei Textseiten).
-// Die Startseiten laufen über LayoutClosed.astro.
 import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
+import CookieBanner from "../components/CookieBanner.astro";
+import CtaTracker from "../components/CtaTracker.astro";
 
 interface Props {
   title?: string;
   description?: string;
   themeColor?: string;
   lang?: "en" | "de" | "gr";
+  preloadHeroPoster?: boolean;
 }
 
 const {
-  title = "Nero Lefkada · Permanently closed",
-  description = "Legal information for Nero Lefkada Rental and Retail Monoprosopi IKE. The jetski rental at Lygia Port, Lefkada, has permanently closed.",
+  title = "Nero Lefkada · Jetski Rental",
+  description = "Rent a Sea-Doo jetski on Lefkada, Greece. Four supercharged Neros, operated by Nero Lefkada Rental&Retail with David as your guide at Lygia Port. Book online in ninety seconds.",
   themeColor = "#071d30",
   lang = "en",
+  preloadHeroPoster = false,
 } = Astro.props;
 // "gr" maps to HTML code "el" (ISO 639-1) for correct SEO / screen-reader locale.
 const htmlLang = lang === "gr" ? "el" : lang;
@@ -46,18 +42,86 @@ const htmlLang = lang === "gr" ? "el" : lang;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content="https://www.jetski-lefkada-rentals.com/" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:image" content="https://www.jetski-lefkada-rentals.com/og-cover.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://www.jetski-lefkada-rentals.com/og-cover.jpg" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "TouristAttraction",
+      "name": "Nero Lefkada",
+      "legalName": "Nero Lefkada Rental and Retail Monoprosopi IKE",
+      "vatID": "EL803268718",
+      "taxID": "803268718",
+      "slogan": "Fastest Jetskis on the Island",
+      "description": "Sea-Doo jetski rentals at Lygia Port, Lefkada, Greece. Four supercharged Neros (Ena, Dio, Tria, Tessera), family-run by Kristina and David Goldberg.",
+      "url": "https://www.jetski-lefkada-rentals.com/",
+      "image": "https://www.jetski-lefkada-rentals.com/og-cover.jpg",
+      "telephone": "+30 695 561 2777",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Lygia Port",
+        "addressLocality": "Lefkada",
+        "addressCountry": "GR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 38.7893,
+        "longitude": 20.7192
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "09:00",
+        "closes": "21:00"
+      },
+      "priceRange": "€€",
+      "areaServed": {
+        "@type": "Place",
+        "name": "Lefkada, Greece"
+      },
+      "sameAs": ["https://www.instagram.com/jetski__lefkada/"]
+    })} />
 
     <link
       rel="icon"
       type="image/svg+xml"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23ffc233'/%3E%3Ctext x='50%25' y='50%25' font-family='serif' font-size='20' font-style='italic' fill='%23071d30' text-anchor='middle' dominant-baseline='central'%3EJ%3C/text%3E%3C/svg%3E"
     />
-    <!-- Kein Analytics, kein GA4, keine Cookies: der Betrieb ist geschlossen. -->
+    {preloadHeroPoster && (
+      <link rel="preload" as="image" href="/images/hero-poster.webp" type="image/webp" />
+    )}
+    <!-- Google Analytics 4 wird NICHT direkt hier geladen, Opt-In via CookieBanner -->
   </head>
   <body class="!bg-transparent !min-h-0">
     <slot />
+    <CookieBanner />
+    <Analytics />
+    <CtaTracker />
+    <script>
+      // Defer Lenis until idle so it does not delay LCP.
+      const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+      if (!mq.matches) {
+        const start = () => import("lenis").then(({ default: Lenis }) => {
+          const lenis = new Lenis({
+            duration: 1.25,
+            easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+          });
+          const raf = (t: number) => {
+            lenis.raf(t);
+            requestAnimationFrame(raf);
+          };
+          requestAnimationFrame(raf);
+        });
+        if ("requestIdleCallback" in window) {
+          (window as any).requestIdleCallback(start, { timeout: 2000 });
+        } else {
+          window.addEventListener("load", () => setTimeout(start, 200));
+        }
+      }
+    </script>
   </body>
 </html>

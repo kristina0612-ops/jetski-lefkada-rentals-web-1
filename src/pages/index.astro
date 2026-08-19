@@ -1,49 +1,58 @@
 ---
-// Startseite EN. Der Jetski-Verleih ist zum August 2026 dauerhaft geschlossen,
-// deshalb steht hier nur noch die Abschluss-Mitteilung.
-//
-// Die alte Marketing-Startseite liegt weiterhin in der Git-Historie
-// (letzter Stand: Commit 751ffba) und in src/components/v2/* im Repo.
-//
-// DE-Pendant: src/pages/de/index.astro, Struktur 1:1 gleich halten.
-import LayoutClosed from "../layouts/LayoutClosed.astro";
+import LayoutBare from "../layouts/LayoutBare.astro";
+import Navbar2 from "../components/v2/Navbar2.astro";
+import Hero2 from "../components/v2/Hero2.astro";
+import TrustMarquee2 from "../components/v2/TrustMarquee2.astro";
+import Experiences2 from "../components/v2/Experiences2.astro";
+import Fleet2 from "../components/v2/Fleet2.astro";
+import WaterFun2 from "../components/v2/WaterFun2.astro";
+import HowItWorks2 from "../components/v2/HowItWorks2.astro";
+import Gallery2 from "../components/v2/Gallery2.astro";
+import Spots2 from "../components/v2/Spots2.astro";
+// Testimonials2 reaktiviert 2026-04-19 (Memory-Policy: project_no_fake_reviews.md).
+// Stand-in-Zitate mit erfundenen Vornamen + Initialen + Herkunft sind als
+// Übergang zulässig, SOLANGE: keine Plattform-Badges, kein Schema.org
+// aggregateRating, keine Foto-Namens-Zuordnung, transparente Fußnote im Block.
+// Ersetzen durch echte Google-Reviews sobald GBP live ist.
+import Testimonials2 from "../components/v2/Testimonials2.astro";
+import Faq2 from "../components/v2/Faq2.astro";
+import Booking2 from "../components/v2/Booking2.astro";
+import CtaFinal2 from "../components/v2/CtaFinal2.astro";
+import Footer2 from "../components/v2/Footer2.astro";
+import "../styles/v2-azure.css";
 ---
 
-<LayoutClosed
-  lang="en"
-  title="Nero Lefkada · Permanently closed"
-  description="Nero Lefkada, the Sea-Doo jetski rental at Lygia Port on Lefkada, has permanently closed. Bookings are no longer possible. Thank you to every guest who rode with us."
+<LayoutBare
+  title="Nero Lefkada · Fastest Jetskis on the Island"
+  description="Rent a Sea-Doo jetski on Lefkada, Greece. Four supercharged Sea-Doo jetskis (2026 fleet: Nero Ena, Dio, Tria, Tessera), a ten-minute safety briefing, and the best coves of the Ionian."
+  themeColor="#071d30"
+  preloadHeroPoster={true}
 >
-  <main>
-    <p class="brand">Nero Lefkada</p>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Nero Lefkada · Fastest Jetskis on the Island",
+    "description": "Sea-Doo jetski experience on Lefkada, Greece. Four supercharged Neros, family-run by Kristina Goldberg, with David as your guide at Lygia Port.",
+    "thumbnailUrl": "https://www.jetski-lefkada-rentals.com/og-cover.jpg",
+    "uploadDate": "2026-04-01T00:00:00Z",
+    "contentUrl": "https://www.jetski-lefkada-rentals.com/videos/hero-nero.mp4",
+    "embedUrl": "https://www.jetski-lefkada-rentals.com/"
+  })} />
 
-    <h1>Permanently<br /><em>closed</em></h1>
-    <div class="rule"></div>
-
-    <p class="lead">
-      After our seasons at Lygia Port, Nero Lefkada has closed for good.
-      The jetski rental is no longer operating and bookings are not possible.
-    </p>
-
-    <p>
-      Thank you to every guest who rode out with us into the Ionian.
-      You made those summers what they were.
-    </p>
-
-    <p>
-      For anything still open, write to
-      <a href="mailto:nerolefkada@outlook.de">nerolefkada@outlook.de</a>.
-    </p>
-
-    <footer>
-      <a href="/de/" hreflang="de" lang="de">Deutsch</a>
-      <a href="/imprint">Imprint</a>
-      <a href="/privacy">Privacy</a>
-    </footer>
-
-    <p class="legal">
-      Nero Lefkada Rental and Retail Monoprosopi IKE<br />
-      Closed since August 2026
-    </p>
-  </main>
-</LayoutClosed>
+  <div class="v2">
+    <Navbar2 />
+    <Hero2 />
+    <TrustMarquee2 />
+    <Experiences2 />
+    <Fleet2 />
+    <WaterFun2 />
+    <HowItWorks2 />
+    <Gallery2 />
+    <Spots2 />
+    <Testimonials2 />
+    <Faq2 />
+    <Booking2 />
+    <CtaFinal2 />
+    <Footer2 />
+  </div>
+</LayoutBare>

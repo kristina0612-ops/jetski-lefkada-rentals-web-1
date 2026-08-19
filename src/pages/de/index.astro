@@ -1,45 +1,61 @@
 ---
-// Startseite DE. 1:1-Spiegel von src/pages/index.astro (EN ist die Quelle).
-// Struktur bei Änderungen identisch halten.
-import LayoutClosed from "../../layouts/LayoutClosed.astro";
+// Deutsche Version der Startseite.
+// Jede Komponente bekommt `lang="de"`, die COPY-Objekte sind in den
+// einzelnen v2-Komponenten hinterlegt. Pfad `/de/` wird vom Sprachschalter
+// in Navbar2 angesteuert.
+//
+// Siehe auch: src/pages/index.astro (EN-Original), Struktur muss 1:1 gleich
+// bleiben, damit die Seite visuell identisch rendert.
+import LayoutBare from "../../layouts/LayoutBare.astro";
+import Navbar2 from "../../components/v2/Navbar2.astro";
+import Hero2 from "../../components/v2/Hero2.astro";
+import TrustMarquee2 from "../../components/v2/TrustMarquee2.astro";
+import Experiences2 from "../../components/v2/Experiences2.astro";
+import Fleet2 from "../../components/v2/Fleet2.astro";
+import WaterFun2 from "../../components/v2/WaterFun2.astro";
+import HowItWorks2 from "../../components/v2/HowItWorks2.astro";
+import Gallery2 from "../../components/v2/Gallery2.astro";
+import Spots2 from "../../components/v2/Spots2.astro";
+import Testimonials2 from "../../components/v2/Testimonials2.astro";
+import Faq2 from "../../components/v2/Faq2.astro";
+import Booking2 from "../../components/v2/Booking2.astro";
+import CtaFinal2 from "../../components/v2/CtaFinal2.astro";
+import Footer2 from "../../components/v2/Footer2.astro";
+import "../../styles/v2-azure.css";
 ---
 
-<LayoutClosed
+<LayoutBare
   lang="de"
-  title="Nero Lefkada · Dauerhaft geschlossen"
-  description="Nero Lefkada, der Sea-Doo-Jetskiverleih am Hafen von Lygia auf Lefkada, ist dauerhaft geschlossen. Buchungen sind nicht mehr möglich. Danke an jeden Gast, der mit uns gefahren ist."
+  title="Nero Lefkada · Schnellste Jetskis der Insel"
+  description="Miete einen Sea-Doo-Jetski auf Lefkada, Griechenland. Vier supercharged Sea-Doo Jetskis (Flotte 2026: Nero Ena, Dio, Tria, Tessera), zehn Minuten Safety-Briefing und die schönsten Buchten des Ionischen Meeres."
+  themeColor="#071d30"
+  preloadHeroPoster={true}
 >
-  <main>
-    <p class="brand">Nero Lefkada</p>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "name": "Nero Lefkada · Schnellste Jetskis der Insel",
+    "description": "Sea-Doo Jetski-Erlebnis auf Lefkada, Griechenland. Vier supercharged Neros, familiengeführt von Kristina Goldberg, mit David als Guide am Lygia Port.",
+    "thumbnailUrl": "https://www.jetski-lefkada-rentals.com/og-cover.jpg",
+    "uploadDate": "2026-04-01T00:00:00Z",
+    "contentUrl": "https://www.jetski-lefkada-rentals.com/videos/hero-nero.mp4",
+    "embedUrl": "https://www.jetski-lefkada-rentals.com/de/"
+  })} />
 
-    <h1>Dauerhaft<br /><em>geschlossen</em></h1>
-    <div class="rule"></div>
-
-    <p class="lead">
-      Nach unseren Saisons am Hafen von Lygia hat Nero Lefkada endgültig
-      geschlossen. Der Jetskiverleih ist eingestellt, Buchungen sind nicht
-      mehr möglich.
-    </p>
-
-    <p>
-      Danke an jeden Gast, der mit uns aufs Ionische Meer hinausgefahren ist.
-      Ihr habt diese Sommer zu dem gemacht, was sie waren.
-    </p>
-
-    <p>
-      Für alles Offene schreib an
-      <a href="mailto:nerolefkada@outlook.de">nerolefkada@outlook.de</a>.
-    </p>
-
-    <footer>
-      <a href="/" hreflang="en" lang="en">English</a>
-      <a href="/imprint">Impressum</a>
-      <a href="/privacy">Datenschutz</a>
-    </footer>
-
-    <p class="legal">
-      Nero Lefkada Rental and Retail Monoprosopi IKE<br />
-      Geschlossen seit August 2026
-    </p>
-  </main>
-</LayoutClosed>
+  <div class="v2">
+    <Navbar2 lang="de" />
+    <Hero2 lang="de" />
+    <TrustMarquee2 lang="de" />
+    <Experiences2 lang="de" />
+    <Fleet2 lang="de" />
+    <WaterFun2 lang="de" />
+    <HowItWorks2 lang="de" />
+    <Gallery2 lang="de" />
+    <Spots2 lang="de" />
+    <Testimonials2 lang="de" />
+    <Faq2 lang="de" />
+    <Booking2 lang="de" />
+    <CtaFinal2 lang="de" />
+    <Footer2 lang="de" />
+  </div>
+</LayoutBare>
